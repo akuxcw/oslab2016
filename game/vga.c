@@ -7,6 +7,7 @@
 unsigned char * color_buffer = (unsigned char*)VGA_ADDR;
 #define color(x,y) color_buffer[x*COL+y]
 
+extern int jpg[220*293];
 int printk(const char * fmt, ...);
 //int a = 0;
 const InfoBlock *vbeinfo = (InfoBlock *)0xa01;
