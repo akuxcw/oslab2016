@@ -12,7 +12,16 @@ int printk(const char * fmt, ...);
 const InfoBlock *vbeinfo = (InfoBlock *)0xa01;
 void init_vga(){
 	int i;
-	for(i = 0; i < 3*COL*ROW; i ++) color_buffer[i] = 0xf;
+	for(i = 0; i < 3*COL*ROW; i ++) {
+		switch (i%3){
+			case 0 : color_buffer[i] = 0xf;
+				break;
+			case 1 : color_buffer[i] = 0xf;
+				break;
+			case 2 : color_buffer[i] = 0x0;
+				break;
+		}
+	}
 	printk("%x\n", vbeinfo->physbase);
 	printk("%x\n", vbeinfo);
 }
