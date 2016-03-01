@@ -8,10 +8,10 @@ unsigned char * color_buffer = (unsigned char*)0xA0000;
 
 int printk(const char * fmt, ...);
 //int a = 0;
-InfoBlock vbeinfo;// = (InfoBlock *)1;
+const InfoBlock *vbeinfo = (InfoBlock *)0xa00;
 void init_vga(){
 	int i;
 	for(i = 0; i < COL*ROW; i ++) color_buffer[i] = 0xf;
-	printk("%x\n", vbeinfo.physbase);
-	printk("%x\n", &vbeinfo);
+	printk("%x\n", vbeinfo->physbase);
+	printk("%x\n", vbeinfo);
 }
