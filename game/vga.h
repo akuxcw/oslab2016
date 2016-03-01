@@ -4,7 +4,7 @@ typedef struct ModeInfoBlock {
 	uint16_t granularity;
 	uint16_t winsize;
 	uint16_t segmentA, segmentB;
-	uint32_t realFctPtr;
+	uint16_t realFctPtr;
 	uint16_t pitch; // bytes per scanline
 
 	uint16_t Xres, Yres;
