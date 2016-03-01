@@ -3,11 +3,11 @@
 .globl start
 start:
 	cli
+	cld
     # 切换到图形模式
-	movw    $0x13, %ax
-	int     $0x10
+//	movw    $0x13, %ax
+//	int     $0x10
 
-	# 设置正确的段寄存器
 	xorw    %ax, %ax
 	movw    %ax, %ds
 	movw    %ax, %es
