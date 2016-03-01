@@ -23,12 +23,12 @@ typedef struct ModeInfoBlock {
 	uint16_t reserved2;
 } __attribute__((packed)) InfoBlock;
 
-typedef union _RGB{
-	struct {
+typedef struct _RGB{
+	
 		uint8_t R;
 		uint8_t G;
 		uint8_t B;
-	};
+	
 //	struct {
 //		uint32_t val	:	24;
 //	};
@@ -40,6 +40,7 @@ const InfoBlock *VbeInfo = (InfoBlock *)0xa01;
 #define V_COL 800
 RGB * color_buffer;
 #define color(x,y) color_buffer[x*V_COL+y]
+#define toColor(x,y) {x.R=y&0xff,x.G=(y>>8)&0xff,x.B=(y>>16)&0xff;}
 /*RGB operator = (int ) {
 	this->R = x & 0xff;
 	G = (x >> 8) & 0xff;
