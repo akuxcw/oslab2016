@@ -4,7 +4,7 @@
 start:
 	cli
     # 切换到图形模式
-	movw    $0x115, %ax
+	movw    $0x114, %ax
 	int     $0x10
 
 	xorw    %ax, %ax
