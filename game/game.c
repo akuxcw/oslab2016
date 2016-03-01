@@ -5,7 +5,7 @@ void init_vga();
 int game_init(){
 	printk("@_@\n");
 //	testprintk();
-//	init_vga();
+	init_vga();
 	while(1);
 	return 0;
 }
