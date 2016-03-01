@@ -2,8 +2,8 @@
 #include "vga.h"
 
 #define VGA_ADDR 0xfc000000
-#define ROW 60
-#define COL 80
+#define ROW 600
+#define COL 800
 unsigned char * color_buffer = (unsigned char*)VGA_ADDR;
 #define color(x,y) color_buffer[x*COL+y]
 
