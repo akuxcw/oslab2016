@@ -1,3 +1,6 @@
+#include <inc/types.h>
+#include "vga.h"
+
 #define ROW 6000
 #define COL 8000
 unsigned char * color_buffer = (unsigned char*)0xA0000;
