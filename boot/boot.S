@@ -13,8 +13,8 @@ start:
 	
 	movw	$0x4f01, %ax
 	movw	$0x115, %cx
+	movw	$0x90000, %di
 	int 	$0x10
-	movw	$0x1, 0xa0000
 
 	xorw    %ax, %ax
 	movw    %ax, %ds
