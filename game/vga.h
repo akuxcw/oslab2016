@@ -29,9 +29,9 @@ typedef union _RGB{
 		uint8_t G;
 		uint8_t B;
 	};
-	struct {
-		uint32_t val	:	24;
-	};
+//	struct {
+//		uint32_t val	:	24;
+//	};
 } __attribute__((packed)) RGB;
 
 const InfoBlock *VbeInfo = (InfoBlock *)0xa01;
