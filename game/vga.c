@@ -6,7 +6,7 @@
 unsigned char * color_buffer = (unsigned char*)0xA0000;
 #define color(x,y) color_buffer[x*COL+y]
 
-int printk(const char *fmt, ...);
+int printk(const char * fmt, ...);
 //int a = 0;
 InfoBlock *vbeinfo = (InfoBlock *) 0x9000;
 void init_vga(){
