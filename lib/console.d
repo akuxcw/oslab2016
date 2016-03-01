@@ -1,6 +1,5 @@
-lib/console.o: lib/console.c /usr/include/stdc-predef.h lib/../inc/x86.h \
- lib/../inc/types.h lib/../inc/memlayout.h lib/../inc/../inc/types.h \
- lib/../inc/../inc/mmu.h lib/../inc/../inc/../inc/types.h \
- lib/../inc/kbdreg.h lib/../inc/string.h lib/../inc/assert.h \
- lib/../inc/../inc/stdio.h lib/../inc/../inc/../inc/stdarg.h \
- lib/console.h lib/../inc/types.h
+lib/console.o: lib/console.c /usr/include/stdc-predef.h inc/x86.h \
+ inc/types.h inc/memlayout.h inc/../inc/types.h inc/../inc/mmu.h \
+ inc/../inc/../inc/types.h inc/kbdreg.h inc/string.h inc/assert.h \
+ inc/../inc/stdio.h inc/../inc/../inc/stdarg.h lib/console.h \
+ lib/../inc/types.h

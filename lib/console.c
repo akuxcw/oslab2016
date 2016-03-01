@@ -1,16 +1,16 @@
 /* See COPYRIGHT for copyright information. */
 
-#include "../inc/x86.h"
-#include "../inc/memlayout.h"
-#include "../inc/kbdreg.h"
-#include "../inc/string.h"
-#include "../inc/assert.h"
+#include "inc/x86.h"
+#include "inc/memlayout.h"
+#include "inc/kbdreg.h"
+#include "inc/string.h"
+#include "inc/assert.h"
 
 #include "console.h"
 
 static void cons_intr(int (*proc)(void));
 static void cons_putc(int c);
-
+int printk(const char *fmt, ...);
 // Stupid I/O delay routine necessitated by historical PC design flaws
 static void
 delay(void)
@@ -353,7 +353,7 @@ kbd_proc_data(void)
 	// Process special keys
 	// Ctrl-Alt-Del: reboot
 	if (!(~shift & (CTL | ALT)) && c == KEY_DEL) {
-		cprintf("Rebooting!\n");
+		printk("Rebooting!\n");
 		outb(0x92, 0x3); // courtesy of Chris Frost
 	}
 
@@ -442,11 +442,11 @@ cons_init(void)
 	serial_init();
 
 	if (!serial_exists)
-		cprintf("Serial port does not exist!\n");
+		printk("Serial port does not exist!\n");
 }
 
 
-// `High'-level console I/O.  Used by readline and cprintf.
+// `High'-level console I/O.  Used by readline and printk.
 
 void
 cputchar(int c)
