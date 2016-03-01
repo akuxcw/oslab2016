@@ -7,7 +7,7 @@
 unsigned char * color_buffer = (unsigned char*)VGA_ADDR;
 #define color(x,y) color_buffer[x*COL+y]
 
-extern int jpg[220*293];
+extern int jpg[600*800];
 int printk(const char * fmt, ...);
 //int a = 0;
 const InfoBlock *vbeinfo = (InfoBlock *)0xa01;
@@ -15,11 +15,11 @@ void init_vga(){
 	int i;
 	for(i = 0; i < 3*COL*ROW; i ++) {
 		switch (i%3){
-			case 0 : color_buffer[i] = 0xdb;
+			case 0 : color_buffer[i] = jpg[i] & 0xff;
 				break;
-			case 1 : color_buffer[i] = 0x93;
+			case 1 : color_buffer[i] = (jpg[i] >> 8) & 0xff;
 				break;
-			case 2 : color_buffer[i] = 0x70;
+			case 2 : color_buffer[i] = (jpg[i] >> 16) & 0xff;
 				break;
 		}
 	}
