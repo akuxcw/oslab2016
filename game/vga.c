@@ -22,6 +22,6 @@ void init_vga(){
 //	while(1) {
 //		for()
 //	}
-//	printk("%x\n", vbeinfo->physbase);
-//	printk("%x\n", vbeinfo);
+	printk("%x\n", VbeInfo->physbase);
+	printk("%x\n", VbeInfo);
 }
