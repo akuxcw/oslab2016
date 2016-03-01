@@ -1,12 +1,11 @@
-#include "../inc/x86.h"
-#include "../inc/elf.h"
+#include "inc/x86.h"
+#include "inc/elf.h"
 
 #define SECTSIZE 512
 
 void readseg(unsigned char *, int, int);
 
-void
-bootmain(void) {
+void bootmain(void) {
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
@@ -24,15 +23,15 @@ bootmain(void) {
 	}
 
 	((void(*)(void))elf->e_entry)();
+
+	panic("Can't be here.");
 }
 
-void
-waitdisk(void) {
+void waitdisk(void) {
 	while((inb(0x1F7) & 0xC0) != 0x40); 
 }
 
-void
-readsect(void *dst, int offset) {
+void readsect(void *dst, int offset) {
 	int i;
 	waitdisk();
 	outb(0x1F2, 1);
@@ -46,8 +45,7 @@ readsect(void *dst, int offset) {
 	insl(0x1F0, dst, SECTSIZE/4);
 }
 
-void
-readseg(unsigned char *pa, int count, int offset) {
+void readseg(unsigned char *pa, int count, int offset) {
 	unsigned char *epa;
 	epa = pa + count;
 	pa -= offset % SECTSIZE;
