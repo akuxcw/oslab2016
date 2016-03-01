@@ -14,11 +14,11 @@ void init_vga(){
 	int i;
 	for(i = 0; i < 3*COL*ROW; i ++) {
 		switch (i%3){
-			case 0 : color_buffer[i] = 0xf;
+			case 0 : color_buffer[i] = 0xff;
 				break;
 			case 1 : color_buffer[i] = 0x0;
 				break;
-			case 2 : color_buffer[i] = 0xf;
+			case 2 : color_buffer[i] = 0x0;
 				break;
 		}
 	}
