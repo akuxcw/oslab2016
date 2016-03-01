@@ -34,7 +34,7 @@ seta20.2:
 
 	movw	$0x4f01, %ax
 	movw	$0x115, %cx
-	movw	$0xa00, %di
+	movw	$0xa01, %di
 	int 	$0x10
 
 	lgdt    gdtdesc

@@ -8,7 +8,7 @@ unsigned char * color_buffer = (unsigned char*)0xA0000;
 
 int printk(const char * fmt, ...);
 //int a = 0;
-const InfoBlock *vbeinfo = (InfoBlock *)0xa00;
+const InfoBlock *vbeinfo = (InfoBlock *)0xa01;
 void init_vga(){
 	int i;
 	for(i = 0; i < COL*ROW; i ++) color_buffer[i] = 0xf;
