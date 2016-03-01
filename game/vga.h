@@ -40,12 +40,8 @@ const InfoBlock *VbeInfo = (InfoBlock *)0xa01;
 #define V_COL 800
 RGB * color_buffer;
 #define color(x,y) color_buffer[x*V_COL+y]
-#define toColor(x,y) {x.R=y&0xff,x.G=(y>>8)&0xff,x.B=(y>>16)&0xff;}
-/*RGB operator = (int ) {
-	this->R = x & 0xff;
-	G = (x >> 8) & 0xff;
-	B = (x >> 16) & 0xff;
-	return *this;
-}*/
+#define toColor(x,y) x.R = y&0xff;\
+					 x.G = (y>>8)&0xff;\
+					 x.B = (y>>16)&0xff;
 
 
