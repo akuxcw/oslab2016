@@ -12,5 +12,5 @@ InfoBlock * vbeinfo = (InfoBlock *)0;
 void init_vga(){
 	int i;
 	for(i = 0; i < COL*ROW; i ++) color_buffer[i] = 0xf;
-	printk("%x\n", &vbeinfo);
+	printk("%x\n", vbeinfo->physbase);
 }
