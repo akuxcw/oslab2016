@@ -1,4 +1,4 @@
-struct ModeInfoBlock {
+typedef struct ModeInfoBlock {
 	uint16_t attributes;
 	uint8_t winA,winB;
 	uint16_t granularity;
@@ -21,4 +21,4 @@ struct ModeInfoBlock {
 	uint32_t physbase;  // your LFB (Linear Framebuffer) address ;)
 	uint32_t reserved1;
 	uint16_t reserved2;
-} __attribute__((packed));
+} __attribute__((packed)) InfoBlock;
