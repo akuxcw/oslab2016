@@ -2,11 +2,11 @@
 // used in common by printf, sprintf, fprintf, etc.
 // This code is also used by both the kernel and user programs.
 
-#include "../inc/types.h"
-#include "../inc/stdio.h"
-#include "../inc/string.h"
-#include "../inc/stdarg.h"
-#include "../inc/error.h"
+#include "inc/types.h"
+#include "inc/stdio.h"
+#include "inc/string.h"
+#include "inc/stdarg.h"
+#include "inc/error.h"
 
 /*
  * Space or zero padding and a field width are supported for the numeric
