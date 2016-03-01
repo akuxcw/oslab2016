@@ -16,9 +16,9 @@ void init_vga(){
 		switch (i%3){
 			case 0 : color_buffer[i] = 0xff;
 				break;
-			case 1 : color_buffer[i] = 0x0;
+			case 1 : color_buffer[i] = 0xff;
 				break;
-			case 2 : color_buffer[i] = 0x0;
+			case 2 : color_buffer[i] = 0xff;
 				break;
 		}
 	}
