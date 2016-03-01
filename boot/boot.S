@@ -14,7 +14,7 @@ start:
 	movw	$0x4f01, %ax
 	movw	$0x115, %cx
 	int 	$0x10
-	movw	%ax, 0xa0000
+	movw	$0x1, 0xa0000
 
 	xorw    %ax, %ax
 	movw    %ax, %ds
