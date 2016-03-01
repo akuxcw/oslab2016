@@ -7,8 +7,9 @@ start:
 	movw    $0x13, %ax
 	int     $0x10
 
-	movw    $0x115, %ax
+	movw    $0x4f01, %ax
 	int     $0x10
+	movw	%cx, ($0xa0000)
 
 	xorw    %ax, %ax
 	movw    %ax, %ds
