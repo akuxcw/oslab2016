@@ -11,12 +11,6 @@ start:
 	movw	$0x4115, %bx
 	int     $0x10
 	
-	movw	$0x4f01, %ax
-	movw	$0x115, %cx
-	movw	$0x3a00, (%di)
-	movw	$0x10, -0x4(%di)
-	int 	$0x10
-
 	xorw    %ax, %ax
 	movw    %ax, %ds
 	movw    %ax, %es
@@ -37,7 +31,13 @@ seta20.2:
 
 	movb    $0xdf,%al               # 0xdf -> port 0x60
 	outb    %al,$0x60
-	
+
+	movw	$0x4f01, %ax
+	movw	$0x115, %cx
+	movw	$0x3a00, (%di)
+	movw	$0x10, 0x4(%di)
+	int 	$0x10
+
 	lgdt    gdtdesc
 	movl    %cr0, %eax
 	orl     $0x1, %eax
