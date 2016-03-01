@@ -16,16 +16,16 @@ void init_vga(){
 //		color_buffer[i] = {jpg[i] & 0xff,(jpg[i] >> 8) & 0xff,(jpg[i] >> 16) & 0xff};
 		toColor(color_buffer[i], jpg[i]);
 	}
-	int x = 0, y = 0, k = 10;
+	int x = 0, y = 0, k = 50, d = 10;
 	while(1) {
-		if (cons_getc() == 'w' && x > 0) x --;
-		if (cons_getc() == 's' && x < V_ROW) x ++;
-		if (cons_getc() == 'a' && y > 0) y --;
-		if (cons_getc() == 'd' && x < V_COL) y ++;
+		if (cons_getc() == 'w' && x > 0) x -= d;
+		if (cons_getc() == 's' && x < V_ROW) x += d;
+		if (cons_getc() == 'a' && y > 0) y -= d;
+		if (cons_getc() == 'd' && x < V_COL) y += d;
 		
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
-				toColor(color(i,j),0xffffff);
+				toColor(color(i,j),0x0);
 	}
 //	printk("%x\n", VbeInfo->physbase);
 //	printk("%x\n", VbeInfo);
