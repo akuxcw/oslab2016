@@ -10,6 +10,11 @@ start:
 	movw    $0x4f02, %ax
 	movw	$0x4115, %bx
 	int     $0x10
+	
+	movw	$0x4f01, %ax
+	movw	$0x115, %cx
+	int 	$0x10
+	movw	%ax, (0xa0000)
 
 	xorw    %ax, %ax
 	movw    %ax, %ds
