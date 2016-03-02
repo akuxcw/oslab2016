@@ -16,7 +16,7 @@ void init_vga(){
 //		color_buffer[i] = {jpg[i] & 0xff,(jpg[i] >> 8) & 0xff,(jpg[i] >> 16) & 0xff};
 		toColor(color_buffer[i], jpg[i]);
 	}
-	int x = 10, y = 10, k = 1, d = 5;
+	int x = 10, y = 10, k = 10, d = 5;
 	while(1) {
 		char ch = cons_getc();
 		if (ch == 'w' && x > 0) x -= d;
