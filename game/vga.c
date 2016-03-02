@@ -26,7 +26,7 @@ void init_vga(){
 		
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
-				toColor(color(i,j),0xff00ff);
+				toColor(color(i,j),0xffffff);
 	}
 //	printk("%x\n", VbeInfo->physbase);
 //	printk("%x\n", VbeInfo);
