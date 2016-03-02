@@ -46,7 +46,7 @@ delay(void)
 #define   COM_LSR_TSRE	0x40	//   Transmitter off
 
 static bool serial_exists;
-
+/*
 static int
 serial_proc_data(void)
 {
@@ -61,7 +61,7 @@ serial_intr(void)
 	if (serial_exists)
 		cons_intr(serial_proc_data);
 }
-
+*/
 static void
 serial_putc(int c)
 {
@@ -101,113 +101,6 @@ serial_init(void)
 	(void) inb(COM1+COM_RX);
 
 }
-
-
-
-/***** Parallel port output code *****/
-// For information on PC parallel port programming, see the class References
-// page.
-/*
-static void
-lpt_putc(int c)
-{
-	int i;
-
-	for (i = 0; !(inb(0x378+1) & 0x80) && i < 12800; i++)
-		delay();
-	outb(0x378+0, c);
-	outb(0x378+2, 0x08|0x04|0x01);
-	outb(0x378+2, 0x08);
-}
-*/
-
-
-
-/***** Text-mode CGA/VGA display output *****/
-/*
-static unsigned addr_6845;
-static uint16_t *crt_buf;
-static uint16_t crt_pos;
-
-static void
-cga_init(void)
-{
-	volatile uint16_t *cp;
-	uint16_t was;
-	unsigned pos;
-
-	cp = (uint16_t*) (KERNBASE + CGA_BUF);
-	was = *cp;
-	*cp = (uint16_t) 0xA55A;
-	if (*cp != 0xA55A) {
-		cp = (uint16_t*) (KERNBASE + MONO_BUF);
-		addr_6845 = MONO_BASE;
-	} else {
-		*cp = was;
-		addr_6845 = CGA_BASE;
-	}
-
-//	 Extract cursor location 
-	outb(addr_6845, 14);
-	pos = inb(addr_6845 + 1) << 8;
-	outb(addr_6845, 15);
-	pos |= inb(addr_6845 + 1);
-
-	crt_buf = (uint16_t*) cp;
-	crt_pos = pos;
-}
-
-
-
-static void
-cga_putc(int c)
-{
-	// if no attribute given, then use black on white
-	if (!(c & ~0xFF))
-		c |= 0x0700;
-
-	switch (c & 0xff) {
-	case '\b':
-		if (crt_pos > 0) {
-			crt_pos--;
-			crt_buf[crt_pos] = (c & ~0xff) | ' ';
-		}
-		break;
-	case '\n':
-		crt_pos += CRT_COLS;
-		// fallthru 
-	case '\r':
-		crt_pos -= (crt_pos % CRT_COLS);
-		break;
-	case '\t':
-		cons_putc(' ');
-		cons_putc(' ');
-		cons_putc(' ');
-		cons_putc(' ');
-		cons_putc(' ');
-		break;
-	default:
-		crt_buf[crt_pos++] = c;		// write the character 
-		break;
-	}
-
-	// What is the purpose of this?
-	if (crt_pos >= CRT_SIZE) {
-		int i;
-
-		memmove(crt_buf, crt_buf + CRT_COLS, (CRT_SIZE - CRT_COLS) * sizeof(uint16_t));
-		for (i = CRT_SIZE - CRT_COLS; i < CRT_SIZE; i++)
-			crt_buf[i] = 0x0700 | ' ';
-		crt_pos -= CRT_COLS;
-	}
-
-	// move that little blinky thing 
-	outb(addr_6845, 14);
-	outb(addr_6845 + 1, crt_pos >> 8);
-	outb(addr_6845, 15);
-	outb(addr_6845 + 1, crt_pos);
-}
-*/
 
 /***** Keyboard input code *****/
 
@@ -411,7 +304,7 @@ cons_getc(void)
 	// poll for any pending input characters,
 	// so that this function works even when interrupts are disabled
 	// (e.g., when called from the kernel monitor).
-	serial_intr();
+//	serial_intr();
 	kbd_intr();
 
 	// grab the next character from the input buffer.
