@@ -52,7 +52,7 @@ game: $(OBJS)
 	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(OBJS)
 	$(call git_commit, "compile game", $(GITFLAGS))
 
--include $(patsubst %.o, %.d, $(OBJS))
+#-include $(patsubst %.o, %.d, $(OBJS))
 
 IMAGES	:= $(OBJ_DIR)/os.img
 GDBPORT := $(shell expr `id -u` % 5000 + 25000)
