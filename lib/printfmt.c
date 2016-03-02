@@ -252,7 +252,7 @@ printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...)
 	vprintfmt(putch, putdat, fmt, ap);
 	va_end(ap);
 }
-
+/*
 struct sprintbuf {
 	char *buf;
 	char *ebuf;
@@ -297,4 +297,4 @@ snprintf(char *buf, int n, const char *fmt, ...)
 	return rc;
 }
 
-
+*/
