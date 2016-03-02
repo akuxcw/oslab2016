@@ -107,7 +107,7 @@ serial_init(void)
 /***** Parallel port output code *****/
 // For information on PC parallel port programming, see the class References
 // page.
-
+/*
 static void
 lpt_putc(int c)
 {
@@ -119,12 +119,12 @@ lpt_putc(int c)
 	outb(0x378+2, 0x08|0x04|0x01);
 	outb(0x378+2, 0x08);
 }
-
+*/
 
 
 
 /***** Text-mode CGA/VGA display output *****/
-
+/*
 static unsigned addr_6845;
 static uint16_t *crt_buf;
 static uint16_t crt_pos;
@@ -147,7 +147,7 @@ cga_init(void)
 		addr_6845 = CGA_BASE;
 	}
 
-	/* Extract cursor location */
+//	 Extract cursor location 
 	outb(addr_6845, 14);
 	pos = inb(addr_6845 + 1) << 8;
 	outb(addr_6845, 15);
@@ -175,7 +175,7 @@ cga_putc(int c)
 		break;
 	case '\n':
 		crt_pos += CRT_COLS;
-		/* fallthru */
+		// fallthru 
 	case '\r':
 		crt_pos -= (crt_pos % CRT_COLS);
 		break;
@@ -187,7 +187,7 @@ cga_putc(int c)
 		cons_putc(' ');
 		break;
 	default:
-		crt_buf[crt_pos++] = c;		/* write the character */
+		crt_buf[crt_pos++] = c;		// write the character 
 		break;
 	}
 
@@ -201,13 +201,13 @@ cga_putc(int c)
 		crt_pos -= CRT_COLS;
 	}
 
-	/* move that little blinky thing */
+	// move that little blinky thing 
 	outb(addr_6845, 14);
 	outb(addr_6845 + 1, crt_pos >> 8);
 	outb(addr_6845, 15);
 	outb(addr_6845 + 1, crt_pos);
 }
-
+*/
 
 /***** Keyboard input code *****/
 
@@ -429,15 +429,15 @@ static void
 cons_putc(int c)
 {
 	serial_putc(c);
-	lpt_putc(c);
-	cga_putc(c);
+//	lpt_putc(c);
+//	cga_putc(c);
 }
 
 // initialize the console devices
 void
 cons_init(void)
 {
-	cga_init();
+//	cga_init();
 	kbd_init();
 	serial_init();
 
