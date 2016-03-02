@@ -44,7 +44,7 @@ os.img: game bootblock
 	cat obj/boot/bootblock obj/game/game > obj/os.img
 
 #$(OBJ_LIB_DIR)/%.o
-game: $(OBJS)
+game: $(OBJS) 
 	@mkdir -p obj/game
 	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(OBJS)
 	#$(OBJ_GAME_DIR)/%.o $(OBJ_LIB_DIR)/%.o
