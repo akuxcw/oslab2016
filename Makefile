@@ -58,7 +58,7 @@ $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 	@mkdir -p $(OBJ_GAME_DIR)
 	$(CC) $(CFLAGS) $< -o $@
 
--include $(patsubst %.o, %.d, $(OBJS))
+#-include $(patsubst %.o, %.d, $(OBJS))
 
 IMAGES	:= $(OBJ_DIR)/os.img
 GDBPORT := $(shell expr `id -u` % 5000 + 25000)
