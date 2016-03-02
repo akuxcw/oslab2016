@@ -18,10 +18,11 @@ void init_vga(){
 	}
 	int x = 0, y = 0, k = 50, d = 10;
 	while(1) {
-		if (cons_getc() == 'w' && x > 0) x -= d;
-		if (cons_getc() == 's' && x < V_ROW) x += d;
-		if (cons_getc() == 'a' && y > 0) y -= d;
-		if (cons_getc() == 'd' && x < V_COL) y += d;
+		char ch = cons_getc();
+		if (ch == 'w' && x > 0) x -= d;
+		if (ch == 's' && x < V_ROW) x += d;
+		if (ch == 'a' && y > 0) y -= d;
+		if (ch == 'd' && x < V_COL) y += d;
 		
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
