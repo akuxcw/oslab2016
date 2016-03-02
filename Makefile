@@ -42,7 +42,11 @@ include boot/Makefile.part
 
 os.img: game bootblock
 	cat obj/boot/bootblock obj/game/game > obj/os.img
-	
+
+$(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c
+	@mkdir -p $(OBJ_LIB_DIR)
+	$(CC) $(CFLAGS) $< -o $@
+
 game: $(OBJS)
 	@mkdir -p obj/game
 	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(OBJS)
