@@ -17,6 +17,13 @@ OBJ_BOOT_DIR	:= $(OBJ_DIR)/$(BOOT_DIR)
 OBJ_KERNEL_DIR	:= $(OBJ_DIR)/$(KERNEL_DIR)
 OBJ_GAME_DIR	:= $(OBJ_DIR)/$(GAME_DIR)
 
+LIB_C := $(wildcard $(LIB_DIR)/*.c)
+LIB_O := $(LIB_C:%.c=$(OBJ_DIR)/%.o)
+
+GAME_C := $(wildcard $(GAME_DIR)/*.c)
+GAME_O := $(GAME_C:%.c=$(OBJ_DIR)/%.o)
+
+
 CFLAGS := -Wall -Werror -Wfatal-errors #开启所有警告, 视警告为错误, 第一个错误结束编译
 CFLAGS += -MD #生成依赖文件
 CFLAGS += -std=gnu11 -m32 -c #编译标准, 目标架构, 只编译
@@ -24,7 +31,6 @@ CFLAGS += -I . #头文件搜索目录
 CFLAGS += -O0 #不开优化, 方便调试
 CFLAGS += -fno-builtin #禁止内置函数
 CFLAGS += -ggdb3 #GDB调试信息
-CLFAGS += -E
 
 ASFLAGS := -m32 -MD
 LDFLAGS := -melf_i386
@@ -44,11 +50,9 @@ include boot/Makefile.part
 os.img: game bootblock
 	cat obj/boot/bootblock obj/game/game > obj/os.img
 
-#$(OBJ_LIB_DIR)/%.o
-game: $(OBJS) 
+game: $(LIB_O) $(GAME_O) 
 	@mkdir -p obj/game
-	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(OBJS)
-	#$(OBJ_GAME_DIR)/%.o $(OBJ_LIB_DIR)/%.o
+	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(GAME_O) $(LIB_O)
 	$(call git_commit, "compile game", $(GITFLAGS))
 
 $(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c
