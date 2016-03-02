@@ -88,4 +88,4 @@ debug: $(IMAGES) pre-qemu
 	$(QEMU) -s $(QEMUOPTS) -S 
 
 clean: clean-mdr
-	rm -f obj/game/game obj/os.img $(GAME_O) $(LIB_O) $(OBJS:.o=.d)
+	rm -f obj/game/game obj/os.img $(GAME_O) $(LIB_O) $(GAME_O:.o=.d) $(LIB_O:.o=.d)
