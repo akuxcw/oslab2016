@@ -24,6 +24,7 @@ CFLAGS += -I . #头文件搜索目录
 CFLAGS += -O0 #不开优化, 方便调试
 CFLAGS += -fno-builtin #禁止内置函数
 CFLAGS += -ggdb3 #GDB调试信息
+CLFAGS += -E
 
 ASFLAGS := -m32 -MD
 LDFLAGS := -melf_i386
