@@ -46,7 +46,7 @@ serial_putc(int c)
 	outb(COM1 + COM_TX, c);
 }
 
-static void
+void
 init_serial(void)
 {
 	// Turn off the FIFO
