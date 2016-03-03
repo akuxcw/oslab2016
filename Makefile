@@ -17,13 +17,13 @@ OBJ_BOOT_DIR	:= $(OBJ_DIR)/$(BOOT_DIR)
 OBJ_KERNEL_DIR	:= $(OBJ_DIR)/$(KERNEL_DIR)
 OBJ_GAME_DIR	:= $(OBJ_DIR)/$(GAME_DIR)
 
-LIB_C := $(wildcard $(LIB_DIR)/*.c)
+LIB_C := $(shell find $(LIB_DIR) -name "*.c")
 LIB_O := $(LIB_C:%.c=$(OBJ_DIR)/%.o)
 
-GAME_C := $(wildcard $(GAME_DIR)/*.c)
+GAME_C := $(shell find $(GAME_DIR) -name "*.c")
 GAME_O := $(GAME_C:%.c=$(OBJ_DIR)/%.o)
 
-KERNEL_C := $(wildcard $(KERNEL_DIR)/*.c)
+KERNEL_C := $(shell find $(KERNEL_DIR) -name "*.c")
 KERNEL_O := $(KERNEL_C:%.c=$(OBJ_DIR)/%.o)
 
 
@@ -63,7 +63,8 @@ $(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c
 	$(CC) $(CFLAGS) $< -o $@
 
 $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
-	@mkdir -p $(OBJ_GAME_DIR)
+#	@mkdir -p $(OBJ_GAME_DIR)
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CC) $(CFLAGS) $< -o $@
 
 $(OBJ_KERNEL_DIR)/%.o : $(KERNEL_DIR)/%.c
@@ -72,7 +73,7 @@ $(OBJ_KERNEL_DIR)/%.o : $(KERNEL_DIR)/%.c
 
 
 #-include $(patsubst %.o, %.d, $(OBJS))
-
+-include $(OBJS:.o=.d)
 IMAGES	:= $(OBJ_DIR)/os.img
 GDBPORT := $(shell expr `id -u` % 5000 + 25000)
 QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
