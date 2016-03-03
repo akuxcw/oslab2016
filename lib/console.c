@@ -9,7 +9,6 @@
 #include "console.h"
 
 static void cons_intr(int (*proc)(void));
-static void cons_putc(int c);
 int printk(const char *fmt, ...);
 // Stupid I/O delay routine necessitated by historical PC design flaws
 static void
@@ -302,14 +301,7 @@ cons_getc(void)
 	return 0;
 }
 
-// output a character to the console
-static void
-cons_putc(int c)
-{
-	serial_putc(c);
-//	lpt_putc(c);
-//	cga_putc(c);
-}
+
 
 // initialize the console devices
 void
@@ -329,7 +321,7 @@ cons_init(void)
 void
 cputchar(int c)
 {
-	cons_putc(c);
+	serial_putc(c);
 }
 
 int
