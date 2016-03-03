@@ -1,8 +1,8 @@
-*.*
+*.o
 *
 !*/
 !Makefile*
 !*.[cSh]
 !genboot.pl
 !.gitignore
-!
+!.*
