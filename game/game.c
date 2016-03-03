@@ -17,7 +17,7 @@ int game_init(){
 	init_timer();
 	init_i8259();
 	init_serial();
-	add_irq_handle(0, timer_event);
+//	add_irq_handle(0, timer_event);
 	add_irq_handle(0, kbd_event);
 
 	printk("@_@\n");
