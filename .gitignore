@@ -1,0 +1,8 @@
+*.*
+*
+!*/
+!Makefile*
+!*.[cSh]
+!genboot.pl
+!.gitignore
+!
