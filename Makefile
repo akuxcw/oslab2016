@@ -23,6 +23,9 @@ LIB_O := $(LIB_C:%.c=$(OBJ_DIR)/%.o)
 GAME_C := $(wildcard $(GAME_DIR)/*.c)
 GAME_O := $(GAME_C:%.c=$(OBJ_DIR)/%.o)
 
+KERNEL_C := $(wildcard $(KERNEL_DIR)/*.c)
+KERNEL_O := $(KERNEL_C:%.c=$(OBJ_DIR)/%.o)
+
 
 CFLAGS := -Wall -Werror -Wfatal-errors #开启所有警告, 视警告为错误, 第一个错误结束编译
 CFLAGS += -MD #生成依赖文件
@@ -38,7 +41,7 @@ QEMU 	:= qemu-system-i386
 
 CFILES 	:= $(shell find game/ lib/ -name "*.c")
 SFILES 	:= $(shell find game/ lib/ -name "*.S")
-OBJS 	:= $(CFILES:.c=.o) $(SFILES:.S=.o)
+OBJS 	:= $(LIB_O) $(GAME_O) $(KERNEL_O)
 
 include config/Makefile.build
 include config/Makefile.git
@@ -50,9 +53,9 @@ include boot/Makefile.part
 os.img: game bootblock
 	cat obj/boot/bootblock obj/game/game > obj/os.img
 
-game: $(LIB_O) $(GAME_O) 
+game: $(OBJS)
 	@mkdir -p obj/game
-	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(GAME_O) $(LIB_O)
+	$(LD) $(LDFLAGS) -e game_init -Ttext 0x00100000 -o obj/game/game $(OBJS)
 	$(call git_commit, "compile game", $(GITFLAGS))
 
 $(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c
@@ -62,6 +65,11 @@ $(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c
 $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 	@mkdir -p $(OBJ_GAME_DIR)
 	$(CC) $(CFLAGS) $< -o $@
+
+$(OBJ_KERNEL_DIR)/%.o : $(KERNEL_DIR)/%.c
+	@mkdir -p $(OBJ_KERNEL_DIR)
+	$(CC) $(CFLAGS) $< -o $@
+
 
 #-include $(patsubst %.o, %.d, $(OBJS))
 
@@ -88,4 +96,4 @@ debug: $(IMAGES) pre-qemu
 	$(QEMU) -s $(QEMUOPTS) -S 
 
 clean: clean-mdr
-	rm -f obj/game/game obj/os.img $(GAME_O) $(LIB_O) $(GAME_O:.o=.d) $(LIB_O:.o=.d)
+	rm -f obj/game/game obj/os.img $(OBJS) $(OBJS:.o=.d)
