@@ -5,21 +5,18 @@ void init_i8259();
 void init_timer();
 void init_serial();
 
-
-int syscall(int id, ...);
-static void add_irq_handle(int irq, void *handler) {
-	syscall(0, irq, handler);
-}
+void set_timer_intr_handler( void (*ptr)(void));
+void set_kbd_intr_handler( void (*ptr)(int));
 
 void timer_event(void); 
-void kbd_event(void);
+void kbd_event(int);
 
 int game_init(){
 	init_timer();
 	init_i8259();
 	init_serial();
-	add_irq_handle(0, timer_event);
-//	add_irq_handle(0, kbd_event);
+	set_timer_intr_handler(timer_event);
+	set_kbd_intr_handler(kbd_event);
 
 	printk("@_@\n");
 	init_vga();

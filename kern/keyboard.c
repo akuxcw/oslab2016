@@ -39,8 +39,8 @@ int last_key_code(void) {
 }
 
 void
-kbd_event() {
-	key_code = inb(0x60);
+kbd_event(int code) {
+	key_code = code;
 	printk("%x\n", key_code);
 	press_key(key_code);
 }
