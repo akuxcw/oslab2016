@@ -38,7 +38,7 @@ int printk(const char *fmt, ...);
 
 static bool serial_exists;
 
-static void
+void
 serial_putc(int c)
 {
 	while(!(inb(COM1 + COM_LSR) & COM_LSR_TXRDY));

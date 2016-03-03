@@ -293,4 +293,40 @@ xchg(volatile uint32_t *addr, uint32_t newval)
 	return result;
 }
 
+static inline void
+sti(void) {
+	asm volatile("sti");
+}
+
+static inline void
+cli(void) {
+	asm volatile("cli");
+}
+
+static inline void
+wait_intr() {
+	asm volatile("hlt");
+}
+
+#define NR_IRQ    256
+
+static inline void
+write_gdtr(void *addr, uint32_t size) {
+	static volatile uint16_t data[3];
+	data[0] = size - 1;
+	data[1] = (uint32_t)addr;
+	data[2] = ((uint32_t)addr) >> 16;
+	asm volatile("lgdt (%0)" : : "r"(data));
+}
+
+static inline void
+write_idtr(void *addr, uint32_t size) {
+	static volatile uint16_t data[3];
+	data[0] = size - 1;
+	data[1] = (uint32_t)addr;
+	data[2] = ((uint32_t)addr) >> 16;
+	asm volatile("lidt (%0)" : : "r"(data));
+}
+
+
 #endif /* !JOS_INC_X86_H */

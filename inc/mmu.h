@@ -256,7 +256,7 @@ struct Taskstate {
 };
 
 // Gate descriptors for interrupts and traps
-struct Gatedesc {
+typedef struct Gatedesc {
 	unsigned gd_off_15_0 : 16;   // low 16 bits of offset in segment
 	unsigned gd_sel : 16;        // segment selector
 	unsigned gd_args : 5;        // # args, 0 for interrupt/trap gates
@@ -266,7 +266,7 @@ struct Gatedesc {
 	unsigned gd_dpl : 2;         // descriptor(meaning new) privilege level
 	unsigned gd_p : 1;           // Present
 	unsigned gd_off_31_16 : 16;  // high bits of offset in segment
-};
+} GateDesc;
 
 // Set up a normal interrupt/trap gate descriptor.
 // - istrap: 1 for a trap (= exception) gate, 0 for an interrupt gate.

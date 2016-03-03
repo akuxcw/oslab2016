@@ -24,7 +24,9 @@ GAME_C := $(shell find $(GAME_DIR) -name "*.c")
 GAME_O := $(GAME_C:%.c=$(OBJ_DIR)/%.o)
 
 KERNEL_C := $(shell find $(KERNEL_DIR) -name "*.c")
-KERNEL_O := $(KERNEL_C:%.c=$(OBJ_DIR)/%.o)
+KERNEL_S := $(shell find $(KERNEL_DIR) -name "*.S")
+KERNEL_O := $(KERNEL_C:%.c=$(OBJ_DIR)/%.o) 
+KERNEL_O += $(KERNEL_S:%.S=$(OBJ_DIR)/%.o)
 
 
 CFLAGS := -Wall -Werror -Wfatal-errors #开启所有警告, 视警告为错误, 第一个错误结束编译
@@ -66,7 +68,7 @@ $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CC) $(CFLAGS) $< -o $@
 
-$(OBJ_KERNEL_DIR)/%.o : $(KERNEL_DIR)/%.c
+$(OBJ_KERNEL_DIR)/%.o : $(KERNEL_DIR)/%.[cS]
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CC) $(CFLAGS) $< -o $@
 
@@ -79,7 +81,10 @@ QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
 #QEMUOPTS += $(QEMUEXTRA)
 
-.PHONY: play clean debug gdb
+.PHONY: play clean debug gdb display
+
+display:
+	@echo $(OBJS)
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
