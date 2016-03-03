@@ -59,21 +59,20 @@ game: $(OBJS)
 	$(call git_commit, "compile game", $(GITFLAGS))
 
 $(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c
-	@mkdir -p $(OBJ_LIB_DIR)
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CC) $(CFLAGS) $< -o $@
 
 $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
-#	@mkdir -p $(OBJ_GAME_DIR)
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CC) $(CFLAGS) $< -o $@
 
 $(OBJ_KERNEL_DIR)/%.o : $(KERNEL_DIR)/%.c
-	@mkdir -p $(OBJ_KERNEL_DIR)
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CC) $(CFLAGS) $< -o $@
 
 
 #-include $(patsubst %.o, %.d, $(OBJS))
--include $(OBJS:.o=.d)
+
 IMAGES	:= $(OBJ_DIR)/os.img
 GDBPORT := $(shell expr `id -u` % 5000 + 25000)
 QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
