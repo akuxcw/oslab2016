@@ -11,14 +11,6 @@
 static void cons_intr(int (*proc)(void));
 int printk(const char *fmt, ...);
 // Stupid I/O delay routine necessitated by historical PC design flaws
-static void
-delay(void)
-{
-	inb(0x84);
-	inb(0x84);
-	inb(0x84);
-	inb(0x84);
-}
 
 /***** Serial I/O code *****/
 
@@ -49,12 +41,7 @@ static bool serial_exists;
 static void
 serial_putc(int c)
 {
-	int i;
-
-	for (i = 0;
-	     !(inb(COM1 + COM_LSR) & COM_LSR_TXRDY) && i < 12800;
-	     i++)
-		delay();
+	while(!(inb(COM1 + COM_LSR) & COM_LSR_TXRDY));
 
 	outb(COM1 + COM_TX, c);
 }
