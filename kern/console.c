@@ -1,10 +1,10 @@
 /* See COPYRIGHT for copyright information. */
 
-#include "inc/x86.h"
-#include "inc/memlayout.h"
-#include "inc/kbdreg.h"
-#include "inc/string.h"
-#include "inc/assert.h"
+#include <inc/x86.h>
+#include <inc/memlayout.h>
+#include <inc/kbdreg.h>
+#include <inc/string.h>
+#include <inc/assert.h>
 
 #include "console.h"
 
@@ -47,7 +47,7 @@ serial_putc(int c)
 }
 
 static void
-serial_init(void)
+init_serial(void)
 {
 	// Turn off the FIFO
 	outb(COM1+COM_FCR, 0);
@@ -296,7 +296,7 @@ cons_init(void)
 {
 //	cga_init();
 	kbd_init();
-	serial_init();
+	init_serial();
 
 	if (!serial_exists)
 		printk("Serial port does not exist!\n");
