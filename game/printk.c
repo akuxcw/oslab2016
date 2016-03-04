@@ -2,11 +2,11 @@
 #include "inc/stdio.h"
 #include "inc/stdarg.h"
 
-void cputchar(int);
+void serial_putc(int);
 
 static void putch(int ch, int *cnt)
 {
-	cputchar(ch);
+	serial_putc(ch);
 	cnt ++;
 }
 
