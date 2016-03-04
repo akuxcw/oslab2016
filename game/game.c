@@ -1,27 +1,40 @@
 #include <inc/types.h>
+#include <inc/string.h>
 #include <inc/stdio.h>
 #include "vga.h"
+
+#define goal 600*800
 
 extern int jpg[600*800];
 extern int basicjpg[600*800];
 int cons_getc(void);
 bool query_key(int);
 void Delay(int t);
+bool v[600][800];
 
 void game(){
 	color_buffer = (RGB *) VGA_ADDR;
 	int i, j;
+START:
 	for(i = 0; i < V_COL * V_ROW; i ++) {
 		toColor(color_buffer[i], basicjpg[i]);
 	}
+	memset(v, 0, sizeof v);
+	int ans = 0; 
+
 	int x = 550, y = 10, k = 50, d = 1;
 	int Vx = 0;
 	int Vsx = 110;
 	int jump = 0;
 	while(1) {
 		for(i = x; i < x + k; ++ i)
-		  	for(j = y; j < y + k; ++ j)
+		  	for(j = y; j < y + k; ++ j) {
 			  	toColor(color(i,j), jpg[i * V_COL + j]);
+				if(i >= 0 && i < V_ROW && j >= 0 && j < V_COL) {
+					if(!v[i][j]) ans ++, v[i][j] = true;
+				}
+			}
+		if (ans == goal) goto START;
 		if (jump) {
 			x += Vx/10;
 			if (Vx != Vsx) Vx += 1; else jump = false;
