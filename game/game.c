@@ -14,13 +14,16 @@ void game(){
 	for(i = 0; i < V_COL * V_ROW; i ++) {
 		toColor(color_buffer[i], basicjpg[i]);
 	}
-	int x = 10, y = 10, k = 50, d = 1;
+	int x = 590, y = 10, k = 50, d = 1;
+	int Vx = 0;
 	while(1) {
 		for(i = x; i < x + k; ++ i)
 		  	for(j = y; j < y + k; ++ j)
 			  	toColor(color(i,j), jpg[i * V_COL + j]);
-		if (query_key('w' - 'a') && x > 0) x -= d;
-		if (query_key('s' - 'a') && x < V_ROW - k) x += d;
+		x += Vx/10;
+		if (Vx != 0) Vx += 1;
+		if (query_key('w' - 'a') && Vx == 0) Vx = -20;
+//		if (query_key('s' - 'a') && x < V_ROW - k) x += d;
 		if (query_key('a' - 'a') && y > 0) y -= d;
 		if (query_key('d' - 'a') && y < V_COL - k) y += d;
 		for(i = x; i < x + k; ++ i)
