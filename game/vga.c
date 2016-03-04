@@ -22,7 +22,7 @@ void init_vga(){
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
 				toColor(color(i,j),0x00ff);
-		Delay(100);
+		Delay(10);
 	}
 
 }
