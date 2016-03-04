@@ -13,7 +13,7 @@ void init_vga(){
 	for(i = 0; i < V_COL * V_ROW; i ++) {
 		toColor(color_buffer[i], jpg[i]);
 	}
-	int x = 10, y = 10, k = 50, d = 5;
+	int x = 10, y = 10, k = 50, d = 1;
 	while(1) {
 		if (query_key('w' - 'a') && x > 0) x -= d;
 		if (query_key('s' - 'a') && x < V_ROW) x += d;
@@ -22,7 +22,7 @@ void init_vga(){
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
 				toColor(color(i,j),0x00ff);
-		Delay(10);
+		Delay(1);
 	}
 
 }
