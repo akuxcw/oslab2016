@@ -14,10 +14,11 @@ static bool letter_pressed[26];
 void
 press_key(int scan_code) {
 	int i;
-//	if(scan_code & 0x80) flag = false; else flag = true;
+	bool flag;
+	if(scan_code & 0x80) flag = false, scan_code -= 0x80; else flag = true;
 	for (i = 0; i < 26; i ++) {
 		if (letter_code[i] == scan_code) {
-			letter_pressed[i] = true;
+			letter_pressed[i] = flag;
 		}
 	}
 }
