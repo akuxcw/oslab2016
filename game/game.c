@@ -25,7 +25,7 @@ void game(){
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
 				toColor(color(i,j),0x00ff);
-		Delay(1);
+		Delay(10);
 	}
 
 }
