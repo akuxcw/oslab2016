@@ -22,8 +22,8 @@ void game(){
 		for(i = x; i < x + k; ++ i)
 		  	for(j = y; j < y + k; ++ j)
 			  	toColor(color(i,j), jpg[i * V_COL + j]);
-		x += Vx/10;
 		if (jump) {
+			x += Vx/10;
 			if (Vx != Vsx) Vx += 1; else jump = false;
 		}
 		if (query_key('w' - 'a') && !jump) Vx = -Vsx, jump = true;
