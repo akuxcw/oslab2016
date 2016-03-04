@@ -14,7 +14,7 @@ void game(){
 	for(i = 0; i < V_COL * V_ROW; i ++) {
 		toColor(color_buffer[i], basicjpg[i]);
 	}
-	int x = 540, y = 10, k = 50, d = 1;
+	int x = 550, y = 10, k = 50, d = 1;
 	int Vx = 0;
 	int Vsx = 110;
 	int jump = 0;
