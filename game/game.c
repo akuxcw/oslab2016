@@ -21,7 +21,7 @@ int game_init(){
 	set_kbd_intr_handler(kbd_event);
 
 	printk("@_@\n");
-	asm volatile("sti");
+//	asm volatile("sti");
 	init_vga();
 	while(1);
 	return 0;
