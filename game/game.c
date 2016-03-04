@@ -19,9 +19,9 @@ void game(){
 		  	for(j = y; j < y + k; ++ j)
 			  	toColor(color(i,j), jpg[i * V_COL + j]);
 		if (query_key('w' - 'a') && x > 0) x -= d;
-		if (query_key('s' - 'a') && x < V_ROW) x += d;
+		if (query_key('s' - 'a') && x < V_ROW - k) x += d;
 		if (query_key('a' - 'a') && y > 0) y -= d;
-		if (query_key('d' - 'a') && x < V_COL) y += d;
+		if (query_key('d' - 'a') && x < V_COL - k) y += d;
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
 				toColor(color(i,j),0x00ff);
