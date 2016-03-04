@@ -1,28 +1,31 @@
-int printk(const char *fmt, ...);
-void testprintk();
-void init_vga();
-void init_i8259();
-void init_timer();
-void init_serial();
-void init_idt();
+#include <inc/types.h>
+#include "vga.h"
 
-void set_timer_intr_handler( void (*ptr)(void));
-void set_kbd_intr_handler( void (*ptr)(int));
+extern int jpg[600*800];
+int printk(const char * fmt, ...);
+int cons_getc(void);
+bool query_key(int);
+void Delay(int t);
 
-void timer_event(void); 
-void kbd_event(int);
+void game(){
+	color_buffer = (RGB *) VGA_ADDR;
+	int i, j;
+	for(i = 0; i < V_COL * V_ROW; i ++) {
+		toColor(color_buffer[i], jpg[i]);
+	}
+	int x = 10, y = 10, k = 50, d = 1;
+	while(1) {
+		for(i = x; i < x + k; ++ i)
+		  	for(j = y; j < y + k; ++ j)
+			  	toColor(color(i,j), jpg[i * V_COL + j]);
+		if (query_key('w' - 'a') && x > 0) x -= d;
+		if (query_key('s' - 'a') && x < V_ROW) x += d;
+		if (query_key('a' - 'a') && y > 0) y -= d;
+		if (query_key('d' - 'a') && x < V_COL) y += d;
+		for(i = x; i < x + k; ++ i)
+			for(j = y; j < y + k; ++ j)
+				toColor(color(i,j),0x00ff);
+		Delay(1);
+	}
 
-int game_init(){
-	init_timer();
-	init_i8259();
-	init_serial();
-	init_idt();
-	set_timer_intr_handler(timer_event);
-	set_kbd_intr_handler(kbd_event);
-
-	printk("@_@\n");
-//	asm volatile("sti");
-	init_vga();
-	while(1);
-	return 0;
 }
