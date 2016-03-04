@@ -17,7 +17,7 @@ void init_vga(){
 	while(1) {
 		for(i = x; i < x + k; ++ i)
 		  	for(j = y; j < y + k; ++ j)
-			  	toColor(color(i,j), jpg[x * V_COL + y]);
+			  	toColor(color(i,j), jpg[i * V_COL + j]);
 		if (query_key('w' - 'a') && x > 0) x -= d;
 		if (query_key('s' - 'a') && x < V_ROW) x += d;
 		if (query_key('a' - 'a') && y > 0) y -= d;
