@@ -6,7 +6,7 @@
 #include <inc/string.h>
 #include <inc/assert.h>
 
-#include "console.h"
+//#include "console.h"
 
 static void cons_intr(int (*proc)(void));
 int printk(const char *fmt, ...);
