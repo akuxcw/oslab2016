@@ -16,7 +16,7 @@ void game(){
 	}
 	int x = 540, y = 10, k = 50, d = 1;
 	int Vx = 0;
-	int Vsx = 100;
+	int Vsx = 130;
 	int jump = 0;
 	while(1) {
 		for(i = x; i < x + k; ++ i)
