@@ -1,8 +1,8 @@
 #include <inc/types.h>
+#include <inc/stdio.h>
 #include "vga.h"
 
 extern int jpg[600*800];
-int printk(const char * fmt, ...);
 int cons_getc(void);
 bool query_key(int);
 void Delay(int t);
