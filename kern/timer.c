@@ -37,3 +37,8 @@ void timer_event(void) {
 }
 
 
+void Delay(int t) {
+	int i = tick;
+	while(i + t > tick);
+}
+

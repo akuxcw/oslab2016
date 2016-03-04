@@ -5,6 +5,7 @@ extern int jpg[600*800];
 int printk(const char * fmt, ...);
 int cons_getc(void);
 bool query_key(int);
+void Delay(int t);
 
 void init_vga(){
 	color_buffer = (RGB *) VGA_ADDR;
@@ -18,10 +19,10 @@ void init_vga(){
 		if (query_key('s' - 'a') && x < V_ROW) x += d;
 		if (query_key('a' - 'a') && y > 0) y -= d;
 		if (query_key('d' - 'a') && x < V_COL) y += d;
-		
 		for(i = x; i < x + k; ++ i)
 			for(j = y; j < y + k; ++ j)
 				toColor(color(i,j),0x00ff);
+		Delay(100);
 	}
 
 }
