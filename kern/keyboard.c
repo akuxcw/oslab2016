@@ -43,7 +43,7 @@ int last_key_code(void) {
 void
 kbd_event(int code) {
 	key_code = code;
-	printk("%x\n", key_code);
+//	printk("%x\n", key_code);
 	press_key(key_code);
 }
 

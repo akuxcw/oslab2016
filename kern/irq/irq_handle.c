@@ -24,7 +24,7 @@ irq_handle(TrapFrame *tf) {
 		else {
 			printk("%s, %d: Unexpected exception #%d!\n", __FUNCTION__, __LINE__, tf->irq);
 		}
-		//assert(0);
+		printk("Error in irq_handle.c");
 	}
 
 	if (tf->irq == 1000) {
@@ -35,10 +35,10 @@ irq_handle(TrapFrame *tf) {
 		outb(0x61, val | 0x80);
 		outb(0x61, val);
 
-		printk("%s, %d: key code = %x\n", __FUNCTION__, __LINE__, code);
+		//printk("%s, %d: key code = %x\n", __FUNCTION__, __LINE__, code);
 		do_keyboard(code);
 	} else {
-		//assert(0);
+		printk("Error in irq_handle.c");
 	}
 }
 
