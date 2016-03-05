@@ -17,8 +17,6 @@ int Xnow, Ynow, Width, Vy, Vx, Vsx, Jump;
 
 void init_game() {
 	color_buffer = (RGB *) VGA_ADDR;
-	Displayjpg(0, 0, &Basic, 0);
-	Displayjpg(200, 10, &GreenBlock, 1);
 	memset(v, 0, sizeof v);	
 	int i, j;
 	for(i = 0; i < 700; ++ i) {
@@ -26,11 +24,8 @@ void init_game() {
 			Property[i][j] = 1;
 		}
 	}
-	for(i = 0; i < 600; ++ i) {
-		for(j = 0; j < 800; ++ j) {
-			Property[i][j] = 0;
-		}
-	}
+	Displayjpg(0, 0, &Basic, 0);
+	Displayjpg(200, 10, &GreenBlock, 1);
 	ans = 0; goal = 600 * 800; 
 	Xnow = 550, Ynow = 10, Width = 50, Vy = 1;
 	Vx = 0;
