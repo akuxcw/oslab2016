@@ -1,6 +1,6 @@
 #include <inc/string.h>
 #include <inc/stdio.h>
-#include "vbe.h"
+#include "vga.h"
 
 extern jpg Basic2;
 extern jpg Basic;
