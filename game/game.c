@@ -32,9 +32,9 @@ void init_game() {
 	ans = 0; goal = 600 * 800; 
 	Xnow = 550, Ynow = 10, Width = 50;
 	
-	g = 2;
+	g = 3;
 	Vy = 0;	Vsy = 30;
-	Vx = 0;	Vsx = 80;
+	Vx = 0;	Vsx = 120;
 	
 	Jump = 0;
 	Delta = 10;
