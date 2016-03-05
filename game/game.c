@@ -88,9 +88,8 @@ void do_move() {
 	int tmp = Ynow + Vy/10;
 	int d;
 	if(Vy > 0) d = -1; else d = 1;
-	if(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1) {
-		while(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1) tmp +=d;
-	}
+	while(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1 ||
+				Property[Xnow][tmp] == 1 || Property[Xnow + Width - 1][tmp] == 1) tmp +=d;
 	Ynow = tmp;
 	Vy = 0;
 }
