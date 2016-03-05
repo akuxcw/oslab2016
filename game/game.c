@@ -1,7 +1,6 @@
-#include <inc/types.h>
 #include <inc/string.h>
 #include <inc/stdio.h>
-#include "data/jpg.h"
+#include "vbe.h"
 
 extern jpg Basic2;
 extern jpg Basic;

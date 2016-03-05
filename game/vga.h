@@ -1,3 +1,4 @@
+#include <inc/types.h>
 typedef struct ModeInfoBlock {
 	uint16_t attributes;
 	uint8_t winA,winB;
@@ -29,13 +30,10 @@ typedef struct _RGB{
 	uint8_t B;
 } __attribute__((packed)) RGB;
 
-const InfoBlock *VbeInfo = (InfoBlock *)0xa01;
-#define VGA_ADDR VbeInfo->physbase
-#define V_ROW 600
-#define V_COL 800
-RGB * color_buffer;
-#define color(x,y) color_buffer[(x)*V_COL+(y)]
-#define toColor(x,y) {x.R = (y)&0xff;\
-					 x.G = ((y)>>8)&0xff;\
-					 x.B = ((y)>>16)&0xff;}
+typedef struct jpgtype {
+	int height;
+	int length;
+	int arr[600*800];
+} jpg;
+
 
