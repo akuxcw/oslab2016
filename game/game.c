@@ -53,7 +53,7 @@ START:
 			}
 		if (ans == goal) goto START;
 		if(Jump) do_jump();
-		do_move();
+		if(Vy != 0) do_move();
 		if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
 		if (query_key('a' - 'a')) Vy = -Vsy;
 		if (query_key('d' - 'a')) Vy = +Vsy;
