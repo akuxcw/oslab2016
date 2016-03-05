@@ -42,6 +42,7 @@ void init_game() {
 
 void do_jump();
 void do_move();
+void check_state();
 
 void game(){
 START:
@@ -56,6 +57,7 @@ START:
 				}
 			}
 		if (ans == goal) goto START;
+		check_state();
 		if(Jump) do_jump();
 		if(Vy != 0) do_move();
 		if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
@@ -98,3 +100,6 @@ void do_move() {
 	Vy = 0;
 }
 
+void check_state() {
+	if (Property[Xnow + Width - 1][Ynow] == 0 && Property[Xnow + Width - 1][Ynow + Width - 1] == 0) Jump ++;
+}
