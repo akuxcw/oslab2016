@@ -39,6 +39,8 @@ void init_game() {
 	
 }
 
+void do_jump();
+
 void game(){
 START:
 	init_game();
@@ -52,22 +54,7 @@ START:
 				}
 			}
 		if (ans == goal) goto START;
-		if (Jump) {
-			int tmp = Xnow + Vx/10;
-			if(Vx > 0) {
-				if(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) {
-					Jump = false;
-					while(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) tmp --;
-				}
-			} else {
-				if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) {
-					Vx = - Vx;
-					while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) tmp ++;
-				}
-			}
-			Xnow = tmp;
-			if (Jump) Vx += 1;
-		}
+		do_jump();
 		if (query_key('w' - 'a') && !Jump) Vx = -Vsx, Jump = true;
 		if (query_key('a' - 'a') && Ynow > 0) Ynow -= Vy;
 		if (query_key('d' - 'a') && Ynow < V_COL - Width) Ynow += Vy;
@@ -78,3 +65,23 @@ START:
 	}
 
 }
+
+void do_jump() {
+	if (Jump) {
+		int tmp = Xnow + Vx/10;
+		if(Vx > 0) {
+			if(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) {
+				Jump = false;
+				while(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) tmp --;
+			}
+		} else {
+			if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) {
+				Vx = - Vx;
+				while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) tmp ++;
+			}
+		}
+		Xnow = tmp;
+		if (Jump) Vx += 1;
+	}
+}
+
