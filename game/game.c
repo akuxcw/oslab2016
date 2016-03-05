@@ -50,7 +50,7 @@ START:
 			}
 		if (ans == goal) goto START;
 		do_jump();
-		if (query_key('w' - 'a') && !Jump) Vx = -Vsx, Jump = true;
+		if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
 		if (query_key('a' - 'a') && Ynow > 0) Ynow -= Vy;
 		if (query_key('d' - 'a') && Ynow < V_COL - Width) Ynow += Vy;
 		for(i = Xnow; i < Xnow + Width; ++ i)
