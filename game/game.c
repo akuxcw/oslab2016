@@ -13,7 +13,7 @@ void Delay(int t);
 bool v[600][800];
 int Property[700][900];
 int ans, goal;
-int Gx, Gy;
+int Gx, Gy, Gwidth;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx, Jump;
 int g;
 int Delta;
@@ -32,7 +32,7 @@ void init_game() {
 	  	for(j = 0; j < 800; j += 100)
 			Displayjpg(i, j, &GreenBlock, 1);
 
-	Gx = 10; Gy = 400;
+	Gx = 10; Gy = 400; Gwidth = 30;
 	Displayjpg(Gx, Gy, &GoldenBlock, 2);
 	
 	ans = 0; goal = 30 * 30; 
@@ -59,7 +59,7 @@ START:
 		for(i = Xnow; i < Xnow + Width; ++ i)
 		  	for(j = Ynow; j < Ynow + Width; ++ j) {
 			  	toColor(color(i,j), Basic2.arr[i * V_COL + j]);
-				if(i >= Gx && i < Gx + V_ROW && j >= Gy && j < Gy + V_COL) {
+				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
 			}
