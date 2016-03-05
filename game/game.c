@@ -24,7 +24,7 @@ START:
 	}
 */
 	Displayjpg(0, 0, &Basic);
-	Displayjpg(10, 10, &GreenBlock);
+	Displayjpg(200, 10, &GreenBlock);
 	memset(v, 0, sizeof v);
 	int ans = 0; 
 
