@@ -27,14 +27,14 @@ void init_game() {
 		}
 	}
 	Displayjpg(0, 0, &Basic, 0);
-	Displayjpg(230, 10, &GreenBlock, 1);
+	Displayjpg(150, 10, &GreenBlock, 1);
 	
 	ans = 0; goal = 600 * 800; 
-	Xnow = 550, Ynow = 10, Width = 50;
+	Xnow = 550, Ynow = 10, Width = 20;
 	
 	g = 3;
 	Vy = 0;	Vsy = 30;
-	Vx = 0;	Vsx = 150;
+	Vx = 0;	Vsx = 100;
 	
 	Jump = 0;
 	Delta = 10;
