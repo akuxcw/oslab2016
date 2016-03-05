@@ -68,14 +68,14 @@ START:
 void do_jump() {
 	int tmp = Xnow + Vx/10;
 	if(Vx > 0) {
-		if(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) {
+		if(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) {
 			Jump = false;
-			while(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) tmp --;
+			while(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) tmp --;
 		}
 	} else {
-		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) {
+		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) {
 			Vx = - Vx;
-			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) tmp ++;
+			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) tmp ++;
 		}
 	}
 	Xnow = tmp;
@@ -86,8 +86,8 @@ void do_move() {
 	int tmp = Ynow + Vy/10;
 	int d;
 	if(Vy > 0) d = -1; else d = 1;
-	if(Property[Xnow][tmp + Width] == 1 || Property[Xnow + Width][tmp + Width] == 1) {
-		while(Property[Xnow][tmp + Width] == 1 || Property[Xnow + Width][tmp + Width] == 1) tmp +=d;
+	if(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1) {
+		while(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1) tmp +=d;
 	}
 	Ynow = tmp;
 	Vy = 0;
