@@ -13,7 +13,7 @@ void Delay(int t);
 bool v[600][800];
 int Property[700][900];
 int ans, goal;
-int Xnow, Ynow, Width, Vy, Vx, Vsx, Jump;
+int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx, Jump;
 
 void init_game() {
 	color_buffer = (RGB *) VGA_ADDR;
@@ -27,7 +27,9 @@ void init_game() {
 	Displayjpg(0, 0, &Basic, 0);
 	Displayjpg(200, 10, &GreenBlock, 1);
 	ans = 0; goal = 600 * 800; 
-	Xnow = 550, Ynow = 10, Width = 50, Vy = 1;
+	Xnow = 550, Ynow = 10, Width = 50;
+	Vy = 0;
+	Vsy = 10;
 	Vx = 0;
 	Vsx = 110;
 	Jump = 0;
@@ -35,6 +37,7 @@ void init_game() {
 }
 
 void do_jump();
+void do_move();
 
 void game(){
 START:
@@ -49,10 +52,11 @@ START:
 				}
 			}
 		if (ans == goal) goto START;
-		do_jump();
+		if(Jump) do_jump();
+		do_move();
 		if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
-		if (query_key('a' - 'a') && Ynow > 0) Ynow -= Vy;
-		if (query_key('d' - 'a') && Ynow < V_COL - Width) Ynow += Vy;
+		if (query_key('a' - 'a')) Vy = -Vsy;
+		if (query_key('d' - 'a')) Vy = +Vsy;
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
@@ -62,21 +66,30 @@ START:
 }
 
 void do_jump() {
-	if (Jump) {
-		int tmp = Xnow + Vx/10;
-		if(Vx > 0) {
-			if(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) {
-				Jump = false;
-				while(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) tmp --;
-			}
-		} else {
-			if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) {
-				Vx = - Vx;
-				while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) tmp ++;
-			}
+	int tmp = Xnow + Vx/10;
+	if(Vx > 0) {
+		if(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) {
+			Jump = false;
+			while(Property[tmp + Width][Ynow] == 1 || Property[tmp + Width][Ynow + Width] == 1) tmp --;
 		}
-		Xnow = tmp;
-		if (Jump) Vx += 1;
+	} else {
+		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) {
+			Vx = - Vx;
+			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width] == 1) tmp ++;
+		}
 	}
+	Xnow = tmp;
+	if (Jump) Vx += 1;
+}
+
+void do_move() {
+	int tmp = Ynow + Vy;
+	int d;
+	if(Vy > 0) d = -1; else d = 1;
+	if(Property[Xnow][tmp + Width] == 1 || Property[Xnow + Width][tmp + Width] == 1) {
+		while(Property[Xnow][tmp + Width] == 1 || Property[Xnow + Width][tmp + Width] == 1) tmp +=d;
+	}
+	Ynow = tmp;
+	Vy = 0;
 }
 
