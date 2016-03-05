@@ -26,6 +26,10 @@ void init_game() {
 		}
 	}
 	Displayjpg(0, 0, &Basic, 0);
+	Displayjpg(100, 10, &GreenBlock, 1);
+	Displayjpg(200, 10, &GreenBlock, 1);
+	Displayjpg(300, 10, &GreenBlock, 1);
+	Displayjpg(400, 10, &GreenBlock, 1);
 	Displayjpg(500, 10, &GreenBlock, 1);
 	
 	ans = 0; goal = 600 * 800; 
