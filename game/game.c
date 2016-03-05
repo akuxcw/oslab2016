@@ -5,6 +5,7 @@
 extern jpg Basic2;
 extern jpg Basic;
 extern jpg GreenBlock;
+extern jpg GoldenBlock;
 
 bool query_key(int);
 void Delay(int t);
@@ -26,10 +27,11 @@ void init_game() {
 		}
 	}
 	Displayjpg(0, 0, &Basic, 0);
-	for(i = 0; i < 600; i += 100) 
+	for(i = 100; i < 600; i += 100) 
 	  	for(j = 0; j < 800; j += 100)
 			Displayjpg(i, j, &GreenBlock, 1);
-	
+
+	Displayjpg(10, 400, &GoldenBlock, 2);
 	ans = 0; goal = 600 * 800; 
 	Xnow = 580, Ynow = 10, Width = 20;
 	
