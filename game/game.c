@@ -31,7 +31,7 @@ void init_game() {
 	ans = 0; goal = 600 * 800; 
 	Xnow = 580, Ynow = 10, Width = 20;
 	
-	g = 3;
+	g = 2;
 	Vy = 0;	Vsy = 30;
 	Vx = 0;	Vsx = 100;
 	
