@@ -27,7 +27,7 @@ void init_game() {
 		}
 	}
 	Displayjpg(0, 0, &Basic, 0);
-	Displayjpg(200, 10, &GreenBlock, 1);
+	Displayjpg(230, 10, &GreenBlock, 1);
 	
 	ans = 0; goal = 600 * 800; 
 	Xnow = 550, Ynow = 10, Width = 50;
