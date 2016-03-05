@@ -14,6 +14,7 @@ bool v[600][800];
 int Property[700][900];
 int ans, goal;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx, Jump;
+int Delta;
 
 void init_game() {
 	color_buffer = (RGB *) VGA_ADDR;
@@ -26,13 +27,15 @@ void init_game() {
 	}
 	Displayjpg(0, 0, &Basic, 0);
 	Displayjpg(200, 10, &GreenBlock, 1);
+	
 	ans = 0; goal = 600 * 800; 
 	Xnow = 550, Ynow = 10, Width = 50;
-	Vy = 0;
-	Vsy = 30;
-	Vx = 0;
-	Vsx = 80;
+	
+	Vy = 0;	Vsy = 30;
+	Vx = 0;	Vsx = 80;
+	
 	Jump = 0;
+	Delta = 7;
 	
 }
 
@@ -60,7 +63,7 @@ START:
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
-		Delay(10);
+		Delay(Delta);
 	}
 
 }
