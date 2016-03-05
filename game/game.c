@@ -7,6 +7,7 @@
 
 extern jpg Basic2;
 extern jpg Basic;
+extern jpg GreenBlock;
 
 int cons_getc(void);
 bool query_key(int);
@@ -23,6 +24,7 @@ START:
 	}
 */
 	Displayjpg(0, 0, &Basic);
+	Displayjpg(10, 10, &GreenBlock);
 	memset(v, 0, sizeof v);
 	int ans = 0; 
 
