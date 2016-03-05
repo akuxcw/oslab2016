@@ -83,7 +83,7 @@ void do_jump() {
 }
 
 void do_move() {
-	int tmp = Ynow + Vy;
+	int tmp = Ynow + Vy/10;
 	int d;
 	if(Vy > 0) d = -1; else d = 1;
 	if(Property[Xnow][tmp + Width] == 1 || Property[Xnow + Width][tmp + Width] == 1) {
