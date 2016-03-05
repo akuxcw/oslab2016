@@ -2,11 +2,12 @@
 #include <inc/string.h>
 #include <inc/stdio.h>
 #include "vga.h"
+#include "data/jpg.h"
 
 #define goal 600*800
 
-extern int jpg[600*800];
-extern int basicjpg[600*800];
+extern jpg Basic2;
+extern jpg Basic;
 int cons_getc(void);
 bool query_key(int);
 void Delay(int t);
@@ -17,7 +18,7 @@ void game(){
 	int i, j;
 START:
 	for(i = 0; i < V_COL * V_ROW; i ++) {
-		toColor(color_buffer[i], basicjpg[i]);
+		toColor(color_buffer[i], Basic.arr[i]);
 	}
 	memset(v, 0, sizeof v);
 	int ans = 0; 
@@ -29,7 +30,7 @@ START:
 	while(1) {
 		for(i = x; i < x + k; ++ i)
 		  	for(j = y; j < y + k; ++ j) {
-			  	toColor(color(i,j), jpg[i * V_COL + j]);
+			  	toColor(color(i,j), Basic2.arr[i * V_COL + j]);
 				if(i >= 0 && i < V_ROW && j >= 0 && j < V_COL) {
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
