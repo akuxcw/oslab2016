@@ -70,12 +70,14 @@ void do_jump() {
 	if(Vx > 0) {
 		if(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) {
 			Jump = false;
-			while(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) tmp --;
+			tmp = Xnow;
+//			while(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) tmp --;
 		}
 	} else {
 		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) {
 			Vx = - Vx;
-			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) tmp ++;
+//			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) tmp ++;
+			tmp = Xnow;
 		}
 	}
 	Xnow = tmp;
