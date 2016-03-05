@@ -29,9 +29,9 @@ void init_game() {
 	ans = 0; goal = 600 * 800; 
 	Xnow = 550, Ynow = 10, Width = 50;
 	Vy = 0;
-	Vsy = 10;
+	Vsy = 30;
 	Vx = 0;
-	Vsx = 90;
+	Vsx = 180;
 	Jump = 0;
 	
 }
@@ -60,7 +60,7 @@ START:
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
-		Delay(5);
+		Delay(10);
 	}
 
 }
