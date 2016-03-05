@@ -1,13 +1,13 @@
 #include <inc/types.h>
 #include <inc/string.h>
 #include <inc/stdio.h>
-#include "vga.h"
 #include "data/jpg.h"
 
 #define goal 600*800
 
 extern jpg Basic2;
 extern jpg Basic;
+
 int cons_getc(void);
 bool query_key(int);
 void Delay(int t);
@@ -17,9 +17,12 @@ void game(){
 	color_buffer = (RGB *) VGA_ADDR;
 	int i, j;
 START:
+/*
 	for(i = 0; i < V_COL * V_ROW; i ++) {
 		toColor(color_buffer[i], Basic.arr[i]);
 	}
+*/
+	Displayjpg(0, 0, &Basic);
 	memset(v, 0, sizeof v);
 	int ans = 0; 
 
