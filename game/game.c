@@ -14,6 +14,7 @@ bool v[600][800];
 int Property[700][900];
 int ans, goal;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx, Jump;
+int g;
 int Delta;
 
 void init_game() {
@@ -31,11 +32,12 @@ void init_game() {
 	ans = 0; goal = 600 * 800; 
 	Xnow = 550, Ynow = 10, Width = 50;
 	
+	g = 2;
 	Vy = 0;	Vsy = 30;
-	Vx = 0;	Vsx = 80;
+	Vx = 0;	Vsx = 180;
 	
 	Jump = 0;
-	Delta = 7;
+	Delta = 10;
 	
 }
 
@@ -84,7 +86,7 @@ void do_jump() {
 		}
 	}
 	Xnow = tmp;
-	if (Jump) Vx += 1;
+	if (Jump) Vx += g;
 }
 
 void do_move() {
