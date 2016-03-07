@@ -50,32 +50,40 @@ START:
 }
 
 void init_game() {
+	/* Get framebuffer */
 	color_buffer = (RGB *) VGA_ADDR;
+	
 	memset(v, 0, sizeof v);	
+	
+	/* Set property */
 	int i, j;
 	for(i = 0; i < 700; ++ i) {
 		for(j = 0; j < 900; ++ j) {
 			Property[i][j] = 1;
 		}
 	}
-	Displayjpg(0, 0, &Basic, SKY);
-	for(i = 100; i < 600; i += 100) 
-	  	for(j = 0; j < 800; j += 100)
-			Displayjpg(i, j, &GreenBlock, GROUND);
-
-	Gx = 10; Gy = 400; Gwidth = 30;
-	Displayjpg(Gx, Gy, &GoldenBlock, SKY);
 	
+	/* Set parameter */
+	Gx = 10; Gy = 400; Gwidth = 30;   //goal block
 	ans = 0; goal = 30 * 30; 
+
 	Xnow = 580, Ynow = 10, Width = 20;
 	
 	g = 2;
 	Vy = 0;	Vsy = 30;
 	Vx = 0;	Vsx = 70;
-	
+
 	Jump = 0;
-	Delta = 10;
-	
+	Delta = 15;
+
+	/* Display picture */
+	Displayjpg(0, 0, &Basic, SKY);
+	for(i = 100; i < 600; i += 100) 
+	  	for(j = 0; j < 800; j += 100)
+			Displayjpg(i, j, &GreenBlock, GROUND);
+	Displayjpg(Gx, Gy, &GoldenBlock, SKY);
+
+		
 }
 
 void process_move() {
