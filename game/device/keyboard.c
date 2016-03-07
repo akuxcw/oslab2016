@@ -33,17 +33,15 @@ query_key(int index) {
 	return letter_pressed[index];
 }
 
-/* key_code保存了上一次键盘事件中的扫描码 */
-static volatile int key_code = 0;
-
-int last_key_code(void) {
-	return key_code;
-}
-
 void
 kbd_event(int code) {
-	key_code = code;
-//	printk("%x\n", key_code);
-	press_key(key_code);
+	press_key(code);
 }
 
+extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
+
+void process_kbd() {
+	if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
+	if (query_key('a' - 'a')) Vy = -Vsy;
+	if (query_key('d' - 'a')) Vy = +Vsy;
+}
