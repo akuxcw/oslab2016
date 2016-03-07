@@ -44,7 +44,7 @@ START:
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
-		Delay(Delta);
+//		Delay(Delta);
 	}
 
 }
