@@ -70,6 +70,7 @@ void release_key(int keys) {
 }
 
 void process_kbd() {
+	cli();
 	int i;
 	for(i = 0; i < NR_KEYS; ++ i) {
 		if(query_key(i) == KEY_STATE_PRESS) {
@@ -79,4 +80,5 @@ void process_kbd() {
 			release_key(i);
 		}
 	}
+	sti();
 }
