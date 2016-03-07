@@ -25,6 +25,7 @@ void check_state();
 void init_game();
 void process_kbd();
 void process_move();
+void process_video();
 
 void game(){
 START:
@@ -42,12 +43,12 @@ START:
 		check_state();
 		process_move();
 		process_kbd();
+		process_video();
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
 		Delay(Delta);
 	}
-
 }
 
 void init_game() {
