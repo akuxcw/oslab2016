@@ -2,46 +2,79 @@
 #include <inc/x86.h>
 #include <inc/stdio.h>
 
-/* a-z对应的键盘扫描码 */
-static int letter_code[] = {
+enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};
+
+/* a-z */
+const static int letter_code[] = {
 	30, 48, 46, 32, 18, 33, 34, 35, 23, 36,
 	37, 38, 50, 49, 24, 25, 16, 19, 31, 20,
 	22, 47, 17, 45, 21, 44
 };
-/* 对应键按下的标志位 */
-static bool letter_pressed[26];
 
-void
-press_key(int scan_code) {
+#define NR_KEYS (sizeof(letter_code)/sizeof(int))
+
+static int letter_pressed[26];
+
+int query_key(int index) {
+	return letter_pressed[index];
+}
+
+void kbd_event(int scan_code) {
 	int i;
 	bool flag;
 	if(scan_code & 0x80) flag = false, scan_code -= 0x80; else flag = true;
 	for (i = 0; i < 26; i ++) {
 		if (letter_code[i] == scan_code) {
-			letter_pressed[i] = flag;
+			if(!flag)letter_pressed[i] = KEY_STATE_RELEASE;
+			if(flag && query_key(i) == KEY_STATE_EMPTY) 
+				letter_pressed[i] = KEY_STATE_RELEASE;
 		}
 	}
-}
 
-void
-release_key(int index) {
-	letter_pressed[index] = false;
-}
-
-bool
-query_key(int index) {
-	return letter_pressed[index];
-}
-
-void
-kbd_event(int code) {
-	press_key(code);
 }
 
 extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
 
+void press_key(int keys) {
+	letter_pressed[keys] = KEY_STATE_WAIT_RELEASE;
+	switch(keys + 'a') {
+		case 'w' : 
+			Vx = -Vsx, Jump ++;
+			break;
+		case 'a' :
+			Vy -= Vsy;
+			break;
+		case 'd' :
+			Vy += Vsy;
+			break;
+		default : ;
+	}
+}
+
+void release_key(int keys) {
+	letter_pressed[keys] = KEY_STATE_EMPTY;
+	switch(keys + 'a') {
+		case 'w' : 
+			break;
+		case 'a' :
+			Vy += Vsy;
+			break;
+		case 'd' :
+			Vy -= Vsy;
+			break;
+		default : ;
+	}
+
+}
+
 void process_kbd() {
-	if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
-	if (query_key('a' - 'a')) Vy = -Vsy;
-	if (query_key('d' - 'a')) Vy = +Vsy;
+	int i;
+	for(i = 0; i < NR_KEYS; ++ i) {
+		if(query_key(i) == KEY_STATE_PRESS) {
+			press_key(i);
+		}
+		if(query_key(i) == KEY_STATE_RELEASE) {
+			release_key(i);
+		}
+	}
 }
