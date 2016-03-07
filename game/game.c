@@ -33,15 +33,15 @@ START:
 	while(1) {
 		for(i = Xnow; i < Xnow + Width; ++ i)
 		  	for(j = Ynow; j < Ynow + Width; ++ j) {
-			  	toColor(color(i,j), Basic2.arr[i * V_COL + j]);
+			  	toColor(color(i,j), Basic.arr[i * V_COL + j]);
 				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
 			}
 		if (ans == goal) goto START;
+		check_state();
 		process_move();
 		process_kbd();
-		check_state();
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
@@ -83,14 +83,14 @@ void process_move() {
 	/*   x-ray  */
 	int tmp = Xnow + Vx/10;
 	if(Vx > 0) {
-		if(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) {
-			Jump = false;
-			while(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) tmp --;
+		if(Property[tmp + Width - 1][Ynow] == GROUND || Property[tmp + Width - 1][Ynow + Width - 1] == GROUND) {
+			Jump = 0;
+			while(Property[tmp + Width - 1][Ynow] == GROUND || Property[tmp + Width - 1][Ynow + Width - 1] == GROUND) tmp --;
 		}
 	} else if (Vx < 0) {
-		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) {
+		if(Property[tmp][Ynow] ==  GROUND || Property[tmp][Ynow + Width - 1] == GROUND) {
 			Vx = 0;
-			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) tmp ++;
+			while(Property[tmp][Ynow] == GROUND || Property[tmp][Ynow + Width - 1] == GROUND) tmp ++;
 		}
 	}
 	Xnow = tmp;
@@ -100,8 +100,8 @@ void process_move() {
 	tmp = Ynow + Vy/10;
 	int d;
 	if(Vy > 0) d = -1; else d = 1;
-	while(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1 ||
-				Property[Xnow][tmp] == 1 || Property[Xnow + Width - 1][tmp] == 1) tmp +=d;
+	while(Property[Xnow][tmp + Width - 1] == GROUND || Property[Xnow + Width - 1][tmp + Width - 1] == GROUND ||
+				Property[Xnow][tmp] == GROUND || Property[Xnow + Width - 1][tmp] == GROUND) tmp +=d;
 	Ynow = tmp;
 }
 
