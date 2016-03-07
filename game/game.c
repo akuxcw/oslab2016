@@ -39,7 +39,8 @@ START:
 			}
 		if (ans == goal) goto START;
 		check_state();
-		if(Jump || Sky) do_jump();
+		if(Jump || Sky) ;
+		do_jump();
 		if(Vy != 0) do_move();
 		process_kbd();
 		for(i = Xnow; i < Xnow + Width; ++ i)
