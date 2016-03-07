@@ -36,6 +36,7 @@ void kbd_event(int scan_code) {
 extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
 
 void press_key(int keys) {
+	printk("press %c\n", keys + 'a');
 	letter_pressed[keys] = KEY_STATE_WAIT_RELEASE;
 	switch(keys + 'a') {
 		case 'w' : 
@@ -52,6 +53,7 @@ void press_key(int keys) {
 }
 
 void release_key(int keys) {
+	printk("release %c\n", keys + 'a');
 	letter_pressed[keys] = KEY_STATE_EMPTY;
 	switch(keys + 'a') {
 		case 'w' : 
