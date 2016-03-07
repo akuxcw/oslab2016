@@ -1,5 +1,4 @@
 #include "vgatypes.h"
-const static InfoBlock *VbeInfo = (InfoBlock *)0xa01;
 #define VGA_ADDR VbeInfo->physbase
 #define V_ROW 600
 #define V_COL 800

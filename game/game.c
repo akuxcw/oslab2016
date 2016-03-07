@@ -1,7 +1,9 @@
 #include <inc/string.h>
 #include <inc/stdio.h>
+
 #include "vga.h"
 
+const static InfoBlock *VbeInfo = (InfoBlock *)0xa01;
 enum {SKY, GROUND};
 
 extern jpg Basic2;
