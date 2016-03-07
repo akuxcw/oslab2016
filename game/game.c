@@ -89,7 +89,7 @@ void do_jump() {
 		}
 	} else {
 		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) {
-			Vx = - Vx;
+			Vx = 0;
 			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) tmp ++;
 		}
 	}
