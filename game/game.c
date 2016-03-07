@@ -7,7 +7,6 @@ extern jpg Basic;
 extern jpg GreenBlock;
 extern jpg GoldenBlock;
 
-bool query_key(int);
 void Delay(int t);
 
 bool v[600][800];
@@ -17,6 +16,38 @@ int Gx, Gy, Gwidth;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx, Jump;
 int g;
 int Delta;
+
+void do_jump();
+void do_move();
+void check_state();
+
+void init_game();
+void process_kbd();
+
+void game(){
+START:
+	init_game();
+	int i, j;
+	while(1) {
+		for(i = Xnow; i < Xnow + Width; ++ i)
+		  	for(j = Ynow; j < Ynow + Width; ++ j) {
+			  	toColor(color(i,j), Basic2.arr[i * V_COL + j]);
+				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
+					if(!v[i][j]) ans ++, v[i][j] = true;
+				}
+			}
+		if (ans == goal) goto START;
+		check_state();
+		if(Jump) do_jump();
+		if(Vy != 0) do_move();
+		process_kbd();
+		for(i = Xnow; i < Xnow + Width; ++ i)
+			for(j = Ynow; j < Ynow + Width; ++ j)
+				toColor(color(i,j),0x00ff);
+		Delay(Delta);
+	}
+
+}
 
 void init_game() {
 	color_buffer = (RGB *) VGA_ADDR;
@@ -47,36 +78,6 @@ void init_game() {
 	
 }
 
-void do_jump();
-void do_move();
-void check_state();
-
-void game(){
-START:
-	init_game();
-	int i, j;
-	while(1) {
-		for(i = Xnow; i < Xnow + Width; ++ i)
-		  	for(j = Ynow; j < Ynow + Width; ++ j) {
-			  	toColor(color(i,j), Basic2.arr[i * V_COL + j]);
-				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
-					if(!v[i][j]) ans ++, v[i][j] = true;
-				}
-			}
-		if (ans == goal) goto START;
-		check_state();
-		if(Jump) do_jump();
-		if(Vy != 0) do_move();
-		if (query_key('w' - 'a') && Jump < 2) Vx = -Vsx, Jump ++;
-		if (query_key('a' - 'a')) Vy = -Vsy;
-		if (query_key('d' - 'a')) Vy = +Vsy;
-		for(i = Xnow; i < Xnow + Width; ++ i)
-			for(j = Ynow; j < Ynow + Width; ++ j)
-				toColor(color(i,j),0x00ff);
-		Delay(Delta);
-	}
-
-}
 
 void do_jump() {
 	int tmp = Xnow + Vx/10;
@@ -102,7 +103,6 @@ void do_move() {
 	while(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1 ||
 				Property[Xnow][tmp] == 1 || Property[Xnow + Width - 1][tmp] == 1) tmp +=d;
 	Ynow = tmp;
-	Vy = 0;
 }
 
 void check_state() {
