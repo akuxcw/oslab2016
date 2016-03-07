@@ -107,4 +107,5 @@ void process_move() {
 
 void check_state() {
 	if (Property[Xnow + Width][Ynow] == SKY && Property[Xnow + Width][Ynow + Width - 1] == SKY) Sky = 1;
+	else Sky = 0;
 }
