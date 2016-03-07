@@ -39,9 +39,9 @@ START:
 				}
 			}
 		if (ans == goal) goto START;
-		check_state();
 		process_move();
 		process_kbd();
+		check_state();
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
 				toColor(color(i,j),0x00ff);
