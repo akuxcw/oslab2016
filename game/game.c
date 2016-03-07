@@ -18,8 +18,6 @@ int Sky, Jump;
 int g;
 int Delta;
 
-void do_jump();
-void do_move();
 void check_state();
 
 void init_game();
@@ -79,10 +77,6 @@ void init_game() {
 	
 }
 
-
-void do_jump() {
-}
-
 void process_move() {
 	/*   x-ray  */
 	int tmp = Xnow + Vx/10;
@@ -91,14 +85,14 @@ void process_move() {
 			Jump = false;
 			while(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) tmp --;
 		}
-	} else {
+	} else if (Vx < 0) {
 		if(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) {
 			Vx = 0;
 			while(Property[tmp][Ynow] == 1 || Property[tmp][Ynow + Width - 1] == 1) tmp ++;
 		}
 	}
 	Xnow = tmp;
-	if (Jump) Vx += g;
+	if (Sky) Vx += g; else Vx = 0;
 
 	/*   y-ray  */
 	tmp = Ynow + Vy/10;
@@ -110,5 +104,5 @@ void process_move() {
 }
 
 void check_state() {
-	if (Property[Xnow + Width - 1][Ynow] == 0 && Property[Xnow + Width - 1][Ynow + Width - 1] == 0) Sky = 1;
+	if (Property[Xnow + Width][Ynow] == 0 && Property[Xnow + Width][Ynow + Width - 1] == 0) Sky = 1;
 }
