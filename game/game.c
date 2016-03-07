@@ -74,7 +74,7 @@ void init_game() {
 	Vx = 0;	Vsx = 70;
 	
 	Jump = 0;
-	Delta = 20;
+	Delta = 40;
 	
 }
 
