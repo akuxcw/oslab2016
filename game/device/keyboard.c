@@ -20,7 +20,7 @@ int query_key(int index) {
 }
 
 void kbd_event(int scan_code) {
-	printk("%d\n", scan_code);
+	printk("%x\n", scan_code);
 	int i;
 	bool flag;
 	if(scan_code & 0x80) flag = false, scan_code -= 0x80; else flag = true;
@@ -28,7 +28,7 @@ void kbd_event(int scan_code) {
 		if (letter_code[i] == scan_code) {
 			if(!flag)letter_pressed[i] = KEY_STATE_RELEASE;
 			if(flag && query_key(i) == KEY_STATE_EMPTY) 
-				letter_pressed[i] = KEY_STATE_RELEASE;
+				letter_pressed[i] = KEY_STATE_PRESS;
 		}
 	}
 
