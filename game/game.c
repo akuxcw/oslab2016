@@ -2,6 +2,8 @@
 #include <inc/stdio.h>
 #include "vga.h"
 
+enum {SKY, GROUND};
+
 extern jpg Basic2;
 extern jpg Basic;
 extern jpg GreenBlock;
@@ -57,13 +59,13 @@ void init_game() {
 			Property[i][j] = 1;
 		}
 	}
-	Displayjpg(0, 0, &Basic, 0);
+	Displayjpg(0, 0, &Basic, SKY);
 	for(i = 100; i < 600; i += 100) 
 	  	for(j = 0; j < 800; j += 100)
-			Displayjpg(i, j, &GreenBlock, 1);
+			Displayjpg(i, j, &GreenBlock, GROUND);
 
 	Gx = 10; Gy = 400; Gwidth = 30;
-	Displayjpg(Gx, Gy, &GoldenBlock, 2);
+	Displayjpg(Gx, Gy, &GoldenBlock, SKY);
 	
 	ans = 0; goal = 30 * 30; 
 	Xnow = 580, Ynow = 10, Width = 20;
@@ -104,5 +106,5 @@ void process_move() {
 }
 
 void check_state() {
-	if (Property[Xnow + Width][Ynow] == 0 && Property[Xnow + Width][Ynow + Width - 1] == 0) Sky = 1;
+	if (Property[Xnow + Width][Ynow] == SKY && Property[Xnow + Width][Ynow + Width - 1] == SKY) Sky = 1;
 }
