@@ -1,6 +1,5 @@
 #include <inc/string.h>
 #include <inc/stdio.h>
-
 #include "vga.h"
 
 const static InfoBlock *VbeInfo = (InfoBlock *)0xa01;
@@ -46,9 +45,6 @@ START:
 		process_move();
 		process_kbd();
 		process_video();
-		for(i = Xnow; i < Xnow + Width; ++ i)
-			for(j = Ynow; j < Ynow + Width; ++ j)
-				toColor(color(i,j),0x00ff);
 		Delay(Delta);
 	}
 }
