@@ -24,8 +24,8 @@ int Delta;
 void check_state();
 
 void init_game();
+void do_move();
 void process_kbd();
-void process_move();
 void process_video();
 
 void game(){
@@ -42,7 +42,7 @@ START:
 			}
 		if (ans == goal) goto START;
 		check_state();
-		process_move();
+		do_move();
 		process_kbd();
 		process_video();
 		Delay(Delta);
@@ -86,7 +86,7 @@ void init_game() {
 		
 }
 
-void process_move() {
+void do_move() {
 	/*   x-ray  */
 	int tmp = Xnow + Vx/10;
 	if(Vx > 0) {
