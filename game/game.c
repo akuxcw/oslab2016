@@ -94,7 +94,7 @@ void process_move() {
 		}
 	}
 	Xnow = tmp;
-	if (Sky) Vx += g; else Vx = 0;
+	if (Sky || Jump) Vx += g; else Vx = 0;
 
 	/*   y-ray  */
 	tmp = Ynow + Vy/10;
