@@ -13,7 +13,8 @@ bool v[600][800];
 int Property[700][900];
 int ans, goal;
 int Gx, Gy, Gwidth;
-int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx, Jump;
+int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
+int Sky, Jump;
 int g;
 int Delta;
 
@@ -38,7 +39,7 @@ START:
 			}
 		if (ans == goal) goto START;
 		check_state();
-		if(Jump) do_jump();
+		if(Jump || Sky) do_jump();
 		if(Vy != 0) do_move();
 		process_kbd();
 		for(i = Xnow; i < Xnow + Width; ++ i)
@@ -106,5 +107,5 @@ void do_move() {
 }
 
 void check_state() {
-	if (Property[Xnow + Width - 1][Ynow] == 0 && Property[Xnow + Width - 1][Ynow + Width - 1] == 0) Jump ++;
+	if (Property[Xnow + Width - 1][Ynow] == 0 && Property[Xnow + Width - 1][Ynow + Width - 1] == 0) Sky = 1;
 }
