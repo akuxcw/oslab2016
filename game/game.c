@@ -24,6 +24,7 @@ void check_state();
 
 void init_game();
 void process_kbd();
+void process_move();
 
 void game(){
 START:
@@ -39,9 +40,7 @@ START:
 			}
 		if (ans == goal) goto START;
 		check_state();
-		if(Jump || Sky) ;
-		do_jump();
-		if(Vy != 0) do_move();
+		process_move();
 		process_kbd();
 		for(i = Xnow; i < Xnow + Width; ++ i)
 			for(j = Ynow; j < Ynow + Width; ++ j)
@@ -82,6 +81,10 @@ void init_game() {
 
 
 void do_jump() {
+}
+
+void process_move() {
+	/*   x-ray  */
 	int tmp = Xnow + Vx/10;
 	if(Vx > 0) {
 		if(Property[tmp + Width - 1][Ynow] == 1 || Property[tmp + Width - 1][Ynow + Width - 1] == 1) {
@@ -96,10 +99,9 @@ void do_jump() {
 	}
 	Xnow = tmp;
 	if (Jump) Vx += g;
-}
 
-void do_move() {
-	int tmp = Ynow + Vy/10;
+	/*   y-ray  */
+	tmp = Ynow + Vy/10;
 	int d;
 	if(Vy > 0) d = -1; else d = 1;
 	while(Property[Xnow][tmp + Width - 1] == 1 || Property[Xnow + Width - 1][tmp + Width - 1] == 1 ||
