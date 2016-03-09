@@ -89,23 +89,23 @@ void init_game() {
 	Block[0][50] = GOLDEN;
 
 	/* Display picture */
-	Displayjpg(0, 0, &Basic, SKY);
+	Displayjpg(0, 0, &Basic);
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
-/*
+
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
 			switch(Block[i][j]) {
 				case GREEN :
-					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GreenBlock, GROUND);
+					//for()
 					break;
 				case GOLDEN :
-					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
+					//Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
 					break;
 			}
 //			printk("%d %d\n", i, j);
 		}
-*/
+
 	Updata_vga();	
 }
 
