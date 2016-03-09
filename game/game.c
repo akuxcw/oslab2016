@@ -65,11 +65,6 @@ void init_game() {
 	memset(v, 0, sizeof v);	
 	
 	int i, j;
-	for(i = 0; i < 700; ++ i) {
-		for(j = 0; j < 900; ++ j) {
-			prop(i,j) = 1;
-		}
-	}
 	
 	/* Set parameter */
 	Gx = 0; Gy = 1500; Gwidth = 30;   //goal block
