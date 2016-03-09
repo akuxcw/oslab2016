@@ -103,7 +103,7 @@ void init_game() {
 					Set_property(i * 30, j * 30, 30, 30, GROUND);
 					break;
 				case GOLDEN :
-					Set_property(i * 30, j * 30, 30, 30, GROUND);
+					Set_property(i * 30, j * 30, 30, 30, SKY);
 					break;
 			}
 		}
