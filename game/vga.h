@@ -24,5 +24,5 @@ Displayjpg(int x, int y, jpg* graph, int p) {
 
 static inline void
 Updata_vga() {
-	memcpy((void*) color_buffer, (void*)L2_color_buffer, 600 * 800 * 3);
+	memcpy((void*) L2_color_buffer, (void*)color_buffer, 600 * 800 * 3);
 }
