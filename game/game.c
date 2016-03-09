@@ -74,7 +74,7 @@ void init_game() {
 	
 	g = 6;
 	Vy = 0;	Vsy = 50;
-	Vx = 0;	Vsx = 120;
+	Vx = 0;	Vsx = 80;
 
 	Jump = 0;
 	Delta = 2;
