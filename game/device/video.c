@@ -18,7 +18,7 @@ void process_video() {
 	int i, j;
 	//Displayjpg(0, 0, &Basic, SKY);
 	memset((void*)0xfc000000, 0, 600*800*3);
-	memset(Property, 0, sizeof Property);
+//	memset(Property, 0, sizeof Property);
 	for(i = Xnow; i < Xnow + Width; ++ i)
 		for(j = 400; j < 400 + Width; ++ j)
 			toColor(color(i,j),0x00ff);
@@ -28,7 +28,7 @@ void process_video() {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
 			switch(Block[i][j]) {
 				case GREEN :
-					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GreenBlock, GROUND);
+					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GreenBlock, SKY);
 					break;
 				case GOLDEN :
 					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
