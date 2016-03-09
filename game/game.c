@@ -69,9 +69,9 @@ void init_game() {
 
 	Xnow = 580, Ynow = 10, Width = 20;
 	
-	g = 3;
+	g = 4;
 	Vy = 0;	Vsy = 50;
-	Vx = 0;	Vsx = 100;
+	Vx = 0;	Vsx = 120;
 
 	Jump = 0;
 	Delta = 15;
