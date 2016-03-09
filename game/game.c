@@ -42,7 +42,7 @@ START:
 		time = Get_time();
 		for(i = Xnow; i < Xnow + Width; ++ i)
 		  	for(j = Ynow; j < Ynow + Width; ++ j) {
-			  	toColor(color(i,j), Basic.arr[i * V_COL + j]);
+//			  	toColor(color(i,j), Basic.arr[i * V_COL + j]);
 				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
@@ -70,7 +70,7 @@ void init_game() {
 	}
 	
 	/* Set parameter */
-	Gx = 10; Gy = 400; Gwidth = 30;   //goal block
+	Gx = 0; Gy = 1500; Gwidth = 30;   //goal block
 	ans = 0; goal = 30 * 30; 
 
 	Xnow = 580, Ynow = 400, Width = 20;
