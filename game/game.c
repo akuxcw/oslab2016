@@ -60,7 +60,6 @@ void init_game() {
 	/* Get framebuffer */
 	color_buffer = (RGB *) VGA_ADDR;
 	L2_color_buffer = (RGB *) (VGA_ADDR + 600 * 800 * 3);	
-	//BackGround = (int *) 0x2000000;//(VGA_ADDR + 2 * 600 * 800 * 3);	
 	memset(v, 0, sizeof v);	
 	
 	/* Set property */
@@ -82,7 +81,7 @@ void init_game() {
 	Vx = 0;	Vsx = 120;
 
 	Jump = 0;
-	Delta = 3;
+	Delta = 2;
 
 	for(i = 3; i < 20; i += 3)
 	  	for(j = 0; j < 100; j += 3)
