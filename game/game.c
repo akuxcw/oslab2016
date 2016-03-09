@@ -74,7 +74,7 @@ void init_game() {
 
 	Xnow = 580, Ynow = 400, Width = 20;
 	
-	g = 4;
+	g = 6;
 	Vy = 0;	Vsy = 50;
 	Vx = 0;	Vsx = 120;
 
