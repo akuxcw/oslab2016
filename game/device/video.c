@@ -35,6 +35,6 @@ void process_video() {
 					break;
 			}
 		}
-
+	Updata_vga();
 }
 
