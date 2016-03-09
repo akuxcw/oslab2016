@@ -11,7 +11,7 @@ extern jpg GreenBlock;
 extern jpg GoldenBlock;
 extern int Property[700][900];
 extern int Block[20][100];
-extern int BackGround[600*800*3];
+extern int * BackGround;
 
 extern int Xnow, Ynow, Width;
 

@@ -23,7 +23,7 @@ int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
 int Sky, Jump;
 int g;
 int Delta;
-int BackGround[600*800*3];
+int * BackGround;
 
 void check_state();
 
@@ -60,6 +60,7 @@ void init_game() {
 	/* Get framebuffer */
 	color_buffer = (RGB *) VGA_ADDR;
 	L2_color_buffer = (RGB *) (VGA_ADDR + 600 * 800 * 3);	
+	BackGround = (int *) (VGA_ADDR + 2 * 600 * 800 * 3);	
 	memset(v, 0, sizeof v);	
 	
 	/* Set property */
@@ -91,6 +92,7 @@ void init_game() {
 	/* Display picture */
 	Displayjpg(0, 0, &Basic, SKY);
 	memcpy((void *)BackGround, (void *)color_buffer, 600 * 800 * 3);	
+
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
