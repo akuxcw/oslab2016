@@ -102,7 +102,7 @@ void init_game() {
 			}
 //			printk("%d %d\n", i, j);
 		}
-		
+	Updata_vga();	
 }
 
 void do_move() {
