@@ -70,7 +70,7 @@ void init_game() {
 	Xnow = 580, Ynow = 10, Width = 20;
 	
 	g = 2;
-	Vy = 0;	Vsy = 30;
+	Vy = 0;	Vsy = 50;
 	Vx = 0;	Vsx = 70;
 
 	Jump = 0;
