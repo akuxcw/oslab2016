@@ -1,4 +1,5 @@
 #include <inc/stdio.h>
+#include <inc/string.h>
 #include "../vga.h"
 
 enum {SKY, GROUND};
@@ -15,7 +16,8 @@ extern int Xnow, Ynow, Width;
 
 void process_video() {
 	int i, j;
-	Displayjpg(0, 0, &Basic, SKY);
+	//Displayjpg(0, 0, &Basic, SKY);
+	memset((void*)0xfc000000, 0, 600*800*3);
 	for(i = Xnow; i < Xnow + Width; ++ i)
 		for(j = 400; j < 400 + Width; ++ j)
 			toColor(color(i,j),0x00ff);
