@@ -27,10 +27,10 @@ void process_video() {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
 			switch(Block[i][j]) {
 				case GREEN :
-					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GreenBlock, SKY);
+					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GreenBlock);
 					break;
 				case GOLDEN :
-					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
+					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock);
 					break;
 			}
 		}
