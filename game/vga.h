@@ -5,7 +5,7 @@
 #define V_COL 800
 RGB * color_buffer;
 RGB * L2_color_buffer;
-#define color(x,y) L2_color_buffer[(x)*V_COL+(y)]
+#define color(x,y) color_buffer[(x)*V_COL+(y)]
 #define toColor(x,y) {x.R = (y)&0xff;\
 					 x.G = ((y)>>8)&0xff;\
 					 x.B = ((y)>>16)&0xff;}
