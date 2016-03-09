@@ -88,13 +88,13 @@ void init_game() {
 	
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
-			if(400 + (j - Ynow) * 30 > 0 || 400 + (j - Ynow) * 30 < 770) continue;
+			if(400 + j * 30 - Ynow > 0 || 400 + j * 30 - Ynow < 770) continue;
 			switch(Block[i][j]) {
 				case GREEN :
-					Displayjpg(i * 30, 400 + (j - Ynow) * 30, &GreenBlock, GROUND);
+					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GreenBlock, GROUND);
 					break;
 				case GOLDEN :
-					Displayjpg(i * 30, 400 + (j - Ynow) * 30, &GoldenBlock, SKY);
+					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
 			}
 		}
 		
