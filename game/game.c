@@ -95,7 +95,9 @@ void init_game() {
 					break;
 				case GOLDEN :
 					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
+					break;
 			}
+			printk("%d %d\n", i, j);
 		}
 		
 }
