@@ -49,7 +49,7 @@ START:
 		check_state();
 		do_move();
 		process_kbd();
-		process_video();
+//		process_video();
 		while(Get_time() - time < Delta);
 	}
 }
