@@ -4,6 +4,7 @@
 
 const static InfoBlock *VbeInfo = (InfoBlock *)0xa01;
 enum {SKY, GROUND};
+enum {EMPTY, GREEN, GOLDEN};
 
 extern jpg Basic2;
 extern jpg Basic;
@@ -14,6 +15,7 @@ void Delay(int t);
 
 bool v[600][800];
 int Property[700][900];
+int Block[20][100];
 int ans, goal;
 int Gx, Gy, Gwidth;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
@@ -76,13 +78,25 @@ void init_game() {
 	Jump = 0;
 	Delta = 15;
 
+	for(i = 3; i < 20; i += 3)
+	  	for(j = 0; j < 100; j += 3)
+			Block[i][j] = GREEN;
+	Block[0][50] = GOLDEN;
+
 	/* Display picture */
 	Displayjpg(0, 0, &Basic, SKY);
-	for(i = 100; i < 600; i += 100) 
-	  	for(j = 0; j < 800; j += 100)
-			Displayjpg(i, j, &GreenBlock, GROUND);
-	Displayjpg(Gx, Gy, &GoldenBlock, SKY);
-
+	
+	for(i = 0; i < 20; ++ i) 
+		for(j = 0; j < 100; ++ j) {
+			if(j - Ynow - 30 > 400 || Ynow - j > 400) continue;
+			switch(Block[i][j]) {
+				case GREEN :
+					Displayjpg(i * 30, j * 30, &GreenBlock, GROUND);
+					break;
+				case GOLDEN :
+					Displayjpg(i * 30, j * 30, &GoldenBlock, SKY);
+			}
+		}
 		
 }
 
