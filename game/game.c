@@ -12,6 +12,7 @@ extern jpg GreenBlock;
 extern jpg GoldenBlock;
 
 void Delay(int t);
+int Get_time();
 
 bool v[600][800];
 int Property[700][900];
@@ -34,7 +35,9 @@ void game(){
 START:
 	init_game();
 	int i, j;
+	volatile int time;
 	while(1) {
+		time = Get_time();
 		for(i = Xnow; i < Xnow + Width; ++ i)
 		  	for(j = Ynow; j < Ynow + Width; ++ j) {
 			  	toColor(color(i,j), Basic.arr[i * V_COL + j]);
@@ -47,7 +50,7 @@ START:
 		do_move();
 		process_kbd();
 		process_video();
-		Delay(Delta);
+		while(Get_time() - time < Delta);
 	}
 }
 
@@ -97,7 +100,7 @@ void init_game() {
 					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
 					break;
 			}
-			printk("%d %d\n", i, j);
+//			printk("%d %d\n", i, j);
 		}
 		
 }

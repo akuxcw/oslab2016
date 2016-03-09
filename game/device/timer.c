@@ -36,6 +36,9 @@ void timer_event(void) {
 	tick ++;
 }
 
+int Get_time() {
+	return tick;
+}
 
 void Delay(int t) {
 	int i = tick;
