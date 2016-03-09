@@ -15,7 +15,7 @@ void Delay(int t);
 int Get_time();
 
 bool v[600][800];
-int Property[700][900];
+int Property[700][3100];
 int Block[20][100];
 char BackGround[600*800*3];
 int ans, goal;
@@ -26,6 +26,7 @@ int g;
 int Delta;
 
 void check_state();
+void Set_property(int x, int y, int h, int l, int k);
 
 void init_game();
 void do_move();
@@ -35,7 +36,6 @@ void process_video();
 void game(){
 START:
 	init_game();
-//	printk("%x\n", L2_color_buffer);
 	int i, j;
 	volatile int time;
 	while(1) {
@@ -62,7 +62,6 @@ void init_game() {
 	L2_color_buffer = (RGB *) (VGA_ADDR + 600 * 800 * 3);	
 	memset(v, 0, sizeof v);	
 	
-	/* Set property */
 	int i, j;
 	for(i = 0; i < 700; ++ i) {
 		for(j = 0; j < 900; ++ j) {
@@ -88,24 +87,28 @@ void init_game() {
 			Block[i][j] = GREEN;
 	Block[0][50] = GOLDEN;
 
-	/* Display picture */
+	/* Display background */
 	Displayjpg(0, 0, &Basic);
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
-/*
+
+	/* Set property */
+	Set_property(0, 0, 700, 3100, SKY);
+	Set_property(0, 0, 700, 10, GROUND);
+	Set_property(600, 0, 100, 3100, GROUND);
+	Set_property(0, 3150, 700, 50, GROUND);
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
 			switch(Block[i][j]) {
 				case GREEN :
-					//for()
+					Set_property(i * 30, j * 30, 30, 30, GROUND);
 					break;
 				case GOLDEN :
-					//Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock, SKY);
+					Set_property(i * 30, j * 30, 30, 30, GROUND);
 					break;
 			}
-//			printk("%d %d\n", i, j);
 		}
-*/
+
 	Updata_vga();	
 }
 
@@ -138,4 +141,11 @@ void do_move() {
 void check_state() {
 	if (Property[Xnow + Width][Ynow] == SKY && Property[Xnow + Width][Ynow + Width - 1] == SKY) Sky = 1;
 	else Sky = 0;
+}
+
+void Set_property(int x, int y, int h, int l, int k) {
+	int i, j;
+	for(i = x; i < x + h; ++ i) 
+	  	for(j = y; j < y + l; ++ j)
+		  	Property[i][j] = k;
 }
