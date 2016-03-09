@@ -91,7 +91,6 @@ void init_game() {
 	/* Display picture */
 	Displayjpg(0, 0, &Basic, SKY);
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
-	L2_color_buffer = (RGB *) (VGA_ADDR + 600 * 800 * 3);	
 
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
