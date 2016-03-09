@@ -15,7 +15,7 @@ Displayjpg(int x, int y, jpg* graph) {
 	int i, j;
 	for(i = 0; i < graph->height; ++ i)
 		for(j = 0; j < graph->length; ++ j) {
-			toColor(color(x + i - 50, y + j - 50), graph->arr[i * graph->length + j]);
+			toColor(color(x + i, y + j), graph->arr[i * graph->length + j]);
 		}
 }
 
