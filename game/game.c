@@ -79,7 +79,7 @@ void init_game() {
 	Vx = 0;	Vsx = 120;
 
 	Jump = 0;
-	Delta = 20;
+	Delta = 50;
 
 	for(i = 3; i < 20; i += 3)
 	  	for(j = 0; j < 100; j += 3)
