@@ -90,7 +90,7 @@ void init_game() {
 
 	/* Display picture */
 	Displayjpg(0, 0, &Basic, SKY);
-	
+/*	
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
@@ -104,7 +104,7 @@ void init_game() {
 			}
 //			printk("%d %d\n", i, j);
 		}
-
+*/
 	Updata_vga();	
 }
 
