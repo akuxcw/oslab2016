@@ -57,7 +57,7 @@ START:
 void init_game() {
 	/* Get framebuffer */
 	color_buffer = (RGB *) VGA_ADDR;
-	L2_color_buffer = (RGB *) (VGA_ADDR - (600 * 800 * 3));	
+	L2_color_buffer = (RGB *) (VGA_ADDR - 0x1000000);	
 	memset(v, 0, sizeof v);	
 	
 	/* Set property */
