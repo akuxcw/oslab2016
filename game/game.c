@@ -90,7 +90,7 @@ void init_game() {
 	Block[0][50] = GOLDEN;
 
 	/* Display background */
-	Displayjpg(0, 0, &Basic);
+	Displayjpg(50, 50, &Basic);
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
 	/* Set property */
