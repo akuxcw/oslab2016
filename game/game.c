@@ -17,13 +17,13 @@ int Get_time();
 bool v[600][800];
 int Property[700][900];
 int Block[20][100];
+char BackGround[600*800*3];
 int ans, goal;
 int Gx, Gy, Gwidth;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
 int Sky, Jump;
 int g;
 int Delta;
-char BackGround[600*800*3];
 
 void check_state();
 
