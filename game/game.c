@@ -34,7 +34,7 @@ void process_video();
 void game(){
 START:
 	init_game();
-	printk("%x\n", L2_color_buffer);
+//	printk("%x\n", L2_color_buffer);
 	int i, j;
 	volatile int time;
 	while(1) { };
@@ -51,7 +51,7 @@ START:
 		check_state();
 		do_move();
 		process_kbd();
-//		process_video();
+		process_video();
 		while(Get_time() - time < Delta);
 	}
 }
@@ -90,7 +90,7 @@ void init_game() {
 
 	/* Display picture */
 	Displayjpg(0, 0, &Basic, SKY);
-/*	
+	
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			if(400 + j * 30 - Ynow < 0 || 400 + j * 30 - Ynow > 770) continue;
@@ -104,7 +104,7 @@ void init_game() {
 			}
 //			printk("%d %d\n", i, j);
 		}
-*/
+
 	Updata_vga();	
 }
 
