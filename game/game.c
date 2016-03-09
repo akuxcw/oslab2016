@@ -97,7 +97,7 @@ void init_game() {
 	Set_property(0, 0, 650, 3050, SKY);
 	Set_property(0, 0, 650, 10, GROUND);		//Left wall
 	Set_property(600, 0, 50, 3050, GROUND);	//Ground
-	Set_property(0, 3100, 650, 50, GROUND);		//Right wall
+	Set_property(0, 3050, 650, 50, GROUND);		//Right wall
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			switch(Block[i][j]) {
