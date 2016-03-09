@@ -69,7 +69,7 @@ void init_game() {
 	Gx = 10; Gy = 400; Gwidth = 30;   //goal block
 	ans = 0; goal = 30 * 30; 
 
-	Xnow = 580, Ynow = 10, Width = 20;
+	Xnow = 580, Ynow = 400, Width = 20;
 	
 	g = 4;
 	Vy = 0;	Vsy = 50;
