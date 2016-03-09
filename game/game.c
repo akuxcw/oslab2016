@@ -34,6 +34,7 @@ void process_video();
 void game(){
 START:
 	init_game();
+	printk("%x\n", L2_color_buffer);
 	int i, j;
 	volatile int time;
 	while(1) {
