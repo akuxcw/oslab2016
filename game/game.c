@@ -94,10 +94,10 @@ void init_game() {
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
 	/* Set property */
-	Set_property(0, 0, 700, 3100, SKY);
-	Set_property(0, 0, 700, 10, GROUND);
-	Set_property(600, 0, 100, 3100, GROUND);
-	Set_property(0, 3150, 700, 50, GROUND);
+	Set_property(0, 0, 650, 3050, SKY);
+	Set_property(0, 0, 650, 10, GROUND);		//Left wall
+	Set_property(600, 0, 50, 3050, GROUND);	//Ground
+	Set_property(0, 3100, 650, 50, GROUND);		//Right wall
 	for(i = 0; i < 20; ++ i) 
 		for(j = 0; j < 100; ++ j) {
 			switch(Block[i][j]) {
