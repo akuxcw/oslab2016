@@ -25,6 +25,8 @@ int Sky, Jump;
 int g;
 int Delta;
 
+//#define prop(i,j) Property[i+50][j+50]
+
 void check_state();
 void Set_property(int x, int y, int h, int l, int k);
 
@@ -70,10 +72,10 @@ void init_game() {
 	}
 	
 	/* Set parameter */
-	Gx = 0; Gy = 1500; Gwidth = 30;   //goal block
+	Gx = 50; Gy = 1550; Gwidth = 30;   //goal block
 	ans = 0; goal = 30 * 30; 
 
-	Xnow = 580, Ynow = 400, Width = 20;
+	Xnow = 630, Ynow = 450, Width = 20;
 	
 	g = 6;
 	Vy = 0;	Vsy = 50;
