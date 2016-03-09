@@ -67,7 +67,7 @@ void init_game() {
 	int i, j;
 	for(i = 0; i < 700; ++ i) {
 		for(j = 0; j < 900; ++ j) {
-			Property[i][j] = 1;
+			prop(i,j) = 1;
 		}
 	}
 	
@@ -117,14 +117,14 @@ void do_move() {
 	/*   x-ray  */
 	int tmp = Xnow + Vx/10;
 	if(Vx > 0) {
-		if(Property[tmp + Width - 1][Ynow] == GROUND || Property[tmp + Width - 1][Ynow + Width - 1] == GROUND) {
+		if(prop(tmp + Width - 1,Ynow) == GROUND || prop(tmp + Width - 1,Ynow + Width - 1) == GROUND) {
 			Jump = 0;
-			while(Property[tmp + Width - 1][Ynow] == GROUND || Property[tmp + Width - 1][Ynow + Width - 1] == GROUND) tmp --;
+			while(prop(tmp + Width - 1,Ynow) == GROUND || prop(tmp + Width - 1,Ynow + Width - 1) == GROUND) tmp --;
 		}
 	} else if (Vx < 0) {
-		if(Property[tmp][Ynow] ==  GROUND || Property[tmp][Ynow + Width - 1] == GROUND) {
+		if(prop(tmp,Ynow) ==  GROUND || prop(tmp,Ynow + Width - 1) == GROUND) {
 			Vx = 0;
-			while(Property[tmp][Ynow] == GROUND || Property[tmp][Ynow + Width - 1] == GROUND) tmp ++;
+			while(prop(tmp,Ynow) == GROUND || prop(tmp,Ynow + Width - 1) == GROUND) tmp ++;
 		}
 	}
 	Xnow = tmp;
@@ -134,13 +134,13 @@ void do_move() {
 	tmp = Ynow + Vy/10;
 	int d;
 	if(Vy > 0) d = -1; else d = 1;
-	while(Property[Xnow][tmp + Width - 1] == GROUND || Property[Xnow + Width - 1][tmp + Width - 1] == GROUND ||
-				Property[Xnow][tmp] == GROUND || Property[Xnow + Width - 1][tmp] == GROUND) tmp +=d;
+	while(prop(Xnow,tmp + Width - 1) == GROUND || prop(Xnow + Width - 1,tmp + Width - 1) == GROUND ||
+				prop(Xnow,tmp) == GROUND || prop(Xnow + Width - 1,tmp) == GROUND) tmp +=d;
 	Ynow = tmp;
 }
 
 void check_state() {
-	if (Property[Xnow + Width][Ynow] == SKY && Property[Xnow + Width][Ynow + Width - 1] == SKY) Sky = 1;
+	if (prop(Xnow + Width,Ynow) == SKY && prop(Xnow + Width,Ynow + Width - 1) == SKY) Sky = 1;
 	else Sky = 0;
 }
 
@@ -148,5 +148,5 @@ void Set_property(int x, int y, int h, int l, int k) {
 	int i, j;
 	for(i = x; i < x + h; ++ i) 
 	  	for(j = y; j < y + l; ++ j)
-		  	Property[i][j] = k;
+		  	prop(i,j) = k;
 }
