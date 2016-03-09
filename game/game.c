@@ -94,7 +94,7 @@ void init_game() {
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
 	/* Set property */
-//	Set_property(0, 0, 650, 3050, SKY);
+	Set_property(0, 0, 650, 3050, SKY);
 	Set_property(0, 0, 650, 10, GROUND);		//Left wall
 	Set_property(600, 0, 50, 3050, GROUND);		//Ground
 	Set_property(0, 3000, 650, 50, GROUND);		//Right wall
@@ -102,7 +102,7 @@ void init_game() {
 		for(j = 0; j < 100; ++ j) {
 			switch(Block[i][j]) {
 				case GREEN :
-					Set_property(i * 30, j * 30, 30, 30, GROUND);
+					//Set_property(i * 30, j * 30, 30, 30, GROUND);
 					break;
 				case GOLDEN :
 					Set_property(i * 30, j * 30, 30, 30, SKY);
