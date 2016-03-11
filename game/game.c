@@ -49,7 +49,7 @@ START:
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
 			}
-		if (ans == goal) goto START;
+		if (ans) goto START;
 		check_state();
 		do_move();
 		process_kbd();
