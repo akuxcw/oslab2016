@@ -24,6 +24,7 @@ int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
 int Sky, Jump;
 int g;
 int Delta;
+int restart;
 
 #define prop(i,j) Property[i+50][j+50]
 
@@ -49,12 +50,18 @@ START:
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
 			}
-		if (ans) goto START;
+		if (ans) break;
 		check_state();
 		do_move();
 		process_kbd();
 		process_video();
 		while(Get_time() - time < Delta);
+	}
+	Displayjpg(0, 0, &Basic2);
+	Updata_vga();
+	while(1) {
+		process_kbd();
+		if(restart) goto START;
 	}
 }
 
@@ -66,6 +73,7 @@ void init_game() {
 	
 	int i, j;
 	
+	restart = 0;
 	/* Set parameter */
 	Gx = 0; Gy = 1500; Gwidth = 30;   //goal block
 	ans = 0; goal = 30 * 30; 

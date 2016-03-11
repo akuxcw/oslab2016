@@ -35,6 +35,7 @@ void kbd_event(int scan_code) {
 }
 
 extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
+extern int restart;
 
 void press_key(int keys) {
 //	printk("press %c\n", keys + 'a');
@@ -49,6 +50,8 @@ void press_key(int keys) {
 		case 'd' :
 			Vy += Vsy;
 			break;
+		case 'r' :
+			restart = true;
 		default : ;
 	}
 }
