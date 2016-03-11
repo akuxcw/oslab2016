@@ -57,6 +57,7 @@ START:
 		process_video();
 		while(Get_time() - time < Delta);
 	}
+	restart = 0;
 	Displayjpg(0, 0, &Basic2);
 	Updata_vga();
 	while(1) {
@@ -73,7 +74,6 @@ void init_game() {
 	
 	int i, j;
 	
-	restart = 0;
 	/* Set parameter */
 	Gx = 0; Gy = 1500; Gwidth = 30;   //goal block
 	ans = 0; goal = 30 * 30; 
