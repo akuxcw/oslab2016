@@ -15,7 +15,7 @@ int printk(const char *fmt, ...) {
 	int cnt = 0;
 
 	va_start(ap, fmt);
-	printfmt((void*)putch, &cnt, fmt, ap);
+	vprintfmt((void*)putch, &cnt, fmt, ap);
 	va_end(ap);
 
 	return cnt;
