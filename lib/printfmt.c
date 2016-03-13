@@ -1,22 +1,8 @@
-// Stripped-down primitive printf-style formatting routines,
-// used in common by printf, sprintf, fprintf, etc.
-// This code is also used by both the kernel and user programs.
-
-#include "inc/types.h"
-#include "inc/stdio.h"
-#include "inc/string.h"
-#include "inc/stdarg.h"
-#include "inc/error.h"
-
-/*
- * Space or zero padding and a field width are supported for the numeric
- * formats only.
- *
- * The special format %e takes an integer error code
- * and prints a string describing the error.
- * The integer may be positive or negative,
- * so that -E_NO_MEM and E_NO_MEM are equivalent.
- */
+#include <inc/types.h>
+#include <inc/stdio.h>
+#include <inc/string.h>
+#include <inc/stdarg.h>
+#include <inc/error.h>
 
 static const char * const error_string[MAXERROR] =
 {
@@ -205,11 +191,9 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// (unsigned) octal
 		case 'o':
-			// Replace this with your code.
-			putch('X', putdat);
-			putch('X', putdat);
-			putch('X', putdat);
-			break;
+			num = getuint(&ap, lflag);
+			base = 8;
+			goto number;
 
 		// pointer
 		case 'p':
@@ -229,10 +213,10 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 			break;
 
 		// escaped '%' character
-		case '%':
+/*		case '%':
 			putch(ch, putdat);
 			break;
-
+*/
 		// unrecognized escape sequence - just print it literally
 		default:
 			putch('%', putdat);
