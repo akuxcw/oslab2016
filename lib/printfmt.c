@@ -1,21 +1,9 @@
 #include <inc/types.h>
-#include <inc/stdio.h>
+//#include <inc/stdio.h>
 #include <inc/string.h>
 #include <inc/stdarg.h>
-#include <inc/error.h>
 
 /*
-static const char * const error_string[MAXERROR] =
-{
-	[E_UNSPECIFIED]	= "unspecified error",
-	[E_BAD_ENV]	= "bad environment",
-	[E_INVAL]	= "invalid parameter",
-	[E_NO_MEM]	= "out of memory",
-	[E_NO_FREE_ENV]	= "out of environments",
-	[E_FAULT]	= "segmentation fault",
-};
-
-
  * Print a number (base <= 16) in reverse order,
  * using specified putch function and associated pointer putdat.
  */
@@ -62,9 +50,6 @@ getint(va_list *ap, int lflag)
 		return va_arg(*ap, int);
 }
 
-
-// Main function to format and print a string.
-void printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...);
 
 void
 vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
@@ -147,17 +132,6 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 			putch(va_arg(ap, int), putdat);
 			break;
 
-		// error message
-/*		case 'e':
-			err = va_arg(ap, int);
-			if (err < 0)
-				err = -err;
-			if (err >= MAXERROR || (p = error_string[err]) == NULL)
-				printfmt(putch, putdat, "error %d", err);
-			else
-				printfmt(putch, putdat, "%s", p);
-			break;
-*/
 		// string
 		case 's':
 			if ((p = va_arg(ap, char *)) == NULL)
@@ -228,58 +202,3 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 	}
 }
 
-/*
-void
-printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...)
-{
-	va_list ap;
-
-	va_start(ap, fmt);
-	vprintfmt(putch, putdat, fmt, ap);
-	va_end(ap);
-}
-struct sprintbuf {
-	char *buf;
-	char *ebuf;
-	int cnt;
-};
-
-static void
-sprintputch(int ch, struct sprintbuf *b)
-{
-	b->cnt++;
-	if (b->buf < b->ebuf)
-		*b->buf++ = ch;
-}
-
-int
-vsnprintf(char *buf, int n, const char *fmt, va_list ap)
-{
-	struct sprintbuf b = {buf, buf+n-1, 0};
-
-	if (buf == NULL || n < 1)
-		return -E_INVAL;
-
-	// print the string to the buffer
-	vprintfmt((void*)sprintputch, &b, fmt, ap);
-
-	// null terminate the buffer
-	*b.buf = '\0';
-
-	return b.cnt;
-}
-
-int
-snprintf(char *buf, int n, const char *fmt, ...)
-{
-	va_list ap;
-	int rc;
-
-	va_start(ap, fmt);
-	rc = vsnprintf(buf, n, fmt, ap);
-	va_end(ap);
-
-	return rc;
-}
-
-*/
