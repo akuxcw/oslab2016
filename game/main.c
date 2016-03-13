@@ -22,7 +22,7 @@ int game_main(){
 	set_timer_intr_handler(timer_event);
 	set_kbd_intr_handler(kbd_event);
 
-	printk("%d@_@ Game Start!\n", 1);
+	printk("@_@ Game Start!\n", 1);
 	asm volatile("sti");
 	game();
 	while(1);
