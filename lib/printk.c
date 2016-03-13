@@ -1,6 +1,6 @@
-#include "inc/types.h"
-#include "inc/stdio.h"
-#include "inc/stdarg.h"
+#include <inc/types.h>
+#include <inc/stdio.h>
+#include <inc/stdarg.h>
 
 void serial_putc(int);
 
@@ -19,10 +19,11 @@ int vcprintk(const char *fmt, va_list ap) {
 
 int printk(const char *fmt, ...) {
 	va_list ap;
-	int cnt;
+	int cnt = 0;
 
 	va_start(ap, fmt);
-	cnt = vcprintk(fmt, ap);
+	vprintfmt((void*)putch, &cnt, fmt, ap);
+	//cnt = vcprintk(fmt, ap);
 	va_end(ap);
 
 	return cnt;
