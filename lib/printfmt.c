@@ -69,7 +69,7 @@ void
 vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 {
 	register const char *p;
-	register int ch, err;
+	register int ch;
 	unsigned long long num;
 	int base, lflag, width, precision, altflag;
 	char padc;
@@ -147,7 +147,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 			break;
 
 		// error message
-		case 'e':
+/*		case 'e':
 			err = va_arg(ap, int);
 			if (err < 0)
 				err = -err;
@@ -156,7 +156,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 			else
 				printfmt(putch, putdat, "%s", p);
 			break;
-
+*/
 		// string
 		case 's':
 			if ((p = va_arg(ap, char *)) == NULL)
@@ -227,6 +227,7 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 	}
 }
 
+/*
 void
 printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...)
 {
@@ -236,7 +237,6 @@ printfmt(void (*putch)(int, void*), void *putdat, const char *fmt, ...)
 	vprintfmt(putch, putdat, fmt, ap);
 	va_end(ap);
 }
-/*
 struct sprintbuf {
 	char *buf;
 	char *ebuf;
