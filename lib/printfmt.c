@@ -4,6 +4,7 @@
 #include <inc/stdarg.h>
 #include <inc/error.h>
 
+/*
 static const char * const error_string[MAXERROR] =
 {
 	[E_UNSPECIFIED]	= "unspecified error",
@@ -14,7 +15,7 @@ static const char * const error_string[MAXERROR] =
 	[E_FAULT]	= "segmentation fault",
 };
 
-/*
+
  * Print a number (base <= 16) in reverse order,
  * using specified putch function and associated pointer putdat.
  */
