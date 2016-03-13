@@ -81,7 +81,7 @@ QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
 #QEMUOPTS += $(QEMUEXTRA)
 
-.PHONY: play clean debug gdb display
+.PHONY: clean debug gdb display
 
 display:
 	@echo $(OBJS)
