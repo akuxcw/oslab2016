@@ -15,6 +15,8 @@ const static int letter_code[] = {
 
 static int letter_pressed[26];
 
+int Get_time();
+
 int query_key(int index) {
 	return letter_pressed[index];
 }
@@ -36,13 +38,14 @@ void kbd_event(int scan_code) {
 
 extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
 extern int restart;
+int LastJump;
 
 void press_key(int keys) {
 //	printk("press %c\n", keys + 'a');
 	letter_pressed[keys] = KEY_STATE_WAIT_RELEASE;
 	switch(keys + 'a') {
 		case 'w' : 
-			if(Jump < 2) Vx = -Vsx, Jump ++;
+			if(Jump < 2) Vx = -Vsx/2, Jump ++, LastJump = Get_time();
 			break;
 		case 'a' :
 			Vy -= Vsy;
@@ -53,6 +56,13 @@ void press_key(int keys) {
 		case 'r' :
 			restart = true;
 		default : ;
+	}
+}
+
+void pressing_key(int keys) {
+	switch(keys + 'a') {
+		case 'w' :
+			if(Jump < 2) if(Get_time() - LastJump > 10) Vx = -Vsx/2;   
 	}
 }
 
