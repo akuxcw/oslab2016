@@ -2,13 +2,14 @@
 #include <inc/string.h>
 #include "../vga.h"
 
-enum {SKY, GROUND};
-enum {EMPTY, GREEN, GOLDEN};
+enum {SKY, GROUND, DANGER, GOAL};
+enum {EMPTY, GREEN, GOLDEN, RED};
 
 extern jpg Basic2;
 extern jpg Basic;
 extern jpg GreenBlock;
 extern jpg GoldenBlock;
+extern jpg RedBlock;
 extern int Property[700][900];
 extern int Block[20][100];
 extern char BackGround[600*800*3];
@@ -32,6 +33,8 @@ void process_video() {
 				case GOLDEN :
 					Displayjpg(i * 30, 400 + j * 30 - Ynow, &GoldenBlock);
 					break;
+				case RED :
+					Displayjpg(i * 30, 400 + j * 30 - Ynow, &RedBlock);
 			}
 		}
 	Updata_vga();

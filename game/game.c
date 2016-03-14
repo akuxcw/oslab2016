@@ -40,19 +40,9 @@ void process_video();
 void game(){
 START:
 	init_game();
-	//int i, j;
 	volatile int time;
 	while(1) {
 		time = Get_time();
-/*
-   for(i = Xnow; i < Xnow + Width; ++ i)
-		  	for(j = Ynow; j < Ynow + Width; ++ j) {
-				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
-					if(!v[i][j]) ans ++, v[i][j] = true;
-				}
-			}
-		if (ans) break;
-*/
 		check_state();
 		switch(state) {
 			case GOAL: goto RESTART;
@@ -96,7 +86,7 @@ void init_game() {
 
 	for(i = 3; i < 20; i += 3)
 	  	for(j = 0; j < 100; j += 3)
-			Block[i][j] = GREEN;
+			if((i+j)%2 == 0)Block[i][j] = GREEN; else Block[i][j] = RED;
 	Block[0][50] = GOLDEN;
 
 	/* Display background */
