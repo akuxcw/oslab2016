@@ -46,7 +46,7 @@ void press_key(int keys) {
 	letter_pressed[keys] = KEY_STATE_WAIT_RELEASE;
 	switch(keys + 'a') {
 		case 'w' : 
-			if(Jump < 2) Vx = -Vsx/2, Jump ++, LastJump = Get_time();
+			if(Jump < 2) Vx = -Vsx/2, Jump ++, LastJump = Get_time(), Jump2 = 0;
 			break;
 		case 'a' :
 			Vy -= Vsy;
@@ -63,7 +63,7 @@ void press_key(int keys) {
 void pressing_key(int keys) {
 	switch(keys + 'a') {
 		case 'w' :
-			if(Jump2 < 2 && Get_time() - LastJump > 10) Vx = -Vsx, Jump2 ++;   
+			if(!Jump2 && Get_time() - LastJump > 10) Vx = -Vsx, Jump2 ++;   
 	}
 }
 
