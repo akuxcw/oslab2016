@@ -81,7 +81,7 @@ QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
 #QEMUOPTS += $(QEMUEXTRA)
 
-.PHONY: clean debug gdb display
+.PHONY: clean debug gdb display submit
 
 display:
 	@echo $(OBJS)
@@ -102,3 +102,6 @@ debug: $(IMAGES) pre-qemu
 
 clean: clean-mdr
 	rm -f obj/game/game obj/os.img $(OBJS) $(OBJS:.o=.d)
+
+submit: clean
+	cd .. && tar cvj $(shell pwd | grep -o '[^/]*$$') > $(STU_ID).tar.bz2
