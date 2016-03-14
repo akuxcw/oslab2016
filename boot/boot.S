@@ -1,12 +1,13 @@
-//#include "inc/mmu.h"
+#include <inc/mmu.h>
 .code16
 .globl start
 start:
 	cli
-    # 切换到图形模式
-	movw    $0x13, %ax
-	int     $0x10
-
+    # Graph mode
+//	movw    $0x13, %ax
+//	int     $0x10
+	
+	# Real color mode
 	movw    $0x4f02, %ax
 	movw	$0x0115, %bx
 	int     $0x10
