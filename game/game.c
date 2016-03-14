@@ -21,7 +21,7 @@ char BackGround[600*800*3];
 int ans, goal;
 int Gx, Gy, Gwidth;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
-int Sky, Jump;
+int Jump;
 int g;
 int Delta;
 int restart;
@@ -132,7 +132,7 @@ void do_move() {
 		}
 	}
 	Xnow = tmp;
-	if (Sky || Jump) Vx += g; else Vx = 0;
+	if (state == SKY || Jump) Vx += g; else Vx = 0;
 
 	/*   y-ray  */
 	tmp = Ynow + Vy/10;
@@ -144,8 +144,8 @@ void do_move() {
 }
 
 void check_state() {
-	if (prop(Xnow + Width,Ynow) == SKY && prop(Xnow + Width,Ynow + Width - 1)  != GROUND) Sky = 1;
-	else Sky = 0;
+	state = GROUND;
+	if (prop(Xnow + Width,Ynow) == SKY && prop(Xnow + Width,Ynow + Width - 1)  != GROUND) state = SKY;
 	int i, j;
 	for(i = Xnow; i < Xnow + Width; ++ i) {
 		for(j = Ynow; j < Ynow + Width; ++ j) {
