@@ -81,7 +81,7 @@ QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
 #QEMUOPTS += $(QEMUEXTRA)
 
-.PHONY: clean debug gdb display submit
+.PHONY: clean debug gdb display submit commit log
 
 display:
 	@echo $(OBJS)
@@ -105,3 +105,9 @@ clean: clean-mdr
 
 submit: clean
 	cd .. && tar cvj $(shell pwd | grep -o '[^/]*$$') > $(STU_ID).tar.bz2
+
+commit:
+	@git commit --allow-empty
+
+log:
+	@git log --author=Akuxcw
