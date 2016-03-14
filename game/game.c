@@ -3,8 +3,8 @@
 #include "vga.h"
 
 const static InfoBlock *VbeInfo = (InfoBlock *)0xa01;
-enum {SKY, GROUND};
-enum {EMPTY, GREEN, GOLDEN};
+enum {SKY, GROUND, DANGER, GOAL};
+enum {EMPTY, GREEN, GOLDEN, RED};
 
 extern jpg Basic2;
 extern jpg Basic;
@@ -25,6 +25,7 @@ int Sky, Jump;
 int g;
 int Delta;
 int restart;
+int state;
 
 #define prop(i,j) Property[i+50][j+50]
 
@@ -39,24 +40,30 @@ void process_video();
 void game(){
 START:
 	init_game();
-	int i, j;
+	//int i, j;
 	volatile int time;
 	while(1) {
 		time = Get_time();
-		for(i = Xnow; i < Xnow + Width; ++ i)
+/*
+   for(i = Xnow; i < Xnow + Width; ++ i)
 		  	for(j = Ynow; j < Ynow + Width; ++ j) {
-//			  	toColor(color(i,j), Basic.arr[i * V_COL + j]);
 				if(i >= Gx && i < Gx + Gwidth && j >= Gy && j < Gy + Gwidth) {
 					if(!v[i][j]) ans ++, v[i][j] = true;
 				}
 			}
 		if (ans) break;
+*/
 		check_state();
+		switch(state) {
+			case GOAL: goto RESTART;
+			case DANGER : goto START;
+		}
 		do_move();
 		process_kbd();
 		process_video();
 		while(Get_time() - time < Delta);
 	}
+RESTART:
 	restart = 0;
 	Displayjpg(0, 0, &Basic2);
 	Updata_vga();
@@ -109,7 +116,10 @@ void init_game() {
 					Set_property(i * 30, j * 30, 30, 30, GROUND);
 					break;
 				case GOLDEN :
-					Set_property(i * 30, j * 30, 30, 30, SKY);
+					Set_property(i * 30, j * 30, 30, 30, GOAL);
+					break;
+				case RED : 
+					Set_property(i * 30, j * 30, 30, 30, DANGER);
 					break;
 			}
 		}
@@ -144,8 +154,15 @@ void do_move() {
 }
 
 void check_state() {
-	if (prop(Xnow + Width,Ynow) == SKY && prop(Xnow + Width,Ynow + Width - 1) == SKY) Sky = 1;
+	if (prop(Xnow + Width,Ynow) == SKY && prop(Xnow + Width,Ynow + Width - 1)  != GROUND) Sky = 1;
 	else Sky = 0;
+	int i, j;
+	for(i = Xnow; i < Xnow + Width; ++ i) {
+		for(j = Ynow; j < Ynow + Width; ++ j) {
+			if(prop(i, j) == DANGER) state = DANGER;
+			if(prop(i, j) == GOAL) state = GOAL;
+		}
+	}
 }
 
 void Set_property(int x, int y, int h, int l, int k) {
