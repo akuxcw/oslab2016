@@ -90,6 +90,6 @@ void process_kbd() {
 			flag = true;
 		}
 	}
-	if(!flag) Vx = 0;
+	if(!flag) Vy = 0;
 	sti();
 }
