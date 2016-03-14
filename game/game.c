@@ -43,14 +43,14 @@ START:
 	volatile int time;
 	while(1) {
 		time = Get_time();
+		do_move();
+		process_kbd();
+		process_video();
 		check_state();
 		switch(state) {
 			case GOAL: goto RESTART;
 			case DANGER : goto START;
 		}
-		do_move();
-		process_kbd();
-		process_video();
 		while(Get_time() - time < Delta);
 	}
 RESTART:
