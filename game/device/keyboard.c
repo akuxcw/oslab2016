@@ -98,6 +98,7 @@ void process_kbd() {
 		} else
 		if(query_key(i) == KEY_STATE_WAIT_RELEASE) {
 			flag = true;
+			pressing_key(i);
 		}
 	}
 	if(!flag) Vy = 0;
