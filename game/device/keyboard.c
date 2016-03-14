@@ -39,6 +39,7 @@ void kbd_event(int scan_code) {
 extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
 extern int restart;
 int LastJump;
+int Jump2;
 
 void press_key(int keys) {
 //	printk("press %c\n", keys + 'a');
@@ -62,7 +63,7 @@ void press_key(int keys) {
 void pressing_key(int keys) {
 	switch(keys + 'a') {
 		case 'w' :
-			if(Jump < 2) if(Get_time() - LastJump > 10) Vx = -Vsx;   
+			if(Jump2 < 2 && Get_time() - LastJump > 10) Vx = -Vsx, Jump2 ++;   
 	}
 }
 
