@@ -62,7 +62,7 @@ void press_key(int keys) {
 void pressing_key(int keys) {
 	switch(keys + 'a') {
 		case 'w' :
-			if(Jump < 2) if(Get_time() - LastJump > 10) Vx = -Vsx/2;   
+			if(Jump < 2) if(Get_time() - LastJump > 10) Vx = -Vsx;   
 	}
 }
 
