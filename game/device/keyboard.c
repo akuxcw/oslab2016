@@ -76,13 +76,20 @@ void release_key(int keys) {
 void process_kbd() {
 	cli();
 	int i;
+	bool flag = 0;
 	for(i = 0; i < NR_KEYS; ++ i) {
 		if(query_key(i) == KEY_STATE_PRESS) {
+			flag = true;
 			press_key(i);
-		}
+		} else
 		if(query_key(i) == KEY_STATE_RELEASE) {
+			flag = true;
 			release_key(i);
+		} else
+		if(query_key(i) == KEY_STATE_WAIT_RELEASE) {
+			flag = true;
 		}
 	}
+	if(!flag) Vx = 0;
 	sti();
 }

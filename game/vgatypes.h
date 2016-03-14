@@ -36,4 +36,3 @@ typedef struct jpgtype {
 	int arr[600*800];
 } jpg;
 
-

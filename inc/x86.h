@@ -1,7 +1,7 @@
-#ifndef JOS_INC_X86_H
-#define JOS_INC_X86_H
+#ifndef INC_X86_H
+#define INC_X86_H
 
-#include "types.h"
+#include <inc/types.h>
 
 static __inline void breakpoint(void) __attribute__((always_inline));
 static __inline uint8_t inb(int port) __attribute__((always_inline));
@@ -329,4 +329,4 @@ write_idtr(void *addr, uint32_t size) {
 }
 
 
-#endif /* !JOS_INC_X86_H */
+#endif 
