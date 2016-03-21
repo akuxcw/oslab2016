@@ -24,7 +24,6 @@ void bootmain(void) {
 
 	((void(*)(void))elf->e_entry)();
 
-bad:
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
 	while(1);
@@ -35,7 +34,6 @@ void waitdisk(void) {
 }
 
 void readsect(void *dst, int offset) {
-	int i;
 	waitdisk();
 	outb(0x1F2, 1);
 	outb(0x1F3, offset);
