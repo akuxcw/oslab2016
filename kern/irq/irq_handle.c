@@ -30,7 +30,6 @@ irq_handle(TrapFrame *tf) {
 		else {
 			printk("%s, %d: Unexpected exception #%d!\n", __FUNCTION__, __LINE__, tf->irq);
 		}
-		printk("Error in irq_handle.c\n");
 	}
 	else 
 		switch (tf->irq) {
