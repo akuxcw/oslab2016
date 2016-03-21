@@ -2,7 +2,6 @@
 #include <inc/stdio.h>
 #include "vga.h"
 
-const static InfoBlock *VbeInfo = (InfoBlock *)0xa01;
 enum {SKY, GROUND, DANGER, GOAL};
 enum {EMPTY, GREEN, GOLDEN, RED};
 
@@ -14,6 +13,7 @@ extern jpg GoldenBlock;
 void Delay(int t);
 int Get_time();
 
+char __buf[800*600*3];
 bool v[600][800];
 int Property[700][3100];
 int Block[20][100];
@@ -65,8 +65,7 @@ RESTART:
 
 void init_game() {
 	/* Get framebuffer */
-	color_buffer = (RGB *) VGA_ADDR;
-	L2_color_buffer = (RGB *) (VGA_ADDR + 600 * 800 * 3);	
+	L2_color_buffer = (RGB *)__buf;	
 	memset(v, 0, sizeof v);	
 	
 	int i, j;

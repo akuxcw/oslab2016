@@ -2,7 +2,7 @@
 #define __SYSCALL_H__
 
 #define SYS_write 1 
-#define SYS_platte 2
+#define SYS_palette 2
 
 static inline int //__attribute__((__noinline__))
 syscall(int id, ...) {

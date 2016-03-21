@@ -57,7 +57,7 @@ os.img: game bootblock
 
 game: $(OBJS)
 	@mkdir -p obj/game
-	$(LD) $(LDFLAGS) -e game_main -Ttext 0x00100000 -o obj/game/game $(OBJS)
+	$(LD) $(LDFLAGS) -e kern_main -Ttext 0x00100000 -o obj/game/game $(OBJS)
 	$(call git_commit, "compile game", $(GITFLAGS))
 
 $(OBJ_LIB_DIR)/%.o : $(LIB_DIR)/%.c

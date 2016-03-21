@@ -1,5 +1,6 @@
 #include "../irq/irq.h"
 #include <inc/syscall.h>
+#include <inc/string.h>
 #include <inc/stdio.h>
 /*
 void add_irq_handle(int, void (*)(void));
@@ -28,6 +29,10 @@ static void sys_write(TrapFrame *tf) {
 		serial_putc(*(char *)(tf->ecx + i));
 	tf->eax = tf->edx;
 }
+extern char * color_buffer;
+static void sys_palette(TrapFrame *tf) {
+	memcpy(color_buffer, (void *)tf->ebx, 800*600*3);
+}
 
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
@@ -45,6 +50,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_brk: panic("@@@"); sys_brk(tf); break;
 */
 		case SYS_write: sys_write(tf); break;
+		case SYS_palette: sys_palette(tf); break;
 /*
 		case SYS_open : 
 			tf->eax = fs_open((char *)tf->ebx, tf->ecx); break;

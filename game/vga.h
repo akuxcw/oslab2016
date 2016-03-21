@@ -1,9 +1,7 @@
 #include "vgatypes.h"
 #include <inc/string.h>
-#define VGA_ADDR VbeInfo->physbase
 #define V_ROW 600
 #define V_COL 800
-RGB * color_buffer;
 RGB * L2_color_buffer;
 #define color(x,y) L2_color_buffer[(x)*V_COL+(y)]
 #define toColor(x,y) {x.R = (y)&0xff;\
@@ -19,7 +17,9 @@ Displayjpg(int x, int y, jpg* graph) {
 		}
 }
 
+void write_palette(char *);
+
 static inline void
 Updata_vga() {
-	memcpy((void*) color_buffer, (void*) L2_color_buffer, 600 * 800 * 3);
+	write_palette((char *)L2_color_buffer);
 }
