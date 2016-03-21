@@ -10,7 +10,7 @@ void bootmain(void) {
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
 
-	elf = (struct Elf*)0x10000;
+	elf = (struct Elf*)0x100000;
 
 	readseg((unsigned char*)elf, 4096, 0);
 
