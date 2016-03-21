@@ -46,6 +46,9 @@ static void sys_kbd(TrapFrame *tf) {
 	}
 }
 
+int Get_time();
+void Delay(int);
+
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
 		/* The ``add_irq_handle'' system call is artificial. We use it to 
@@ -64,6 +67,8 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_write: sys_write(tf); break;
 		case SYS_palette: sys_palette(tf); break;
 		case SYS_kbd: sys_kbd(tf); break;
+		case SYS_time: tf->eax = Get_time(); break;
+		case SYS_sleep: Delay(tf->ebx); break;
 /*
 		case SYS_open : 
 			tf->eax = fs_open((char *)tf->ebx, tf->ecx); break;

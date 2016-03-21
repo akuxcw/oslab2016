@@ -32,7 +32,7 @@ void init_timer() {
 
 volatile int tick = 0;
 
-void timer_event(void) {
+void do_timer(void) {
 	tick ++;
 }
 

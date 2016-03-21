@@ -10,8 +10,8 @@ extern jpg Basic;
 extern jpg GreenBlock;
 extern jpg GoldenBlock;
 
-void Delay(int t);
-int Get_time();
+void sleep(int t);
+int time();
 
 char __buf[800*600*3];
 bool v[600][800];
@@ -40,9 +40,9 @@ void process_video();
 void game(){
 START:
 	init_game();
-	volatile int time;
+	volatile int time_now;
 	while(1) {
-		time = Get_time();
+		time_now = time();
 		do_move();
 		process_kbd();
 		process_video();
@@ -51,7 +51,8 @@ START:
 			case GOAL: goto RESTART;
 			case DANGER : goto START;
 		}
-		while(Get_time() - time < Delta);
+		int tmp = Delta - (time() - time_now);
+		if (tmp > 0) sleep(tmp);
 	}
 RESTART:
 	restart = 0;
