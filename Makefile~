@@ -65,8 +65,8 @@ qemu: os.img pre-qemu
 debug: $(IMAGES) pre-qemu
 	$(QEMU) -s $(QEMUOPTS) -S 
 
-clean: clean-mdr clean_kern clean_game
-	rm $(KERN) $(GAME) obj/os.img
+clean: 
+	rm -rf obj/*
 
 submit: clean
 	cd .. && tar cvj $(shell pwd | grep -o '[^/]*$$') > $(STU_ID).tar.bz2

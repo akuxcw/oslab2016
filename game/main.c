@@ -1,6 +1,5 @@
 #include <inc/stdio.h>
 
-void testprintk();
 void game();
 
 int game_main(){

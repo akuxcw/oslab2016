@@ -33,7 +33,7 @@ include config/Makefile.git
 
 include boot/Makefile.part
 include kern/Makefile.part
-#include game/Makefile.part
+include game/Makefile.part
 #include lib/Makefile.part
 
 os.img: kern game bootblock
