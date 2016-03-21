@@ -6,7 +6,7 @@ bootblock: $(BOOT_OBJS)
 	ld -melf_i386 -e start -Ttext 0x7C00 obj/boot/boot.o obj/boot/main.o -o obj/boot/bootblock.o
 	@objcopy -S -O binary -j .text obj/boot/bootblock.o obj/boot/bootblock
 	@perl ./boot/genboot.pl obj/boot/bootblock
-	$(call git_commit, "compile boot", $(GITFLAGS))
+#	$(call git_commit, "compile boot", $(GITFLAGS))
 
 clean-mdr:
 	rm -rf obj/boot/bootblock obj/boot/*.o
