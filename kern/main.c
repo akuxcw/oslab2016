@@ -1,6 +1,6 @@
 #include <inc/x86.h>
 #include <inc/elf.h>
-
+#include <inc/stdio.h>
 #define SECTSIZE 512
 
 void readseg(unsigned char *, int, int);
@@ -26,6 +26,8 @@ int kern_main() {
 	elf = (struct Elf*)(100*1024 + 0x10000);
 
 	readseg((unsigned char*)elf, 4096, 0);
+
+	printk("%d\n", elf->e_phnum);
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
