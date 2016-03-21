@@ -15,4 +15,7 @@ int snprintf(char *, int, const char *, ...);
 
 // lib/printf.c
 int	printk(const char *fmt, ...);
+
+int	printf(const char *fmt, ...);
+
 #endif 
