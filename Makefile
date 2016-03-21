@@ -8,9 +8,7 @@ QEMU	:= qemu-system-i386
 GDB		:= gdb
 
 OBJ_DIR			:= obj
-BOOT_DIR		:= boot
 OBJ_LIB_DIR		:= $(OBJ_DIR)/$(LIB_DIR)
-OBJ_BOOT_DIR	:= $(OBJ_DIR)/$(BOOT_DIR)
 
 LIB_C := $(shell find $(LIB_DIR) -name "*.c")
 LIB_O := $(LIB_C:%.c=$(OBJ_DIR)/%.o)
