@@ -1,0 +1,22 @@
+KERN_DIR		:= kern
+OBJ_KERN_DIR	:= $(OBJ_DIR)/$(KERN_DIR)
+
+KERN_C := $(shell find $(KERN_DIR) -name "*.c")
+KERN_S := $(shell find $(KERN_DIR) -name "*.S")
+KERN_O := $(KERN_C:%.c=$(OBJ_DIR)/%.o) 
+KERN_O += $(KERN_S:%.S=$(OBJ_DIR)/%.o)
+
+KERN := $(OBJ_KERN_DIR)/kern
+
+$(OBJ_KERN_DIR)/%.o : $(KERN_DIR)/%.[cS]
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
+	$(CC) $(CFLAGS) $< -o $@
+
+kern: $(KERN_O)
+	@mkdir -p $(OBJ_KERN_DIR)
+	$(LD) $(LDFLAGS) -e kern_main -Ttext 0x00100000 -o $(KERN) $(KERN_O)
+	@perl ./kern/genkern.pl $(KERN)
+
+clean_kern:
+	rm $(KERN_O) $(KENR_O:.o=.d)
+

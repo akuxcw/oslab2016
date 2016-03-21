@@ -1,0 +1,19 @@
+GAME_DIR		:= game
+OBJ_GAME_DIR	:= $(OBJ_DIR)/$(GAME_DIR)
+
+GAME_C := $(shell find $(GAME_DIR) -name "*.c")
+GAME_O := $(GAME_C:%.c=$(OBJ_DIR)/%.o)
+
+GAME := $(OBJ_GAME_DIR)/game
+
+$(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
+	$(CC) $(CFLAGS) $< -o $@
+
+game: $(GAME_O)
+	@mkdir -p $(OBJ_GAME_DIR)
+	$(LD) $(LDFLAGS) -e game_main -Ttext 0x01000000 -o $(GAME) $(GAME_O)
+
+clean_game:
+	rm $(GAME_O) $(GAME_O:.o=.d)
+

@@ -1,12 +1,14 @@
 BOOT_OBJS := boot/boot.S boot/main.c
+
+BOOT := obj/boot/bootblock
+
 bootblock: $(BOOT_OBJS)
 	@mkdir -p obj/boot
 	gcc -c -m32 boot/boot.S -I . -o obj/boot/boot.o
 	gcc -c -m32 -O1 boot/main.c -I . -o obj/boot/main.o
 	ld -melf_i386 -e start -Ttext 0x7C00 obj/boot/boot.o obj/boot/main.o -o obj/boot/bootblock.o
-	@objcopy -S -O binary -j .text obj/boot/bootblock.o obj/boot/bootblock
-	@perl ./boot/genboot.pl obj/boot/bootblock
-#	$(call git_commit, "compile boot", $(GITFLAGS))
+	@objcopy -S -O binary -j .text obj/boot/bootblock.o $(BOOT)
+	@perl ./boot/genboot.pl $(BOOT)
 
 clean-mdr:
 	rm -rf obj/boot/bootblock obj/boot/*.o
