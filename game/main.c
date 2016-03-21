@@ -3,8 +3,8 @@
 void game();
 
 int game_main(){
-	printf("@_@ Game Start!\n");
 	asm volatile("sti");
+	printf("@_@ Game Start!\n");
 	game();
 	while(1);
 	return 0;
