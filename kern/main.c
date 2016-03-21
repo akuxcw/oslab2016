@@ -25,7 +25,7 @@ int kern_main() {
 
 	elf = (struct Elf*)(0x19200);
 
-//	readseg((unsigned char*)elf, 4096, 0);
+	readseg((unsigned char*)elf, 4096, 0x19000);
 
 	printk("%x\n", elf->e_entry);
 
