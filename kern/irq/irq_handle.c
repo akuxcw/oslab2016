@@ -19,7 +19,8 @@ irq_handle(TrapFrame *tf) {
 			do_syscall(tf);
 		}
 		else {
-			if(tf->irq == 6) do_timer(); else 
+			if(tf->irq == 6) do_timer(); else
+			if(tf->irq != 13)
 			printk("%s, %d: Unexpected exception #%d!\n", __FUNCTION__, __LINE__, tf->irq);
 		}
 	}
