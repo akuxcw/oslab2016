@@ -37,6 +37,8 @@ int kern_main() {
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 
+printk("%%%%%%");
+
 	((void(*)(void))elf->e_entry)();
 
 	outw(0x8A00, 0x8A00);
