@@ -27,7 +27,7 @@ int kern_main() {
 
 	readseg((unsigned char*)elf, 4096, 0);
 
-	printk("%x\n", *(int*)elf);
+	printk("%x\n", elf->e_entry);
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
