@@ -46,7 +46,7 @@ irq_handle(TrapFrame *tf) {
 				do_keyboard(code);
 			case 1014 :
 				break;
-			default : printk("Error in irq_handle.c\n");
+			default : printk("Error in irq_handle.c : %d\n", tf->irq);
 	}
 }
 
