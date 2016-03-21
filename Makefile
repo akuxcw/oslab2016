@@ -47,7 +47,7 @@ QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D 
 .PHONY: clean debug gdb display submit commit log
 
 display:
-	@echo $(OBJS)
+	@echo $(BOOT_O)
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
