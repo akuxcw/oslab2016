@@ -3,8 +3,8 @@
 #include <inc/x86.h>
 #include "irq.h"
 
-static void (*do_timer)(void);
-static void (*do_keyboard)(int);
+static void(*do_timer)(void);
+void do_kbd(int);
 
 void do_syscall(TrapFrame *);
 
@@ -12,10 +12,7 @@ void
 set_timer_intr_handler( void (*ptr)(void) ) {
 	do_timer = ptr;
 }
-void
-set_kbd_intr_handler( void (*ptr)(int) ) {
-	do_keyboard = ptr;
-}
+
 
 void
 irq_handle(TrapFrame *tf) {
@@ -42,7 +39,7 @@ irq_handle(TrapFrame *tf) {
 				outb(0x61, val | 0x80);
 				outb(0x61, val);
 				//printk("%s, %d: key code = %x\n", __FUNCTION__, __LINE__, code);
-				do_keyboard(code);
+				do_kbd(code);
 			case 1014 :
 				break;
 			default : printk("Error in irq_handle.c : %d\n", tf->irq);

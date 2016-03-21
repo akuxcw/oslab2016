@@ -3,6 +3,7 @@
 
 #define SYS_write 1 
 #define SYS_palette 2
+#define SYS_kbd 3
 
 static inline int //__attribute__((__noinline__))
 syscall(int id, ...) {

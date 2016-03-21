@@ -2,6 +2,7 @@
 #include <inc/syscall.h>
 #include <inc/string.h>
 #include <inc/stdio.h>
+enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};
 /*
 void add_irq_handle(int, void (*)(void));
 void mm_brk(uint32_t);
@@ -34,6 +35,17 @@ static void sys_palette(TrapFrame *tf) {
 	memcpy(color_buffer, (void *)tf->ebx, 800*600*3);
 }
 
+int query_key(int);
+
+static void sys_kbd(TrapFrame *tf) {
+	int i;
+	int *kbd = (int *) tf->ebx;
+	for(i = 0; i < tf->ecx; ++ i) {
+		if(kbd[i] == KEY_STATE_EMPTY && query_key(i) == KEY_STATE_PRESS) kbd[i] = KEY_STATE_PRESS; else
+		if(kbd[i] == KEY_STATE_WAIT_RELEASE && query_key(i) == KEY_STATE_RELEASE) kbd[i] = KEY_STATE_RELEASE;
+	}
+}
+
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
 		/* The ``add_irq_handle'' system call is artificial. We use it to 
@@ -51,6 +63,7 @@ void do_syscall(TrapFrame *tf) {
 */
 		case SYS_write: sys_write(tf); break;
 		case SYS_palette: sys_palette(tf); break;
+		case SYS_kbd: sys_kbd(tf); break;
 /*
 		case SYS_open : 
 			tf->eax = fs_open((char *)tf->ebx, tf->ecx); break;

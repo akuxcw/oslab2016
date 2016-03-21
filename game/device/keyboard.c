@@ -16,24 +16,10 @@ const static int letter_code[] = {
 static int letter_pressed[26];
 
 int Get_time();
+void Update_kbd(int *, int);
 
-int query_key(int index) {
+static int query_key(int index) {
 	return letter_pressed[index];
-}
-
-void kbd_event(int scan_code) {
-//	printk("%x\n", scan_code);
-	int i;
-	bool flag;
-	if(scan_code & 0x80) flag = false, scan_code -= 0x80; else flag = true;
-	for (i = 0; i < 26; i ++) {
-		if (letter_code[i] == scan_code) {
-			if(!flag)letter_pressed[i] = KEY_STATE_RELEASE;
-			if(flag && query_key(i) == KEY_STATE_EMPTY) 
-				letter_pressed[i] = KEY_STATE_PRESS;
-		}
-	}
-
 }
 
 extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
@@ -85,6 +71,7 @@ void release_key(int keys) {
 }
 
 void process_kbd() {
+	Update_kbd(letter_pressed, NR_KEYS);
 	cli();
 	int i;
 	bool flag = 0;
