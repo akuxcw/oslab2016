@@ -23,7 +23,7 @@ int kern_main() {
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
 
-	elf = (struct Elf*)106496;
+	elf = (struct Elf*)(100*1024 + 0x10000);
 
 	readseg((unsigned char*)elf, 4096, 0);
 
