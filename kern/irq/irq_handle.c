@@ -3,16 +3,10 @@
 #include <inc/x86.h>
 #include "irq.h"
 
-static void(*do_timer)(void);
+void do_timer(void);
 void do_kbd(int);
 
 void do_syscall(TrapFrame *);
-
-void
-set_timer_intr_handler( void (*ptr)(void) ) {
-	do_timer = ptr;
-}
-
 
 void
 irq_handle(TrapFrame *tf) {
