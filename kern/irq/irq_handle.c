@@ -19,6 +19,7 @@ set_kbd_intr_handler( void (*ptr)(int) ) {
 
 void
 irq_handle(TrapFrame *tf) {
+	uint32_t code, val;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
 			printk("%s, %d: Unhandled exception!\n", __FUNCTION__, __LINE__);
@@ -31,18 +32,21 @@ irq_handle(TrapFrame *tf) {
 		}
 		printk("Error in irq_handle.c\n");
 	}
-	else if (tf->irq == 1000) {
-		do_timer();
-	} else if (tf->irq == 1001) {
-		uint32_t code = inb(0x60);
-		uint32_t val = inb(0x61);
-		outb(0x61, val | 0x80);
-		outb(0x61, val);
-
-		//printk("%s, %d: key code = %x\n", __FUNCTION__, __LINE__, code);
-		do_keyboard(code);
-	} else {
-		printk("Error in irq_handle.c\n");
+	else 
+		switch (tf->irq) {
+			case 1000:
+				do_timer();
+				break;
+			case 1001: 
+				code = inb(0x60);
+				val = inb(0x61);
+				outb(0x61, val | 0x80);
+				outb(0x61, val);
+				//printk("%s, %d: key code = %x\n", __FUNCTION__, __LINE__, code);
+				do_keyboard(code);
+			case 1014 :
+				break;
+			default : printk("Error in irq_handle.c\n");
 	}
 }
 
