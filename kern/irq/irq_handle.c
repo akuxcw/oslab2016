@@ -31,8 +31,7 @@ irq_handle(TrapFrame *tf) {
 		}
 		printk("Error in irq_handle.c\n");
 	}
-
-	if (tf->irq == 1000) {
+	else if (tf->irq == 1000) {
 		do_timer();
 	} else if (tf->irq == 1001) {
 		uint32_t code = inb(0x60);
