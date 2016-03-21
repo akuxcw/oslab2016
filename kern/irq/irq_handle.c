@@ -16,6 +16,7 @@ irq_handle(TrapFrame *tf) {
 			printk("%s, %d: Unhandled exception!\n", __FUNCTION__, __LINE__);
 		} 
 		else if(tf->irq == 0x80) {
+			printk("sys\n");
 			do_syscall(tf);
 		}
 		else {
