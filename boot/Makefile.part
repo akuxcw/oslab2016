@@ -1,11 +1,19 @@
-BOOT_OBJS := boot/boot.S boot/main.c
+BOOT_DIR		:= boot
+OBJ_BOOT_DIR	:= $(OBJ_DIR)/$(BOOT_DIR)
+
+BOOT_C := $(shell find $(BOOT_DIR) -name "*.c")
+BOOT_S := $(shell find $(BOOT_DIR) -name "*.S")
+BOOT_O := $(BOOT_C:%.c=$(OBJ_DIR)/%.o) 
+BOOT_O += $(BOOT_S:%.S=$(OBJ_DIR)/%.o)
 
 BOOT := obj/boot/bootblock
 
-bootblock: $(BOOT_OBJS)
+$(OBJ_BOOT_DIR)/%.o : $(BOOT_DIR)/%.[cS]
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
+	gcc -c -m32 -O1 -I. $< -o $@
+
+bootblock: $(BOOT_O)
 	@mkdir -p obj/boot
-	gcc -c -m32 boot/boot.S -I . -o obj/boot/boot.o
-	gcc -c -m32 -O1 boot/main.c -I . -o obj/boot/main.o
 	ld -melf_i386 -e start -Ttext 0x7C00 obj/boot/boot.o obj/boot/main.o -o obj/boot/bootblock.o
 	@objcopy -S -O binary -j .text obj/boot/bootblock.o $(BOOT)
 	@perl ./boot/genboot.pl $(BOOT)

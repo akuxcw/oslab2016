@@ -12,10 +12,11 @@ $(OBJ_BOOT_DIR)/%.o : $(BOOT_DIR)/%.[cS]
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	gcc -c -m32 -O1 -I. $< -o $@
 
+
 bootblock: $(BOOT_O)
-	@mkdir -p $(OBJ_BOOT_DIR)
-	$(LD) $(LDFLAGS) -e start -Ttext 0x7C00 -o $(BOOT) $(BOOT_O)
-	@objcopy -S -O binary -j .text $(BOOT) $(BOOT)
+	@mkdir -p obj/boot
+	ld -melf_i386 -e start -Ttext 0x7C00 obj/boot/boot.o obj/boot/main.o -o obj/boot/bootblock.o
+	@objcopy -S -O binary -j .text obj/boot/bootblock.o $(BOOT)
 	@perl ./boot/genboot.pl $(BOOT)
 
 clean-mdr:
