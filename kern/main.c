@@ -27,13 +27,11 @@ int kern_main() {
 
 	readseg((unsigned char*)elf, 4096, 0x19000);
 
-	printk("%x\n", elf->e_entry);
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		pa = (unsigned char*)ph->p_pa; 
-		printk("%x %x %x\n", pa, ph->p_filesz, ph->p_offset);
 		readseg(pa, ph->p_filesz, 0x19000 + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
