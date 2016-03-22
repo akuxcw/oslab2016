@@ -17,7 +17,7 @@ void bootmain(void) {
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
-		pa = (unsigned char*)ph->p_pa; 
+		pa = (unsigned char*)ph->p_pa;
 		readseg(pa, ph->p_filesz, ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}

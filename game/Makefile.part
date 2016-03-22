@@ -12,7 +12,7 @@ $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 
 game: $(GAME_O)
 	@mkdir -p $(OBJ_GAME_DIR)
-	$(LD) $(LDFLAGS) -e game_main -Ttext 0x01000000 -o $(GAME) $(GAME_O)
+	$(LD) $(LDFLAGS) -e game_main -Ttext 0x0100000 -o $(GAME) $(GAME_O)
 
 clean_game:
 	rm $(GAME_O) $(GAME_O:.o=.d)
