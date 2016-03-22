@@ -9,12 +9,12 @@ GAME := $(OBJ_GAME_DIR)/game
 $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	@$(CC) $(CFLAGS) $< -o $@
-	@echo CC $< -o $@
+	@echo +CC $< -o $@
 
 game: $(GAME_O)
 	@mkdir -p $(OBJ_GAME_DIR)
 	@$(LD) $(LDFLAGS) -e game_main -Ttext 0x02000000 -o $(GAME) $(GAME_O)
-	@echo LD $(GAME)
+	@echo +LD $(GAME)
 
 clean_game:
 	rm $(GAME_O) $(GAME_O:.o=.d)
