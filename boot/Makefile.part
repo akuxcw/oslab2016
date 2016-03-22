@@ -10,7 +10,7 @@ BOOT := obj/boot/bootblock
 
 $(OBJ_BOOT_DIR)/%.o : $(BOOT_DIR)/%.[cS]
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
-	@$(CC) -c -m32 -O1 -I. $< -o $@
+	@$(CC) -c -m32 -O1 -I boot/ $< -o $@
 	@echo +CC $< -o $@
 
 bootblock: $(BOOT_O)

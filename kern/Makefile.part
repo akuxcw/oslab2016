@@ -10,7 +10,7 @@ KERN := $(OBJ_KERN_DIR)/kern
 
 $(OBJ_KERN_DIR)/%.o : $(KERN_DIR)/%.[cS]
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
-	@$(CC) $(CFLAGS) $< -o $@
+	@$(CC) $(CFLAGS) -I kern/ $< -o $@
 	@echo +CC $< -o $@
 
 kern: $(KERN_O)
