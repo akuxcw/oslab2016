@@ -36,7 +36,7 @@ int kern_main() {
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 
-	printk("Ready to game!");
+	printk("Ready to game!\n");
 
 	((void(*)(void))elf->e_entry)();
 
