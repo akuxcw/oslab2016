@@ -34,7 +34,7 @@ int kern_main() {
 	for(; ph < eph; ph ++) {
 		pa = (unsigned char*)ph->p_pa; 
 		printk("%x %x %x\n", pa, ph->p_filesz, ph->p_offset);
-		readseg(pa, ph->p_filesz, ph->p_offset); 
+		readseg(pa, ph->p_filesz, 0x19000 + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 
