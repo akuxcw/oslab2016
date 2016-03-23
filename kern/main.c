@@ -47,15 +47,8 @@ int kern_main() {
 	printk("%x\n", esp);
 
 	//asm volatile("iret");
-	pushl(SEG_USER_DATA);
-	pushl(0x80000);
-	pushl(SEG_USER_DATA);
-	pushl(SEG_USER_DATA);
-	pushl(SEG_USER_DATA);
-	pushl(SEG_USER_DATA);
-	pushl(SEG_USER_DATA);
-	pushl(0);
-	pushl(SEG_USER_CODE);
+	pushl(0x00000006);
+	pushl(SEG_KERNEL_CODE);
 	pushl(elf->e_entry);
 
 	asm volatile("iret");
