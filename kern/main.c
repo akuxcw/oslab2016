@@ -2,6 +2,7 @@
 #include <inc/elf.h>
 #include <inc/stdio.h>
 #include <inc/mmu.h>
+#include "irq/irq.h"
 
 #define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
@@ -43,15 +44,14 @@ int kern_main() {
 
 	printk("Ready to game!\n");
 
-//	int esp = read_esp();
-//	printk("%x\n", esp);
-
-	//asm volatile("iret");
-//	pushl(0x00000006);
-//	pushl(SEG_KERNEL_CODE);
-//	pushl(elf->e_entry);
-
-//	asm volatile("iret");
+	
+	TrapFrame *tf = (TrapFrame *)0x10000;
+	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA;
+	tf->eip = elf->e_entry;
+	tf->cs = SEG_USER_CODE;
+	asm volatile("mov %0, %%esp" : :"a"((int)tf));
+	asm volatile("popa");
+	asm volatile("iret");
 		((void(*)(void))elf->e_entry)();
 
 	outw(0x8A00, 0x8A00);

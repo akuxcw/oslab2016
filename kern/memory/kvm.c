@@ -8,7 +8,7 @@ static TSS tss;
 inline static void
 set_tss(SegDesc *ptr) {
 	tss.ss0 = SELECTOR_KERNEL(SEG_KERNEL_DATA);		// only one ring 0 stack segment
-
+//	tss.esp0 =
 	uint32_t base = (uint32_t)&tss;
 	uint32_t limit = sizeof(TSS) - 1;
 	ptr->limit_15_0  = limit & 0xffff;
@@ -56,8 +56,8 @@ init_segment(void) {
 	memset(gdt, 0, sizeof(gdt));
 	set_segment(&gdt[SEG_KERNEL_CODE], DPL_KERNEL, SEG_EXECUTABLE | SEG_READABLE, 0, 0xFFFFF);
 	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE, 0, 0xFFFFF);
-//	set_segment(&gdt[SEG_USER_CODE], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, 0, 0xFFFFF);
-//	set_segment(&gdt[SEG_USER_DATA], DPL_USER, SEG_WRITABLE, 0, 0xFFFFF);
+	set_segment(&gdt[SEG_USER_CODE], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, 0, 0xFFFFF);
+	set_segment(&gdt[SEG_USER_DATA], DPL_USER, SEG_WRITABLE, 0, 0xFFFFF);
 
 	write_gdtr(gdt, sizeof(gdt));
 
