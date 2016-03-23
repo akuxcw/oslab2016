@@ -35,14 +35,18 @@ int kern_main() {
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
-		pa = (unsigned char*)ph->p_pa; 
+		pa = (unsigned char*)ph->p_pa;// + SEG_OFFSET; 
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 
 	printk("Ready to game!\n");
 
+	
 	((void(*)(void))elf->e_entry)();
+
+	int esp = read_esp();
+	printk("%x\n", esp);
 
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
