@@ -48,10 +48,10 @@ int kern_main() {
 	write_eflags(eflags | (1 << 14));
 
 	TrapFrame *tf = (TrapFrame *)0x10000;
-	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA;
+	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA << 3;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	tf->eip = elf->e_entry;
-	tf->cs = SEG_USER_CODE;
+	tf->cs = SEG_USER_CODE << 3;
 	asm volatile("mov %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("iret");
