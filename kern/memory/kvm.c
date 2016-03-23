@@ -59,8 +59,7 @@ init_segment(void) {
 
 	write_gdtr(gdt, sizeof(gdt));
 
-	//set_tss(&gdt[SEG_TSS]);
-	//set_tss_ss0(SELECTOR_KERNEL(SEG_KERNEL_DATA));
-	//write_tr( SELECTOR_USER(SEG_TSS) );
+	set_tss(&gdt[SEG_TSS]);
+	ltr(SELECTOR_USER(SEG_TSS));
 }
 
