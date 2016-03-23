@@ -43,16 +43,16 @@ int kern_main() {
 
 	printk("Ready to game!\n");
 
-	int esp = read_esp();
-	printk("%x\n", esp);
+//	int esp = read_esp();
+//	printk("%x\n", esp);
 
 	//asm volatile("iret");
-	pushl(0x00000006);
-	pushl(SEG_KERNEL_CODE);
-	pushl(elf->e_entry);
+//	pushl(0x00000006);
+//	pushl(SEG_KERNEL_CODE);
+//	pushl(elf->e_entry);
 
-	asm volatile("iret");
-	//	((void(*)(void))elf->e_entry)();
+//	asm volatile("iret");
+		((void(*)(void))elf->e_entry)();
 
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
