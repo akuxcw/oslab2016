@@ -46,7 +46,7 @@ int kern_main() {
 	int esp = read_esp();
 	printk("%x\n", esp);
 
-	asm volatile("iret");
+	//asm volatile("iret");
 	pushl(SEG_USER_DATA);
 	pushl(0x80000);
 	pushl(SEG_USER_DATA);
