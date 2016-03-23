@@ -42,12 +42,13 @@ IMAGES	:= $(OBJ_DIR)/os.img
 GDBPORT := $(shell expr `id -u` % 5000 + 25000)
 QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
+QEMUOPTS += -monitor telnet:127.0.0.1:1111,server,nowait
 #QEMUOPTS += $(QEMUEXTRA)
 
 .PHONY: clean debug gdb display submit commit log
 
 display:
-	@echo $(BOOT_O)
+	@echo $(GDBPORT)
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@

@@ -46,6 +46,7 @@ int kern_main() {
 	int esp = read_esp();
 	printk("%x\n", esp);
 
+	asm volatile("iret");
 	pushl(SEG_USER_DATA);
 	pushl(0x80000);
 	pushl(SEG_USER_DATA);
@@ -56,11 +57,9 @@ int kern_main() {
 	pushl(0);
 	pushl(SEG_USER_CODE);
 	pushl(elf->e_entry);
-//	breakpoint();
-DEBUG:
+
 	asm volatile("iret");
 	//	((void(*)(void))elf->e_entry)();
-goto DEBUG;
 
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
