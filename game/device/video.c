@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../vga.h"
+#include "vga.h"
 
 enum {SKY, GROUND, DANGER, GOAL};
 enum {EMPTY, GREEN, GOLDEN, RED};
