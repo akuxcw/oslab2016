@@ -1,7 +1,10 @@
-#include <inc/types.h>
-#include <inc/string.h>
-#include <inc/stdarg.h>
+#ifndef LIB_STDIO_H
+#define LIB_STDIO_H
 
+#include <types.h>
+#include <string.h>
+#include <stdarg.h>
+#include <syscall.h>
 /*
  * Print a number (base <= 16) in reverse order,
  * using specified putch function and associated pointer putdat.
@@ -245,3 +248,12 @@ snprintf(char *buf, int n, const char *fmt, ...)
 	return rc;
 }
 
+int printf(const char * fmt, ...) {
+	static char buf[256];
+	void *args = (void **)&fmt + 1;
+	int len = vsnprintf(buf, 256, fmt, args);
+	
+	return syscall(SYS_write, 0, buf, len);
+}
+
+#endif

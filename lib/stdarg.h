@@ -1,7 +1,7 @@
 /*	$NetBSD: stdarg.h,v 1.12 1995/12/25 23:15:31 mycroft Exp $	*/
 
-#ifndef INC_STDARG_H
-#define	INC_STDARG_H
+#ifndef LIB_STDARG_H
+#define	LIB_STDARG_H
 
 typedef __builtin_va_list va_list;
 

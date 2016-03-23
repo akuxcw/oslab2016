@@ -1,7 +1,7 @@
-#ifndef INC_ASSERT_H
-#define INC_ASSERT_H
+#ifndef LIB_ASSERT_H
+#define LIB_ASSERT_H
 
-#include <inc/stdio.h>
+#include <stdio.h>
 
 void _warn(const char*, int, const char*, ...);
 void _panic(const char*, int, const char*, ...) __attribute__((noreturn));

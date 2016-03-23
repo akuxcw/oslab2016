@@ -1,5 +1,5 @@
-#ifndef KBDREG_H
-#define KBDREG_H
+#ifndef LIB_KBDREG_H
+#define LIB_KBDREG_H
 
 // Special keycodes
 #define KEY_HOME	0xE0

@@ -1,5 +1,5 @@
-#ifndef __SYSCALL_H__
-#define __SYSCALL_H__
+#ifndef LIB_SYSCALL_H
+#define LIB_SYSCALL_H
 
 enum {SYS_, SYS_write, SYS_palette, SYS_kbd, SYS_time, SYS_sleep};
 

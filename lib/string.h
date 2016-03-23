@@ -1,6 +1,6 @@
+#ifndef LIB_STRING_H
+#define LIB_STRING_H
 // Basic string routines.  Not hardware optimized, but not shabby.
-
-#include <inc/string.h>
 
 // Using assembly for memset/memmove
 // makes some difference on real hardware,
@@ -282,4 +282,4 @@ strtol(const char *s, char **endptr, int base)
 		*endptr = (char *) s;
 	return (neg ? -val : val);
 }
-
+#endif

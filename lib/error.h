@@ -1,7 +1,7 @@
 /* See COPYRIGHT for copyright information. */
 
-#ifndef JOS_INC_ERROR_H
-#define JOS_INC_ERROR_H
+#ifndef LIB_ERROR_H
+#define LIB_ERROR_H
 
 enum {
 	// Kernel error codes -- keep in sync with list in lib/printfmt.c.

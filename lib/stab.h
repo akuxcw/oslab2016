@@ -1,6 +1,6 @@
-#ifndef STAB_H
-#define STAB_H
-#include <inc/types.h>
+#ifndef LIB_STAB_H
+#define LIB_STAB_H
+#include <types.h>
 
 // <inc/stab.h>
 // STABS debugging info

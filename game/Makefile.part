@@ -8,7 +8,7 @@ GAME := $(OBJ_GAME_DIR)/game
 
 $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/$(dir $<)
-	@$(CC) $(CFLAGS) -I game/ $< -o $@
+	@$(CC) $(CFLAGS) -I lib/ $< -o $@
 	@echo +CC $< -o $@
 
 game: $(GAME_O)

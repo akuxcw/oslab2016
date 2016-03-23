@@ -1,5 +1,5 @@
-#ifndef JOS_INC_TYPES_H
-#define JOS_INC_TYPES_H
+#ifndef LIB_TYPES_H
+#define LIB_TYPES_H
 
 #ifndef NULL
 #define NULL ((void*) 0)
