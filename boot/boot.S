@@ -52,7 +52,7 @@ start32:
 	movw    %ax, %es
 	movw    %ax, %ss
 
-	movl    $0x8000, %esp
+	movl    $0x8000000, %esp
 	call    bootmain
 
 .p2align 2
