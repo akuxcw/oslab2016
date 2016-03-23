@@ -9,10 +9,11 @@ void init_i8259();
 void init_timer();
 void init_serial();
 void init_idt();
-
+void init_segment();
 void init_palette();
 
 int kern_main() {
+	init_segment();
 	init_timer();
 	init_i8259();
 	init_serial();
