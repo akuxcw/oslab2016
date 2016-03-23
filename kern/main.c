@@ -42,11 +42,11 @@ int kern_main() {
 
 	printk("Ready to game!\n");
 
+	int esp = read_esp();
+	printk("%x\n", esp);
 	
 	((void(*)(void))elf->e_entry)();
 
-	int esp = read_esp();
-	printk("%x\n", esp);
 
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
