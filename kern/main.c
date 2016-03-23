@@ -1,7 +1,10 @@
 #include <inc/x86.h>
 #include <inc/elf.h>
 #include <inc/stdio.h>
+
 #define SECTSIZE 512
+#define OFFSET_IN_DISK 0x19000
+#define SEG_OFFSET 0x100
 
 void readseg(unsigned char *, int, int);
 
@@ -26,14 +29,14 @@ int kern_main() {
 
 	elf = (struct Elf*)(0x19000);
 
-	readseg((unsigned char*)elf, 4096, 0x19000);
+	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
 
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		pa = (unsigned char*)ph->p_pa; 
-		readseg(pa, ph->p_filesz, 0x19000 + ph->p_offset); 
+		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 
