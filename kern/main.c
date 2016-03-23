@@ -44,7 +44,9 @@ int kern_main() {
 
 	printk("Ready to game!\n");
 
-	
+	uint32_t eflags = read_eflags();
+	write_eflags(eflags | (1 << 14));
+
 	TrapFrame *tf = (TrapFrame *)0x10000;
 	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
