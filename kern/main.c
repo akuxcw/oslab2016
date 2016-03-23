@@ -56,10 +56,11 @@ int kern_main() {
 	pushl(0);
 	pushl(SEG_USER_CODE);
 	pushl(elf->e_entry);
-	breakpoint();
+//	breakpoint();
+DEBUG:
 	asm volatile("iret");
 	//	((void(*)(void))elf->e_entry)();
-
+goto DEBUG;
 
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
