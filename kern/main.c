@@ -1,6 +1,7 @@
 #include <inc/x86.h>
 #include <inc/elf.h>
 #include <inc/stdio.h>
+#include <inc/mmu.h>
 
 #define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
@@ -44,8 +45,19 @@ int kern_main() {
 
 	int esp = read_esp();
 	printk("%x\n", esp);
-	
-	((void(*)(void))elf->e_entry)();
+
+	pushl(SEG_USER_DATA);
+	pushl(0x80000);
+	pushl(SEG_USER_DATA);
+	pushl(SEG_USER_DATA);
+	pushl(SEG_USER_DATA);
+	pushl(SEG_USER_DATA);
+	pushl(SEG_USER_DATA);
+	pushl(0);
+	pushl(SEG_USER_CODE);
+	pushl(elf->e_entry);
+	asm volatile("iret");
+	//	((void(*)(void))elf->e_entry)();
 
 
 	outw(0x8A00, 0x8A00);

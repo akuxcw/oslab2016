@@ -144,9 +144,9 @@
 #define NR_SEGMENTS             512
 #define SEG_KERNEL_CODE         1 
 #define SEG_KERNEL_DATA         2
-//#define SEG_USER_CODE			3
-//#define SEG_USER_DATA			4
-#define SEG_TSS					3
+#define SEG_USER_CODE			3
+#define SEG_USER_DATA			4
+#define SEG_TSS					5
 
 
 //construct the selector for kernel or user
