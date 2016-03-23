@@ -32,20 +32,20 @@ set_tss(SegDesc *ptr) {
 static SegDesc gdt[NR_SEGMENTS];
 
 static void
-set_segment(SegDesc *ptr, uint32_t pl, uint32_t type) {
-	ptr->limit_15_0  = 0xFFFF;
-	ptr->base_15_0   = 0x0;
-	ptr->base_23_16  = 0x0;
+set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit) {
+	ptr->limit_15_0  = limit & 0xFFFF;
+	ptr->base_15_0   = base & 0xFFFF;
+	ptr->base_23_16  = (base >> 16) & 0xFF;
 	ptr->type = type;
 	ptr->segment_type = 1;
 	ptr->privilege_level = pl;
 	ptr->present = 1;
-	ptr->limit_19_16 = 0xF;
+	ptr->limit_19_16 = (limit >> 16 ) & 0xF;
 	ptr->soft_use = 0;
 	ptr->operation_size = 0;
 	ptr->pad0 = 1;
 	ptr->granularity = 1;
-	ptr->base_31_24  = 0x0;
+	ptr->base_31_24  = (base >> 24) & 0xFF;
 }
 
 
@@ -54,8 +54,8 @@ set_segment(SegDesc *ptr, uint32_t pl, uint32_t type) {
 void
 init_segment(void) {
 	memset(gdt, 0, sizeof(gdt));
-	set_segment(&gdt[SEG_KERNEL_CODE], DPL_KERNEL, SEG_EXECUTABLE | SEG_READABLE);
-	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE );
+	set_segment(&gdt[SEG_KERNEL_CODE], DPL_KERNEL, SEG_EXECUTABLE | SEG_READABLE, 0, 0xFFFFF);
+	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE, 0, 0xFFFFF);
 
 	write_gdtr(gdt, sizeof(gdt));
 
