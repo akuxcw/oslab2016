@@ -1,5 +1,6 @@
-#include <inc/string.h>
-#include <inc/stdio.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
 #include "vga.h"
 
 enum {SKY, GROUND, DANGER, GOAL};
@@ -9,9 +10,6 @@ extern jpg Basic2;
 extern jpg Basic;
 extern jpg GreenBlock;
 extern jpg GoldenBlock;
-
-void sleep(int t);
-int time();
 
 char __buf[800*600*3];
 bool v[600][800];

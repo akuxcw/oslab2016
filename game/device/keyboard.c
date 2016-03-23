@@ -1,7 +1,8 @@
-#include <inc/types.h>
-#include <inc/x86.h>
-#include <inc/stdio.h>
-
+#include <types.h>
+#include <x86.h>
+#include <stdio.h>
+#include <time.h>
+#include <kbd.h>
 enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};
 
 /* a-z */
@@ -14,9 +15,6 @@ const static int letter_code[] = {
 #define NR_KEYS (sizeof(letter_code)/sizeof(int))
 
 static int letter_pressed[26];
-
-int time();
-void Update_kbd(int *, int);
 
 static int query_key(int index) {
 	return letter_pressed[index];

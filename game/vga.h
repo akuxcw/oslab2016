@@ -1,5 +1,6 @@
 #include "vgatypes.h"
-#include <inc/string.h>
+#include <string.h>
+#include <palette.h>
 #define V_ROW 600
 #define V_COL 800
 RGB * L2_color_buffer;
@@ -16,8 +17,6 @@ Displayjpg(int x, int y, jpg* graph) {
 			toColor(color(x + i, y + j), graph->arr[i * graph->length + j]);
 		}
 }
-
-void write_palette(char *);
 
 static inline void
 Updata_vga() {

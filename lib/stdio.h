@@ -9,7 +9,7 @@
  * Print a number (base <= 16) in reverse order,
  * using specified putch function and associated pointer putdat.
  */
-static void
+static inline void
 printnum(void (*putch)(int, void*), void *putdat,
 			unsigned /*long long*/ num, unsigned base, int width, int padc)
 {
@@ -28,7 +28,7 @@ printnum(void (*putch)(int, void*), void *putdat,
 
 // Get an unsigned int of various possible sizes from a varargs list,
 // depending on the lflag parameter.
-static unsigned long long
+static inline unsigned long long
 getuint(va_list *ap, int lflag)
 {
 	if (lflag >= 2)
@@ -41,7 +41,7 @@ getuint(va_list *ap, int lflag)
 
 // Same as getuint but signed - can't use getuint
 // because of sign extension
-static long long
+static inline long long
 getint(va_list *ap, int lflag)
 {
 	if (lflag >= 2)
@@ -52,7 +52,7 @@ getint(va_list *ap, int lflag)
 	  return va_arg(*ap, int);
 }
 
-
+static inline 
 void
 vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 {
@@ -210,14 +210,14 @@ struct sprintbuf {
 	int cnt;
 };
 
-static void
+static inline void
 sprintputch(int ch, struct sprintbuf *b)
 {
 	b->cnt++;
 	if (b->buf < b->ebuf)
 	  *b->buf++ = ch;
 }
-
+static inline 
 int
 vsnprintf(char *buf, int n, const char *fmt, va_list ap)
 {
@@ -234,7 +234,7 @@ vsnprintf(char *buf, int n, const char *fmt, va_list ap)
 
 	return b.cnt;
 }
-
+static inline 
 int
 snprintf(char *buf, int n, const char *fmt, ...)
 {
@@ -247,7 +247,7 @@ snprintf(char *buf, int n, const char *fmt, ...)
 
 	return rc;
 }
-
+static inline 
 int printf(const char * fmt, ...) {
 	static char buf[256];
 	void *args = (void **)&fmt + 1;

@@ -1,4 +1,4 @@
-#include <inc/stdio.h>
+#include <stdio.h>
 
 void game();
 

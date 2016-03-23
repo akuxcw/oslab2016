@@ -1,4 +1,4 @@
-#include <inc/types.h>
+#include <types.h>
 typedef struct _RGB{
 	uint8_t R;
 	uint8_t G;

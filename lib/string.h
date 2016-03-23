@@ -8,7 +8,9 @@
 // Primespipe runs 3x faster this way.
 #define ASM 1
 
-int
+#include <types.h>
+
+static inline int
 strlen(const char *s)
 {
 	int n;
@@ -17,7 +19,7 @@ strlen(const char *s)
 		n++;
 	return n;
 }
-
+static inline 
 int
 strnlen(const char *s, size_t size)
 {
@@ -27,7 +29,7 @@ strnlen(const char *s, size_t size)
 		n++;
 	return n;
 }
-
+static inline 
 char *
 strcpy(char *dst, const char *src)
 {
@@ -38,7 +40,7 @@ strcpy(char *dst, const char *src)
 		/* do nothing */;
 	return ret;
 }
-
+static inline 
 char *
 strcat(char *dst, const char *src)
 {
@@ -46,7 +48,7 @@ strcat(char *dst, const char *src)
 	strcpy(dst + len, src);
 	return dst;
 }
-
+static inline 
 char *
 strncpy(char *dst, const char *src, size_t size) {
 	size_t i;
@@ -61,7 +63,7 @@ strncpy(char *dst, const char *src, size_t size) {
 	}
 	return ret;
 }
-
+static inline 
 size_t
 strlcpy(char *dst, const char *src, size_t size)
 {
@@ -75,7 +77,7 @@ strlcpy(char *dst, const char *src, size_t size)
 	}
 	return dst - dst_in;
 }
-
+static inline 
 int
 strcmp(const char *p, const char *q)
 {
@@ -83,7 +85,7 @@ strcmp(const char *p, const char *q)
 		p++, q++;
 	return (int) ((unsigned char) *p - (unsigned char) *q);
 }
-
+static inline 
 int
 strncmp(const char *p, const char *q, size_t n)
 {
@@ -97,6 +99,7 @@ strncmp(const char *p, const char *q, size_t n)
 
 // Return a pointer to the first occurrence of 'c' in 's',
 // or a null pointer if the string has no 'c'.
+static inline 
 char *
 strchr(const char *s, char c)
 {
@@ -108,6 +111,7 @@ strchr(const char *s, char c)
 
 // Return a pointer to the first occurrence of 'c' in 's',
 // or a pointer to the string-ending null character if the string has no 'c'.
+static inline 
 char *
 strfind(const char *s, char c)
 {
@@ -118,6 +122,7 @@ strfind(const char *s, char c)
 }
 
 #if ASM
+static inline 
 void *
 memset(void *v, int c, size_t n)
 {
@@ -137,7 +142,7 @@ memset(void *v, int c, size_t n)
 			: "cc", "memory");
 	return v;
 }
-
+static inline 
 void *
 memmove(void *dst, const void *src, size_t n)
 {
@@ -169,7 +174,7 @@ memmove(void *dst, const void *src, size_t n)
 }
 
 #else
-
+static inline 
 void *
 memset(void *v, int c, size_t n)
 {
@@ -183,7 +188,7 @@ memset(void *v, int c, size_t n)
 
 	return v;
 }
-
+static inline 
 void *
 memmove(void *dst, const void *src, size_t n)
 {
@@ -204,13 +209,13 @@ memmove(void *dst, const void *src, size_t n)
 	return dst;
 }
 #endif
-
+static inline 
 void *
 memcpy(void *dst, const void *src, size_t n)
 {
 	return memmove(dst, src, n);
 }
-
+static inline 
 int
 memcmp(const void *v1, const void *v2, size_t n)
 {
@@ -225,7 +230,7 @@ memcmp(const void *v1, const void *v2, size_t n)
 
 	return 0;
 }
-
+static inline 
 void *
 memfind(const void *s, int c, size_t n)
 {
@@ -235,7 +240,7 @@ memfind(const void *s, int c, size_t n)
 			break;
 	return (void *) s;
 }
-
+static inline 
 long
 strtol(const char *s, char **endptr, int base)
 {

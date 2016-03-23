@@ -1,5 +1,5 @@
-#include <inc/stdio.h>
-#include <inc/string.h>
+#include <stdio.h>
+#include <string.h>
 #include "../vga.h"
 
 enum {SKY, GROUND, DANGER, GOAL};
