@@ -62,6 +62,8 @@ int kern_main() {
 	asm volatile("addl %0, %%esp" : :"a"(24));
 	asm volatile("movl %0, %%ds" : :"a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("movl %0, %%es" : :"a"(SELECTOR_USER(SEG_USER_DATA)));
+	asm volatile("movl %0, %%fs" : :"a"(SELECTOR_USER(SEG_USER_DATA)));
+	asm volatile("movl %0, %%gs" : :"a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("iret");
 		((void(*)(void))elf->e_entry)();
 
