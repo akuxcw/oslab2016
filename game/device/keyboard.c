@@ -1,5 +1,5 @@
 #include <types.h>
-#include <x86.h>
+//#include <x86.h>
 #include <stdio.h>
 #include <time.h>
 #include <kbd.h>
@@ -70,7 +70,7 @@ void release_key(int keys) {
 
 void process_kbd() {
 	Update_kbd(letter_pressed, NR_KEYS);
-	cli();
+//	cli();
 	int i;
 	bool flag = 0;
 	for(i = 0; i < NR_KEYS; ++ i) {
@@ -88,5 +88,5 @@ void process_kbd() {
 		}
 	}
 	if(!flag) Vy = 0;
-	sti();
+//	sti();
 }

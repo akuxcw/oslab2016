@@ -1,6 +1,7 @@
 #ifndef INC_ELF_H
 #define INC_ELF_H
 
+#include <inc/types.h>
 #define ELF_MAGIC 0x464C457FU	/* "\x7FELF" in little endian */
 
 struct Elf {
