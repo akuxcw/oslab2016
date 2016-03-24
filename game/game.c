@@ -44,8 +44,8 @@ START:
 		do_move();
 		process_kbd();
 		process_video();
-		printf("@");
 		check_state();
+		printf("@");
 		switch(state) {
 			case GOAL: goto RESTART;
 			case DANGER : goto START;
