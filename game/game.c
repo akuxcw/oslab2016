@@ -37,10 +37,10 @@ void process_video();
 
 void game(){
 START:
+		printf("@");
 	init_game();
 	volatile int time_now;
 	while(1) {
-		printf("@");
 		time_now = time();
 		do_move();
 		process_kbd();
