@@ -51,7 +51,7 @@ int kern_main() {
 	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA << 3;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
-	tf->eflags = eflags;
+	tf->eflags = eflags | (1 << 9);
 	tf->eip = elf->e_entry;
 	tf->cs = (SEG_USER_CODE << 3) | 0x3;
 	tf->ss = (SEG_USER_DATA << 3) | 0x3;

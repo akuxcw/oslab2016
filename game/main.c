@@ -3,7 +3,7 @@
 void game();
 
 int game_main(){
-	asm volatile("sti");
+//	asm volatile("sti");
 	time();
 	printf("@_@ Game Start!\n");
 	game();
