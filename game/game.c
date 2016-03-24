@@ -37,8 +37,8 @@ void process_video();
 
 void game(){
 START:
-		printf("@");
 	init_game();
+		printf("@");
 	volatile int time_now;
 	while(1) {
 		time_now = time();
