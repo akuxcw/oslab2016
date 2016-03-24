@@ -56,7 +56,7 @@ int kern_main() {
 	tf->eip = elf->e_entry;// + SEG_OFFSET;
 	tf->cs = (SEG_USER_CODE << 3) | 0x3;//SELECTOR_USER(SEG_USER_CODE);
 	tf->ss = (SEG_USER_DATA << 3) | 0x3;//SELECTOR_USER(SEG_USER_DATA);
-	tf->esp = 0x80000;
+	tf->esp = 0x8080000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(24));
