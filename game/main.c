@@ -4,7 +4,7 @@ void game();
 
 int game_main(){
 //	asm volatile("sti");
-	time();
+//	time();
 	printf("@_@ Game Start!\n");
 	game();
 	while(1);
