@@ -1,6 +1,7 @@
 #include <inc/stdio.h>
 #include <inc/assert.h>
 #include <inc/x86.h>
+#include <inc/mmu.h>
 #include "irq.h"
 
 void do_timer(void);
@@ -10,6 +11,8 @@ void do_syscall(TrapFrame *);
 
 void
 irq_handle(TrapFrame *tf) {
+	asm volatile("movl %0, %%es" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
+	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	uint32_t code, val;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
