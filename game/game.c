@@ -40,6 +40,7 @@ START:
 	init_game();
 	volatile int time_now;
 	while(1) {
+		printf("@");
 		time_now = time();
 		do_move();
 		process_kbd();
@@ -89,7 +90,6 @@ void init_game() {
 
 	/* Display background */
 	Displayjpg(0, 0, &Basic);
-		printf("@");
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
 	/* Set property */
