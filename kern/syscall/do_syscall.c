@@ -2,6 +2,7 @@
 #include <inc/syscall.h>
 #include <inc/string.h>
 #include <inc/stdio.h>
+#include <inc/mmu.h>
 enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};
 /*
 void add_irq_handle(int, void (*)(void));
@@ -27,19 +28,19 @@ void serial_putc(char);
 static void sys_write(TrapFrame *tf) {
 	int i;
 	for(i = 0; i < tf->edx; ++ i)
-		serial_putc(*(char *)(tf->ecx + i));
+		serial_putc(*(char *)(tf->ecx + SEG_OFFSET + i));
 	tf->eax = tf->edx;
 }
 extern char * color_buffer;
 static void sys_palette(TrapFrame *tf) {
-	memcpy(color_buffer, (void *)tf->ebx, 800*600*3);
+	memcpy(color_buffer, (void *)(tf->ebx + SEG_OFFSET), 800*600*3);
 }
 
 int query_key(int);
 
 static void sys_kbd(TrapFrame *tf) {
 	int i;
-	int *kbd = (int *) tf->ebx;
+	int *kbd = (int *)(tf->ebx + SEG_OFFSET);
 	for(i = 0; i < tf->ecx; ++ i) {
 		if(kbd[i] == KEY_STATE_EMPTY && query_key(i) == KEY_STATE_PRESS) kbd[i] = KEY_STATE_PRESS; else
 		if(kbd[i] == KEY_STATE_WAIT_RELEASE && query_key(i) == KEY_STATE_RELEASE) kbd[i] = KEY_STATE_RELEASE;
