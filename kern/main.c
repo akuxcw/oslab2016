@@ -24,7 +24,8 @@ int kern_main() {
 	init_serial();
 	init_idt();
 	init_palette();
-
+	
+//	loader
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
@@ -52,8 +53,8 @@ int kern_main() {
 	
 	tf->eflags = eflags;
 	tf->eip = elf->e_entry;
-	tf->cs = SEG_KERNEL_CODE << 3;
-	tf->ss = SEG_KERNEL_DATA << 3;
+	tf->cs = SEG_USER_CODE << 3;
+	tf->ss = SEG_USER_DATA << 3;
 	tf->esp = 0x8000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
