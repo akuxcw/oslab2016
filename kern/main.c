@@ -51,7 +51,7 @@ int kern_main() {
 	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA << 3;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	tf->eip = elf->e_entry;
-	tf->cs = SEG_KERNEL_CODE << 13;
+	tf->cs = SEG_KERNEL_CODE << 3;
 	tf->ss = SEG_KERNEL_DATA << 3;
 	tf->esp = 0x8000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
