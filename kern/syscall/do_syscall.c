@@ -42,7 +42,7 @@ static void sys_kbd(TrapFrame *tf) {
 	int i;
 	int *kbd = (int *)(char *)(tf->ebx + SEG_OFFSET);
 	for(i = 0; i < tf->ecx; ++ i) {
-//		printk("%d %d\n", kbd[i], query_key(i));
+		printk("%d %d\n", kbd[i], query_key(i));
 		if(kbd[i] == KEY_STATE_EMPTY && query_key(i) == KEY_STATE_PRESS) kbd[i] = KEY_STATE_PRESS; else
 		if(kbd[i] == KEY_STATE_WAIT_RELEASE && query_key(i) == KEY_STATE_RELEASE) kbd[i] = KEY_STATE_RELEASE;
 	}
