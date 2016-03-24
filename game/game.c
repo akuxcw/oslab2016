@@ -49,10 +49,10 @@ START:
 			case GOAL: goto RESTART;
 			case DANGER : goto START;
 		}
-		int tmp = Delta - (time() - time_now);
-//		while(Delta > (time() - time_now));
-		if (tmp > 0) sleep(tmp);
-		printf("@");
+//		int tmp = Delta - (time() - time_now);
+		while(Delta > (time() - time_now));
+//		if (tmp > 0) sleep(tmp);
+//		printf("@");
 	}
 RESTART:
 	restart = 0;
