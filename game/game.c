@@ -45,12 +45,12 @@ START:
 		process_kbd();
 		process_video();
 		check_state();
-		printf("@");
 		switch(state) {
 			case GOAL: goto RESTART;
 			case DANGER : goto START;
 		}
 		int tmp = Delta - (time() - time_now);
+		printf("@");
 		if (tmp > 0) sleep(tmp);
 	}
 RESTART:
