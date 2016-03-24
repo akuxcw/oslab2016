@@ -38,20 +38,19 @@ void process_video();
 void game(){
 START:
 	init_game();
-//	volatile int time_now;
+	volatile int time_now;
 	while(1) {
-//		time_now = time();
+		time_now = time();
 		do_move();
-//		process_kbd();
+		process_kbd();
 //		process_video();
 		check_state();
 		switch(state) {
 			case GOAL: goto RESTART;
 			case DANGER : goto START;
 		}
-//		int tmp = Delta - (time() - time_now);
-//		while(Delta > (time() - time_now));
-//		if (tmp > 0) sleep(tmp);
+		int tmp = Delta - (time() - time_now);
+		if (tmp > 0) sleep(tmp);
 	}
 RESTART:
 	restart = 0;
