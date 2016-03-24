@@ -53,7 +53,7 @@ int kern_main() {
 	
 	tf->eflags = eflags;
 	tf->eip = elf->e_entry;
-	tf->cs = (SEG_USER_CODE << 3) & 0x3;
+	tf->cs = (SEG_USER_CODE << 3);// & 0x3;
 	tf->ss = (SEG_USER_DATA << 3) & 0x3;
 	tf->esp = 0x8000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
