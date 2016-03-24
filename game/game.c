@@ -42,7 +42,7 @@ START:
 	while(1) {
 //		time_now = time();
 		do_move();
-		process_kbd();
+//		process_kbd();
 		process_video();
 		check_state();
 		switch(state) {
