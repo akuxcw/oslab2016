@@ -22,7 +22,7 @@ int query_key(int index) {
 }
 
 void do_kbd(int scan_code) {
-	printk("%x\n", scan_code);
+//	printk("%x\n", scan_code);
 	int i;
 	bool flag;
 	if(scan_code & 0x80) flag = false, scan_code -= 0x80; else flag = true;
