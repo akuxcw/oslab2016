@@ -148,7 +148,7 @@
 #define SEG_USER_DATA			4
 #define SEG_TSS					5
 
-#define SEG_OFFSET				0x100
+#define SEG_OFFSET				0x0
 
 //construct the selector for kernel or user
 #define SELECTOR_KERNEL(s)		( ((s) << 3) | DPL_KERNEL )
