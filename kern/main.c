@@ -48,7 +48,7 @@ int kern_main() {
 
 	uint32_t eflags = read_eflags();
 
-	TrapFrame_iret *tf = (TrapFrame_iret *)0x100000;
+	TrapFrame_iret *tf = (TrapFrame_iret *)0x10000;
 	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
