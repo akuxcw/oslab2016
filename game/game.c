@@ -52,7 +52,7 @@ START:
 		int tmp = Delta - (time() - time_now);
 //		while(Delta > (time() - time_now));
 		if (tmp > 0) sleep(tmp);
-//		printf("@");
+		printf("@");
 	}
 RESTART:
 	restart = 0;
