@@ -83,10 +83,10 @@ void init_game() {
 	Jump = 0;
 	Delta = 2;
 
-		printf("@");
 	for(i = 3; i < 20; i += 3)
 	  	for(j = 0; j < 100; j += 3)
 			if((i+j)%2 == 0)Block[i][j] = GREEN; else Block[i][j] = RED;
+		printf("@");
 	Block[0][50] = GOLDEN;
 
 	/* Display background */
