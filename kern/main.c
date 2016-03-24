@@ -44,6 +44,8 @@ int kern_main() {
 
 	printk("Ready to game!\n");
 
+	printk("%x\n", elf->e_entry);
+
 	uint32_t eflags = read_eflags();
 
 	TrapFrame_iret *tf = (TrapFrame_iret *)0x10000;

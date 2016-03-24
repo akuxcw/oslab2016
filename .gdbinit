@@ -29,5 +29,4 @@ target remote 127.0.0.1:1234
 echo + symbol-file obj/game/game\n
 symbol-file obj/game/game 
 symbol-file obj/kern/kern
-#obj/kern/kern
 
