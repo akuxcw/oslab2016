@@ -11,7 +11,7 @@ void do_syscall(TrapFrame *);
 
 void
 irq_handle(TrapFrame *tf) {
-	cli();
+//	cli();
 	asm volatile("movl %0, %%es" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
@@ -48,6 +48,6 @@ irq_handle(TrapFrame *tf) {
 	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("movl %0, %%gs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
-	sti();
+//	sti();
 }
 
