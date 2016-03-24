@@ -81,7 +81,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_close : tf->eax = fs_close(tf->ebx); break;
 */
 
-		default: printk("Unhandled system call: id = %d", tf->eax);
+		default: printk("Unhandled system call: id = %d\n", tf->eax);
 	}
 	asm volatile("movl %0, %%es" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
