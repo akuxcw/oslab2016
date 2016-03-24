@@ -1,5 +1,5 @@
 #include <types.h>
-//#include <x86.h>
+#include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <kbd.h>
@@ -24,6 +24,10 @@ extern int Jump, Vsx, Vy, Vsy, Vx, Vsx;
 extern int restart;
 int LastJump;
 int Jump2;
+
+void init_kbd() {
+	memset(letter_pressed, 0, sizeof letter_pressed);
+}
 
 void press_key(int keys) {
 //	printk("press %c\n", keys + 'a');
