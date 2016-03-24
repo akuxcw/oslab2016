@@ -8,7 +8,7 @@ static TSS tss;
 inline static void
 set_tss(SegDesc *ptr) {
 	tss.ss0 = SELECTOR_KERNEL(SEG_KERNEL_DATA);		// only one ring 0 stack segment
-	tss.esp0 = 0x8000;
+	tss.esp0 = 0x80000;
 	uint32_t base = (uint32_t)&tss;
 	uint32_t limit = sizeof(TSS) - 1;
 	ptr->limit_15_0  = limit & 0xffff;
