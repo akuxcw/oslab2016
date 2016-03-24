@@ -47,18 +47,18 @@ int kern_main() {
 	uint32_t eflags = read_eflags();
 
 	TrapFrame_iret *tf = (TrapFrame_iret *)0x10000;
-	tf->gs = tf->fs = tf->es = tf->ds = SEG_USER_DATA << 3;
+	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | (1 << 9);
 	tf->eip = elf->e_entry + SEG_OFFSET;
-	tf->cs = (SEG_USER_CODE << 3) | 0x3;
-	tf->ss = (SEG_USER_DATA << 3) | 0x3;
+	tf->cs = SELECTOR_USER(SEG_USER_CODE);
+	tf->ss = SELECTOR_USER(SEG_USER_DATA);
 	tf->esp = 0x8000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(24));
-	asm volatile("movl %0, %%ds" : :"a"((SEG_USER_DATA << 3) | 0x3));
+	asm volatile("movl %0, %%ds" : :"a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("movl %0, %%es" : :"a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("iret");
 		((void(*)(void))elf->e_entry)();
