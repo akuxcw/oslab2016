@@ -89,8 +89,8 @@ void init_game() {
 
 	/* Display background */
 	Displayjpg(0, 0, &Basic);
-	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 		printf("@");
+	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
 	/* Set property */
 	Set_property(0, 0, 650, 3050, SKY);
