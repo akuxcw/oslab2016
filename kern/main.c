@@ -58,7 +58,7 @@ int kern_main() {
 	tf->esp = 0x8000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
-	asm volatile("addl %0, %%esp" : :"a"(24));
+	asm volatile("addl %0, %%esp" : :"a"(8));
 	asm volatile("iret");
 		((void(*)(void))elf->e_entry)();
 
