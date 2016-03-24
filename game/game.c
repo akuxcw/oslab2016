@@ -40,6 +40,7 @@ START:
 	init_game();
 	volatile int time_now;
 	while(1) {
+		printf("@");
 		time_now = time();
 		do_move();
 		process_kbd();
@@ -52,7 +53,6 @@ START:
 		int tmp = Delta - (time() - time_now);
 //		while(Delta > (time() - time_now));
 		if (tmp > 0) sleep(tmp);
-		printf("@");
 	}
 RESTART:
 	restart = 0;
