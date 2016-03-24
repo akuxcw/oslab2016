@@ -43,8 +43,8 @@ START:
 		printf("@");
 		time_now = time();
 		do_move();
-		process_kbd();
-		process_video();
+		//process_kbd();
+		//process_video();
 		check_state();
 		switch(state) {
 			case GOAL: goto RESTART;
