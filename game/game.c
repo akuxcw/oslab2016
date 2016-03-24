@@ -90,9 +90,9 @@ void init_game() {
 
 	/* Display background */
 	Displayjpg(0, 0, &Basic);
+		printf("@");
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
-		printf("@");
 	/* Set property */
 	Set_property(0, 0, 650, 3050, SKY);
 	Set_property(-50, 0, 50, 3050, GROUND);		//Ceiling
