@@ -58,6 +58,8 @@ int kern_main() {
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(24));
+	asm volatile("movl %0, %%ds" : :"a"((SEG_USER_DATA << 3) | 0x3));
+	asm volatile("movl %eax, %es");
 	asm volatile("iret");
 		((void(*)(void))elf->e_entry)();
 
