@@ -6,7 +6,6 @@
 
 #define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
-#define SEG_OFFSET 0x100
 
 void readseg(unsigned char *, int, int);
 
@@ -38,7 +37,7 @@ int kern_main() {
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
-		pa = (unsigned char*)ph->p_pa;// + SEG_OFFSET; 
+		pa = (unsigned char*)ph->p_pa + SEG_OFFSET; 
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
@@ -52,7 +51,7 @@ int kern_main() {
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | (1 << 9);
-	tf->eip = elf->e_entry;
+	tf->eip = elf->e_entry + SEG_OFFSET;
 	tf->cs = (SEG_USER_CODE << 3) | 0x3;
 	tf->ss = (SEG_USER_DATA << 3) | 0x3;
 	tf->esp = 0x8000000;
