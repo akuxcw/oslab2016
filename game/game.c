@@ -40,11 +40,11 @@ START:
 	init_game();
 	volatile int time_now;
 	while(1) {
-		printf("@");
 		time_now = time();
 		do_move();
 		process_kbd();
 		process_video();
+		printf("@");
 		check_state();
 		switch(state) {
 			case GOAL: goto RESTART;
