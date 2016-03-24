@@ -88,9 +88,9 @@ void init_game() {
 	Block[0][50] = GOLDEN;
 
 	/* Display background */
-		printf("@");
 	Displayjpg(0, 0, &Basic);
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
+		printf("@");
 
 	/* Set property */
 	Set_property(0, 0, 650, 3050, SKY);
