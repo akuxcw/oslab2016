@@ -1,5 +1,6 @@
 #include <inc/types.h>
 #include <inc/x86.h>
+#include <inc/stdio.h>
 
 #define PORT_CH_0 0x40
 #define PORT_CMD 0x43
@@ -33,6 +34,7 @@ void init_timer() {
 volatile int tick = 0;
 
 void do_timer(void) {
+	printk("#");
 	tick ++;
 }
 
