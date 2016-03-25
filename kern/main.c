@@ -45,6 +45,8 @@ int kern_main() {
 	printk("Ready to game!\n");
 
 //	printk("%x\n", elf->e_entry);
+	
+	printk("%x\n",  0x8000000 + SEG_OFFSET);
 
 	uint32_t eflags = read_eflags();
 
