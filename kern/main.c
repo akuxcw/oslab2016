@@ -56,7 +56,7 @@ void load() {
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 	
-	*(int *)0x30000000 = 1;
+	*(int *)0x40000000 = 1;
 
 	printk("Ready to game!\n");
 
