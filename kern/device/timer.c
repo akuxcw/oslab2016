@@ -34,7 +34,7 @@ void init_timer() {
 volatile int tick = 0;
 
 void do_timer(void) {
-	printk("#");
+//	printk("#");
 	tick ++;
 }
 
@@ -46,6 +46,6 @@ void Delay(int t) {
 	sti();
 	printk("*********************\n");
 	volatile int i = tick;
-	while(i + t > tick)printk("%d\n", tick);
+	while(i + t > tick)/*printk("%d\n", tick)*/;
 }
 
