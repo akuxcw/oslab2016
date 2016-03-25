@@ -1,5 +1,4 @@
 #include <inc/x86.h>
-#include <inc/stdio.h>
 
 /***** Serial I/O code *****/
 
