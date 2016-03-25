@@ -12,6 +12,7 @@ void do_syscall(TrapFrame *);
 void
 irq_handle(TrapFrame *tf) {
 //	cli();
+	asm volatile("push %es");
 	asm volatile("movl %0, %%es" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
@@ -44,10 +45,12 @@ irq_handle(TrapFrame *tf) {
 				break;
 			default : printk("Error in irq_handle.c : %d\n", tf->irq);
 	}
-	asm volatile("movl %0, %%es" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
-	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
-	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
-	asm volatile("movl %0, %%gs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
+	asm volatile("movl (%esp), %eax\n\t"
+				 "movw %ax, %es\n\t");
+//	asm volatile("movl %0, %%es" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
+//	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
+//	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
+//	asm volatile("movl %0, %%gs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
 //	sti();
 }
 
