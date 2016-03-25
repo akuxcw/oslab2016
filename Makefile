@@ -59,7 +59,8 @@ gdb:
 	gdb -x .gdbinit
 
 qemu: os.img pre-qemu
-	$(QEMU) $(QEMUOPTS)
+	@$(QEMU) $(QEMUOPTS)
+	@echo +QEMU os.img
 	$(call git_commit, "run qemu", $(GITFLAGS))
 
 debug: $(IMAGES) pre-qemu
