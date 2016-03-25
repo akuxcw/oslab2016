@@ -45,8 +45,11 @@ irq_handle(TrapFrame *tf) {
 				break;
 			default : printk("Error in irq_handle.c : %d\n", tf->irq);
 	}
-	asm volatile("movl (%esp), %eax\n\t"
-				 "movw %ax, %es\n\t");
+	asm volatile("pop %eax\n\t"
+				 "movw %ax, %es\n\t"
+				 "movw %ax, %ds\n\t"
+				 "movw %ax, %fs\n\t"
+				 "movw %ax, %gs\n\t");
 //	asm volatile("movl %0, %%es" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
 //	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
 //	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_USER(SEG_USER_DATA)));
