@@ -8,7 +8,7 @@ static TSS tss;
 inline static void
 set_tss(SegDesc *ptr) {
 	tss.ss0 = SELECTOR_KERNEL(SEG_KERNEL_DATA);		// only one ring 0 stack segment
-	tss.esp0 = 0x8000;
+//	tss.esp0 = 0x8000;
 	uint32_t base = (uint32_t)&tss;
 	uint32_t limit = sizeof(TSS) - 1;
 	ptr->limit_15_0  = limit & 0xffff;
@@ -26,7 +26,10 @@ set_tss(SegDesc *ptr) {
 	ptr->base_31_24  = base >> 24;
 }
 
-
+void
+set_tss_esp0(int esp) {
+	tss.esp0 = esp;
+}
 
 /* GDT in the kernel's memory, whose virtual memory is greater than 0xC0000000. */
 static SegDesc gdt[NR_SEGMENTS];

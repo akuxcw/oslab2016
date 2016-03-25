@@ -3,11 +3,13 @@
 #include <inc/stdio.h>
 #include <inc/mmu.h>
 #include "inc/irq.h"
+#include "inc/process.h"
 
 #define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
 
 void readseg(unsigned char *, int, int);
+void set_tss_esp0(int);
 
 void init_i8259();
 void init_timer();
@@ -23,8 +25,11 @@ int kern_main() {
 	init_serial();
 	init_idt();
 	init_palette();
+	init_process();
+
 	
-//	loader
+	PCB *current = new_process();
+
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
@@ -50,7 +55,8 @@ int kern_main() {
 
 	uint32_t eflags = read_eflags();
 
-	TrapFrame *tf = (TrapFrame *)0x10000;
+	TrapFrame *tf = &current->tf;
+	set_tss_esp0((int)current->kstack);
 	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
