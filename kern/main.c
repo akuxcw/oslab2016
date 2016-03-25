@@ -1,6 +1,6 @@
+#include <common.h>
 #include <inc/x86.h>
 #include <inc/elf.h>
-#include <inc/stdio.h>
 #include <inc/mmu.h>
 #include "inc/irq.h"
 #include "inc/process.h"
