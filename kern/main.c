@@ -56,9 +56,9 @@ void load() {
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 	
-//	int addr = 0x50000000;
-//	*(int *)addr = 1;
-//	printf("%d\n", *(int *)addr);
+	int addr = 0x50000000;
+	*(int *)addr = 1;
+	printk("%d\n", *(int *)addr);
 	printk("Ready to game!\n");
 
 //	printk("%x\n", elf->e_entry);
