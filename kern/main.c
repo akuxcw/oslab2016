@@ -46,7 +46,7 @@ int kern_main() {
 
 //	printk("%x\n", elf->e_entry);
 	
-	printk("%x %x\n",  SEG_OFFSET, 0x8000000 + SEG_OFFSET);
+//	printk("%x %x\n",  SEG_OFFSET, 0x8000000 + SEG_OFFSET);
 
 	uint32_t eflags = read_eflags();
 
