@@ -1,26 +1,22 @@
 #include <inc/process.h>
+#include <inc/list.h>
 
 PCB pcb[NR_PCB];
-PCB *pcb_head;
-PCB *unused_pcb = pcb;
+ListHead *pcb_head;
+ListHead *unused_pcb;
 
 void init_process() {
-	int i;
-	PCB *tmp = unused_pcb;
-	for(i = 1; i < NR_PCB; ++ i) {
-		tmp->next = &pcb[i];
-		tmp = tmp->next;
+	list_init(pcb_head);
+	list_init(unused_pcb);
+	for(int i = 0; i < NR_PCB; ++ i) {
+		list_add_after(&pcb[i].list, unused_pcb);
 	}
 }
 
 PCB *new_process() {
-	PCB *tmp = unused_pcb;
-	unused_pcb = unused_pcb->next;
-	tmp->next = NULL;
-	if(pcb_head == NULL) pcb_head = tmp; else {
-		PCB *tmp2 = pcb_head;
-		while(tmp2->next != NULL) tmp2 = tmp2->next;
-		tmp2->next = tmp;
-	}
-	return tmp;
+	if(list_empty(unused_pcb)) printk("Process full!");
+	ListHead *new_pcb = unused_pcb->next;
+	list_del(new_pcb);
+	list_add_after(new_pcb, pcb_head);
+	return list_entry(new_pcb, PCB, list);
 }
