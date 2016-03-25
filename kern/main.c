@@ -50,7 +50,7 @@ int kern_main() {
 
 	uint32_t eflags = read_eflags();
 
-	TrapFrame_iret *tf = (TrapFrame_iret *)0x10000;
+	TrapFrame *tf = (TrapFrame *)0x10000;
 	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
@@ -61,7 +61,7 @@ int kern_main() {
 	tf->esp = 0x10000 - SEG_OFFSET;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
-	asm volatile("addl %0, %%esp" : :"a"(24));
+	asm volatile("addl %0, %%esp" : :"a"(8));
 	asm volatile("movl %0, %%ds\n\t"
 				 "movl %0, %%es\n\t"
 				 "movl %0, %%fs\n\t"
