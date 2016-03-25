@@ -1,3 +1,4 @@
+#include <common.h>
 #include <inc/mmu.h>
 #include <inc/x86.h>
 #include <inc/string.h>
