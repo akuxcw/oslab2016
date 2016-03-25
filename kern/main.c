@@ -39,7 +39,7 @@ int kern_main() {
 
 void load() {
 	PCB *current = new_process();
-	
+
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
@@ -50,13 +50,16 @@ void load() {
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
-	uint32_t cnt = 0;
+	int cnt = 0;
 	for(; ph < eph; ph ++) {
 		cnt ++;
 		pa = (unsigned char*)ph->p_pa + cnt * SEG_OFFSET; 
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
+	
+	printk("Ready to game!\n");
+
 	
 
 	uint32_t eflags = read_eflags();
