@@ -6,7 +6,6 @@
 #include "inc/process.h"
 #include "inc/disk.h"
 
-#define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
 
 
@@ -19,6 +18,8 @@ void init_idt();
 void init_segment();
 void init_palette();
 
+void load();
+
 int kern_main() {
 	init_segment();
 	init_timer();
@@ -28,7 +29,14 @@ int kern_main() {
 	init_palette();
 	init_process();
 
-//	load();	
+	load();	
+	outw(0x8A00, 0x8A00);
+	outw(0x8A00, 0x8E00);
+	while(1);
+	return 0;
+}
+
+void load() {
 	PCB *current = new_process();
 
 	struct Elf *elf;
@@ -78,12 +86,6 @@ int kern_main() {
 				 : "a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("iret");
 
-	outw(0x8A00, 0x8A00);
-	outw(0x8A00, 0x8E00);
-	while(1);
-	return 0;
+
 }
-
-
-
 
