@@ -56,7 +56,7 @@ int kern_main() {
 	uint32_t eflags = read_eflags();
 
 	TrapFrame *tf = &current->tf;
-	set_tss_esp0((int)current->kstack);
+	set_tss_esp0(/*(int)current->kstack*/0x8000);
 	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
