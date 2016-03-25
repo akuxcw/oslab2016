@@ -34,7 +34,7 @@ set_tss_esp0(int esp) {
 /* GDT in the kernel's memory, whose virtual memory is greater than 0xC0000000. */
 static SegDesc gdt[NR_SEGMENTS];
 
-static void
+void
 set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit) {
 	ptr->limit_15_0  = limit & 0xFFFF;
 	ptr->base_15_0   = base & 0xFFFF;
