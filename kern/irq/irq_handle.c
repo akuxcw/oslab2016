@@ -14,10 +14,12 @@ irq_handle(TrapFrame *tf) {
 //	cliI();
 	int seg_tmp;
 	asm volatile("movl %%es, %0" : "=a"(seg_tmp) :);
-	asm volatile("movl %0, %%es" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
-	asm volatile("movl %0, %%ds" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
-	asm volatile("movl %0, %%fs" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
-	asm volatile("movl %0, %%gs" : : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
+	asm volatile("movl %0, %%es\n\t"
+				 "movl %0, %%ds\n\t"
+				 "movl %0, %%fs\n\t"
+				 "movl %0, %%gs\n\t" 
+				 : 
+				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	uint32_t code, val;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
@@ -46,13 +48,7 @@ irq_handle(TrapFrame *tf) {
 				break;
 			default : printk("Error in irq_handle.c : %d\n", tf->irq);
 	}
-/*
-	asm volatile("popl %eax\n\t"
-				 "movw %ax, %es\n\t"
-				 "movw %ax, %ds\n\t"
-				 "movw %ax, %fs\n\t"
-				 "movw %ax, %gs\n\t");
-*/
+
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
