@@ -4,11 +4,12 @@
 #include <inc/mmu.h>
 #include "inc/irq.h"
 #include "inc/process.h"
+#include "inc/disk.h"
 
 #define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
 
-void readseg(unsigned char *, int, int);
+
 void set_tss_esp0(int);
 
 void init_i8259();
@@ -27,7 +28,7 @@ int kern_main() {
 	init_palette();
 	init_process();
 
-	
+//	load();	
 	PCB *current = new_process();
 
 	struct Elf *elf;
@@ -37,7 +38,6 @@ int kern_main() {
 	elf = (struct Elf*)(0x19000);
 
 	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
-
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
@@ -77,7 +77,6 @@ int kern_main() {
 				 : 
 				 : "a"(SELECTOR_USER(SEG_USER_DATA)));
 	asm volatile("iret");
-		((void(*)(void))elf->e_entry)();
 
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
@@ -85,28 +84,6 @@ int kern_main() {
 	return 0;
 }
 
-void waitdisk(void) {
-	while((inb(0x1F7) & 0xC0) != 0x40); 
-}
 
-void readsect(void *dst, int offset) {
-	waitdisk();
-	outb(0x1F2, 1);
-	outb(0x1F3, offset);
-	outb(0x1F4, offset >> 8);
-	outb(0x1F5, offset >> 16);
-	outb(0x1F6, (offset >> 24) | 0xE0);
-	outb(0x1F7, 0x20);
 
-	waitdisk();
-	insl(0x1F0, dst, SECTSIZE/4);
-}
 
-void readseg(unsigned char *pa, int count, int offset) {
-	unsigned char *epa;
-	epa = pa + count;
-	pa -= offset % SECTSIZE;
-	offset = (offset / SECTSIZE) + 1;
-	for(; pa < epa; pa += SECTSIZE, offset ++)
-		readsect(pa, offset);
-}
