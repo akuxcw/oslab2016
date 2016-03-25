@@ -10,6 +10,7 @@
 
 
 void set_tss_esp0(int);
+void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
 
 void init_i8259();
 void init_timer();
@@ -54,6 +55,8 @@ void load() {
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
+	
+	*(int *)0x10000000 = 1;
 
 	printk("Ready to game!\n");
 
