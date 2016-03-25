@@ -4,7 +4,7 @@
 #include "irq.h"
 
 #define KSTACK_SIZE 4096
-#define NR_PCB 256
+#define NR_PCB 16
 
 typedef struct PCB{
 	TrapFrame tf;
