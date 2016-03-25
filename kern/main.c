@@ -57,7 +57,7 @@ int kern_main() {
 
 	TrapFrame *tf = &current->tf;
 //	set_tss_esp0((int)current->kstack);
-	set_tss_esp0(0x80000);
+	set_tss_esp0(0x100000);
 	printk("%x\n", (int)current->kstack);
 	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
