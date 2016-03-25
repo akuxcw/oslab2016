@@ -1,6 +1,5 @@
 #include <inc/process.h>
 #include <inc/list.h>
-#include <inc/stdio.h>
 
 PCB pcb[NR_PCB];
 ListHead pcb_head;
