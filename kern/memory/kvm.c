@@ -52,15 +52,12 @@ set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t li
 	ptr->base_31_24  = (base >> 24) & 0xFF;
 }
 
-
-
-
 void
 init_segment(void) {
 	memset(gdt, 0, sizeof(gdt));
 	set_segment(&gdt[SEG_KERNEL_CODE], DPL_KERNEL, SEG_EXECUTABLE | SEG_READABLE, 0, 0xFFFFF);
 	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE, 0, 0xFFFFF);
-	set_segment(&gdt[SEG_USER_CODE], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, SEG_OFFSET, 0x1fff);
+	set_segment(&gdt[SEG_USER_CODE], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, 2*SEG_OFFSET, 0x1fff);
 	set_segment(&gdt[SEG_USER_DATA], DPL_USER, SEG_WRITABLE, SEG_OFFSET, 0x1fff);
 
 	write_gdtr(gdt, sizeof(gdt));
@@ -69,3 +66,14 @@ init_segment(void) {
 	ltr(SELECTOR_USER(SEG_TSS));
 }
 
+void init_memory() {
+	
+}
+
+uint32_t mm_malloc(uint32_t vaddr, uint32_t size) {
+#ifdef USE_PAGE
+#else
+
+#endif
+	return 0;
+}
