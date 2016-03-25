@@ -2,7 +2,7 @@
 #include <inc/assert.h>
 #include <inc/x86.h>
 #include <inc/mmu.h>
-#include "irq.h"
+#include "inc/irq.h"
 
 void do_timer(void);
 void do_kbd(int);

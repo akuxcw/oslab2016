@@ -1,4 +1,4 @@
-#include "../irq/irq.h"
+#include "inc/irq.h"
 #include <inc/syscall.h>
 #include <inc/string.h>
 #include <inc/stdio.h>

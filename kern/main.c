@@ -2,7 +2,7 @@
 #include <inc/elf.h>
 #include <inc/stdio.h>
 #include <inc/mmu.h>
-#include "irq/irq.h"
+#include "inc/irq.h"
 
 #define SECTSIZE 512
 #define OFFSET_IN_DISK 0x19000
