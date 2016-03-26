@@ -29,19 +29,19 @@ void serial_putc(char);
 static void sys_write(TrapFrame *tf) {
 	int i;
 	for(i = 0; i < tf->edx; ++ i)
-		serial_putc(*(char *)(tf->ecx + Get_seg_off + i));
+		serial_putc(*(char *)(tf->ecx + Get_seg_off() + i));
 	tf->eax = tf->edx;
 }
 extern char * color_buffer;
 static void sys_palette(TrapFrame *tf) {
-	memcpy(color_buffer, (void *)(tf->ebx + Get_seg_off), 800*600*3);
+	memcpy(color_buffer, (void *)(tf->ebx + Get_seg_off()), 800*600*3);
 }
 
 int query_key(int);
 
 static void sys_kbd(TrapFrame *tf) {
 	int i;
-	int *kbd = (int *)(tf->ebx + Get_seg_off);
+	int *kbd = (int *)(tf->ebx + Get_seg_off());
 	for(i = 0; i < tf->ecx; ++ i) {
 //		printk("%d %d\n", kbd[i], query_key(i));
 		if(kbd[i] == KEY_STATE_EMPTY && query_key(i) == KEY_STATE_PRESS) kbd[i] = KEY_STATE_PRESS; else
