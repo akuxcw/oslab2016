@@ -53,7 +53,7 @@ void load() {
 	int cnt = 0;
 	for(; ph < eph; ph ++) {
 		cnt ++;
-		pa = (unsigned char*)ph->p_pa + /*cnt */ SEG_OFFSET; 
+		pa = (unsigned char*)ph->p_pa + cnt * SEG_OFFSET; 
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
@@ -73,7 +73,7 @@ void load() {
 	tf->eip = elf->e_entry;
 	tf->cs = SELECTOR_USER(SEG_USER_CODE);
 	tf->ss = SELECTOR_USER(SEG_USER_DATA);
-	tf->esp = 0x4000000;
+	tf->esp = 0x8000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(8));
