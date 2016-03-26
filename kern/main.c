@@ -52,12 +52,14 @@ void load() {
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	SegMan *tmp[3];
+	int p_flag[2] = {0xa, 0x2};
 	int cnt = -1;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-		tmp[++ cnt] = mm_malloc(ph->p_va, ph->p_memsz, ph->p_flags);
+		cnt ++;
+		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
 		pa = (unsigned char*)tmp[cnt]->base;
-		printk("%x %x %x %x %x\n", pa, ph->p_va, ph->p_flags, SEG_WRITABLE, SEG_EXECUTABLE | SEG_READABLE);
+//		printk("%x %x %x %x %x\n", pa, ph->p_va, ph->p_flags, SEG_WRITABLE, SEG_EXECUTABLE | SEG_READABLE);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
