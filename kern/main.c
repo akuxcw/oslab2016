@@ -56,6 +56,7 @@ void load() {
 	for(; ph < eph; ph ++) {
 		tmp[++ cnt] = mm_malloc(ph->p_va, ph->p_memsz, ph->p_type);
 		pa = (unsigned char*)tmp[cnt]->base;
+		printk("%x %x\n", pa, ph->p_va);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
