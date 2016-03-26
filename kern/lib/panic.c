@@ -13,7 +13,7 @@ void _panic(const char *file, int line, const char *fmt, ...) {
 	va_list ap;
 	int cnt = 0;
 	
-	printk("[kernel panic at %s : %d]", file, line);
+	printk("{kernel panic at %s : %d}   ", file, line);
 	va_start(ap, fmt);
 	vprintfmt((void*)putch, &cnt, fmt, ap);
 	va_end(ap);
