@@ -18,14 +18,14 @@ irq_handle(TrapFrame *tf) {
 	int seg_tmp;
 	asm volatile("movl %%es, %0" : "=a"(seg_tmp) :);
 	offset = Get_gdt_off(seg_tmp >> 3);
-	printk("%x\n", offset);
-	while(1);
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
 				 "movl %0, %%gs\n\t" 
 				 : 
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
+	printk("%x\n", offset);
+	while(1);
 	uint32_t code, val;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
