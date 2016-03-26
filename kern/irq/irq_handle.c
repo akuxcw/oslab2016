@@ -4,16 +4,20 @@
 #include <inc/mmu.h>
 #include "inc/irq.h"
 
+uint32_t Get_gdt_off(uint32_t);
 void do_timer(void);
 void do_kbd(int);
 
 void do_syscall(TrapFrame *);
+
+int offset;
 
 void
 irq_handle(TrapFrame *tf) {
 //	cliI();
 	int seg_tmp;
 	asm volatile("movl %%es, %0" : "=a"(seg_tmp) :);
+	offset = Get_gdt_off(seg_tmp);
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
@@ -56,3 +60,6 @@ irq_handle(TrapFrame *tf) {
 //	sti();
 }
 
+uint32_t Get_seg_off() {
+	return offset;
+}

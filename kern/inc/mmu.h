@@ -144,11 +144,11 @@
 #define NR_SEGMENTS             512
 #define SEG_KERNEL_CODE         1 
 #define SEG_KERNEL_DATA         2
-#define SEG_USER_CODE			3
-#define SEG_USER_DATA			4
-#define SEG_TSS					5
+#define SEG_USER_CODE			0
+#define SEG_USER_DATA			1
+#define SEG_TSS					3
 
-#define SEG_OFFSET				0x2000000
+#define SEG_SIZE				0x2000000
 
 //construct the selector for kernel or user
 #define SELECTOR_KERNEL(s)		( ((s) << 3) | DPL_KERNEL )
@@ -175,7 +175,7 @@
 
 #else	// not __ASSEMBLER__
 
-#include "../inc/types.h"
+#include "inc/types.h"
 
 // Segment Descriptors
 typedef struct Segdesc {

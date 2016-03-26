@@ -5,10 +5,11 @@
 #include "inc/irq.h"
 #include "inc/process.h"
 #include "inc/disk.h"
+#include <inc/memory.h>
 
 #define OFFSET_IN_DISK 0x19000
 
-
+SegMan *mm_malloc(uint32_t, uint32_t, uint32_t);
 void set_tss_esp0(int);
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
 
@@ -50,29 +51,29 @@ void load() {
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
+	uint32_t gdt_tmp[3];
 	int cnt = 0;
 	for(; ph < eph; ph ++) {
-		cnt ++;
-		pa = (unsigned char*)ph->p_pa + cnt * SEG_OFFSET; 
+		SegMan *tmp = mm_malloc(ph->p_va, ph->p_memsz, ph->p_type);
+		gdt_tmp[cnt ++] = tmp->gdt;
+		pa = (unsigned char*)tmp->base;
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 	
 	printk("Ready to game!\n");
 
-	
-
 	uint32_t eflags = read_eflags();
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA);
+	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(gdt_tmp[SEG_USER_DATA]);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-	tf->cs = SELECTOR_USER(SEG_USER_CODE);
-	tf->ss = SELECTOR_USER(SEG_USER_DATA);
+	tf->cs = SELECTOR_USER(gdt_tmp[SEG_USER_CODE]);
+	tf->ss = SELECTOR_USER(gdt_tmp[SEG_USER_DATA]);
 	tf->esp = 0x4000000;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
@@ -82,7 +83,7 @@ void load() {
 				 "movl %0, %%fs\n\t"
 				 "movl %0, %%gs\n\t" 
 				 : 
-				 : "a"(SELECTOR_USER(SEG_USER_DATA)));
+				 : "a"(SELECTOR_USER(gdt_tmp[SEG_USER_DATA])));
 	asm volatile("iret");
 
 
