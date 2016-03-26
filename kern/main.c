@@ -57,7 +57,7 @@ void load() {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		tmp[++ cnt] = mm_malloc(ph->p_va, ph->p_memsz, ph->p_flags);
 		pa = (unsigned char*)tmp[cnt]->base;
-		printk("%x %x\n", pa, ph->p_va);
+		printk("%x %x\n", pa, ph->p_va, ph->p_flags);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
