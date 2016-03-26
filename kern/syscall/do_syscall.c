@@ -1,5 +1,6 @@
 #include "inc/irq.h"
 #include <inc/syscall.h>
+#include <inc/assert.h>
 #include <inc/string.h>
 #include <inc/stdio.h>
 #include <inc/mmu.h>
@@ -82,7 +83,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_close : tf->eax = fs_close(tf->ebx); break;
 */
 
-		default: printk("Unhandled system call: id = %d\n", tf->eax);
+		default: panic("Unhandled system call: id = %d\n", tf->eax);
 	}
 }
 

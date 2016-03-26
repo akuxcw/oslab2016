@@ -23,7 +23,8 @@ void init_memory() {
 }
 
 SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type) {
-	if(list_empty(&free_seg))printk("Memory full!\n");
+//	if(list_empty(&free_seg))printk("Memory full!\n");
+	assert(!list_empty(&free_seg));
 	ListHead *new_seg = free_seg.next;
 	list_del(new_seg);
 	list_add_after(&used_seg, new_seg);

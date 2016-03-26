@@ -6,7 +6,7 @@ ListHead pcb_head;
 ListHead unused_pcb;
 
 void init_process() {
-	printk("init_process\n");
+//	printk("init_process\n");
 	list_init(&pcb_head);
 	list_init(&unused_pcb);
 	for(int i = 0; i < NR_PCB; ++ i) {
@@ -15,7 +15,8 @@ void init_process() {
 }
 
 PCB *new_process() {
-	if(list_empty(&unused_pcb)) printk("Process full!\n");
+//	if(list_empty(&unused_pcb)) printk("Process full!\n");
+	assert(!list_empty(&unused_pcb));
 	ListHead *new_pcb = unused_pcb.next;
 	list_del(new_pcb);
 	list_add_after(&pcb_head, new_pcb);
