@@ -30,6 +30,7 @@ irq_handle(TrapFrame *tf) {
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
 			printk("%s, %d: Unhandled exception!\n", __FUNCTION__, __LINE__);
+			panic("aaa\n");
 		} 
 		else if(tf->irq == 0x80) {
 			do_syscall(tf);
