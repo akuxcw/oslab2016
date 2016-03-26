@@ -78,7 +78,7 @@ void load() {
 	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
 	//tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
 	tf->ss = SELECTOR_USER(tmp[2]->gdt);
-	tf->esp = 0x8000000;// - tmp[1]->base + 0x4000;
+	tf->esp = 0x7000000;// - tmp[1]->base + 0x4000;
 
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
