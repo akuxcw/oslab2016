@@ -53,17 +53,18 @@ void load() {
 	eph = ph + elf->e_phnum;
 	SegMan *tmp[3];
 	int p_flag[2] = {0xa, 0x2};
-	int cnt = -1;
+	int cnt = -1, vaddr;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
 		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
+		vaddr = ph->p_va;
 		pa = (unsigned char*)tmp[cnt]->base;
 //		printk("%x %x %x %x %x\n", pa, ph->p_va, ph->p_flags, SEG_WRITABLE, SEG_EXECUTABLE | SEG_READABLE);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
-	tmp[2] = mm_malloc(0x6000000, 0x2000000, p_flag[1]);
+	
 	printk("Ready to game!\n");
 
 	uint32_t eflags = read_eflags();
@@ -76,9 +77,8 @@ void load() {
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
 	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
-	//tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
-	tf->ss = SELECTOR_USER(tmp[2]->gdt);
-	tf->esp = 0x7000000;// - tmp[1]->base + 0x4000;
+	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
+	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
