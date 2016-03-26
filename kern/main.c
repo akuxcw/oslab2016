@@ -51,12 +51,11 @@ void load() {
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
-	uint32_t gdt_tmp[3];
-	int cnt = 0;
+	SegMan *tmp[3];
+	int cnt = -1;
 	for(; ph < eph; ph ++) {
-		SegMan *tmp = mm_malloc(ph->p_va, ph->p_memsz, ph->p_type);
-		gdt_tmp[cnt ++] = tmp->gdt;
-		pa = (unsigned char*)tmp->base;
+		tmp[++ cnt] = mm_malloc(ph->p_va, ph->p_memsz, ph->p_type);
+		pa = (unsigned char*)tmp[cnt]->base;
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
@@ -67,14 +66,14 @@ void load() {
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(gdt_tmp[SEG_USER_DATA]);
+	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-	tf->cs = SELECTOR_USER(gdt_tmp[SEG_USER_CODE]);
-	tf->ss = SELECTOR_USER(gdt_tmp[SEG_USER_DATA]);
-	tf->esp = 0x4000000;
+	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
+	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
+	tf->esp = 0x2000000 - tmp[1]->base;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(8));
@@ -83,7 +82,7 @@ void load() {
 				 "movl %0, %%fs\n\t"
 				 "movl %0, %%gs\n\t" 
 				 : 
-				 : "a"(SELECTOR_USER(gdt_tmp[SEG_USER_DATA])));
+				 : "a"(SELECTOR_USER(tmp[SEG_USER_DATA]->gdt)));
 	asm volatile("iret");
 
 
