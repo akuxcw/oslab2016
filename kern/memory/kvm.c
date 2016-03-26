@@ -66,14 +66,4 @@ init_segment(void) {
 	ltr(SELECTOR_USER(SEG_TSS));
 }
 
-void init_memory() {
-	
-}
 
-uint32_t mm_malloc(uint32_t vaddr, uint32_t size) {
-#ifdef USE_PAGE
-#else
-
-#endif
-	return 0;
-}
