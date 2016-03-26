@@ -63,7 +63,7 @@ void load() {
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
-	
+	tmp[2] = mm_malloc(0x6000000, 0x2000000, p_flag[2]);
 	printk("Ready to game!\n");
 
 	uint32_t eflags = read_eflags();
@@ -76,8 +76,9 @@ void load() {
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
 	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
-	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
-	tf->esp = 0x2000000 - tmp[1]->base + 0x4000;
+	//tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
+	tf->ss = SELECTOR_USER(tmp[2]->gdt);
+	tf->esp = 0x8000000;// - tmp[1]->base + 0x4000;
 
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
