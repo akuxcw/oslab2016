@@ -83,13 +83,7 @@ void load() {
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(8));
-/*	asm volatile("movl %0, %%ds\n\t"
-				 "movl %0, %%es\n\t"
-				 "movl %0, %%fs\n\t"
-				 "movl %0, %%gs\n\t" 
-				 : 
-				 : "a"(SELECTOR_USER(tmp[SEG_USER_DATA]->gdt)));
-*/
+
 	asm volatile("mov 24(%esp), %eax\n\t"
 				 "movl %eax, %ds\n\t"
  				 "movl %eax, %es\n\t"

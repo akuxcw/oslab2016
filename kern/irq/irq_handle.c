@@ -27,17 +27,15 @@ irq_handle(TrapFrame *tf) {
 	//printk("%x\n", offset);
 	//while(1);
 	uint32_t code, val;
-			panic("aaa\n");
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
-			printk("%s, %d: Unhandled exception!\n", __FUNCTION__, __LINE__);
-			panic("aaa\n");
+			panic("Unhandled exception!\n");
 		} 
 		else if(tf->irq == 0x80) {
 			do_syscall(tf);
 		}
 		else {
-			printk("%s, %d: Unexpected exception #%d %d!\n", __FUNCTION__, __LINE__, tf->irq, tf->error_code);
+			panic("Unexpected exception #%d %d!\n", tf->irq, tf->error_code);
 		}
 	}
 	else 
@@ -54,7 +52,7 @@ irq_handle(TrapFrame *tf) {
 				do_kbd(code);
 			case 1014 :
 				break;
-			default : printk("Error in irq_handle.c : %d\n", tf->irq);
+			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
 
 	asm volatile("movl %0, %%es\n\t"
