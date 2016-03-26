@@ -73,7 +73,7 @@ void load() {
 	tf->eip = elf->e_entry;
 	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
 	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
-	tf->esp = 0x2000000 + tmp[1]->base;
+	tf->esp = 0x4000000 + tmp[1]->base;
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(8));
