@@ -18,7 +18,7 @@ void init_memory() {
 		seg[i].base = i * SEG_SIZE;
 		seg[i].limit = 0x1fff;
 		seg[i].gdt = i + 3;
-		list_add_before(&free_seg, &seg[i].list);
+		list_add_after(&free_seg, &seg[i].list);
 	}
 }
 
