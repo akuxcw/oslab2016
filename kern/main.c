@@ -63,7 +63,7 @@ void load() {
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
-	tmp[2] = mm_malloc(0x6000000, 0x2000000, p_flag[2]);
+	tmp[2] = mm_malloc(0x6000000, 0x2000000, p_flag[1]);
 	printk("Ready to game!\n");
 
 	uint32_t eflags = read_eflags();
