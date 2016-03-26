@@ -27,6 +27,7 @@ irq_handle(TrapFrame *tf) {
 	//printk("%x\n", offset);
 	//while(1);
 	uint32_t code, val;
+			panic("aaa\n");
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
 			printk("%s, %d: Unhandled exception!\n", __FUNCTION__, __LINE__);
