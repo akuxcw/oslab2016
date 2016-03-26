@@ -54,7 +54,8 @@ void load() {
 	SegMan *tmp[3];
 	int cnt = -1;
 	for(; ph < eph; ph ++) {
-		tmp[++ cnt] = mm_malloc(ph->p_va, ph->p_memsz, ph->p_type);
+		if(ph->p_type != ELF_PROG_LOAD) continue;
+		tmp[++ cnt] = mm_malloc(ph->p_va, ph->p_memsz, ph->p_flags);
 		pa = (unsigned char*)tmp[cnt]->base;
 		printk("%x %x\n", pa, ph->p_va);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
