@@ -29,6 +29,6 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type) {
 	list_del(new_seg);
 	list_add_after(&used_seg, new_seg);
 	SegMan * tmp = list_entry(new_seg, SegMan, list);
-	set_segment(&gdt[tmp->gdt], DPL_USER, type, tmp->base - vaddr, /*tmp->limit*/0);
+	set_segment(&gdt[tmp->gdt], DPL_USER, type, tmp->base - vaddr, tmp->limit);
 	return tmp;
 }

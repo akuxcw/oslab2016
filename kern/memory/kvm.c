@@ -55,8 +55,8 @@ set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t li
 void
 init_segment(void) {
 	memset(gdt, 0, sizeof(gdt));
-	set_segment(&gdt[SEG_KERNEL_CODE], DPL_KERNEL, SEG_EXECUTABLE | SEG_READABLE, 0, /*0xFFFFF*/0);
-	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE, 0, /*0xFFFFF*/0);
+	set_segment(&gdt[SEG_KERNEL_CODE], DPL_KERNEL, SEG_EXECUTABLE | SEG_READABLE, 0, 0xFFFFF);
+	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE, 0, 0xFFFFF);
 //	set_segment(&gdt[SEG_USER_CODE], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, SEG_OFFSET, 0x1fff);
 //	set_segment(&gdt[SEG_USER_DATA], DPL_USER, SEG_WRITABLE, 2*SEG_OFFSET, 0x1fff);
 
