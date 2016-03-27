@@ -4,7 +4,7 @@ void game();
 
 int game_main(){
 //	asm volatile("sti");
-	int addr = 0x8048000;
+	int addr = 0x8047000;
 	*(int *)addr = 1;
 	printf("****%d\n", *(int *)addr);
 	time();
