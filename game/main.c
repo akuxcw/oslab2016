@@ -6,7 +6,7 @@ int game_main(){
 //	asm volatile("sti");
 	int addr = 0xfc000000;
 	*(int *)addr = 1;
-	printf("%d\n", *(int *)addr);
+	printf("****%d\n", *(int *)addr);
 	time();
 	printf("@_@ Game Start!\n");
 	game();
