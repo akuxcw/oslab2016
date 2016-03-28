@@ -44,8 +44,8 @@ QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
 QEMUOPTS += -monitor telnet:127.0.0.1:1111,server,nowait
 QEMUOPTS += -m 512
-#QEMUOPTS += -machine none
-QEMUOPTS += -cpu Opteron_G3
+QEMUOPTS += -machine pc-1.0
+#QEMUOPTS += -cpu Opteron_G3
 #QEMUOPTS += $(QEMUEXTRA)
 
 .PHONY: clean debug gdb display submit commit log
