@@ -24,7 +24,6 @@ void init_memory();
 void load();
 
 int kern_init() {
-	printk("Welcome to my OS!\n");
 	set_kern_page();
 	init_segment();			//set segment register for kernel
 	init_timer();			//init time interrupt
@@ -35,11 +34,11 @@ int kern_init() {
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
 	
-	int *addr = (int *)0x2000000;
+/*	int *addr = (int *)0x2000000;
 	*addr = 1;
 	printk("$$$%d\n", *addr);
 	printk("Welcome to my OS!\n");
-	load();					//load program
+*/	load();					//load program
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
 	while(1);
