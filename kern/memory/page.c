@@ -26,13 +26,13 @@ void set_kern_page() {
 	pde_t * pdir = kpdir - KERNBASE;
 	pte_t * ptable = kptable - KERNBASE;
 
-	printk("%x\n", (int)kpdir);
 	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | PTE_P;
 		ptable += NPDENTRIES;
 	}
+	printk("%x\n", (int)kpdir);
 	asm volatile ("std;\
 	 1: stosl;\
 		subl %0, %%eax;\
