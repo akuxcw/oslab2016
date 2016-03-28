@@ -31,6 +31,7 @@ int kern_main() {
 	init_palette();			//set palette address
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
+	printk("Welcome to my OS!\n");
 	load();					//load program
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
@@ -44,7 +45,6 @@ void load() {
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
-	printk("Ready to game!\n");
 
 	elf = (struct Elf*)(0x19000);
 
