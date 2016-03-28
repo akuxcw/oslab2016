@@ -46,7 +46,7 @@ void load() {
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
 
-	elf = (struct Elf*)(0x19000);
+	elf = (struct Elf*)(0xf0019000);
 
 	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
 	printk("Welcome to my OS!\n");
