@@ -34,7 +34,7 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type) {
 	list_add_after(&used_seg, new_seg);
 	SegMan * tmp = list_entry(new_seg, SegMan, list);
 	uint32_t offset;
-#ifdef USE_PAGA
+#ifdef USE_PAGE
 	offset = 0;
 #else
 	offset = tmp->base - vaddr;
