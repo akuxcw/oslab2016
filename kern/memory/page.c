@@ -30,7 +30,7 @@ void set_kern_page() {
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
-		printk("%x\n", pdir[pdir_idx]);
+//		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
 	printk("**************\n");
@@ -45,7 +45,7 @@ void set_kern_page() {
 		// fill PTEs reversely
 	for (; pframe_addr >= 0; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
-		printk("%x %x\n", (int)ptable, *ptable);
+//		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
 	printk("***$$$$$$$$$***********\n");
