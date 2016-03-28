@@ -26,6 +26,7 @@ void set_kern_page() {
 	pde_t * pdir = kpdir - KERNBASE;
 	pte_t * ptable = kptable - KERNBASE;
 
+	printk("%x\n", (int)kpdir);
 	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
@@ -37,7 +38,6 @@ void set_kern_page() {
 		subl %0, %%eax;\
 		jge 1b" : : 
 		"i"(PGSIZE), "a"((MAX_MEM - PGSIZE) | 0x7), "D"(ptable - 1));
-	printk("%x\n", (int)kpdir);
 	lcr3((uint32_t)kpdir - 0xf0000000);
 	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	0x80010001, %eax\n\t"
