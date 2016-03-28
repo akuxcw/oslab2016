@@ -43,7 +43,7 @@ void set_kern_page() {
 				 "orl	0x80010001, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
 
-	while(1);
+//	while(1);
 }
 
 
