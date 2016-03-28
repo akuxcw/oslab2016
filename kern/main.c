@@ -60,7 +60,6 @@ void load() {
 		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
 		vaddr = ph->p_va;
 		pa = (unsigned char*)tmp[cnt]->base;
-//		printk("%x %x %x %x %x\n", pa, ph->p_va, ph->p_flags, SEG_WRITABLE, SEG_EXECUTABLE | SEG_READABLE);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
@@ -78,7 +77,11 @@ void load() {
 	tf->eip = elf->e_entry;
 	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
 	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
+#ifdef USE_PAGE
+	tf->esp = 0x4000000 + vaddr;
+#else
 	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
+#endif
 
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
@@ -90,7 +93,6 @@ void load() {
 				 "movl %eax, %fs\n\t"
 				 "movl %eax, %gs\n\t");
 	asm volatile("iret");
-
 
 }
 
