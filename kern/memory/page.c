@@ -33,7 +33,7 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
-	printk("**************\n");
+//	printk("**************\n");
 /*	asm volatile ("std;\
 	 1: stosl;\
 		subl %0, %%eax;\
@@ -48,7 +48,7 @@ void set_kern_page() {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
-	printk("***$$$$$$$$$***********\n");
+//	printk("***$$$$$$$$$***********\n");
 	lcr3((uint32_t)pdir/* - 0xf0000000*/);
 	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
