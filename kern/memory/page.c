@@ -35,6 +35,7 @@ void set_kern_page() {
 		"i"(PGSIZE), "a"((MAX_MEM - PGSIZE) | 0x7), "D"(ptable - 1));
 	printk("%x\n", (int)kpdir);
 	lcr3((uint32_t)kpdir - 0xf0000000);
+	while(1);
 }
 
 
