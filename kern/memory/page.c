@@ -17,10 +17,10 @@ ListHead free_pg;
 ListHead used_pg;
 
 void set_kern_page() {
-	asm volatile("movl	%cr0, %eax\n\t"
+/*	asm volatile("movl	%cr0, %eax\n\t"
 				 "andl	$0x7fffffff, %eax\n\t"
 				 "movl	%eax, %cr0");
-
+*/
 	uint32_t pdir_idx;
 
 	pde_t * pdir = kpdir - KERNBASE;
