@@ -24,6 +24,7 @@ void init_memory();
 void load();
 
 int kern_init() {
+	printk("Welcome to my OS!\n");
 	set_kern_page();
 	init_segment();			//set segment register for kernel
 	init_timer();			//init time interrupt
