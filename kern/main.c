@@ -7,7 +7,7 @@
 #include "inc/disk.h"
 #include <inc/memory.h>
 
-#define OFFSET_IN_DISK 0x19000
+#define OFFSET_IN_DISK 1000*1024
 
 SegMan *mm_malloc(uint32_t, uint32_t, uint32_t);
 void set_tss_esp0(int);
@@ -52,7 +52,7 @@ void load() {
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
 
-	elf = (struct Elf*)(0xf0019000);
+	elf = (struct Elf*)(0x0019000);
 
 	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
 	printk("Welcome to my OS!\n");
