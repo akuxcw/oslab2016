@@ -13,6 +13,7 @@ SegMan *mm_malloc(uint32_t, uint32_t, uint32_t);
 void set_tss_esp0(int);
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
 
+void set_kern_page();
 void init_i8259();
 void init_timer();
 void init_serial();
@@ -23,6 +24,7 @@ void init_memory();
 void load();
 
 int kern_init() {
+	set_kern_page();
 	init_segment();			//set segment register for kernel
 	init_timer();			//init time interrupt
 	init_i8259();			//init interrupt
