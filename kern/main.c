@@ -31,6 +31,10 @@ int kern_init() {
 	init_palette();			//set palette address
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
+	
+	int *addr = (int *)0x2000000;
+	*addr = 1;
+	printk("$$$%d\n", *addr);
 	printk("Welcome to my OS!\n");
 	load();					//load program
 	outw(0x8A00, 0x8A00);
