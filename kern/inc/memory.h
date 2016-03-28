@@ -3,7 +3,7 @@
 
 #include<inc/list.h>
 
-#define MAX_MEM 0x20000000
+#define MAX_MEM 0x8000000
 
 typedef struct {
 	uint32_t base, limit, gdt;
