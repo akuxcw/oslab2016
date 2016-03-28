@@ -41,7 +41,7 @@ START:
 	init_game();
 	volatile int time_now;
 	while(1) {
-//		printf("@");
+		printf("@");
 		time_now = time();
 		do_move();
 		process_kbd();
