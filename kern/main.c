@@ -44,6 +44,7 @@ void load() {
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
+	printk("Ready to game!\n");
 
 	elf = (struct Elf*)(0x19000);
 
