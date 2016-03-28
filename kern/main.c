@@ -67,6 +67,7 @@ void load() {
 		cnt ++;
 		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
 		printk("****%x\n", tmp[cnt]->gdt);
+		printk("****\n");
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)ph->p_pa;
