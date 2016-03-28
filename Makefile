@@ -44,7 +44,7 @@ QEMUOPTS = $(OBJ_DIR)/os.img -serial mon:stdio
 QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi)
 QEMUOPTS += -monitor telnet:127.0.0.1:1111,server,nowait
 QEMUOPTS += -m 512
-QEMUOPTS += -machine pc-0.11
+QEMUOPTS += -machine pc-0.12
 #QEMUOPTS += -cpu Opteron_G3
 #QEMUOPTS += $(QEMUEXTRA)
 
