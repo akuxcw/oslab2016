@@ -22,7 +22,7 @@ void init_palette();
 void init_memory();
 void load();
 
-int kern_main() {
+int kern_init() {
 	init_segment();			//set segment register for kernel
 	init_timer();			//init time interrupt
 	init_i8259();			//init interrupt
@@ -65,7 +65,7 @@ void load() {
 #else
 		pa = (unsigned char*)tmp[cnt]->base;
 #endif
-		printk("%x\n", pa);
+//		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}

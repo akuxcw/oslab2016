@@ -15,7 +15,7 @@ $(OBJ_KERN_DIR)/%.o : $(KERN_DIR)/%.[cS]
 
 kern: $(KERN_O)
 	@mkdir -p $(OBJ_KERN_DIR)
-	@$(LD) $(LDFLAGS) -e kern_main -Ttext 0x00100000 -o $(KERN) $(KERN_O)
+	@$(LD) $(LDFLAGS) -T kern/kernel.ld -o $(KERN) $(KERN_O)
 	@echo +LD $(KERN)
 	@perl ./kern/genkern.pl $(KERN)
 
