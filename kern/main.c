@@ -34,11 +34,10 @@ int kern_init() {
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
 	
-/*	int *addr = (int *)0x2000000;
+	int *addr = (int *)0x20000000;
 	*addr = 1;
 	printk("$$$%d\n", *addr);
-	printk("Welcome to my OS!\n");
-*/	load();					//load program
+	load();					//load program
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
 	while(1);
@@ -66,8 +65,6 @@ void load() {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
 		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
-		printk("****%x\n", tmp[cnt]->gdt);
-		printk("****\n");
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)ph->p_pa;
