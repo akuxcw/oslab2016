@@ -43,9 +43,9 @@ int Get_time() {
 }
 
 void Delay(int t) {
-	sti();
+//	sti();
 	volatile int i = tick;
 	while(i + t > tick);
-	cli();
+//	cli();
 }
 
