@@ -45,7 +45,7 @@ QEMUOPTS += $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D 
 QEMUOPTS += -monitor telnet:127.0.0.1:1111,server,nowait
 QEMUOPTS += -m 512
 #QEMUOPTS += -machine none
-QEMUOPTS += -cpu pentium3
+QEMUOPTS += -cpu 486
 #QEMUOPTS += $(QEMUEXTRA)
 
 .PHONY: clean debug gdb display submit commit log
