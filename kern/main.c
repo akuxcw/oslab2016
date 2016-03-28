@@ -24,7 +24,7 @@ void init_memory();
 void load();
 
 int kern_init() {
-	set_kern_page();
+//	set_kern_page();
 	init_segment();			//set segment register for kernel
 	init_timer();			//init time interrupt
 	init_i8259();			//init interrupt
