@@ -5,10 +5,14 @@
 
 #define MAX_MEM 0x20000000
 
-
 typedef struct {
 	uint32_t base, limit, gdt;
 	ListHead list;
 } SegMan;
+
+typedef struct {
+	uint32_t addr;
+	ListHead list;
+} PgMan;
 
 #endif
