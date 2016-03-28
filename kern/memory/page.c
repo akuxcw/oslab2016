@@ -29,7 +29,7 @@ void set_kern_page() {
 	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)ptable | PTE_P;
+		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
