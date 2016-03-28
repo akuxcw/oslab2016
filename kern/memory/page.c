@@ -39,7 +39,7 @@ void set_kern_page() {
 		"i"(PGSIZE), "a"((MAX_MEM - PGSIZE) | 0x7), "D"(ptable - 1));
 	lcr3((uint32_t)kpdir - 0x0000000);
 	asm volatile("movl	%cr0, %eax\n\t"
-				 "orl	$0x80000000, %eax\n\t"
+				 "orl	0x80010001, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
 
 	printk("%x\n", (int)kpdir);
