@@ -24,7 +24,6 @@ irq_handle(TrapFrame *tf) {
 				 : 
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	offset = Get_gdt_off(seg_tmp >> 3);
-	sti();
 	//printk("%x\n", offset);
 	//while(1);
 	uint32_t code, val;
@@ -56,7 +55,6 @@ irq_handle(TrapFrame *tf) {
 			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
 
-	cli();
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
