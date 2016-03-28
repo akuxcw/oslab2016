@@ -16,7 +16,7 @@ void init_memory() {
 	list_init(&used_seg);
 	for(int i = 1; i < MAX_MEM/SEG_SIZE; i ++) {
 		seg[i].base = i * SEG_SIZE;
-		seg[i].limit = 0x1;//0x1fff;
+		seg[i].limit = 0x1fff;
 		seg[i].gdt = i + 3;
 		list_add_before(&free_seg, &seg[i].list);
 	}
