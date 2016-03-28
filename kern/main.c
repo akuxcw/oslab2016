@@ -66,6 +66,7 @@ void load() {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
 		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
+		printk("%x\n", tmp[cnt]->gdt);
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)ph->p_pa;
