@@ -33,12 +33,22 @@ void set_kern_page() {
 		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
-	printk("%x\n", (int)kpdir);
-	asm volatile ("std;\
+	printk("**************\n");
+/*	asm volatile ("std;\
 	 1: stosl;\
 		subl %0, %%eax;\
 		jge 1b" : : 
 		"i"(PGSIZE), "a"((MAX_MEM - PGSIZE) | 0x7), "D"(ptable - 1));
+*/
+	int32_t pframe_addr = MAX_MEM - PGSIZE;
+	ptable --;
+		// fill PTEs reversely
+	for (; pframe_addr >= 0; pframe_addr -= PGSIZE) {
+		*ptable = (pte_t)pframe_addr | 0x7;
+		printk("%x\n", pdir[pdir_idx]);
+		ptable --;
+	}
+	printk("***$$$$$$$$$***********\n");
 	lcr3((uint32_t)pdir/* - 0xf0000000*/);
 	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
