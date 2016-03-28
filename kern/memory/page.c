@@ -45,7 +45,7 @@ void set_kern_page() {
 		// fill PTEs reversely
 	for (; pframe_addr >= 0; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
-		printk("%x\n", pdir[pdir_idx]);
+		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
 	printk("***$$$$$$$$$***********\n");
