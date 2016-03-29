@@ -23,6 +23,7 @@ void set_kern_page() {
 				 "andl	$0x7fffffff, %eax\n\t"
 				 "movl	%eax, %cr0");
 */
+	while(1);
 	uint32_t pdir_idx;
 
 	pde_t * pdir = kpdir - KERNBASE;
@@ -64,7 +65,6 @@ void set_kern_page() {
 		ptable --;
 	}
 //	printk("***$$$$$$$$$***********\n");
-	while(1);
 	lcr3((uint32_t)pdir);
 /*	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
