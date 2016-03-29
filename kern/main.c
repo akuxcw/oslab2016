@@ -32,7 +32,7 @@ int kern_init() {
 	init_idt();				//set idt
 	init_palette();			//set palette address
 	init_process();			//init PCB pointer
-	init_memory();			//init memory organize
+//	init_memory();			//init memory organize
 	
 	int *addr = (int *)0xf0000000;
 	*addr = 1;
