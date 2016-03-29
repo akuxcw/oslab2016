@@ -91,7 +91,9 @@ void load() {
 	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
 	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
 #ifdef USE_PAGE
-	tf->esp = 0x4000000 + vaddr;
+	tf->esp = vaddr;
+	tf->esp = 0x8000000;
+	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
 #else
 	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 #endif

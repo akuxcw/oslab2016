@@ -60,8 +60,8 @@ void set_user_page(PCB *current) {
 	
 	uint32_t pdir_idx;
 	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)ptable | 0x7;
-		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)ptable | 0x7;
+		pdir[pdir_idx] = (pde_t)va2pa(ptable) | PTE_P;
+		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)va2pa(ptable) | PTE_P;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
@@ -70,7 +70,7 @@ void set_user_page(PCB *current) {
 	ptable --;
 	
 	for (pframe_addr = 0x400000 - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
-		*ptable = (pte_t)pframe_addr | 0x7;
+		*ptable = (pte_t)pframe_addr | PTE_P;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
