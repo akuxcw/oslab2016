@@ -65,7 +65,7 @@ void load() {
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
-		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt], current);
+		tmp[cnt] = mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, p_flag[cnt], current);
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)tmp[cnt]->base;//ph->p_pa;
@@ -93,9 +93,9 @@ void load() {
 	tf->ss = SELECTOR_USER(SEG_KERNEL_DATA/*tmp[SEG_USER_DATA]->gdt*/);
 #ifdef USE_PAGE
 	tf->esp = vaddr;
-	tf->esp = 0x8000000;
+	tf->esp = 0x4000000;
 	printk("!!!!!\n");
-	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
+//	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
 #else
 	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 #endif
