@@ -98,28 +98,29 @@ void set_user_page(PCB *current) {
 }
 
 void init_page() {
+	pte_t *ptable = (pte_t *)va2pa(uptable);
+	
 	int i, tot = 0;
 	list_init(&free_pg);
 	list_init(&used_pg);
-	for(i = 0x400000; i < MAX_MEM; i += PGSIZE) {
-		page[tot ++].addr = i;
+	for(i = 0x400000; i < MAX_MEM; i += PTSIZE) {
+		page[tot ++].addr = (int)&ptable[i / PGSIZE];
 		list_add_before(&free_pg, &page[tot].list);
 	}
-/*	
-	int32_t pframe_addr;
-	ptable --;
 	
-	for (pframe_addr = 0xfd000000 - PGSIZE; pframe_addr >= 0xfc000000; pframe_addr -= PGSIZE) {
+	int32_t pframe_addr;
+	
+	for (pframe_addr = 0 ; pframe_addr < MAX_MEM; pframe_addr += PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
 //		printk("%x %x\n", (int)ptable, *ptable);
-		ptable --;
+		ptable ++;
 	}
-	for (pframe_addr = MAX_MEM - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
+
+	for (pframe_addr = 0xfc000000; pframe_addr < 0xfc000000 + PTSIZE; pframe_addr += PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
 //		printk("%x %x\n", (int)ptable, *ptable);
-		ptable --;
+		ptable ++;
 	}
-*/
 }
 
 uint32_t Get_free_pg() {

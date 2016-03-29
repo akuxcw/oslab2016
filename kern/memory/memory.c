@@ -35,20 +35,21 @@ uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
 	}
 #ifdef USE_PAGE
 	pde_t *pdir = current->pdir;
-	pte_t *ptable = current->ptable__;
-	pte_t *i;
+//	pte_t *ptable = current->ptable__;
+//	pte_t *i;
 	uint32_t pdir_idx;
 	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PTSIZE) / PTSIZE; ++ pdir_idx) {
 		if(pdir[pdir_idx] != 0x0) continue;
-		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
-		ptable += 1024;
+		pdir[pdir_idx] = Get_free_pg() | 0x7;//(pde_t)va2pa(ptable) | 0x7;
+//		ptable += 1024;
 	}
-	for(i = current->ptable__; i < ptable; ++ i) {
+/*	for(i = current->ptable__; i < ptable; ++ i) {
 		*i = (pte_t)Get_free_pg() | 0x7;
 //		printk("%x\n", *i);
 	}
-	uint32_t pa = (*current->ptable__) - 0x7;
-	current->ptable__ = ptable;
+*/	//uint32_t pa = (*current->ptable__) - 0x7;
+	uint32_t pa = (*(int *)current->pdir[vaddr/PTSIZE]) - 0x7;
+//	current->ptable__ = ptable;
 #else
 	uint32_t pa = tmp->base;
 #endif
