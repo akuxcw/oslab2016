@@ -9,7 +9,7 @@ __attribute__((__aligned__(PGSIZE)))
 pde_t kpdir[NPDENTRIES];			// kernel page directory
 
 __attribute__((__aligned__(PGSIZE)))
-pte_t kptable[MAX_MEM / PGSIZE];		// kernel page tables
+pte_t kptable[MAX_MEM + 0x1000000 / PGSIZE];		// kernel page tables
 
 PgMan page[MAX_MEM / PGSIZE];
 
