@@ -43,6 +43,7 @@ _start = RELOC(entry) #0x101000
 entry:
 	movw	$0x1234,0x472			# warm boot
 //	movl	$(RELOC(kern_init)), %eax
+	call	kern_init
 	movl	kern_init, %eax
 	jmp		*%eax
 	# We haven't set up virtual memory yet, so we're running from
