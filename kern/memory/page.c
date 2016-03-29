@@ -4,6 +4,7 @@
 #include <inc/memory.h>
 #include <inc/string.h>
 #include <inc/x86.h>
+#include <inc/process.h>
 
 __attribute__((__aligned__(PGSIZE)))
 pde_t kpdir[NPDENTRIES];			// kernel page directory
@@ -15,8 +16,6 @@ PgMan page[MAX_MEM / PGSIZE];
 
 ListHead free_pg;
 ListHead used_pg;
-
-void kern_init();
 
 void set_kern_page() {
 	uint32_t pdir_idx;
@@ -55,6 +54,9 @@ void set_kern_page() {
 	lcr3((uint32_t)pdir);
 }
 
+void set_user_page(PCB *current) {
+
+}
 
 void init_page() {
 	int i, tot = 0;
@@ -65,3 +67,12 @@ void init_page() {
 		list_add_before(&free_pg, &page[tot].list);
 	}
 }
+
+uint32_t Get_free_pg() {
+	assert(!list_empty(&free_pg));
+	ListHead *new_pg = free_pg.next;
+	list_del(new_pg);
+	list_add_after(&used_pg, new_pg);
+	return list_entry(new_pg, PgMan, list)->addr;
+}
+

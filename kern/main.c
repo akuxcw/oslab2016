@@ -5,14 +5,15 @@
 #include "inc/irq.h"
 #include "inc/process.h"
 #include "inc/disk.h"
-#include <inc/memory.h>
+//#include <inc/memory.h>
 
 #define OFFSET_IN_DISK 1000*1024
 
-SegMan *mm_malloc(uint32_t, uint32_t, uint32_t);
+SegMan *mm_malloc(uint32_t, uint32_t, uint32_t, PCB*);
 void set_tss_esp0(int);
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
 
+void set_user_page();
 void set_kern_page();
 void set_kern_segment();
 void init_i8259();
@@ -46,7 +47,7 @@ int kern_init() {
 
 void load() {
 	PCB *current = new_process();
-
+	set_user_page(current);
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
@@ -64,7 +65,7 @@ void load() {
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
-		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt]);
+		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt], current);
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)ph->p_pa;

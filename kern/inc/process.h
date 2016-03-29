@@ -4,6 +4,8 @@
 #include "irq.h"
 #include "list.h"
 #include <inc/memlayout.h>
+#include <inc/memory.h>
+#include <inc/mmu.h>
 
 #define KSTACK_SIZE 4096
 #define NR_PCB 16
@@ -12,6 +14,7 @@ typedef struct PCB{
 	TrapFrame tf;
 	uint8_t kstack[KSTACK_SIZE];
 	pde_t pdir[NPDENTRIES];
+	pte_t ptable[MAX_MEM / PGSIZE];
 	ListHead list;
 } PCB;
 
