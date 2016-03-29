@@ -63,7 +63,6 @@ init_segment(void) {
 	write_gdtr(gdt, sizeof(gdt));
 
 	set_tss(&gdt[SEG_TSS]);
-	//while(1);
 	ltr(SELECTOR_USER(SEG_TSS));
 }
 
