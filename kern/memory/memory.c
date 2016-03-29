@@ -17,19 +17,22 @@ void init_memory() {
 }
 
 uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
-	SegMan *tmp = Get_free_seg();
-	uint32_t offset;
+	if(!current->p) {
+		SegMan *tmp = Get_free_seg();
+		uint32_t offset;
 #ifdef USE_PAGE
-	offset = 0;
+		offset = 0;
 #else
-	offset = tmp->base - vaddr;
+		offset = tmp->base - vaddr;
 #endif
-	set_segment(&gdt[tmp->cs], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, offset, tmp->limit);
-	set_segment(&gdt[tmp->ds], DPL_USER, SEG_WRITABLE, offset, tmp->limit);
-	//set_segment(&gdt[tmp->cs], DPL_USER, type, offset, tmp->limit);
-	current->tf.cs = SELECTOR_USER(tmp->cs);
-	current->tf.ds = current->tf.ss = current->tf.es =
-	current->tf.fs = current->tf.gs = SELECTOR_USER(tmp->ds);
+		set_segment(&gdt[tmp->cs], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, offset, tmp->limit);
+		set_segment(&gdt[tmp->ds], DPL_USER, SEG_WRITABLE, offset, tmp->limit);
+		//set_segment(&gdt[tmp->cs], DPL_USER, type, offset, tmp->limit);
+		current->tf.cs = SELECTOR_USER(tmp->cs);
+		current->tf.ds = current->tf.ss = current->tf.es =
+		current->tf.fs = current->tf.gs = SELECTOR_USER(tmp->ds);
+		current->p = true;
+	}
 #ifdef USE_PAGE
 	pde_t *pdir = current->pdir;
 	pte_t *ptable = current->ptable__;
