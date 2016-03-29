@@ -146,9 +146,9 @@
 #define NR_SEGMENTS             512
 #define SEG_KERNEL_CODE         1 
 #define SEG_KERNEL_DATA         2
-#define SEG_USER_CODE			0
-#define SEG_USER_DATA			1
-#define SEG_TSS					3
+#define SEG_USER_CODE			3//0
+#define SEG_USER_DATA			4//1
+#define SEG_TSS					5//3
 
 #define SEG_SIZE				0x2000000
 

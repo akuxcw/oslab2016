@@ -65,7 +65,7 @@ void load() {
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
-		tmp[cnt] = mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, p_flag[0] | p_flag[1], current);
+		tmp[cnt] = mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, p_flag[cnt], current);
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)tmp[cnt]->base;//ph->p_pa;
@@ -84,13 +84,13 @@ void load() {
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(/*SEG_KERNEL_DATA*/tmp[SEG_USER_CODE]->gdt);
+	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA/*tmp[SEG_USER_DATA]->gdt*/);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-	tf->cs = SELECTOR_USER(/*SEG_KERNEL_CODE*/tmp[SEG_USER_CODE]->gdt);
-	tf->ss = SELECTOR_USER(/*SEG_KERNEL_DATA*/tmp[SEG_USER_CODE]->gdt);
+	tf->cs = SELECTOR_USER(SEG_USER_CODE/*tmp[SEG_USER_CODE]->gdt*/);
+	tf->ss = SELECTOR_USER(SEG_USER_DATA/*tmp[SEG_USER_DATA]->gdt*/);
 #ifdef USE_PAGE
 	tf->esp = vaddr;
 	tf->esp = 0x4000000;

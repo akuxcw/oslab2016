@@ -21,14 +21,14 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type, PCB* current) {
 	if(type != 0) {
 		tmp = Get_free_seg();
 	}
-	uint32_t offset;
+/*	uint32_t offset;
 #ifdef USE_PAGE
 	offset = 0;
 #else
 	offset = tmp->base - vaddr;
 #endif
-	if(type != 0)set_segment(&gdt[tmp->gdt], DPL_USER, type, offset, tmp->limit);
-
+//	if(type != 0)set_segment(&gdt[tmp->gdt], DPL_USER, type, offset, tmp->limit);
+*/
 #ifdef USE_PAGE
 	pde_t *pdir = current->pdir;
 	pte_t *ptable = current->ptable__;
