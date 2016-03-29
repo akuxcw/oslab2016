@@ -61,9 +61,9 @@ init_segment(void) {
 //	set_segment(&gdt[SEG_USER_DATA], DPL_USER, SEG_WRITABLE, 2*SEG_OFFSET, 0x1fff);
 
 	write_gdtr(gdt, sizeof(gdt));
-	while(1);
 
 	set_tss(&gdt[SEG_TSS]);
+	while(1);
 	ltr(SELECTOR_USER(SEG_TSS));
 }
 
