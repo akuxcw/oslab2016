@@ -37,7 +37,7 @@
 # virtual memory when the bootloader enters this code, we need the
 # bootloader to jump to the *physical* address of the entry point.
 .globl		_start
-_start = RELOC(entry) 
+//_start = RELOC(entry) 
 _start = 0x101000
 
 .globl entry
