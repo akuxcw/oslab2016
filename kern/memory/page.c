@@ -32,10 +32,10 @@ void set_kern_page() {
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)ptable | 0x7;
-		printk("%x\n", pdir[pdir_idx]);
+//		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
-	while(1);
+//	while(1);
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
