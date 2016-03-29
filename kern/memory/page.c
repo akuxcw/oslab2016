@@ -33,7 +33,10 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
-//	for(pdir_idx = 0xfc000000; pdir < 0xfd000000; p)
+	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
+		pdir[pdir_idx] = (pde_t)ptable | 0x7;
+		ptable += 1024;
+	}
 //	printk("**************\n");
 /*	asm volatile ("std;\
 	 1: stosl;\
@@ -41,10 +44,15 @@ void set_kern_page() {
 		jge 1b" : : 
 		"i"(PGSIZE), "a"((MAX_MEM - PGSIZE) | 0x7), "D"(ptable - 1));
 */
-	int32_t pframe_addr = MAX_MEM - PGSIZE;
+	int32_t pframe_addr;
 	ptable --;
+	
 		// fill PTEs reversely
-	for (; pframe_addr >= 0; pframe_addr -= PGSIZE) {
+	for (pframe_addr = 0xfd000000 - PGSIZE; pframe_addr >= 0xfc000000; pframe_addr -= PGSIZE) {
+		*ptable = (pte_t)pframe_addr | 0x7;
+		ptable --;
+	}
+	for (pframe_addr = MAX_MEM - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
