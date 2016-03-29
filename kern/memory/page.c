@@ -23,7 +23,7 @@ void set_kern_page() {
 	pde_t * pdir = (pde_t *)kpdir;
 	pte_t * ptable = (pte_t *)kptable;
 
-	printk("%x %x %x %x\n", (int)pdir, (int)ptable, kpdir, kptable);
+//	printk("%x %x %x %x\n", (int)pdir, (int)ptable, kpdir, kptable);
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
@@ -63,7 +63,7 @@ void set_user_page(PCB *current) {
 	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | PTE_P | 0x7;
 		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)va2pa(ptable) | PTE_P | 0x7;
-		printk("%x\n", pdir[pdir_idx]);
+//		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
 	current->ptable__ = ptable;

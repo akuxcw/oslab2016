@@ -68,11 +68,11 @@ void load() {
 		tmp[cnt] = mm_malloc(ph->p_va, ph->p_memsz, p_flag[cnt], current);
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
-		pa = (unsigned char*)ph->p_pa;
+		pa = (unsigned char*)tmp[cnt]->base;//ph->p_pa;
 #else
 		pa = (unsigned char*)tmp[cnt]->base;
 #endif
-//		printk("%x\n", pa);
+		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
