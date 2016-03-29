@@ -25,8 +25,8 @@ void load();
 
 int kern_init() {
 //	set_kern_page();
-	while(1);
 	init_segment();			//set segment register for kernel
+	while(1);
 	init_timer();			//init time interrupt
 	init_i8259();			//init interrupt
 	init_serial();			//init serial
