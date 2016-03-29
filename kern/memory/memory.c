@@ -17,7 +17,6 @@ void init_memory() {
 }
 
 uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
-	uint32_t pa;
 	if(!current->p) {
 		SegMan *tmp = Get_free_seg();
 		uint32_t offset;
@@ -25,7 +24,6 @@ uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
 		offset = 0;
 #else
 		offset = tmp->base - vaddr;
-		pa = tmp->base;
 #endif
 		set_segment(&gdt[tmp->cs], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, offset, tmp->limit);
 		set_segment(&gdt[tmp->ds], DPL_USER, SEG_WRITABLE, offset, tmp->limit);
@@ -49,8 +47,10 @@ uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
 		*i = (pte_t)Get_free_pg() | 0x7;
 //		printk("%x\n", *i);
 	}
-	pa = (*current->ptable__) - 0x7;
+	uint32_t pa = (*current->ptable__) - 0x7;
 	current->ptable__ = ptable;
+#else
+	uint32_t pa = tmp->base;
 #endif
 
 	return pa;

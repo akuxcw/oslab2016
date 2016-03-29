@@ -65,7 +65,7 @@ void load() {
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz /*+ 0xb00000*/, current);
+		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz + 0xb00000, current);
 #ifndef USE_PAGE
 		stack_top = ph->p_va + 0x2000000;
 #endif
@@ -86,8 +86,9 @@ void load() {
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
 #ifdef USE_PAGE
-	tf->esp = USER_STACK_TOP;
-	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
+	tf->esp = 0x4000000;
+//	tf->esp = USER_STACK_TOP;
+//	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 //	printk("!!!!!\n");
 #else
 	tf->esp = stack_top;
