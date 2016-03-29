@@ -21,6 +21,7 @@ ListHead free_pg;
 ListHead used_pg;
 
 extern uint32_t PADDR;
+extern uint32_t PSIZE;
 
 uint32_t Get_cr3() {
 	return va2pa(kpdir);
@@ -42,7 +43,7 @@ void set_kern_page() {
 		ptable += NPDENTRIES;
 	}
 //while(1);
-	for(pdir_idx = PADDR / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
+	for(pdir_idx = PADDR / PTSIZE; pdir_idx < (PADDR + PSIZE) / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
@@ -50,7 +51,7 @@ void set_kern_page() {
 	int32_t pframe_addr;
 	ptable --;
 	
-	for (pframe_addr = 0xfd000000 - PGSIZE; pframe_addr >= 0xfc000000; pframe_addr -= PGSIZE) {
+	for (pframe_addr = PADDR + PSIZE - PGSIZE; pframe_addr >= PADDR; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
@@ -77,8 +78,8 @@ void set_user_page(PCB *current) {
 	}
 	
 //	ptable = current->ptable;
-	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfc400000 / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)(&ptable[MAX_MEM / PGSIZE + (pdir_idx - 0xfc000000 / PTSIZE) * 1024]) | 0x7;
+	for(pdir_idx = PADDR / PTSIZE; pdir_idx < (PADDR + PSIZE) / PTSIZE; pdir_idx ++) {
+		pdir[pdir_idx] = (pde_t)(&ptable[MAX_MEM / PGSIZE + (pdir_idx - PADDR / PTSIZE) * 1024]) | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
