@@ -61,7 +61,7 @@ void load() {
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-		pa = (unsigned char *)mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, current);
+		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz/*0x2000000*/, current);
 //		printk("**********************\n");
 //		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
@@ -74,18 +74,15 @@ void load() {
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-//	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(current->ds);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-//	tf->cs = SELECTOR_USER(current->cs);
-//	tf->ss = SELECTOR_USER(current->ds);
 #ifdef USE_PAGE
 	tf->esp = 0x4000000;
 //	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
 #else
-//	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
+	tf->esp = 0x2000000 - pa + vaddr;
 #endif
 
 //	lcr3(0x212000);
