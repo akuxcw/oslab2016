@@ -82,7 +82,7 @@ void load() {
 	tf->eip = elf->e_entry;
 #ifdef USE_PAGE
 	tf->esp = USER_STACK_TOP;
-	mm_malloc(USER_STACK_TOP - 0x400000, 0x400000, current);
+	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 //	printk("!!!!!\n");
 #else
 	tf->esp = 0x2000000 - pa + vaddr;
