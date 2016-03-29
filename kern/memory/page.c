@@ -9,7 +9,7 @@ __attribute__((__aligned__(PGSIZE)))
 pde_t kpdir[NPDENTRIES];			// kernel page directory
 
 __attribute__((__aligned__(PGSIZE)))
-pte_t kptable[(MAX_MEM + 0x1000000) / PGSIZE];		// kernel page tables
+pte_t kptable[(2 * MAX_MEM + 0x1000000) / PGSIZE];		// kernel page tables
 
 PgMan page[MAX_MEM / PGSIZE];
 
@@ -30,12 +30,13 @@ void set_kern_page() {
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
-		printk("%x\n", pdir[pdir_idx]);
+		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)ptable | 0x7;
+//		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
-		printk("%x\n", pdir[pdir_idx]);
+//		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
 	printk("%d\n", pdir_idx);
@@ -52,12 +53,12 @@ void set_kern_page() {
 		// fill PTEs reversely
 	for (pframe_addr = 0xfd000000 - PGSIZE; pframe_addr >= 0xfc000000; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
-		printk("%x %x\n", (int)ptable, *ptable);
+//		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
 	for (pframe_addr = MAX_MEM - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
-		printk("%x %x\n", (int)ptable, *ptable);
+//		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
 //	printk("***$$$$$$$$$***********\n");
