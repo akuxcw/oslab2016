@@ -33,6 +33,7 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
+//	for(pdir_idx = 0xfc000000; pdir < 0xfd000000; p)
 //	printk("**************\n");
 /*	asm volatile ("std;\
 	 1: stosl;\
