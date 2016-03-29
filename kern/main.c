@@ -27,13 +27,13 @@ void init_memory();
 void load();
 
 int kern_init() {
+	init_palette();			//set palette address
 	set_kern_page();
 	set_kern_segment();			//set segment register for kernel
 	init_timer();			//init time interrupt
 	init_i8259();			//init interrupt
 	init_serial();			//init serial
 	init_idt();				//set idt
-	init_palette();			//set palette address
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
 	
