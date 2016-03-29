@@ -73,6 +73,7 @@ void load() {
 		pa = (unsigned char*)tmp[cnt]->base;
 #endif
 //		printk("**********************\n");
+		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
