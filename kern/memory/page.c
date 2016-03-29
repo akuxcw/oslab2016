@@ -62,7 +62,7 @@ void set_user_page(PCB *current) {
 	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | PTE_P | 0x7;
 		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)va2pa(ptable) | PTE_P | 0x7;
-	//	printk("%x\n", pdir[pdir_idx]);
+		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
 	current->ptable__ = ptable;
