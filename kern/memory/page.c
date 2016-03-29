@@ -32,7 +32,7 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
-while(1);
+//while(1);
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
@@ -51,7 +51,7 @@ while(1);
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
-	lcr3((uint32_t)(pdir) - KERNBASE);
+	lcr3(va2pa(pdir));
 }
 
 void set_user_page(PCB *current) {
