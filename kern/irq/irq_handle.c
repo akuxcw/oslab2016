@@ -5,6 +5,7 @@
 #include "inc/irq.h"
 
 uint32_t Get_gdt_off(uint32_t);
+uint32_t Get_cr3();
 void do_timer(void);
 void do_kbd(int);
 
@@ -24,6 +25,9 @@ irq_handle(TrapFrame *tf) {
 				 : 
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	offset = Get_gdt_off(seg_tmp >> 3);
+	int cr3_tmp;
+	asm volatile("movl %%cr3, %0" : "=a"(cr3_tmp) :);
+	lcr3(Get_cr3());
 	//printk("%x\n", offset);
 	//while(1);
 	uint32_t code, val;

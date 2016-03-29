@@ -28,5 +28,5 @@ target remote 127.0.0.1:1234
 # for instructions on building GDB with ELF support.
 echo + symbol-file obj/game/game\n
 symbol-file obj/game/game 
-symbol-file obj/kern/kern
+#symbol-file obj/kern/kern
 

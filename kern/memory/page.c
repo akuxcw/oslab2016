@@ -17,6 +17,10 @@ PgMan page[MAX_MEM / PGSIZE];
 ListHead free_pg;
 ListHead used_pg;
 
+uint32_t Get_cr3() {
+	return va2pa(kpdir);
+}
+
 void set_kern_page() {
 	uint32_t pdir_idx;
 
