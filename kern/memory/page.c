@@ -55,7 +55,7 @@ void set_kern_page() {
 }
 
 void set_user_page(PCB *current) {
-	printk("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+//	printk("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	pde_t * pdir = current->pdir;
 	pte_t * ptable = current->ptable;
 	
@@ -82,7 +82,7 @@ void init_page() {
 	list_init(&free_pg);
 	list_init(&used_pg);
 	for(i = 0x400000; i < MAX_MEM; i += PGSIZE) {
-		page[tot].addr = i;
+		page[tot ++].addr = i;
 		list_add_before(&free_pg, &page[tot].list);
 	}
 }
