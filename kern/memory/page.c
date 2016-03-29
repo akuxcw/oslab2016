@@ -23,11 +23,11 @@ void set_kern_page() {
 				 "andl	$0x7fffffff, %eax\n\t"
 				 "movl	%eax, %cr0");
 */
-	while(1);
 	uint32_t pdir_idx;
 
 	pde_t * pdir = kpdir - KERNBASE;
 	pte_t * ptable = kptable - KERNBASE;
+while(1);
 
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
