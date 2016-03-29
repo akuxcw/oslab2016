@@ -98,7 +98,7 @@ void load() {
 	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 #endif
 
-	printk("%x\n", va2pa(current->pdir));
+//	printk("%x\n", va2pa(current->pdir));
 	int j;
 	for(j = 0; j < 1024; ++ j) printk("%x\n", current->pdir[j]);
 	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
@@ -112,7 +112,7 @@ void load() {
 				 "movl %eax, %fs\n\t"
 				 "movl %eax, %gs\n\t");
 	lcr3(va2pa(current->pdir));
-	while(1);
+	//while(1);
 	asm volatile("iret");
 
 }
