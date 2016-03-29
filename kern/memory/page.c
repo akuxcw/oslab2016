@@ -37,7 +37,7 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
-
+while(1);
 	int32_t pframe_addr;
 	ptable --;
 	
