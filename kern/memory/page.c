@@ -35,7 +35,6 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
-//	while(1);
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
@@ -55,6 +54,7 @@ void set_kern_page() {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
+	while(1);
 	lcr3((uint32_t)(pdir) - KERNBASE);
 /*	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
