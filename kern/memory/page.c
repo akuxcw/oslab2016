@@ -20,12 +20,11 @@ ListHead used_pg;
 void set_kern_page() {
 	uint32_t pdir_idx;
 
-	pde_t * pdir = (pde_t *)((int)(kpdir)/* - KERNBASE*/);
-	pte_t * ptable = (pte_t *)((int)(kptable)/* - KERNBASE*/);
+	pde_t * pdir = (pde_t *)(va2pa(kpdir));
+	pte_t * ptable = (pte_t *)va2pa(kptable);
 
 	printk("%x %x %x %x\n", (int)pdir, (int)ptable, kpdir, kptable);
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
-while(1);
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
@@ -33,6 +32,7 @@ while(1);
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
+while(1);
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);

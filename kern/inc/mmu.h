@@ -41,6 +41,8 @@
 // construct linear address from indexes and offset
 #define PGADDR(d, t, o)	((void*) ((d) << PDXSHIFT | (t) << PTXSHIFT | (o)))
 
+#define va2pa(x) ((uint32_t)(x) - KERNBASE)
+
 // Page directory and page table constants.
 #define NPDENTRIES	1024		// page directory entries per page directory
 #define NPTENTRIES	1024		// page table entries per page table
