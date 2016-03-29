@@ -68,8 +68,8 @@ void set_kern_page() {
 	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
-	kern_init();
-//	while(1);
+//	kern_init();
+	while(1);
 }
 
 //void start_() = (set_kern_page - KERNBASE);
