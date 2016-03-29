@@ -3,6 +3,6 @@
 !*/
 !Makefile*
 !*.[cSh]
-!genboot.pl
+!*.pl
 !.gitignore
 !.*
