@@ -58,7 +58,7 @@ irq_handle(TrapFrame *tf) {
 				break;
 			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
-
+	lcr3(cr3_tmp);
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
