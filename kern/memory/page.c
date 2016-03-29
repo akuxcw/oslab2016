@@ -24,7 +24,7 @@ void set_kern_page() {
 	pte_t * ptable = (pte_t *)((int)(kptable) - KERNBASE);
 
 
-	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
+//	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 while(1);
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
