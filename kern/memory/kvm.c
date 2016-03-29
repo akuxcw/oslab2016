@@ -3,13 +3,13 @@
 #include <inc/x86.h>
 #include <inc/string.h>
 /* One TSS will be enough for all processes in ring 3. It will be used in Lab3. */
-static TSS tss; 
+static Tss tss; 
 
 
 inline static void
 set_tss(SegDesc *ptr) {
-	tss.ss0 = SELECTOR_KERNEL(SEG_KERNEL_DATA);		// only one ring 0 stack segment
-//	tss.tss_cr3 = 0x120000;
+	tss.ts_ss0 = SELECTOR_KERNEL(SEG_KERNEL_DATA);		// only one ring 0 stack segment
+	tss.ts_cr3 = 0x120000;
 	uint32_t base = (uint32_t)&tss;
 	uint32_t limit = sizeof(TSS) - 1;
 	ptr->limit_15_0  = limit & 0xffff;
@@ -29,7 +29,7 @@ set_tss(SegDesc *ptr) {
 
 void
 set_tss_esp0(int esp) {
-	tss.esp0 = esp;
+	tss.ts_esp0 = esp;
 }
 
 /* GDT in the kernel's memory, whose virtual memory is greater than 0xC0000000. */

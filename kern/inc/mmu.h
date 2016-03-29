@@ -241,7 +241,7 @@ typedef struct Segdesc {
 #ifndef __ASSEMBLER__
 
 // Task state segment format (as described by the Pentium architecture book)
-struct Taskstate {
+typedef struct Taskstate {
 	uint32_t ts_link;	// Old ts selector
 	uintptr_t ts_esp0;	// Stack pointers and segment selectors
 	uint16_t ts_ss0;	//   after an increase in privilege level
@@ -279,7 +279,7 @@ struct Taskstate {
 	uint16_t ts_padding10;
 	uint16_t ts_t;		// Trap on task switch
 	uint16_t ts_iomb;	// I/O map base address
-};
+} Tss;
 
 typedef struct {
 	uint32_t link;         // old ts selector
