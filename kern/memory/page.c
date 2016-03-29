@@ -19,10 +19,6 @@ ListHead used_pg;
 void kern_init();
 
 void set_kern_page() {
-/*	asm volatile("movl	%cr0, %eax\n\t"
-				 "andl	$0x7fffffff, %eax\n\t"
-				 "movl	%eax, %cr0");
-*/
 	uint32_t pdir_idx;
 
 	pde_t * pdir = (pde_t *)((int)(kpdir) - KERNBASE);
@@ -34,25 +30,17 @@ void set_kern_page() {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)ptable | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
-		ptable += 1024;//NPDENTRIES;
+		ptable += NPDENTRIES;
 	}
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
-//	printk("%d\n", pdir_idx);
-//	printk("**************\n");
-/*	asm volatile ("std;\
-	 1: stosl;\
-		subl %0, %%eax;\
-		jge 1b" : : 
-		"i"(PGSIZE), "a"((MAX_MEM - PGSIZE) | 0x7), "D"(ptable - 1));
-*/
+
 	int32_t pframe_addr;
 	ptable --;
 	
-		// fill PTEs reversely
 	for (pframe_addr = 0xfd000000 - PGSIZE; pframe_addr >= 0xfc000000; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | 0x7;
 //		printk("%x %x\n", (int)ptable, *ptable);
@@ -63,17 +51,13 @@ void set_kern_page() {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
-//	printk("***$$$$$$$$$***********\n");
 	lcr3((uint32_t)pdir/* - KERNBASE*/);
 	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
-
-//while(1);
 	kern_init();
 }
 
-//void start_() = (set_kern_page - KERNBASE);
 
 void init_page() {
 	int i, tot = 0;

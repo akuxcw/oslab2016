@@ -38,8 +38,8 @@
 # bootloader to jump to the *physical* address of the entry point.
 .globl		_start
 //_start = RELOC(entry) 
-_start = 0x101025
-//_start = RELOC(set_kern_page) 
+//_start = 0x101025
+_start = RELOC(set_kern_page) 
 
 .globl entry
 entry:
