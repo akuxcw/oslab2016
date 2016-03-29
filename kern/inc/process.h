@@ -8,7 +8,7 @@
 #include <inc/mmu.h>
 
 #define KSTACK_SIZE 4096
-#define NR_PCB 2
+#define NR_PCB 16 
 
 typedef struct PCB{
 	TrapFrame tf;
