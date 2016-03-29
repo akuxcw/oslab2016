@@ -14,7 +14,7 @@ typedef struct PCB{
 	TrapFrame tf;
 	uint8_t kstack[KSTACK_SIZE];
 	pde_t pdir[NPDENTRIES];
-	pte_t ptable[1/*MAX_MEM / PGSIZE*/];
+	pte_t ptable[0x2000000 / PGSIZE];
 	ListHead list;
 } __attribute__((packed)) PCB;
 
