@@ -27,7 +27,6 @@ void set_kern_page() {
 
 	pde_t * pdir = kpdir - KERNBASE;
 	pte_t * ptable = kptable - KERNBASE;
-while(1);
 
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
@@ -37,6 +36,7 @@ while(1);
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;//NPDENTRIES;
 	}
+while(1);
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
