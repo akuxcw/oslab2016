@@ -37,13 +37,14 @@
 # virtual memory when the bootloader enters this code, we need the
 # bootloader to jump to the *physical* address of the entry point.
 .globl		_start
-_start = 0x101000
+_start = RELOC(entry) #0x101000
 
 .globl entry
 entry:
 	movw	$0x1234,0x472			# warm boot
-#	movl	$(RELOC(kern_init)), %eax
-#	jmp		*%eax
+//	movl	$(RELOC(kern_init)), %eax
+	movl	kern_init, %eax
+	jmp		*%eax
 	# We haven't set up virtual memory yet, so we're running from
 	# the physical address the boot loader loaded the kernel at: 1MB
 	# (plus a few bytes).  However, the C code is linked to run at
