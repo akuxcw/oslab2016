@@ -16,7 +16,7 @@ typedef struct PCB{
 	pde_t pdir[NPDENTRIES];
 	pte_t ptable[1/*MAX_MEM / PGSIZE*/];
 	ListHead list;
-} PCB;
+} __attribute__((packed)) PCB;
 
 void init_process();
 PCB* new_process();
