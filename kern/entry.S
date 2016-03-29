@@ -32,14 +32,14 @@
 .long MULTIBOOT_HEADER_MAGIC
 .long MULTIBOOT_HEADER_FLAGS
 .long CHECKSUM
-.globl set_kern_page
+//.globl set_kern_page
 # '_start' specifies the ELF entry point.  Since we haven't set up
 # virtual memory when the bootloader enters this code, we need the
 # bootloader to jump to the *physical* address of the entry point.
 .globl		_start
-//_start = RELOC(entry) 
+_start = RELOC(entry) 
 //_start = 0x101025
-_start = RELOC(set_kern_page) 
+//_start = RELOC(set_kern_page) 
 
 .globl entry
 entry:
