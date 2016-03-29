@@ -65,7 +65,7 @@ void load() {
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		cnt ++;
-		tmp[cnt] = mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, p_flag[cnt], current);
+		tmp[cnt] = mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, p_flag[0] | p_flag[1], current);
 		vaddr = ph->p_va;
 #ifdef USE_PAGE
 		pa = (unsigned char*)tmp[cnt]->base;//ph->p_pa;
@@ -84,13 +84,13 @@ void load() {
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_KERNEL_DATA/*tmp[SEG_USER_DATA]->gdt*/);
+	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(/*SEG_KERNEL_DATA*/tmp[SEG_USER_CODE]->gdt);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-	tf->cs = SELECTOR_USER(SEG_KERNEL_CODE/*tmp[SEG_USER_CODE]->gdt*/);
-	tf->ss = SELECTOR_USER(SEG_KERNEL_DATA/*tmp[SEG_USER_DATA]->gdt*/);
+	tf->cs = SELECTOR_USER(/*SEG_KERNEL_CODE*/tmp[SEG_USER_CODE]->gdt);
+	tf->ss = SELECTOR_USER(/*SEG_KERNEL_DATA*/tmp[SEG_USER_CODE]->gdt);
 #ifdef USE_PAGE
 	tf->esp = vaddr;
 	tf->esp = 0x4000000;
@@ -105,7 +105,7 @@ void load() {
 //	for(j = 0; j < 1024; ++ j) printk("%x\n", current->pdir[j]);
 //	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
 	lcr3(va2pa(current->pdir));
-	printk("!!!!!\n");
+//	printk("!!!!!\n");
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
 	asm volatile("addl %0, %%esp" : :"a"(8));
