@@ -20,8 +20,8 @@ ListHead used_pg;
 void set_kern_page() {
 	uint32_t pdir_idx;
 
-	pde_t * pdir = (pde_t *)((int)(kpdir) - KERNBASE);
-	pte_t * ptable = (pte_t *)((int)(kptable) - KERNBASE);
+	pde_t * pdir = (pde_t *)((int)(kpdir)/* - KERNBASE*/);
+	pte_t * ptable = (pte_t *)((int)(kptable)/* - KERNBASE*/);
 
 	printk("%x %x %x %x\n", (int)pdir, (int)ptable, kpdir, kptable);
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
@@ -51,7 +51,7 @@ void set_kern_page() {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
-	lcr3((uint32_t)pdir);
+	lcr3((uint32_t)(pdir) - KERNBASE);
 }
 
 void set_user_page(PCB *current) {
