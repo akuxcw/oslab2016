@@ -21,10 +21,10 @@ void kern_init();
 void set_kern_page() {
 	uint32_t pdir_idx;
 
-	pde_t * pdir = (pde_t *)((int)(kpdir) - KERNBASE);
-	pte_t * ptable = (pte_t *)((int)(kptable) - KERNBASE);
+	pde_t * pdir = (pde_t *)((int)(kpdir)/* - KERNBASE*/);
+	pte_t * ptable = (pte_t *)((int)(kptable)/* - KERNBASE*/);
 
-	pdir[1] = 1;
+//	pdir[1] = 1;
 	printk("%x %x\n", (int)pdir, (int)ptable);
 
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
@@ -55,7 +55,7 @@ void set_kern_page() {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
-	lcr3((uint32_t)pdir/* - KERNBASE*/);
+	lcr3((uint32_t)(pdir) - KERNBASE);
 /*	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
