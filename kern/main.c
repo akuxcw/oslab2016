@@ -84,13 +84,13 @@ void load() {
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
+	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_KERNEL_DATA/*tmp[SEG_USER_DATA]->gdt*/);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-	tf->cs = SELECTOR_USER(tmp[SEG_USER_CODE]->gdt);
-	tf->ss = SELECTOR_USER(tmp[SEG_USER_DATA]->gdt);
+	tf->cs = SELECTOR_USER(SEG_KERNEL_CODE/*tmp[SEG_USER_CODE]->gdt*/);
+	tf->ss = SELECTOR_USER(SEG_KERNEL_DATA/*tmp[SEG_USER_DATA]->gdt*/);
 #ifdef USE_PAGE
 	tf->esp = vaddr;
 	tf->esp = 0x8000000;
