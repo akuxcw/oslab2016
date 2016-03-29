@@ -55,6 +55,7 @@ void set_kern_page() {
 }
 
 void set_user_page(PCB *current) {
+	printk("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	pde_t * pdir = current->pdir;
 	pte_t * ptable = current->ptable;
 	
