@@ -64,16 +64,17 @@ void set_kern_page() {
 void set_user_page(PCB *current) {
 //	printk("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 	pde_t * pdir = current->pdir;
-	pte_t * ptable = current->ptable;
+	pte_t * ptable = (pte_t *)va2pa(uptable);//current->ptable;
 	
 	uint32_t pdir_idx;
 	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)va2pa(ptable) | PTE_P | 0x7;
-		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)va2pa(ptable) | PTE_P | 0x7;
+		pdir[pdir_idx] = (pde_t)(&ptable[pdir_idx * 1024]) | PTE_P | 0x7;
+		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)(&ptable[pdir_idx * 1024]) | PTE_P | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
-		ptable += NPDENTRIES;
+//		ptable += NPDENTRIES;
 	}
 	
+	ptable = current->ptable;
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfc400000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
@@ -89,12 +90,13 @@ void set_user_page(PCB *current) {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
-	
+/*	
 	for (pframe_addr = 0x400000 - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | PTE_P | 0x7;
 	//	printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
+	*/
 }
 
 void init_page() {
