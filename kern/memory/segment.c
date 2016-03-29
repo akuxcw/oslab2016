@@ -10,7 +10,7 @@ SegMan seg[MAX_MEM/SEG_SIZE];
 void init_seg() {
 	list_init(&free_seg);
 	list_init(&used_seg);
-	for(int i = 1; i < MAX_MEM/SEG_SIZE; i ++) {
+	for(int i = 0; i < MAX_MEM/SEG_SIZE/2; i ++) {
 #ifdef USE_PAGE
 		seg[i].base = 0;
 		seg[i].limit = 0xFFFFF;
@@ -18,7 +18,8 @@ void init_seg() {
 		seg[i].base = i * SEG_SIZE;
 		seg[i].limit = 0x1FF;
 #endif
-		seg[i].gdt = i + 3;
+		seg[i].cs = 2 * i + 1 + 3;
+		seg[i].ds = 2 * i + 2 + 3;
 		list_add_before(&free_seg, &seg[i].list);
 	}
 }

@@ -16,7 +16,7 @@ SECTIONS
 	/*. = 0x2000000;*/
 
 	. = ALIGN(0x1000);
-	/*. += 0x2000;*/
+/*	. += 0x2000;*/
 	.rodata : {
 		*(.rodata .rodata.* .gnu.linkonce.r.*)
 	}

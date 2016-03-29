@@ -6,7 +6,7 @@
 #define MAX_MEM 0x8000000
 
 typedef struct {
-	uint32_t base, limit, gdt;
+	uint32_t base, limit, cs, ds;
 	ListHead list;
 } SegMan;
 

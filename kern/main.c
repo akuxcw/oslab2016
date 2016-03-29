@@ -9,7 +9,7 @@
 
 #define OFFSET_IN_DISK 1000*1024
 
-SegMan *mm_malloc(uint32_t, uint32_t, uint32_t, PCB*);
+uint32_t mm_malloc(uint32_t, uint32_t, PCB*);
 void set_tss_esp0(int);
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
 
@@ -59,21 +59,11 @@ void load() {
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
-	SegMan *tmp[3];
-	int p_flag[2] = {0xa, 0x2};
-	int cnt = -1, vaddr;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-		cnt ++;
-		tmp[cnt] = mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, p_flag[cnt], current);
-		vaddr = ph->p_va;
-#ifdef USE_PAGE
-		pa = (unsigned char*)tmp[cnt]->base;//ph->p_pa;
-#else
-		pa = (unsigned char*)tmp[cnt]->base;
-#endif
+		pa = (unsigned char *)mm_malloc(ph->p_va, /*ph->p_memsz*/0x2000000, current);
 //		printk("**********************\n");
-		printk("%x\n", pa);
+//		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
@@ -84,19 +74,18 @@ void load() {
 
 	TrapFrame *tf = &current->tf;
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(SEG_USER_DATA/*tmp[SEG_USER_DATA]->gdt*/);
+//	tf->gs = tf->fs = tf->es = tf->ds = SELECTOR_USER(current->ds);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
-	tf->cs = SELECTOR_USER(SEG_USER_CODE/*tmp[SEG_USER_CODE]->gdt*/);
-	tf->ss = SELECTOR_USER(SEG_USER_DATA/*tmp[SEG_USER_DATA]->gdt*/);
+//	tf->cs = SELECTOR_USER(current->cs);
+//	tf->ss = SELECTOR_USER(current->ds);
 #ifdef USE_PAGE
-	tf->esp = vaddr;
 	tf->esp = 0x4000000;
 //	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
 #else
-	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
+//	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 #endif
 
 //	lcr3(0x212000);
