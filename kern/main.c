@@ -8,6 +8,8 @@
 //#include <inc/memory.h>
 
 #define OFFSET_IN_DISK 1000*1024
+#define USER_STACK_TOP 0x8000000
+#define USER_STACK_SIZE 0x400000
 
 uint32_t mm_malloc(uint32_t, uint32_t, PCB*);
 void set_tss_esp0(int);
@@ -79,9 +81,9 @@ void load() {
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
 #ifdef USE_PAGE
-	tf->esp = 0x8000000;
-	mm_malloc(0x8000000 - 0x400000, 0x400000, current);
-	printk("!!!!!\n");
+	tf->esp = USER_STACK_TOP;
+	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
+//	printk("!!!!!\n");
 #else
 	tf->esp = 0x2000000 - pa + vaddr;
 #endif
