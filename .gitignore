@@ -4,5 +4,6 @@
 !Makefile*
 !*.[cSh]
 !*.pl
+!*.ld
 !.gitignore
 !.*
