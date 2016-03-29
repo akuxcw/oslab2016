@@ -13,6 +13,7 @@
 typedef struct PCB{
 	TrapFrame tf;
 	uint8_t kstack[KSTACK_SIZE];
+	pte_t * ptable__;
 	__attribute__((__aligned__(PGSIZE)))
 	pde_t pdir[NPDENTRIES];
 	__attribute__((__aligned__(PGSIZE)))

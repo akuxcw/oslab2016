@@ -55,7 +55,25 @@ void set_kern_page() {
 }
 
 void set_user_page(PCB *current) {
-
+	pde_t * pdir = current->pdir;
+	pte_t * ptable = current->ptable;
+	
+	uint32_t pdir_idx;
+	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {
+		pdir[pdir_idx] = (pde_t)ptable | 0x7;
+		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)ptable | 0x7;
+//		printk("%x\n", pdir[pdir_idx]);
+		ptable += NPDENTRIES;
+	}
+	current->ptable__ = ptable;
+	int32_t pframe_addr;
+	ptable --;
+	
+	for (pframe_addr = 0x400000 - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
+		*ptable = (pte_t)pframe_addr | 0x7;
+//		printk("%x %x\n", (int)ptable, *ptable);
+		ptable --;
+	}
 }
 
 void init_page() {
