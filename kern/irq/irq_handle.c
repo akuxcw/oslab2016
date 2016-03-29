@@ -27,6 +27,7 @@ irq_handle(TrapFrame *tf) {
 	offset = Get_gdt_off(seg_tmp >> 3);
 	int cr3_tmp;
 	asm volatile("movl %%cr3, %0" : "=a"(cr3_tmp) :);
+	printk("%x\n", Get_cr3());
 	lcr3(Get_cr3());
 	//printk("%x\n", offset);
 	//while(1);
