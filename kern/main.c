@@ -53,9 +53,7 @@ void load() {
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
-#ifndef USE_PAGE
-	uint32_t stack_top;
-#endif
+
 	elf = (struct Elf*)(0x0019000);
 
 	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
@@ -65,11 +63,8 @@ void load() {
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz + 0xb00000, current);
-#ifndef USE_PAGE
-		stack_top = ph->p_va + 0x2000000;
-#endif
-		//		printk("**********************\n");
+		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz /*+ 0xb00000*/, current);
+//		printk("**********************\n");
 //		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
@@ -86,12 +81,11 @@ void load() {
 	tf->eflags = eflags | FL_IF;
 	tf->eip = elf->e_entry;
 #ifdef USE_PAGE
-	tf->esp = 0x4000000;
-//	tf->esp = USER_STACK_TOP;
-//	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
-//	printk("!!!!!\n");
+	tf->esp = USER_STACK_TOP;
+	mm_malloc(USER_STACK_TOP - 0x400000, 0x400000, current);
+	printk("!!!!!\n");
 #else
-	tf->esp = stack_top;
+	tf->esp = 0x2000000 - pa + vaddr;
 #endif
 
 //	int j;
