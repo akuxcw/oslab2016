@@ -34,10 +34,10 @@ int kern_init() {
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
 	
-/*	int *addr = (int *)0xf0000000;
+	int *addr = (int *)0xf0000000;
 	*addr = 1;
 	printk("$$$%d\n", *addr);
-*/	load();					//load program
+	load();					//load program
 	outw(0x8A00, 0x8A00);
 	outw(0x8A00, 0x8E00);
 	while(1);
