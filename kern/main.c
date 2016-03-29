@@ -95,6 +95,7 @@ void load() {
 	tf->esp = vaddr;
 	tf->esp = 0x8000000;
 	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
+	printk("!!!!!\n");
 #else
 	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 #endif
@@ -104,7 +105,6 @@ void load() {
 //	int j;
 //	for(j = 0; j < 1024; ++ j) printk("%x\n", current->pdir[j]);
 //	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
-	printk("!!!!!\n");
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
