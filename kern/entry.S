@@ -82,7 +82,7 @@ relocated:
 	movl	$(bootstacktop),%esp
 
 	# now to C code
-	call	set_kern_page//kern_init
+	call	kern_init
 
 	# Should never get here, but in case we do, just spin.
 spin:	jmp	spin
