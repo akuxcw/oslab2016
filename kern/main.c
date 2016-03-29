@@ -111,7 +111,8 @@ void load() {
  				 "movl %eax, %es\n\t"
 				 "movl %eax, %fs\n\t"
 				 "movl %eax, %gs\n\t");
-	lcr3(va2pa(current->pdir));
+//	lcr3(va2pa(current->pdir));
+	lcr3(212000);
 	printk("!!!!!\n");
 	//while(1);
 	asm volatile("iret");
