@@ -94,8 +94,8 @@ void load() {
 #ifdef USE_PAGE
 	tf->esp = vaddr;
 	tf->esp = 0x8000000;
-	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
 	printk("!!!!!\n");
+	mm_malloc(0x8000000 - 0x400000, 0x400000, 0, current);
 #else
 	tf->esp = 0x2000000 - tmp[1]->base + vaddr;
 #endif
