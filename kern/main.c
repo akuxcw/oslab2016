@@ -100,7 +100,7 @@ void load() {
 
 //	lcr3(0x212000);
 	lcr3(va2pa(current->pdir));
-	printk("!!!!!\n");
+//	printk("!!!!!\n");
 //	printk("%x\n", va2pa(current->pdir));
 //	int j;
 //	for(j = 0; j < 1024; ++ j) printk("%x\n", current->pdir[j]);

@@ -41,6 +41,7 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type, PCB* current) {
 	for(i = current->ptable__; i < ptable; ++ i) {
 		*i = (pte_t)Get_free_pg() | 0x7;
 	}
+	tmp->base = (*current->ptable__) - 0x7;
 	current->ptable__ = ptable;
 #endif
 
