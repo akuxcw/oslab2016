@@ -18,7 +18,6 @@ ListHead used_pg;
 
 void kern_init();
 
-
 void set_kern_page() {
 /*	asm volatile("movl	%cr0, %eax\n\t"
 				 "andl	$0x7fffffff, %eax\n\t"
