@@ -18,6 +18,7 @@ ListHead used_pg;
 
 void kern_init();
 
+
 void set_kern_page() {
 /*	asm volatile("movl	%cr0, %eax\n\t"
 				 "andl	$0x7fffffff, %eax\n\t"
@@ -28,7 +29,7 @@ void set_kern_page() {
 	pde_t * pdir = kpdir - KERNBASE;
 	pte_t * ptable = kptable - KERNBASE;
 
-	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
+//	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
@@ -41,7 +42,7 @@ void set_kern_page() {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
-	printk("%d\n", pdir_idx);
+//	printk("%d\n", pdir_idx);
 //	printk("**************\n");
 /*	asm volatile ("std;\
 	 1: stosl;\
@@ -72,6 +73,7 @@ void set_kern_page() {
 //	while(1);
 }
 
+void (*start_) = (set_kern_page - KERNBASE);
 
 void init_page() {
 	int i, tot = 0;
