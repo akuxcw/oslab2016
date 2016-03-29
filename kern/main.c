@@ -64,7 +64,10 @@ void load() {
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz /*+ 0xb00000*/, current);
-//		printk("**********************\n");
+#ifndef USE_PAGE
+		uint32_t stack_top = ph->p_va + 0x2000000;
+#endif
+		//		printk("**********************\n");
 //		printk("%x\n", pa);
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
@@ -85,7 +88,7 @@ void load() {
 	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 //	printk("!!!!!\n");
 #else
-	tf->esp = 0x2000000 - pa + vaddr;
+	tf->esp = stack_top;
 #endif
 
 //	int j;
