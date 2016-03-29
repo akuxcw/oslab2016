@@ -34,7 +34,7 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type, PCB* current) {
 	pte_t *ptable = current->ptable__;
 	pte_t *i;
 	uint32_t pdir_idx;
-	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size) / PTSIZE; ++ pdir_idx) {
+	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PGSIZE) / PTSIZE; ++ pdir_idx) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
 		ptable += 1024;
 	}
