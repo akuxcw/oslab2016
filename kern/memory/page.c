@@ -20,6 +20,8 @@ PgMan page[MAX_MEM / PGSIZE];
 ListHead free_pg;
 ListHead used_pg;
 
+extern uint32_t PADDR;
+
 uint32_t Get_cr3() {
 	return va2pa(kpdir);
 }
@@ -40,7 +42,7 @@ void set_kern_page() {
 		ptable += NPDENTRIES;
 	}
 //while(1);
-	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
+	for(pdir_idx = PADDR / PTSIZE; pdir_idx < 0xfd000000 / PTSIZE; pdir_idx ++) {
 		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
