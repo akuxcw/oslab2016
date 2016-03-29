@@ -10,7 +10,10 @@ __attribute__((__aligned__(PGSIZE)))
 pde_t kpdir[NPDENTRIES];			// kernel page directory
 
 __attribute__((__aligned__(PGSIZE)))
-pte_t kptable[(2 * MAX_MEM + 0x1000000) / PGSIZE];		// kernel page tables
+pte_t kptable[(MAX_MEM + 0x1000000) / PGSIZE];		// kernel page tables
+
+//__attribute__((__aligned__(PGSIZE)))
+//pte_t uptable[]
 
 PgMan page[MAX_MEM / PGSIZE];
 
@@ -102,6 +105,21 @@ void init_page() {
 		page[tot ++].addr = i;
 		list_add_before(&free_pg, &page[tot].list);
 	}
+/*	
+	int32_t pframe_addr;
+	ptable --;
+	
+	for (pframe_addr = 0xfd000000 - PGSIZE; pframe_addr >= 0xfc000000; pframe_addr -= PGSIZE) {
+		*ptable = (pte_t)pframe_addr | 0x7;
+//		printk("%x %x\n", (int)ptable, *ptable);
+		ptable --;
+	}
+	for (pframe_addr = MAX_MEM - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
+		*ptable = (pte_t)pframe_addr | 0x7;
+//		printk("%x %x\n", (int)ptable, *ptable);
+		ptable --;
+	}
+*/
 }
 
 uint32_t Get_free_pg() {
