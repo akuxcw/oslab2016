@@ -53,7 +53,9 @@ void load() {
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
-
+#ifndef USE_PAGE
+	uint32_t stack_top;
+#endif
 	elf = (struct Elf*)(0x0019000);
 
 	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
@@ -65,7 +67,7 @@ void load() {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz /*+ 0xb00000*/, current);
 #ifndef USE_PAGE
-		uint32_t stack_top = ph->p_va + 0x2000000;
+		stack_top = ph->p_va + 0x2000000;
 #endif
 		//		printk("**********************\n");
 //		printk("%x\n", pa);
