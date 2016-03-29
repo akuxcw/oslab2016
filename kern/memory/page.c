@@ -25,8 +25,8 @@ void set_kern_page() {
 */
 	uint32_t pdir_idx;
 
-	pde_t * pdir = kpdir - KERNBASE;
-	pte_t * ptable = kptable - KERNBASE;
+	pde_t * pdir = kpdir;// - KERNBASE;
+	pte_t * ptable = kptable;// - KERNBASE;
 
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
