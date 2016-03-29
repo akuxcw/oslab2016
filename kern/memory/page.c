@@ -69,7 +69,7 @@ void set_kern_page() {
 				 "orl	$0x80000000, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
 //	kern_init();
-	while(1);
+//	while(1);
 }
 
 //void start_() = (set_kern_page - KERNBASE);
