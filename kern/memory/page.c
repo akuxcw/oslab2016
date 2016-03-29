@@ -80,7 +80,7 @@ void set_user_page(PCB *current) {
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
-
+/*
 	current->ptable__ = ptable;
 	int32_t pframe_addr;
 	ptable --;
@@ -89,7 +89,8 @@ void set_user_page(PCB *current) {
 		*ptable = (pte_t)pframe_addr | 0x7;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
-	}
+	}*/
+
 /*	
 	for (pframe_addr = 0x400000 - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
 		*ptable = (pte_t)pframe_addr | PTE_P | 0x7;
