@@ -74,9 +74,9 @@ void set_user_page(PCB *current) {
 //		ptable += NPDENTRIES;
 	}
 	
-	ptable = current->ptable;
+//	ptable = current->ptable;
 	for(pdir_idx = 0xfc000000 / PTSIZE; pdir_idx < 0xfc400000 / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
+		pdir[pdir_idx] = (pde_t)(&ptable[MAX_MEM / PGSIZE + (pdir_idx - 0xfc000000 / PTSIZE) * 1024]) | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
