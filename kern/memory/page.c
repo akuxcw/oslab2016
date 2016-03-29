@@ -16,6 +16,8 @@ PgMan page[MAX_MEM / PGSIZE];
 ListHead free_pg;
 ListHead used_pg;
 
+void kern_init();
+
 void set_kern_page() {
 /*	asm volatile("movl	%cr0, %eax\n\t"
 				 "andl	$0x7fffffff, %eax\n\t"
@@ -23,8 +25,8 @@ void set_kern_page() {
 */
 	uint32_t pdir_idx;
 
-	pde_t * pdir = kpdir;// - KERNBASE;
-	pte_t * ptable = kptable;// - KERNBASE;
+	pde_t * pdir = kpdir - KERNBASE;
+	pte_t * ptable = kptable - KERNBASE;
 
 	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
@@ -62,11 +64,11 @@ void set_kern_page() {
 		ptable --;
 	}
 //	printk("***$$$$$$$$$***********\n");
-	lcr3((uint32_t)pdir/* - 0xf0000000*/);
-/*	asm volatile("movl	%cr0, %eax\n\t"
+	lcr3((uint32_t)pdir - 0xf0000000);
+	asm volatile("movl	%cr0, %eax\n\t"
 				 "orl	$0x80010001, %eax\n\t"
 				 "movl	%eax, %cr0\n\t");
-*/
+	kern_init();
 //	while(1);
 }
 
