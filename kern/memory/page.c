@@ -37,6 +37,7 @@ void set_kern_page() {
 		pdir[pdir_idx] = (pde_t)ptable | 0x7;
 		ptable += 1024;
 	}
+	printk("%d\n", pdir_idx);
 //	printk("**************\n");
 /*	asm volatile ("std;\
 	 1: stosl;\
