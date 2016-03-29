@@ -73,7 +73,7 @@ void set_kern_page() {
 //	while(1);
 }
 
-void (*start_) = (set_kern_page - KERNBASE);
+//void start_() = (set_kern_page - KERNBASE);
 
 void init_page() {
 	int i, tot = 0;
