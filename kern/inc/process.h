@@ -13,8 +13,8 @@
 typedef struct PCB{
 	TrapFrame tf;
 	uint8_t kstack[KSTACK_SIZE];
-	pde_t pdir[NPDENTRIES];
-	pte_t ptable[MAX_MEM / PGSIZE];
+	pde_t pdir[1/*NPDENTRIES*/];
+	pte_t ptable[1/*MAX_MEM / PGSIZE*/];
 	ListHead list;
 } PCB;
 

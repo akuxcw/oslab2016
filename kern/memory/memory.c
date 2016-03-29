@@ -25,6 +25,7 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type, PCB* current) {
 	offset = tmp->base - vaddr;
 #endif
 	set_segment(&gdt[tmp->gdt], DPL_USER, type, offset, tmp->limit);
+	return tmp;
 	pde_t *pdir = current->pdir;
 	pte_t *ptable = current->ptable;
 	uint32_t pdir_idx, ptab_idx;
@@ -34,5 +35,4 @@ SegMan *mm_malloc(uint32_t vaddr, uint32_t size, uint32_t type, PCB* current) {
 	for(ptab_idx = vaddr / PGSIZE; ptab_idx < (vaddr + size) / PGSIZE; ++ ptab_idx) {
 		ptable[ptab_idx] = Get_free_pg();
 	}
-	return tmp;
 }
