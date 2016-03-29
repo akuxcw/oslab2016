@@ -37,7 +37,7 @@
 # virtual memory when the bootloader enters this code, we need the
 # bootloader to jump to the *physical* address of the entry point.
 .globl		_start
-_start = 0x10102a
+_start = set_kern_page//0x10102a
 
 .globl entry
 entry:
