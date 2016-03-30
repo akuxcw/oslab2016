@@ -2,7 +2,7 @@
 
 open(SIG, $ARGV[0]) || die "open $ARGV[0]: $!";
 
-$size = 1000*1024 + 10;
+$size = 1000*1024;
 
 $n = sysread(SIG, $buf, $size);
 
