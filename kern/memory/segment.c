@@ -32,3 +32,7 @@ SegMan * Get_free_seg() {
 	return list_entry(new_seg, SegMan, list);
 }
 
+void Free_seg(SegMan *val) {
+	list_del(&val->list);
+	list_add_after(&free_seg, &val->list);
+}
