@@ -116,5 +116,7 @@ uint32_t Get_free_pg() {
 	return list_entry(new_pg, PgMan, list)->addr;
 }
 
-void Free_pg() {
+void Free_pg(PgMan *val) {
+	list_del(&val->list);
+	list_add_after(&free_pg, &val->list);
 }
