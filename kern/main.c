@@ -74,6 +74,8 @@ void load() {
 		pa = (unsigned char *)seg_alloc(ph->p_va, current);
 #ifdef USE_PAGE
 		pa = (unsigned char *)page_alloc(ph->p_va, ph->p_memsz, current);
+#else
+		uint32_t vaddr = ph->p_va;
 #endif
 //		printk("%x\n", OFFSET_IN_DISK + ph->p_offset);
 //		readprog(ph->p_va, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);

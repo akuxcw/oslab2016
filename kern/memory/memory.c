@@ -17,40 +17,6 @@ void init_memory() {
 	init_page();
 }
 
-uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
-	if(!current->p) {
-		SegMan *tmp = Get_free_seg();
-		uint32_t offset;
-#ifdef USE_PAGE
-		offset = 0;
-#else
-		offset = tmp->base - vaddr;
-#endif
-		set_segment(&gdt[tmp->cs], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, offset, tmp->limit);
-		set_segment(&gdt[tmp->ds], DPL_USER, SEG_WRITABLE, offset, tmp->limit);
-		//set_segment(&gdt[tmp->cs], DPL_USER, type, offset, tmp->limit);
-		current->tf.cs = SELECTOR_USER(tmp->cs);
-		current->tf.ds = current->tf.ss = current->tf.es =
-		current->tf.fs = current->tf.gs = SELECTOR_USER(tmp->ds);
-		current->p = true;
-	}
-#ifdef USE_PAGE
-	pde_t *pdir = current->pdir;
-	uint32_t pdir_idx;
-	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PTSIZE) / PTSIZE; ++ pdir_idx) {
-		if(pdir[pdir_idx] != 0x0) continue;
-		pdir[pdir_idx] = Get_free_pg() | 0x7;
-//		readseg((const char *)(*(int *)(pdir[pdir_idx] & (~0x7))) & (~0x7), )
-//		printk("%x\n", pdir[pdir_idx]);
-	}
-	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7) + (vaddr & ((1 << 22) - 1));
-#else
-	uint32_t pa = tmp->base;
-#endif
-
-	return pa;
-}
-
 uint32_t seg_alloc(uint32_t vaddr, PCB* current) {
 	SegMan *tmp = Get_free_seg();
 	uint32_t offset;
@@ -91,3 +57,38 @@ void readprog(uint32_t vaddr, uint32_t size, PCB *current, unsigned char * pa, u
 	}
 
 }*/
+/*
+uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
+	if(!current->p) {
+		SegMan *tmp = Get_free_seg();
+		uint32_t offset;
+#ifdef USE_PAGE
+		offset = 0;
+#else
+		offset = tmp->base - vaddr;
+#endif
+		set_segment(&gdt[tmp->cs], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, offset, tmp->limit);
+		set_segment(&gdt[tmp->ds], DPL_USER, SEG_WRITABLE, offset, tmp->limit);
+		//set_segment(&gdt[tmp->cs], DPL_USER, type, offset, tmp->limit);
+		current->tf.cs = SELECTOR_USER(tmp->cs);
+		current->tf.ds = current->tf.ss = current->tf.es =
+		current->tf.fs = current->tf.gs = SELECTOR_USER(tmp->ds);
+		current->p = true;
+	}
+#ifdef USE_PAGE
+	pde_t *pdir = current->pdir;
+	uint32_t pdir_idx;
+	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PTSIZE) / PTSIZE; ++ pdir_idx) {
+		if(pdir[pdir_idx] != 0x0) continue;
+		pdir[pdir_idx] = Get_free_pg() | 0x7;
+//		readseg((const char *)(*(int *)(pdir[pdir_idx] & (~0x7))) & (~0x7), )
+//		printk("%x\n", pdir[pdir_idx]);
+	}
+	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7) + (vaddr & ((1 << 22) - 1));
+#else
+	uint32_t pa = tmp->base;
+#endif
+
+	return pa;
+}
+*/
