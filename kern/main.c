@@ -7,7 +7,7 @@
 #include "inc/disk.h"
 //#include <inc/memory.h>
 
-#define OFFSET_IN_DISK 1000*1024
+#define OFFSET_IN_DISK (1000*1024 + 10)
 #define USER_STACK_TOP 0x8000000
 #define USER_STACK_SIZE 0x400000
 
