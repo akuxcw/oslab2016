@@ -41,7 +41,7 @@ uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {
 		pdir[pdir_idx] = Get_free_pg() | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 	}
-	uint32_t pa = (*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7;
+	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7) + (vaddr & ((1 << 12) - 1));
 #else
 	uint32_t pa = tmp->base;
 #endif
