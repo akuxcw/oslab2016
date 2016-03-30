@@ -56,7 +56,9 @@ void load() {
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa, *i;
-
+#ifndef USE_PAGE
+	uint32_t vaddr;
+#endif
 	elf = (struct Elf*)(0x0019000);
 
 	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
@@ -74,6 +76,8 @@ void load() {
 		pa = (unsigned char *)seg_alloc(ph->p_va, current);
 #ifdef USE_PAGE
 		pa = (unsigned char *)page_alloc(ph->p_va, ph->p_memsz, current);
+#else
+		vaddr = ph->p_va;
 #endif
 //		printk("%x\n", OFFSET_IN_DISK + ph->p_offset);
 //		readprog(ph->p_va, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);
@@ -98,7 +102,7 @@ void load() {
 	page_alloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 //	printk("!!!!!\n");
 #else
-	tf->esp = 0x2000000 - pa + vaddr;
+	tf->esp = 0x2000000 - (int)pa + vaddr;
 #endif
 
 //	int j;
