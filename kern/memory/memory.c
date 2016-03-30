@@ -2,6 +2,7 @@
 #include <inc/memory.h>
 #include <inc/mmu.h>
 #include <inc/process.h>
+#include <inc/disk.h>
 
 extern SegDesc gdt[NR_SEGMENTS];
 
@@ -79,12 +80,14 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7) + (vaddr & ((1 << 22) - 1));
 	return pa;
 }
-/*
-void readprog(struct Proghdr * ph, PCB *current, uint32_t offset) {
-	offset -= (ph->p_va & ((1 << 22) - 1));
+//typedef struct Proghdr Proghdr;
+void readprog(uint32_t vaddr, uint32_t size, PCB *current, unsigned char * pa, uint32_t offset) {
+	offset -= (vaddr & ((1 << 22) - 1));
+	uint32_t pdir_idx;
 	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PTSIZE) / PTSIZE; ++ pdir_idx) {
-		readseg((const char *)(*(int *)(pdir[pdir_idx] & (~0x7))) & (~0x7), ph->offset + offset + )
+		readseg((unsigned char *)((*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7)), 
+					offset + pdir_idx * PTSIZE, PTSIZE);
 //		printk("%x\n", pdir[pdir_idx]);
 	}
 
-}*/
+}

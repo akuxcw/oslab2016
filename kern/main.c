@@ -18,6 +18,9 @@ void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32
 void set_user_page();
 void set_kern_page();
 void set_kern_segment();
+uint32_t seg_alloc(uint32_t, PCB*);
+uint32_t page_alloc(uint32_t, uint32_t, PCB*);
+//void readprog(struct Proghdr*, PCB*, unsigned char *, uint32_t);
 void init_i8259();
 void init_timer();
 void init_serial();
@@ -63,15 +66,17 @@ void load() {
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz/* + 0xb00000*/, current);
+//		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz/* + 0xb00000*/, current);
 //		printk("**********************\n");
 
 //		printk("%x\n", pa);
-/*
-		seg_alloc(ph->p_va, current);
-		page_alloc(ph->p_va, ph->p_memsz, current);
-		readprog(ph, current);
-*/
+
+		pa = (unsigned char *)seg_alloc(ph->p_va, current);
+#ifdef USE_PAGE
+		pa = (unsigned char *)page_alloc(ph->p_va, ph->p_memsz, current);
+#endif
+//		readprog(ph, current);
+
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
@@ -88,8 +93,8 @@ void load() {
 	tf->eip = elf->e_entry;
 #ifdef USE_PAGE
 	tf->esp = USER_STACK_TOP;
-	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
-//	page_alloc(USET_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
+//	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
+	page_alloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 //	printk("!!!!!\n");
 #else
 	tf->esp = 0x2000000 - pa + vaddr;
