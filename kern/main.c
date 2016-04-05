@@ -33,6 +33,7 @@ int kern_init() {
 	init_palette();			//set palette address
 	set_kern_page();
 	set_kern_segment();			//set segment register for kernel
+printk("1\n");
 	init_timer();			//init time interrupt
 	init_i8259();			//init interrupt
 	init_serial();			//init serial
