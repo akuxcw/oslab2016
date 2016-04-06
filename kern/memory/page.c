@@ -70,13 +70,13 @@ void set_user_page(PCB *current) {
 	
 	uint32_t pdir_idx;
 	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)(&ptable[pdir_idx * 1024]) | PTE_P | 0x7;
-		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)(&ptable[pdir_idx * 1024]) | PTE_P | 0x7;
+		pdir[pdir_idx] = (pde_t)(&ptable[pdir_idx * 1024]) | PTE_P | PTE_W;
+		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)(&ptable[pdir_idx * 1024]) | PTE_P | PTE_W;
 //		printk("%x\n", pdir[pdir_idx]);
 	}
 	
 	for(pdir_idx = PADDR / PTSIZE; pdir_idx < (PADDR + PSIZE) / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)(&ptable[MAX_MEM / PGSIZE + (pdir_idx - PADDR / PTSIZE) * 1024]) | 0x7;
+		pdir[pdir_idx] = (pde_t)(&ptable[MAX_MEM / PGSIZE + (pdir_idx - PADDR / PTSIZE) * 1024]) | PTE_P | PTE_W;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
