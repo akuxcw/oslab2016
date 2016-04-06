@@ -96,7 +96,7 @@ void init_page() {
 	int32_t pframe_addr;
 	
 	for (pframe_addr = 0 ; pframe_addr < MAX_MEM; pframe_addr += PGSIZE) {
-		*ptable = (pte_t)pframe_addr | PTE_P | PTE_W;
+		*ptable = (pte_t)pframe_addr | PTE_P | PTE_W | PTE_U;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable ++;
 	}
