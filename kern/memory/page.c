@@ -102,7 +102,7 @@ void init_page() {
 	}
 
 	for (pframe_addr = 0xfc000000; pframe_addr < 0xfc000000 + PTSIZE; pframe_addr += PGSIZE) {
-		*ptable = (pte_t)pframe_addr | PTE_P | PTE_W | PTE_U;
+		*ptable = (pte_t)pframe_addr | PTE_P | PTE_W;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable ++;
 	}
