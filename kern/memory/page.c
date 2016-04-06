@@ -37,14 +37,14 @@ void set_kern_page() {
 //	memset(pdir, 0, NPDENTRIES * sizeof(pte_t));
 
 	for (pdir_idx = 0; pdir_idx < MAX_MEM / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
-		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)va2pa(ptable) | 0x7;
+		pdir[pdir_idx] = (pde_t)va2pa(ptable) | PTE_P | PTE_W;
+		pdir[pdir_idx + KERNBASE / PTSIZE] = (pde_t)va2pa(ptable) | PTE_P | PTE_W;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += NPDENTRIES;
 	}
 //while(1);
 	for(pdir_idx = PADDR / PTSIZE; pdir_idx < (PADDR + PSIZE) / PTSIZE; pdir_idx ++) {
-		pdir[pdir_idx] = (pde_t)va2pa(ptable) | 0x7;
+		pdir[pdir_idx] = (pde_t)va2pa(ptable) | PTE_P | PTE_W;
 //		printk("%x\n", pdir[pdir_idx]);
 		ptable += 1024;
 	}
@@ -52,12 +52,12 @@ void set_kern_page() {
 	ptable --;
 	
 	for (pframe_addr = PADDR + PSIZE - PGSIZE; pframe_addr >= PADDR; pframe_addr -= PGSIZE) {
-		*ptable = (pte_t)pframe_addr | 0x7;
+		*ptable = (pte_t)pframe_addr | PTE_P | PTE_W;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
 	for (pframe_addr = MAX_MEM - PGSIZE; pframe_addr >= 0; pframe_addr -= PGSIZE) {
-		*ptable = (pte_t)pframe_addr | 0x7;
+		*ptable = (pte_t)pframe_addr | PTE_P | PTE_W;
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable --;
 	}
