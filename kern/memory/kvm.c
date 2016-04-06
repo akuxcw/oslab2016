@@ -59,7 +59,7 @@ init_segment(void) {
 	set_segment(&gdt[SEG_KERNEL_DATA], DPL_KERNEL, SEG_WRITABLE, 0, 0xFFFFF);
 //	set_segment(&gdt[SEG_USER_CODE], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, SEG_OFFSET, 0x1fff);
 //	set_segment(&gdt[SEG_USER_DATA], DPL_USER, SEG_WRITABLE, 2*SEG_OFFSET, 0x1fff);
-
+	printk("%lld\n", *(int *)(&gdt[1]));
 	write_gdtr(gdt, sizeof(gdt));
 
 	set_tss(&gdt[SEG_TSS]);
