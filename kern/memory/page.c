@@ -117,7 +117,8 @@ void init_page() {
 
 uint32_t Get_free_pg() {
 	assert(!list_empty(&free_pg));
-	ListHead *new_pg = free_pg.next;
+	ListHead *new_pg = &free_pg;
+	free_pg = *free_pg.next;
 	list_del(new_pg);
 	list_add_after(&used_pg, new_pg);
 	return list_entry(new_pg, PgMan, list)->addr;
