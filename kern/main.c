@@ -20,7 +20,7 @@ void set_kern_page();
 void set_kern_segment();
 uint32_t seg_alloc(uint32_t, PCB*);
 uint32_t page_alloc(uint32_t, uint32_t, PCB*);
-//void readprog(uint32_t, uint32_t, PCB*, unsigned char *, uint32_t);
+void readprog(uint32_t, uint32_t, PCB*, unsigned char *, uint32_t);
 void init_i8259();
 void init_timer();
 void init_serial();
@@ -79,8 +79,8 @@ void load() {
 #else
 		vaddr = ph->p_va;
 #endif
-//		printk("%x\n", OFFSET_IN_DISK + ph->p_offset);
-//		readprog(ph->p_va, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);
+		printk("%x %x\n", OFFSET_IN_DISK + ph->p_offset, pa);
+		readprog(ph->p_va, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);
 
 		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
