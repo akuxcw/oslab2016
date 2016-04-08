@@ -82,7 +82,7 @@ void load() {
 		printk("%x %x\n", OFFSET_IN_DISK + ph->p_offset, pa);
 		readprog(ph->p_va, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);
 
-		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
+//		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 	
