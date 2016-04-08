@@ -52,7 +52,7 @@ void readprog(uint32_t vaddr, uint32_t size, PCB *current, unsigned char * pa, u
 		printk("%x %x\n", ((*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7)),
 					offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
 		readseg((unsigned char *)((*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7)), 
-					offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE , PTSIZE);
+					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
 	}
 
 }
