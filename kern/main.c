@@ -79,7 +79,7 @@ void load() {
 #else
 		vaddr = ph->p_va;
 #endif
-		printk("%x %x\n", OFFSET_IN_DISK + ph->p_offset, pa);
+//		printk("%x %x\n", OFFSET_IN_DISK + ph->p_offset, pa);
 		readprog(ph->p_va, ph->p_filesz, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);
 
 //		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
