@@ -41,11 +41,12 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 		pdir[pdir_idx] = Get_free_pg() | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 	}
-	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] & (~0x7))) & (~0x7)) + (vaddr & ((1 << 22) - 1));
+	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7) + (vaddr & ((1 << 22) - 1));
 	return pa;
 }
 
-void readprog(uint32_t vaddr, uint32_t size, PCB *current, unsigned char * pa, uint32_t offset) {
+//typedef struct Proghdr Proghdr;
+void readprog(uint32_t vaddr, uint32_t size, uint32_t msize, PCB *current, unsigned char * pa, uint32_t offset) {
 //	offset -= (vaddr & ((1 << 22) - 1));
 	uint32_t pdir_idx;
 	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PTSIZE) / PTSIZE; ++ pdir_idx) {
