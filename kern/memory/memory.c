@@ -49,14 +49,22 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsigned char * pa, uint32_t offset) {
 //	offset -= (vaddr & ((1 << 22) - 1));
 	uint32_t pdir_idx, paddr;
-	//unsigned char *i;
+	unsigned char *i;
 	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + msize + PTSIZE) / PTSIZE; ++ pdir_idx) {
 		paddr = (*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7);
 		printk("%x %x\n", paddr,
 					offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
 		readseg((unsigned char *)(paddr), 
 					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
-		//if()
+		if(paddr + PTSIZE > (int)(pa) + fsize) {
+			for(i = (unsigned char *)(pa + fsize); i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
+			break;
+		}
+	}
+	pdir_idx ++;
+	for(; pdir_idx < (vaddr + msize + PTSIZE) / PTSIZE; ++ pdir_idx) {
+		paddr = (*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7);
+		for(i = (unsigned char *)paddr; i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
 	}
 
 }
