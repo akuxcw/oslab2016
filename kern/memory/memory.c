@@ -41,7 +41,7 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 		pdir[pdir_idx] = Get_free_pg() | 0x7;
 //		printk("%x\n", pdir[pdir_idx]);
 	}
-	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] - 0x7)) - 0x7) + (vaddr & ((1 << 22) - 1));
+	uint32_t pa = ((*(int *)(current->pdir[vaddr/PTSIZE] & (~0x7))) & (~0x7)) + (vaddr & ((1 << 22) - 1));
 	return pa;
 }
 
