@@ -56,10 +56,11 @@ void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsi
 					offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
 		readseg((unsigned char *)(paddr), 
 					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
-		if(paddr + PTSIZE > (int)(pa) + fsize) {
-			for(i = (unsigned char *)(pa + fsize); i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
+		if(PTSIZE > (int)fsize) {
+			for(i = (unsigned char *)(paddr + fsize); i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
 			break;
 		}
+		fsize -= PTSIZE;
 	}
 	pdir_idx ++;
 	for(; pdir_idx < (vaddr + msize + PTSIZE) / PTSIZE; ++ pdir_idx) {
