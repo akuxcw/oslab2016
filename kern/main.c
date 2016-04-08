@@ -115,11 +115,10 @@ void load() {
 
 	asm volatile("mov 24(%esp), %eax\n\t"
 				 "movl %eax, %ds\n\t"
- 				 "movl %eax, %es\n\t"
+				 "movl %eax, %es\n\t"
 				 "movl %eax, %fs\n\t"
 				 "movl %eax, %gs\n\t");
 	//while(1);
 	asm volatile("iret");
-
 }
 
