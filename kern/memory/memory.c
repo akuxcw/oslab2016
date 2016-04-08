@@ -46,14 +46,17 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 }
 
 //typedef struct Proghdr Proghdr;
-void readprog(uint32_t vaddr, uint32_t size, uint32_t msize, PCB *current, unsigned char * pa, uint32_t offset) {
+void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsigned char * pa, uint32_t offset) {
 //	offset -= (vaddr & ((1 << 22) - 1));
-	uint32_t pdir_idx;
+	uint32_t pdir_idx, paddr;
+	//unsigned char *i;
 	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + msize + PTSIZE) / PTSIZE; ++ pdir_idx) {
-		printk("%x %x\n", ((*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7)),
+		paddr = (*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7);
+		printk("%x %x\n", paddr,
 					offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
-		readseg((unsigned char *)((*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7)), 
+		readseg((unsigned char *)(paddr), 
 					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
+		//if()
 	}
 
 }
