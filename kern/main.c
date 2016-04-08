@@ -55,7 +55,7 @@ void load() {
 	set_user_page(current);
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
-	unsigned char* pa, *i;
+	unsigned char* pa;
 #ifndef USE_PAGE
 	uint32_t vaddr;
 #endif
@@ -83,7 +83,8 @@ void load() {
 		readprog(ph->p_va, ph->p_filesz, ph->p_memsz, current, pa, OFFSET_IN_DISK + ph->p_offset);
 
 //		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
-		for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
+//		unsigned char *i;
+	//	for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
 	}
 	
 	printk("Ready to game!\n");
