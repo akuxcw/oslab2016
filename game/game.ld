@@ -5,7 +5,7 @@ ENTRY(game_main)
 SECTIONS
 {
 /*	. = 0x2000000;*/
-	. = 0x8048000;
+	. = 0x8000100;
 
 	.text : {
 		*(.text .stub .text.* .gnu.linkonce.t.*)
