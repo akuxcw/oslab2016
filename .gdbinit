@@ -26,7 +26,8 @@ target remote 127.0.0.1:1234
 # Look at the tools page at
 #  http://pdos.csail.mit.edu/6.828/2009/tools.html
 # for instructions on building GDB with ELF support.
-echo + symbol-file obj/game/game\n
+#echo + symbol-file obj/game/game\n
 #symbol-file obj/game/game 
+echo + symbol-file obj/game/kern\n
 symbol-file obj/kern/kern
 

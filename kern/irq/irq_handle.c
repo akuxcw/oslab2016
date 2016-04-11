@@ -16,7 +16,7 @@ int offset;
 
 void
 irq_handle(TrapFrame *tf) {
-	//cli();
+	cli();
 	int seg_tmp;
 	asm volatile("movl %%es, %0" : "=a"(seg_tmp) :);
 	asm volatile("movl %0, %%es\n\t"
@@ -61,7 +61,7 @@ irq_handle(TrapFrame *tf) {
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
 				 "movl %0, %%gs" : : "a"(seg_tmp));
-	//sti();
+	sti();
 }
 
 uint32_t Get_seg_off() {
