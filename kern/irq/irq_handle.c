@@ -28,7 +28,7 @@ irq_handle(TrapFrame *tf) {
 	offset = Get_gdt_off(seg_tmp >> 3);
 	bool from_user = false;
 	if(seg_tmp & 0x3) from_user = true;
-//	if(!from_user)printk("*");
+	if(from_user)printk("*");
 //	printk("%x %x %x\n", tf->irq, tf->eax, tf->eip);
 	uint32_t code, val;
 	if(tf->irq < 1000) {
