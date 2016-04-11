@@ -33,7 +33,7 @@ void exec(TrapFrame *tf) {
 		last->tf.fs = tf->fs;
 		last->tf.gs = tf->gs;
 */
-	} else
+	} else {
 /*	ListHead *ptr, *ptr_;
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
@@ -46,6 +46,8 @@ void exec(TrapFrame *tf) {
 		while(1);
 	}*/
 	current = list_entry(Ready.next, PCB, list);
+	printk("!!!\n");
+	}
 //	printk("%x\n", current->pid);
 //	assert(current == last);
 
