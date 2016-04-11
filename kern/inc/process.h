@@ -24,6 +24,7 @@ void init_process();
 PCB* new_process();
 
 void ready(PCB *);
+void sleep(PCB *);
 void exec();
 
 #endif

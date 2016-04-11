@@ -10,6 +10,8 @@ ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
 
+void set_tss_esp0(int);
+
 void exec() {
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
@@ -19,6 +21,7 @@ void exec() {
 		if(tmp->time <= 0) ready(tmp);
 	}
 	PCB *current = list_entry(Ready.next, PCB, list);
+	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 //	TrapFrame *tf = current->tf;	
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)&current->tf));
