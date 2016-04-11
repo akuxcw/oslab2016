@@ -27,6 +27,11 @@ void exec(TrapFrame *tf) {
 		last->tf.ss = tf->ss;
 		last->tf.esp = tf->esp;
 		last->tf.eflags = tf->eflags;
+		last->tf.ds = tf->ds;
+		last->tf.es = tf->es;
+		last->tf.fs = tf->fs;
+		last->tf.gs = tf->gs;
+
 	}
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
