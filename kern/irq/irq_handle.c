@@ -58,7 +58,7 @@ irq_handle(TrapFrame *tf) {
 	if(seg_tmp & 0x3) {
 		//printk("*");
 		exec(tf);
-	}
+	} else printk("*");
 
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
