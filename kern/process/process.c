@@ -64,7 +64,7 @@ void sleep(PCB *c, uint32_t t) {
 
 void init_process() {
 //	printk("init_process\n");
-	tot = 0;
+	tot = 1;
 	list_init(&pcb_head);
 	list_init(&Ready);
 	list_init(&Sleep);
