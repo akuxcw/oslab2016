@@ -7,7 +7,9 @@ int game_main(){
 /*	int addr = 0x4000;
 //	*(int *)addr = 1;
 	printf("****%d\n", *(int *)addr);
-*/	time();
+*/
+	sleep(100);
+	time();
 	printf("@_@ Game Start!\n");
 	game();
 	while(1);
