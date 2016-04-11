@@ -14,6 +14,7 @@ PCB *last;
 void set_tss_esp0(int);
 
 void exec(uint32_t addr) {
+	printk("%x\n", addr);
 	if(last != NULL) last->tf.eip = addr;
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
