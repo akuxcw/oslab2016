@@ -12,7 +12,6 @@
 #define USER_STACK_SIZE 0x400000
 
 uint32_t mm_malloc(uint32_t, uint32_t, PCB*);
-void set_tss_esp0(int);
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
 
 void set_user_page();
@@ -92,7 +91,6 @@ void load() {
 	uint32_t eflags = read_eflags();
 
 	TrapFrame *tf = &current->tf;
-	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
@@ -110,7 +108,8 @@ void load() {
 //	for(j = 0; j < 1024; ++ j) printk("%x\n", current->pdir[j]);
 //	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
 	ready(current);
-	exec();
+	exec(0);
+/*	
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
@@ -123,5 +122,6 @@ void load() {
 				 "movl %eax, %gs\n\t");
 	//while(1);
 	asm volatile("iret");
+*/
 }
 
