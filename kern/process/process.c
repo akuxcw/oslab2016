@@ -27,7 +27,7 @@ void exec() {
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)&current->tf));
 	asm volatile("popa");
-	asm volatile("addl 8, %esp");
+	asm volatile("addl $8, %esp");
 
 	asm volatile("mov 24(%esp), %eax\n\t"
 				 "movl %eax, %ds\n\t"
