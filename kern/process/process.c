@@ -48,10 +48,9 @@ void exec(TrapFrame *tf) {
 				 "pop %fs\n\t"
 				 "pop %es\n\t"
 				 "pop %ds\n\t"
-				 "popa");
-	asm volatile("addl $8, %esp");
-
-	asm volatile("iret");
+				 "popa\n\t"
+				 "addl $8, %esp\n\t"
+				 "iret");
 }
 
 void ready(PCB *c) {
