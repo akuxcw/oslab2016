@@ -33,7 +33,7 @@ void exec(TrapFrame *tf) {
 		last->tf.fs = tf->fs;
 		last->tf.gs = tf->gs;
 */
-	}
+	} else
 /*	ListHead *ptr, *ptr_;
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
