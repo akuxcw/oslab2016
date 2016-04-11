@@ -81,7 +81,7 @@ PCB *new_process() {
 	PCB *new_pcb = list_entry(unused_pcb.next, PCB, list);
 	list_del(&new_pcb->list);
 	list_add_after(&pcb_head, &new_pcb->list);
-//	new_pcb->pid = ++tot;
+	new_pcb->pid = ++tot;
 	return new_pcb;
 }
 
