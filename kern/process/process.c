@@ -63,8 +63,6 @@ void exec(TrapFrame *tf) {
 	assert(current->tf.esp == tf->esp);
 	assert(current->tf.cs == tf->cs);
 	assert(current->tf.ss == tf->ss);
-	assert(current->tf.ds == tf->ds);
-	assert(current->tf.ds == tf->ds);
 	asm volatile("movl %0, %%esp" : :"a"(&(current->tf)));
 	
 
