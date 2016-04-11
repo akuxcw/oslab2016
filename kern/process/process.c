@@ -9,7 +9,7 @@ ListHead pcb_head;
 ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
-PCB *last;
+static PCB *last, *current;
 
 void set_tss_esp0(int);
 
@@ -25,7 +25,8 @@ void exec(TrapFrame *tf) {
 		tmp->time --;
 		if(tmp->time <= 0) ready(tmp);
 	}
-	PCB *current = list_entry(Ready.next, PCB, list);
+	if(list_empty(&Ready)) while(1);
+	current = list_entry(Ready.next, PCB, list);
 //	printk("%x\n", current->tf.eip);
 	last = current;
 	ready(current);
@@ -50,8 +51,9 @@ void ready(PCB *c) {
 	list_add_before(&Ready, &c->list);
 }
 
-void sleep(PCB *c) {
+void sleep(PCB *c, uint32_t t) {
 	list_del(&c->list);
+	c->time = t;
 	list_add_before(&Sleep, &c->list);
 }
 
@@ -79,4 +81,8 @@ PCB *new_process() {
 void Free_process(PCB *val) {
 	list_del(&val->list);
 	list_add_after(&pcb_head, &val->list);
+}
+
+PCB * running_process() {
+	return current;
 }
