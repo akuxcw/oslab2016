@@ -15,7 +15,7 @@ static uint32_t tot;
 void set_tss_esp0(int);
 
 void exec(TrapFrame *tf) {
-//	printk("%x\n", tf->eip);
+	printk("%x\n", tf->eip);
 	if(current != NULL) {
 		current->tf = *tf;
 /*		last->tf.eax = tf->eax;
