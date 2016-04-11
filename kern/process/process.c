@@ -10,6 +10,7 @@ ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
 static PCB *last, *current;
+static uint32_t tot;
 
 void set_tss_esp0(int);
 
@@ -63,6 +64,7 @@ void sleep(PCB *c, uint32_t t) {
 
 void init_process() {
 //	printk("init_process\n");
+	tot = 0;
 	list_init(&pcb_head);
 	list_init(&Ready);
 	list_init(&Sleep);
@@ -76,10 +78,11 @@ void init_process() {
 PCB *new_process() {
 //	if(list_empty(&unused_pcb)) printk("Process full!\n");
 	assert(!list_empty(&unused_pcb));
-	ListHead *new_pcb = unused_pcb.next;
-	list_del(new_pcb);
-	list_add_after(&pcb_head, new_pcb);
-	return list_entry(new_pcb, PCB, list);
+	PCB *new_pcb = list_entry(unused_pcb.next, PCB, list);
+	list_del(&new_pcb->list);
+	list_add_after(&pcb_head, &new_pcb->list);
+	new_pcb->pid = ++tot;
+	return new_pcb;
 }
 
 void Free_process(PCB *val) {

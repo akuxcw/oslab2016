@@ -89,7 +89,7 @@ void load() {
 	printk("Ready to game!\n");
 
 	uint32_t eflags = read_eflags();
-
+	
 	TrapFrame *tf = &current->tf;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
