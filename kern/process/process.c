@@ -53,7 +53,8 @@ void exec(TrapFrame *tf) {
 //	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
-	asm volatile("movl %0, %%esp" : :"a"((int)&current->tf));
+	asm volatile("movl %0, %%esp" : :"a"((int)/*&current->*/tf));
+	
 
 	asm volatile("pop %gs\n\t"
 				 "pop %fs\n\t"
