@@ -26,7 +26,7 @@ void exec(TrapFrame *tf) {
 		if(tmp->time <= 0) ready(tmp);
 	}
 	PCB *current = list_entry(Ready.next, PCB, list);
-	printk("%x\n", current->tf.eip);
+//	printk("%x\n", current->tf.eip);
 	last = current;
 	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);

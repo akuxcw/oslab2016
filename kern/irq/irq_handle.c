@@ -16,7 +16,7 @@ int offset;
 
 void
 irq_handle(TrapFrame *tf) {
-	cli();
+//	cli();
 	int seg_tmp;
 	asm volatile("movl %%es, %0" : "=a"(seg_tmp) :);
 	asm volatile("movl %0, %%es\n\t"
@@ -29,7 +29,7 @@ irq_handle(TrapFrame *tf) {
 	bool from_user = false;
 	if(seg_tmp & 0x3) from_user = true;
 //	if(!from_user)printk("*");
-	printk("%x %x %x\n", tf->irq, tf->eax, tf->eip);
+//	printk("%x %x %x\n", tf->irq, tf->eax, tf->eip);
 	uint32_t code, val;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
