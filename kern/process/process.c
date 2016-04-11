@@ -79,7 +79,7 @@ PCB *new_process() {
 //	if(list_empty(&unused_pcb)) printk("Process full!\n");
 	assert(!list_empty(&unused_pcb));
 	PCB *new_pcb = list_entry(unused_pcb.next, PCB, list);
-	++ tot;
+//	++ tot;
 	new_pcb->pid = tot;
 	list_del(&new_pcb->list);
 	list_add_after(&pcb_head, &new_pcb->list);
