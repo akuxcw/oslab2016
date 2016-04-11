@@ -21,6 +21,7 @@ void exec(TrapFrame *tf) {
 		last->tf.eax = tf->eax;
 		last->tf.eip = tf->eip;
 		last->tf.cs = tf->cs;
+		last->tf.ss = tf->ss;
 		last->tf.esp = tf->esp;
 		last->tf.eflags = tf->eflags;
 	}
