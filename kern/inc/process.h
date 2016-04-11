@@ -25,6 +25,6 @@ PCB* new_process();
 
 void ready(PCB *);
 void sleep(PCB *);
-void exec();
+void exec(uint32_t);
 
 #endif
