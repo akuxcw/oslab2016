@@ -24,10 +24,10 @@ void exec(TrapFrame *tf) {
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
 		tmp->time --;
+		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
 		if(tmp->time <= 0) ready(tmp);
 	}
 	if(list_empty(&Ready)) {
-		printk("%%%%%%%%%%%%%%\n");
 		while(1);
 	}
 	current = list_entry(Ready.next, PCB, list);
