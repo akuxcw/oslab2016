@@ -25,7 +25,10 @@ void exec(TrapFrame *tf) {
 		tmp->time --;
 		if(tmp->time <= 0) ready(tmp);
 	}
-	if(list_empty(&Ready)) while(1);
+	if(list_empty(&Ready)) {
+		printk("%%%%%%%%%%%%%%\n");
+		while(1);
+	}
 	current = list_entry(Ready.next, PCB, list);
 //	printk("%x\n", current->tf.eip);
 	last = current;
