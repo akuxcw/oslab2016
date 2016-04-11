@@ -19,7 +19,7 @@
 
 .globl irq0;     irq0:  			pushl $0;  pushl $1000; jmp asm_do_irq
 .globl irq1;     irq1:  			pushl $0;  pushl $1001; jmp asm_do_irq
-.globl irq14;   irq14:  push -8(%esp);	pushl $0;  pushl $1014; jmp asm_do_irq
+.globl irq14;   irq14:  push $8;	pushl $0;  pushl $1014; jmp asm_do_irq
 .globl irq_empty;
 			irq_empty:	pushl $0;  pushl   $-1; jmp asm_do_irq
 
