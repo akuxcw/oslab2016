@@ -17,8 +17,11 @@ void set_tss_esp0(int);
 void exec(TrapFrame *tf) {
 //	printk("%x\n", tf->eip);
 	if(last != NULL) {
-		last->tf = *tf;
+//		last->tf = *tf;
 		last->tf.eax = tf->eax;
+		last->tf.ebx = tf->ebx;
+		last->tf.ecx = tf->ecx;
+		last->tf.edx = tf->edx;
 		last->tf.eip = tf->eip;
 		last->tf.cs = tf->cs;
 		last->tf.ss = tf->ss;
