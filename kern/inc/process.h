@@ -6,6 +6,7 @@
 #include <inc/memlayout.h>
 #include <inc/memory.h>
 #include <inc/mmu.h>
+#include <inc/irq.h>
 
 #define KSTACK_SIZE 4096
 #define NR_PCB 16 
@@ -25,6 +26,6 @@ PCB* new_process();
 
 void ready(PCB *);
 void sleep(PCB *);
-void exec(uint32_t);
+void exec(TrapFrame *);
 
 #endif

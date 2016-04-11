@@ -3,7 +3,7 @@
 
 #include <inc/types.h>
 
-typedef struct TrapFrame {
+typedef struct {
 	uint32_t edi, esi, ebp, old_esp, ebx, edx, ecx, eax;
 	int32_t irq;
 	uint32_t error_code;
