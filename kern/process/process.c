@@ -9,7 +9,7 @@ ListHead pcb_head;
 ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
-static PCB *last, *current;
+static PCB/* *last, */*current;
 static uint32_t tot;
 
 void set_tss_esp0(int);
@@ -47,9 +47,10 @@ void exec(TrapFrame *tf) {
 	}*/
 	current = list_entry(Ready.next, PCB, list);
 //	printk("%x\n", current->pid);
-	assert(last == NULL || current == last);
-	last = current;
-	ready(current);
+//	assert(current == last);
+
+//	last = current;
+//	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)&current->tf));
