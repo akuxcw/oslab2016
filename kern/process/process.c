@@ -15,7 +15,7 @@ static uint32_t tot;
 void set_tss_esp0(int);
 
 void exec(TrapFrame *tf) {
-//	printk("%x\n", addr);
+	printk("%x\n", tf->eip);
 	if(last != NULL) {
 		last->tf = *tf;
 	}
