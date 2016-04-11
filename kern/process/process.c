@@ -22,6 +22,7 @@ void exec(TrapFrame *tf) {
 		last->tf.ebx = tf->ebx;
 		last->tf.ecx = tf->ecx;
 		last->tf.edx = tf->edx;
+		last->tf.ebp = tf->ebp;
 		last->tf.eip = tf->eip;
 		last->tf.cs = tf->cs;
 		last->tf.ss = tf->ss;
