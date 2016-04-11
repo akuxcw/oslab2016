@@ -21,6 +21,7 @@ void exec() {
 		if(tmp->time <= 0) ready(tmp);
 	}
 	PCB *current = list_entry(Ready.next, PCB, list);
+	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 //	TrapFrame *tf = current->tf;	
 	lcr3(va2pa(current->pdir));
