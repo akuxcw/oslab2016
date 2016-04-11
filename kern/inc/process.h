@@ -15,7 +15,7 @@ typedef struct PCB{
 	TrapFrame tf;
 	uint8_t kstack[KSTACK_SIZE];
 	bool p;
-	int time/*, pid*/;
+	int time, pid;
 	__attribute__((__aligned__(PGSIZE)))
 	pde_t pdir[NPDENTRIES];
 	ListHead list;
