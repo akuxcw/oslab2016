@@ -17,8 +17,8 @@ void set_tss_esp0(int);
 void exec(TrapFrame *tf) {
 	printk("%x\n", tf->eip);
 	if(last != NULL) {
-//		last->tf = *tf;
-		last->tf.eax = tf->eax;
+		last->tf = *tf;
+/*		last->tf.eax = tf->eax;
 		last->tf.ebx = tf->ebx;
 		last->tf.ecx = tf->ecx;
 		last->tf.edx = tf->edx;
@@ -32,7 +32,7 @@ void exec(TrapFrame *tf) {
 		last->tf.es = tf->es;
 		last->tf.fs = tf->fs;
 		last->tf.gs = tf->gs;
-
+*/
 	}
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
