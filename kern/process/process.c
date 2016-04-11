@@ -38,15 +38,19 @@ void exec(TrapFrame *tf) {
 //	TrapFrame *tf = current->tf;	
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)&current->tf));
-	asm volatile("mov 64(%esp), %eax\n\t"
+/*	asm volatile("mov 64(%esp), %eax\n\t"
 				 "movl %eax, %ds\n\t"
 				 "movl %eax, %es\n\t"
 				 "movl %eax, %fs\n\t"
 				 "movl %eax, %gs\n\t");
-	asm volatile("popa");
+*/	
+	asm volatile("pop %gs\n\t"
+				 "pop %fs\n\t"
+				 "pop %es\n\t"
+				 "pop %ds\n\t"
+				 "popa");
 	asm volatile("addl $8, %esp");
 
-	//while(1);
 	asm volatile("iret");
 }
 

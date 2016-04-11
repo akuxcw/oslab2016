@@ -31,11 +31,16 @@
 
 asm_do_irq:
 	pushal
+	
+	push %ds
+	push %es
+	push %fs
+	push %gs
 
 	pushl %esp
 	call irq_handle
 	
-	addl $4, %esp
+	addl $20, %esp
 	popal
 	addl $8, %esp
 	iret
