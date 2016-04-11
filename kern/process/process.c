@@ -46,7 +46,8 @@ void exec(TrapFrame *tf) {
 		while(1);
 	}*/
 	current = list_entry(Ready.next, PCB, list);
-	printk("%x\n", current->pid);
+//	printk("%x\n", current->pid);
+	assert(last == NULL || current == last);
 	last = current;
 	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
