@@ -4,6 +4,8 @@
 #include <inc/string.h>
 #include <inc/stdio.h>
 #include <inc/mmu.h>
+#include <inc/process.h>
+
 enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};
 /*
 void add_irq_handle(int, void (*)(void));
@@ -51,7 +53,6 @@ static void sys_kbd(TrapFrame *tf) {
 }
 
 int Get_time();
-void Delay(int);
 
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
@@ -72,7 +73,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_palette: sys_palette(tf); break;
 		case SYS_kbd: sys_kbd(tf); break;
 		case SYS_time: tf->eax = Get_time(); break;
-		case SYS_sleep: Delay(tf->ebx); break;
+		case SYS_sleep: sleep(running_process(), tf->ebx); break;
 /*
 		case SYS_open : 
 			tf->eax = fs_open((char *)tf->ebx, tf->ecx); break;
