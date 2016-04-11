@@ -64,7 +64,7 @@ irq_handle(TrapFrame *tf) {
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
 				 "movl %0, %%gs" : : "a"(seg_tmp));
-//	sti();
+	sti();
 }
 
 uint32_t Get_seg_off() {
