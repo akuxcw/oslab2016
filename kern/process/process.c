@@ -60,6 +60,16 @@ void sleep(PCB *c, uint32_t t) {
 	list_del(&c->list);
 	c->time = t;
 	list_add_before(&Sleep, &c->list);
+	
+	ListHead *ptr, *ptr_;
+	PCB *tmp;
+	list_foreach_safe(ptr, ptr_, &Sleep) {
+		tmp = list_entry(ptr, PCB, list);
+		tmp->time --;
+		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
+		if(tmp->time <= 0) ready(tmp);
+	}
+
 }
 
 void init_process() {
