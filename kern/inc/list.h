@@ -56,5 +56,8 @@ list_empty(ListHead *list) {
 #define list_foreach(ptr, head) \
 	for ((ptr) = (head)->next; (ptr) != (head); (ptr) = (ptr)->next)
 
+#define list_foreach_safe(pos, n, head) \
+	for (pos = (head)->next, n = pos->next; pos != (head); pos = n, n = pos->next)  
+
 #endif
 
