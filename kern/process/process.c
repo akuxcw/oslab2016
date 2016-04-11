@@ -14,8 +14,6 @@ static uint32_t tot;
 
 void set_tss_esp0(int);
 
-static ListHead *ptr, *ptr_;
-static PCB *tmp;
 void exec(TrapFrame *tf) {
 	printk("%x\n", tf->eip);
 	if(last != NULL) {
@@ -36,6 +34,8 @@ void exec(TrapFrame *tf) {
 		last->tf.gs = tf->gs;
 */
 	}
+/*	ListHead *ptr, *ptr_;
+	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
 		tmp->time --;
@@ -44,7 +44,7 @@ void exec(TrapFrame *tf) {
 	}
 	if(list_empty(&Ready)) {
 		while(1);
-	}
+	}*/
 	current = list_entry(Ready.next, PCB, list);
 	last = current;
 	ready(current);
