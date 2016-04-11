@@ -54,12 +54,12 @@ irq_handle(TrapFrame *tf) {
 				break;
 			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
-/*
+
 	if(seg_tmp & 0x3) {
-		printk("*");
-		if(from_user) exec(tf);
+		//printk("*");
+		exec(tf);
 	}
-*/
+
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
