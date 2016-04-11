@@ -26,10 +26,6 @@ irq_handle(TrapFrame *tf) {
 				 : 
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	offset = Get_gdt_off(seg_tmp >> 3);
-	bool from_user = false;
-	if(seg_tmp & 0x3) from_user = true;
-//	if(from_user)printk("*");
-//	printk("%x %x %x\n", tf->irq, tf->eax, tf->eip);
 	uint32_t code, val;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
@@ -58,7 +54,12 @@ irq_handle(TrapFrame *tf) {
 				break;
 			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
-	if(from_user) exec(tf);
+/*
+	if(seg_tmp & 0x3) {
+		printk("*");
+		if(from_user) exec(tf);
+	}
+*/
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
 				 "movl %0, %%fs\n\t"
