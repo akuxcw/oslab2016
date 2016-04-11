@@ -14,6 +14,8 @@ static uint32_t tot;
 
 void set_tss_esp0(int);
 
+static ListHead *ptr, *ptr_;
+static PCB *tmp;
 void exec(TrapFrame *tf) {
 	printk("%x\n", tf->eip);
 	if(last != NULL) {
@@ -34,8 +36,6 @@ void exec(TrapFrame *tf) {
 		last->tf.gs = tf->gs;
 */
 	}
-	ListHead *ptr, *ptr_;
-	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
 		tmp->time --;
@@ -46,19 +46,12 @@ void exec(TrapFrame *tf) {
 		while(1);
 	}
 	current = list_entry(Ready.next, PCB, list);
-//	printk("%x\n", current->tf.eip);
 	last = current;
 	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-//	TrapFrame *tf = current->tf;	
 	lcr3(va2pa(current->pdir));
 	asm volatile("movl %0, %%esp" : :"a"((int)&current->tf));
-/*	asm volatile("mov 64(%esp), %eax\n\t"
-				 "movl %eax, %ds\n\t"
-				 "movl %eax, %es\n\t"
-				 "movl %eax, %fs\n\t"
-				 "movl %eax, %gs\n\t");
-*/	
+
 	asm volatile("pop %gs\n\t"
 				 "pop %fs\n\t"
 				 "pop %es\n\t"
