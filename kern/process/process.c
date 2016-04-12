@@ -16,30 +16,21 @@ void set_tss_esp0(int);
 
 void exec(TrapFrame *tf) {
 //	printk("%x %x\n", tf->eip, (int)tf);
-//	if(last != NULL) {
-		current->tf = *tf;
-//	}
+	current->tf = *tf;
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
-//		*(int *)0xf015204c = *(int *)0xf015204c - 1;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
-//		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 		tmp->time = tmp->time - 2;
 //		printk("%%%%%%%%%%%%%% %x %x %x %x\n", tmp->time, (int)&tmp->time, (int)tf, (int)&current->tf);
 		if(tmp->time <= 0) ready(tmp);
 	}
-//	if(list_empty(&Ready)) {
-//		while(1);
-//	}
+	assert(!list_empty(&Ready));
 	current = list_entry(Ready.next, PCB, list);
-//	printk("!!!\n");
 	
 //	printk("%x\n", current->pid);
-//	assert(current == last);
 
-//	last = current;
-//	ready(current);
+	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
 /*	if(current->tf.ds != tf->ds){
@@ -47,25 +38,6 @@ void exec(TrapFrame *tf) {
 		printk("ds: %x %x\n", current->tf.ds, tf->ds);
 		printk("eip: %x %x\n", current->tf.eip, tf->eip);
 	}*/
-//	assert(current->tf.es == tf->es);
-//	assert(current->tf.fs == tf->fs);
-//	assert(current->tf.gs == tf->gs);
-//	assert(current->tf.eip == tf->eip);
-//	assert(current->tf.esp == tf->esp);
-//	assert(current->tf.cs == tf->cs);
-//	assert(current->tf.ss == tf->ss);
-/*	asm volatile("movl %0, %%esp" : :"a"(&(current->tf)));
-	
-
-	asm volatile("pop %gs\n\t"
-				 "pop %fs\n\t"
-				 "pop %es\n\t"
-				 "pop %ds\n\t"
-				 "popa\n\t"
-				 "addl $8, %esp\n\t"
-				 "iret");
-*/
-//	if(tmp != NULL)printk("%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 	*tf = current->tf;
 }
 
