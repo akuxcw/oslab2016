@@ -9,16 +9,16 @@ ListHead pcb_head;
 ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
-static /*PCB idle, */PCB *current/* = &idle*/;
+static PCB idle, *current = &idle;
 static uint32_t tot;
 
 void set_tss_esp0(int);
 
 void exec(TrapFrame *tf) {
 //	printk("%x %x\n", tf->eip, (int)tf);
-	if(current != NULL) {
+//	if(current != NULL) {
 		current->tf = *tf;
-	}
+//	}
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
@@ -96,6 +96,7 @@ void init_process() {
 	for(int i = 0; i < NR_PCB; ++ i) {
 		list_add_after(&unused_pcb, &pcb[i].list);
 	}
+	ready(&idle);
 }
 
 PCB *new_process() {

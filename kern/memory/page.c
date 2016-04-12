@@ -6,8 +6,8 @@
 #include <inc/x86.h>
 #include <inc/process.h>
 
-__attribute__((__aligned__(PGSIZE)))
-pde_t kpdir[NPDENTRIES];			// kernel page directory
+//__attribute__((__aligned__(PGSIZE)))
+//pde_t kpdir[NPDENTRIES];			// kernel page directory
 
 __attribute__((__aligned__(PGSIZE)))
 pte_t kptable[(MAX_MEM + 0x1000000) / PGSIZE];		// kernel page tables
@@ -22,15 +22,15 @@ ListHead used_pg;
 
 extern uint32_t PADDR;
 extern uint32_t PSIZE;
-
+/*
 uint32_t Get_cr3() {
 	return va2pa(kpdir);
 }
-
+*/
 void set_kern_page() {
 	uint32_t pdir_idx;
 
-	pde_t * pdir = (pde_t *)kpdir;
+	pde_t * pdir = (pde_t *)(running_process()->pdir);
 	pte_t * ptable = (pte_t *)kptable;
 
 //	printk("%x %x %x %x\n", (int)pdir, (int)ptable, kpdir, kptable);
