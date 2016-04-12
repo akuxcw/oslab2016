@@ -73,7 +73,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_palette: sys_palette(tf); break;
 		case SYS_kbd: sys_kbd(tf); break;
 		case SYS_time: tf->eax = Get_time(); break;
-		case SYS_sleep: printk("#");sleep(running_process(), tf->ebx); break;
+		case SYS_sleep: sleep(running_process(), tf->ebx); break;
 /*
 		case SYS_open : 
 			tf->eax = fs_open((char *)tf->ebx, tf->ecx); break;
