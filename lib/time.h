@@ -7,7 +7,7 @@ int time() {
 }
 static inline
 void sleep(int tmp) {
-//	return;
+	return;
 	syscall(SYS_sleep, tmp);
 }
 #endif
