@@ -8,7 +8,7 @@
 #include <inc/mmu.h>
 #include <inc/irq.h>
 
-#define KSTACK_SIZE 4096
+#define KSTACK_SIZE 8096
 #define NR_PCB 16 
 
 typedef struct PCB{
