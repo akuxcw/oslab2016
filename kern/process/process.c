@@ -36,8 +36,8 @@ void exec(TrapFrame *tf) {
 //	printk("%x\n", current->pid);
 //	assert(current == last);
 
-//	last = current;
-//	ready(current);
+	last = current;
+	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
 	if(current->tf.ds != tf->ds){
