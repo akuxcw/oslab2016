@@ -57,6 +57,8 @@ void exec(TrapFrame *tf) {
 //	lcr3(va2pa(current->pdir));
 	if(current->tf.ds != tf->ds){
 		printk("xxxx\n");
+		printk("ds: %x %x\n", current->tf.ds, tf->ds);
+		printk("eip: %x %x\n", current->tf.eip, tf->eip);
 	}
 	//assert(current->tf.es == tf->es);
 //	assert(current->tf.fs == tf->fs);
