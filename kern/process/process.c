@@ -23,9 +23,9 @@ void exec(TrapFrame *tf) {
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
-		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
-		tmp->time = 3;//tmp->time - 1;
-		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
+		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
+		tmp->time = tmp->time - 1;
+		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 		if(tmp->time <= 0) ready(tmp);
 	}
 //	if(list_empty(&Ready)) {
