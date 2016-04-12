@@ -8,12 +8,12 @@
 #include <inc/mmu.h>
 #include <inc/irq.h>
 
-#define KSTACK_SIZE 5096
+#define KSTACK_SIZE 4096
 #define NR_PCB 16 
 
 typedef struct PCB{
 	TrapFrame tf;
-	uint8_t kstack[KSTACK_SIZE];
+	uint8_t kstack[KSTACK_SIZE + 0x100];
 	int time, pid;
 	__attribute__((__aligned__(PGSIZE)))
 	pde_t pdir[NPDENTRIES];
