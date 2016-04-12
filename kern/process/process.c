@@ -24,7 +24,7 @@ void exec(TrapFrame *tf) {
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
 		tmp->time --;
-		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
+//		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
 		if(tmp->time <= 0) ready(tmp);
 	}
 	if(list_empty(&Ready)) {
@@ -39,20 +39,19 @@ void exec(TrapFrame *tf) {
 //	last = current;
 //	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
-//	lcr3(va2pa(current->pdir));
-//	printk("qqq%x %x\n", (int)&current->tf, (int)tf);
+	lcr3(va2pa(current->pdir));
 	if(current->tf.ds != tf->ds){
 		printk("xxxx\n");
 		printk("ds: %x %x\n", current->tf.ds, tf->ds);
 		printk("eip: %x %x\n", current->tf.eip, tf->eip);
 	}
-	//assert(current->tf.es == tf->es);
+//	assert(current->tf.es == tf->es);
 //	assert(current->tf.fs == tf->fs);
 //	assert(current->tf.gs == tf->gs);
-	assert(current->tf.eip == tf->eip);
-	assert(current->tf.esp == tf->esp);
-	assert(current->tf.cs == tf->cs);
-	assert(current->tf.ss == tf->ss);
+//	assert(current->tf.eip == tf->eip);
+//	assert(current->tf.esp == tf->esp);
+//	assert(current->tf.cs == tf->cs);
+//	assert(current->tf.ss == tf->ss);
 	asm volatile("movl %0, %%esp" : :"a"(&(current->tf)));
 	
 
