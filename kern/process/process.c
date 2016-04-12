@@ -64,6 +64,7 @@ void exec(TrapFrame *tf) {
 				 "addl $8, %esp\n\t"
 				 "iret");
 */
+	if(tmp != NULL)printk("%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 	*tf = current->tf;
 }
 
