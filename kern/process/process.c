@@ -15,7 +15,7 @@ static uint32_t tot;
 void set_tss_esp0(int);
 
 void exec(TrapFrame *tf) {
-	printk("%x %x\n", tf->eip, (int)tf);
+//	printk("%x %x\n", tf->eip, (int)tf);
 	if(current != NULL) {
 		current->tf = *tf;
 	} else {
@@ -40,7 +40,7 @@ void exec(TrapFrame *tf) {
 //	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 //	lcr3(va2pa(current->pdir));
-	printk("qqq%x %x\n", (int)&current->tf, (int)tf);
+//	printk("qqq%x %x\n", (int)&current->tf, (int)tf);
 	if(current->tf.ds != tf->ds){
 		printk("xxxx\n");
 		printk("ds: %x %x\n", current->tf.ds, tf->ds);
