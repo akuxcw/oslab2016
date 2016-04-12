@@ -55,7 +55,9 @@ void exec(TrapFrame *tf) {
 //	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 //	lcr3(va2pa(current->pdir));
-	//assert(current->tf.ds == tf->ds);
+	if(current->tf.ds != tf->ds){
+		printk("xxxx\n");
+	}
 	//assert(current->tf.es == tf->es);
 //	assert(current->tf.fs == tf->fs);
 //	assert(current->tf.gs == tf->gs);
