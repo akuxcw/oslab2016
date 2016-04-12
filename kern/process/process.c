@@ -9,7 +9,7 @@ ListHead pcb_head;
 ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
-static PCB /**last, */*current;
+static /*PCB idle, */PCB *current/* = &idle*/;
 static uint32_t tot;
 
 void set_tss_esp0(int);
