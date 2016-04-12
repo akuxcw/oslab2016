@@ -56,7 +56,7 @@ irq_handle(TrapFrame *tf) {
 	}
 
 	if(seg_tmp & 0x3) {
-		//printk("*");
+		printk("%x\n", seg_tmp);
 		exec(tf);
 	} else printk("*");
 
