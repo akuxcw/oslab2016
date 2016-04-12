@@ -52,7 +52,7 @@ void exec(TrapFrame *tf) {
 //	assert(current->tf.esp == tf->esp);
 //	assert(current->tf.cs == tf->cs);
 //	assert(current->tf.ss == tf->ss);
-	asm volatile("movl %0, %%esp" : :"a"(&(current->tf)));
+/*	asm volatile("movl %0, %%esp" : :"a"(&(current->tf)));
 	
 
 	asm volatile("pop %gs\n\t"
@@ -62,6 +62,8 @@ void exec(TrapFrame *tf) {
 				 "popa\n\t"
 				 "addl $8, %esp\n\t"
 				 "iret");
+*/
+	*tf = current->tf;
 }
 
 void ready(PCB *c) {
