@@ -23,7 +23,7 @@ void exec(TrapFrame *tf) {
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
-		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
+//		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 		//tmp->time = tmp->time - 1;
 		*(int *)0xf015204c = *(int *)0xf015204c - 1;
 		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
@@ -39,14 +39,14 @@ void exec(TrapFrame *tf) {
 //	assert(current == last);
 
 //	last = current;
-	ready(current);
+//	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
-	if(current->tf.ds != tf->ds){
+/*	if(current->tf.ds != tf->ds){
 		printk("xxx%x\n", current->pid);
 		printk("ds: %x %x\n", current->tf.ds, tf->ds);
 		printk("eip: %x %x\n", current->tf.eip, tf->eip);
-	}
+	}*/
 //	assert(current->tf.es == tf->es);
 //	assert(current->tf.fs == tf->fs);
 //	assert(current->tf.gs == tf->gs);
@@ -65,7 +65,7 @@ void exec(TrapFrame *tf) {
 				 "addl $8, %esp\n\t"
 				 "iret");
 */
-	if(tmp != NULL)printk("%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
+//	if(tmp != NULL)printk("%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 	*tf = current->tf;
 }
 
