@@ -9,16 +9,16 @@ ListHead pcb_head;
 ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
-static PCB idle, *current = &idle, *last;
+static PCB idle, *current = &idle;
 static uint32_t tot;
 
 void set_tss_esp0(int);
 
 void exec(TrapFrame *tf) {
 //	printk("%x %x\n", tf->eip, (int)tf);
-	if(last != NULL) {
-		last->tf = *tf;
-	}
+//	if(last != NULL) {
+		current->tf = *tf;
+//	}
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
@@ -36,7 +36,7 @@ void exec(TrapFrame *tf) {
 //	printk("%x\n", current->pid);
 //	assert(current == last);
 
-	last = current;
+//	last = current;
 	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));

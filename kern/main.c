@@ -44,7 +44,7 @@ int kern_init() {
 	*addr = 1;
 	printk("$$$%d\n", *addr);
 */	load();					//load program
-//	cli();
+	cli();
 	while(1);
 	return 0;
 }
@@ -109,7 +109,7 @@ void load() {
 //	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
 	ready(current);
 //	lcr3(va2pa(current->pdir));
-	exec(tf);
+//	exec(tf);
 /*	
 	asm volatile("movl %0, %%esp" : :"a"((int)tf));
 	asm volatile("popa");
