@@ -66,7 +66,8 @@ void exec(TrapFrame *tf) {
 
 void ready(PCB *c) {
 	list_del(&c->list);
-	list_add_before(&Ready, &c->list);
+	if(list_empty(&Ready)) list_add_before(&Ready, &c->list);
+	else list_add_before(&idle.list, &c->list);
 }
 
 void sleep(PCB *c, uint32_t t) {
@@ -96,7 +97,7 @@ void init_process() {
 	for(int i = 0; i < NR_PCB; ++ i) {
 		list_add_after(&unused_pcb, &pcb[i].list);
 	}
-//	ready(&idle);
+	ready(&idle);
 }
 
 PCB *new_process() {
