@@ -26,7 +26,7 @@ void exec(TrapFrame *tf) {
 		tmp = list_entry(ptr, PCB, list);
 		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, (int)&tmp->time);
 		tmp->time = tmp->time - 2;
-		printk("%%%%%%%%%%%%%% %x %x %x\n", tmp->time, (int)&tmp->time, (int)tf);
+		printk("%%%%%%%%%%%%%% %x %x %x %x\n", tmp->time, (int)&tmp->time, (int)tf, (int)&current->tf);
 		if(tmp->time <= 0) ready(tmp);
 	}
 //	if(list_empty(&Ready)) {
