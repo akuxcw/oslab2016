@@ -70,7 +70,7 @@ void ready(PCB *c) {
 }
 
 void sleep(PCB *c, uint32_t t) {
-//		printk("%%%%%%%%%%%%%%%x\n", c->pid);
+		printk("%%%%%%%%%%%%%%%x\n", c->pid);
 	list_del(&c->list);
 	c->time = t;
 	list_add_before(&Sleep, &c->list);
