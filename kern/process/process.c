@@ -18,21 +18,6 @@ void exec(TrapFrame *tf) {
 	printk("%x\n", tf->eip);
 	if(current != NULL) {
 		current->tf = *tf;
-/*		last->tf.eax = tf->eax;
-		last->tf.ebx = tf->ebx;
-		last->tf.ecx = tf->ecx;
-		last->tf.edx = tf->edx;
-		last->tf.ebp = tf->ebp;
-		last->tf.eip = tf->eip;
-		last->tf.cs = tf->cs;
-		last->tf.ss = tf->ss;
-		last->tf.esp = tf->esp;
-		last->tf.eflags = tf->eflags;
-		last->tf.ds = tf->ds;
-		last->tf.es = tf->es;
-		last->tf.fs = tf->fs;
-		last->tf.gs = tf->gs;
-*/
 	} else {
 /*	ListHead *ptr, *ptr_;
 	PCB *tmp;
@@ -55,6 +40,7 @@ void exec(TrapFrame *tf) {
 //	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 //	lcr3(va2pa(current->pdir));
+	printk("qqq%x\n", current->tf.eip);
 	if(current->tf.ds != tf->ds){
 		printk("xxxx\n");
 		printk("ds: %x %x\n", current->tf.ds, tf->ds);
