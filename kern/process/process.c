@@ -28,16 +28,11 @@ void exec(TrapFrame *tf) {
 	assert(!list_empty(&Ready));
 	current = list_entry(Ready.next, PCB, list);
 	
-//	printk("%x\n", current->pid);
+	printk("%x\n", current->pid);
 
 	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
-/*	if(current->tf.ds != tf->ds){
-		printk("xxx%x\n", current->pid);
-		printk("ds: %x %x\n", current->tf.ds, tf->ds);
-		printk("eip: %x %x\n", current->tf.eip, tf->eip);
-	}*/
 	*tf = current->tf;
 }
 
