@@ -44,7 +44,7 @@ int kern_init() {
 	*addr = 1;
 	printk("$$$%d\n", *addr);
 */	load();					//load program
-	
+	cli();
 	while(1);
 	return 0;
 }
