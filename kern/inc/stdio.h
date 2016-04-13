@@ -14,8 +14,8 @@ int vsnprintf(char *, int, const char *, va_list);
 int snprintf(char *, int, const char *, ...);
 
 // lib/printf.c
-int	printk(const char *fmt, ...);
-
-int	printf(const char *fmt, ...);
+#define printk(...) _printk(__FILE__, __LINE__, __VA_ARGS__)
+int	_printk(const char *, int, const char *fmt, ...);
+int	__printk(const char *fmt, ...);
 
 #endif 
