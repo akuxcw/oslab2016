@@ -9,7 +9,7 @@ int game_main() {
 //	*(int *)addr = 1;
 //	printf("****%d\n", *(int *)addr);
 
-	sleep(100);
+//	sleep(100);
 	time();
 	printf("@_@ Game Start!\n");
 	game();
