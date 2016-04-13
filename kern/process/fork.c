@@ -11,7 +11,7 @@ int fork() {
 	printk("---fork---\n");
 	uint32_t i, pa, npa;
 	PCB *current = running_process();
-	printk("%x\n", running_process()->pdir[0x1f]);
+	printk("%x\n", &running_process()->pdir[0x1f]);
 	PCB *newp = new_process();
 	printk("%x %x\n", current->pid, newp->pid);
 	newp->tf = current->tf;
