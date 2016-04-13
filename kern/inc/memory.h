@@ -3,6 +3,7 @@
 
 #include <inc/list.h>
 #include <inc/mmu.h>
+#include <inc/process.h>
 
 #define MAX_MEM 0x8000000
 

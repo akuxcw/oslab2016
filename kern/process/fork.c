@@ -5,6 +5,8 @@
 #include <inc/string.h>
 extern PCB idle;
 
+void set_user_page(PCB *);
+
 int fork() {
 	printk("---fork---\n");
 	uint32_t i, pa, npa;
@@ -16,6 +18,7 @@ int fork() {
 		newp->kstack[i] = current->kstack[i];
 	}
 	lcr3(va2pa(idle.pdir));
+	set_user_page(newp);
 	for(i = 0; i < NPDENTRIES; ++ i) {
 		if(current->pdir[i] & PTE_P) {
 			newp->pdir[i] = Get_free_pg() | 0x7;
