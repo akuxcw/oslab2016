@@ -29,6 +29,7 @@ int fork() {
 			memcpy((void *)npa, (void *)pa, PTSIZE);
 		}
 	}
+	printk("xxx\n");
 	lcr3(va2pa(current->pdir));
 	ready(newp);
 	return newp->pid;
