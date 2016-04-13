@@ -58,7 +58,7 @@ irq_handle(TrapFrame *tf) {
 //	cli();
 	schedule(tf);
 //	sti();
-	printk("*****  %x %x\n", current->tf, (int)current);
+//	printk("*****  %x %x\n", current->tf, (int)current);
 }
 
 uint32_t Get_seg_off() {
