@@ -8,9 +8,6 @@ extern SegDesc gdt[NR_SEGMENTS];
 
 void init_seg();
 void init_page();
-SegMan* Get_free_seg();
-uint32_t Get_free_pg();
-void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit); 
 
 void init_memory() {
 	init_seg();

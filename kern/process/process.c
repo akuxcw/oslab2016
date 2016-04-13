@@ -9,7 +9,7 @@ ListHead pcb_head;
 ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
-static PCB idle, *current = &idle;
+PCB idle, *current = &idle;
 static uint32_t tot;
 
 void set_tss_esp0(int);
@@ -47,16 +47,6 @@ void sleep(PCB *c, uint32_t t) {
 	list_del(&c->list);
 	c->time = t;
 	list_add_before(&Sleep, &c->list);
-/*	
-	ListHead *ptr, *ptr_;
-	PCB *tmp;
-	list_foreach_safe(ptr, ptr_, &Sleep) {
-		tmp = list_entry(ptr, PCB, list);
-		tmp->time --;
-		printk("%%%%%%%%%%%%%% %x %x\n", tmp->time, tmp->pid);
-		if(tmp->time <= 0) ready(tmp);
-	}
-*/
 }
 
 void init_process() {
