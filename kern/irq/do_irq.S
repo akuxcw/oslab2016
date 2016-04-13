@@ -44,7 +44,12 @@ asm_do_irq:
 	movl $current, %eax
 	movl (%eax), %esp
 
-	addl $20, %esp
+	addl $4, %esp
+	pop %gs
+	pop %fs
+	pop %es
+	pop %ds
+
 	popal
 	addl $8, %esp
 	sti

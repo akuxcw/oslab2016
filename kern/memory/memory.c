@@ -25,7 +25,6 @@ uint32_t seg_alloc(uint32_t vaddr, PCB* current) {
 	set_segment(&gdt[tmp->cs], DPL_USER, SEG_EXECUTABLE | SEG_READABLE, offset, tmp->limit);
 	set_segment(&gdt[tmp->ds], DPL_USER, SEG_WRITABLE, offset, tmp->limit);
 	current->tf->cs = SELECTOR_USER(tmp->cs);
-	printk("cs = %x\n", &(current->tf->cs));
 	current->tf->ds = current->tf->ss = current->tf->es =
 	current->tf->fs = current->tf->gs = SELECTOR_USER(tmp->ds);
 	return tmp->base;
