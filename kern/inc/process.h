@@ -25,7 +25,7 @@ PCB* new_process();
 
 void ready(PCB *);
 void sleep(PCB *, uint32_t);
-void exec(TrapFrame *);
+void schedule(TrapFrame *);
 PCB *running_process();
 
 #endif

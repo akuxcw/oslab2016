@@ -14,7 +14,7 @@ static uint32_t tot;
 
 void set_tss_esp0(int);
 
-void exec(TrapFrame *tf) {
+void schedule(TrapFrame *tf) {
 //	printk("%x %x\n", tf->eip, (int)tf);
 	current->tf = *tf;
 	ListHead *ptr, *ptr_;

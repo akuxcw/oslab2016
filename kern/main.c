@@ -109,19 +109,6 @@ void load() {
 //	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
 	ready(current);
 //	lcr3(va2pa(current->pdir));
-//	exec(tf);
-/*	
-	asm volatile("movl %0, %%esp" : :"a"((int)tf));
-	asm volatile("popa");
-	asm volatile("addl %0, %%esp" : :"a"(8));
 
-	asm volatile("mov 24(%esp), %eax\n\t"
-				 "movl %eax, %ds\n\t"
-				 "movl %eax, %es\n\t"
-				 "movl %eax, %fs\n\t"
-				 "movl %eax, %gs\n\t");
-	//while(1);
-	asm volatile("iret");
-*/
 }
 
