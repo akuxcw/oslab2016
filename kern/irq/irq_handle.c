@@ -8,7 +8,7 @@
 uint32_t Get_gdt_off(uint32_t);
 void do_timer(void);
 void do_kbd(int);
-
+extern PCB *current;
 void do_syscall(TrapFrame *);
 
 int offset;
@@ -55,12 +55,10 @@ irq_handle(TrapFrame *tf) {
 			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
 
-//	if(/*seg_tmp & 0x3*/tf->eip < 0xf0000000) {
-		//printk("%x\n", seg_tmp);
 //	cli();
 	schedule(tf);
 //	sti();
-//	}// else printk("*");
+	printk("*****  %x %x\n", current->tf, *(int *)current);
 
 	asm volatile("movl %0, %%es\n\t"
 				 "movl %0, %%ds\n\t"
