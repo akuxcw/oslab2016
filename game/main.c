@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include <process.h>
 void game();
 /*
 int game_main() {
@@ -17,9 +18,15 @@ int game_main() {
 }
 */
 int game_main() {
+	int pid = fork();
 	while(1) {
-		printf("ping\n");
-		sleep(100);
+		if(pid == 0) {
+			printf("ping\n");
+			sleep(100);
+		} else {
+			printf("pang\n");
+			sleep(200);
+		}
 	}
 	return 0;
 }

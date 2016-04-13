@@ -5,7 +5,7 @@
 
 static inline
 int fork() {
-	syscall(SYS_fork);
+	return syscall(SYS_fork);
 }
 
 #endif

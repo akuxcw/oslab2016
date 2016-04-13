@@ -1,7 +1,7 @@
 #ifndef LIB_SYSCALL_H
 #define LIB_SYSCALL_H
 
-enum {SYS_, SYS_write, SYS_palette, SYS_kbd, SYS_time, SYS_sleep};
+enum {SYS_, SYS_write, SYS_palette, SYS_kbd, SYS_time, SYS_sleep, SYS_fork};
 
 static inline int //__attribute__((__noinline__))
 syscall(int id, ...) {
