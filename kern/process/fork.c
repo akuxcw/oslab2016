@@ -6,6 +6,7 @@
 extern PCB idle;
 
 int fork() {
+	printk("---fork---\n");
 	uint32_t i, pa, npa;
 	PCB *current = running_process();
 	PCB *newp = new_process();
