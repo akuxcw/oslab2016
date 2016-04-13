@@ -24,5 +24,6 @@ int fork() {
 		}
 	}
 	lcr3(va2pa(current->pdir));
+	ready(newp);
 	return newp->pid;
 }
