@@ -18,7 +18,7 @@ typedef struct PCB{
 	__attribute__((__aligned__(PGSIZE)))
 	pde_t pdir[NPDENTRIES];
 	ListHead list;
-} __attribute__((packed)) PCB;
+} PCB;
 
 void init_process();
 PCB* new_process();
