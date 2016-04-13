@@ -91,7 +91,7 @@ void load() {
 	uint32_t eflags = read_eflags();
 	
 	TrapFrame *tf = (TrapFrame *)&current->kstack[1024];
-	printk("tf = %x %x\n", (int)tf, tf->cs);
+	printk("tf = %x %x\n", (int)tf, &tf->cs);
 	current->tf = tf;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
