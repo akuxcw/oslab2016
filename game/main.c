@@ -24,10 +24,10 @@ int game_main() {
 	int pid = fork();
 	while(1) {
 		if(pid == 0) {
-			printf("@@@\n");
+			printf("ping %x\n", pid);
 			sleep(100);
 		} else {
-			printf("!!!!!!\n");
+			printf("pang %x\n", pid);
 			sleep(200);
 		}
 	}
