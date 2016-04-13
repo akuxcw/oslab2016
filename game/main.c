@@ -22,12 +22,14 @@ int game_main() {
 #else
 int game_main() {
 	int pid = fork();
+	int x = 0;
 	while(1) {
+		x ++;
 		if(pid == 0) {
-			printf("ping %x\n", pid);
+			printf("ping %x %x\n", pid, x);
 			sleep(100);
 		} else {
-			printf("pang %x\n", pid);
+			printf("pang %x %x\n", pid, x);
 			sleep(200);
 		}
 	}
