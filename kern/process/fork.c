@@ -16,7 +16,7 @@ int fork() {
 	}
 	lcr3(va2pa(idle.pdir));
 	for(i = 0; i < NPDENTRIES; ++ i) {
-		if(current->pdir[i] | PTE_P) {
+		if(current->pdir[i] & PTE_P) {
 			newp->pdir[i] = Get_free_pg() | 0x7;
 			pa = (*(int *)(current->pdir[i] & (~ 0x7))) & (~ 0x7);
 			npa = (*(int *)(newp->pdir[i] & (~ 0x7))) & (~ 0x7);
