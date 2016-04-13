@@ -52,6 +52,8 @@ int kern_init() {
 void load() {
 	PCB *current = new_process();
 	set_user_page(current);
+	TrapFrame *tf = (TrapFrame *)current->kstack;
+	current->tf = tf;
 	struct Elf *elf;
 	struct Proghdr *ph, *eph;
 	unsigned char* pa;
@@ -90,9 +92,6 @@ void load() {
 
 	uint32_t eflags = read_eflags();
 	
-	TrapFrame *tf = (TrapFrame *)&current->kstack[1024];
-	printk("tf = %x %x\n", (int)tf, &tf->cs);
-	current->tf = tf;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;
