@@ -11,9 +11,9 @@ int fork() {
 	printk("---fork---\n");
 	uint32_t i, pa, npa;
 	PCB *current = running_process();
-	printk("%x\n", running_process()->pdir[0x1f]);
+//	printk("%x\n", running_process()->pdir[0x1f]);
 	PCB *newp = new_process();
-	printk("%x %x\n", current->pid, newp->pid);
+//	printk("%x %x\n", current->pid, newp->pid);
 	newp->tf = (TrapFrame *)((int)newp->kstack + (int)current->tf - (int)current->kstack);
 	for(i = 0; i < KSTACK_SIZE; ++ i) {
 		newp->kstack[i] = current->kstack[i];
@@ -23,10 +23,10 @@ int fork() {
 	set_user_page(newp);
 	for(i = 0; i < NPDENTRIES; ++ i) {
 		if((current->pdir[i] & PTE_P) && !(newp->pdir[i] & PTE_P)) {
-			newp->pdir[i] = Get_free_pg() | 0x7;
+			newp->pdir[i] = Get_free_pg() | PTE_P | PTE_W | PTE_U;
 			pa = PTE_ADDR(*(int *)PTE_ADDR(current->pdir[i]));
 			npa = PTE_ADDR(*(int *)PTE_ADDR(newp->pdir[i]));
-			printk("%x %x %x %x\n", i, current->pdir[i], pa, npa);
+//			printk("%x %x %x\n", i, pa, npa);
 			memcpy((void *)npa, (void *)pa, PTSIZE);
 		}
 	}
