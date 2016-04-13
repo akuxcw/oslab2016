@@ -3,6 +3,9 @@
 #include <process.h>
 void game();
 
+#define TEST_FORK
+
+#ifndef TEST_FORK
 int game_main() {
 //	asm volatile("sti");
 //	int addr = 0x4000;
@@ -16,7 +19,7 @@ int game_main() {
 	while(1);
 	return 0;
 }
-/*
+#else
 int game_main() {
 	int pid = fork();
 	while(1) {
@@ -29,4 +32,5 @@ int game_main() {
 		}
 	}
 	return 0;
-}*/
+}
+#endif
