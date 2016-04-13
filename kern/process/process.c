@@ -21,7 +21,7 @@ void schedule(TrapFrame *tf) {
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
 		tmp = list_entry(ptr, PCB, list);
-		tmp->time = tmp->time - 2;
+		tmp->time = tmp->time - 1;
 //		printk("%%%%%%%%%%%%%% %x %x %x %x\n", tmp->time, (int)&tmp->time, (int)tf, (int)&current->tf);
 		if(tmp->time <= 0) ready(tmp);
 	}

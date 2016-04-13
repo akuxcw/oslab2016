@@ -56,9 +56,9 @@ irq_handle(TrapFrame *tf) {
 
 //	if(/*seg_tmp & 0x3*/tf->eip < 0xf0000000) {
 		//printk("%x\n", seg_tmp);
-	cli();
+//	cli();
 	schedule(tf);
-	sti();
+//	sti();
 //	}// else printk("*");
 
 	asm volatile("movl %0, %%es\n\t"

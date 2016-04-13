@@ -49,7 +49,7 @@ list_init(ListHead *list) {
 
 static inline bool
 list_empty(ListHead *list) {
-//	assert(list != NULL);
+	assert(list != NULL);
 	return list == list->next;
 }
 
