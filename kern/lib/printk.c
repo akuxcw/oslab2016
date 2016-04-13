@@ -22,7 +22,7 @@ int __printk(const char *fmt, ...) {
 }
 
 int _printk(const char * file, int line, const char *fmt, ...) {
-	__printk("{kernel} %s : %d  ", file, line);
+	__printk("%s,%d {kernel} ", file, line);
 	va_list ap;
 	int cnt = 0;
 
