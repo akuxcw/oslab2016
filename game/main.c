@@ -3,7 +3,7 @@
 #include <process.h>
 void game();
 
-#define TEST_FORK
+//#define TEST_FORK
 
 #ifndef TEST_FORK
 int game_main() {

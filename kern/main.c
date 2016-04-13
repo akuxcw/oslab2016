@@ -44,7 +44,7 @@ int kern_init() {
 	*addr = 1;
 	printk("$$$%d\n", *addr);
 */	
-	printk("%x\n", PTE_D);
+//	printk("%x\n", PTE_D);
 	load();					//load program
 	sti();
 	while(1);
