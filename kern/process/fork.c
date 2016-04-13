@@ -13,6 +13,7 @@ int fork() {
 	PCB *current = running_process();
 	PCB *newp = new_process();
 	printk("%x %x\n", current->pid, newp->pid);
+	printk("%x\n", current->pdir[0x1f]);
 	newp->tf = current->tf;
 	newp->tf.eax = 0;
 	for(i = 0; i < KSTACK_SIZE; ++ i) {
