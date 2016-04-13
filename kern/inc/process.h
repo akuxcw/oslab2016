@@ -12,7 +12,7 @@
 #define NR_PCB 16 
 
 typedef struct PCB{
-	uint8_t kstack[KSTACK_SIZE + 0x100];
+	uint8_t kstack[KSTACK_SIZE];
 	TrapFrame tf;
 	int time, pid;
 	__attribute__((__aligned__(PGSIZE)))
