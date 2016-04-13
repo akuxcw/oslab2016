@@ -8,7 +8,7 @@ extern PCB idle;
 void set_user_page(PCB *);
 
 int fork() {
-	printk("---fork---\n");
+//	printk("---fork---\n");
 	uint32_t i, pa, npa;
 	PCB *current = running_process();
 //	printk("%x\n", running_process()->pdir[0x1f]);
@@ -30,7 +30,7 @@ int fork() {
 			memcpy((void *)npa, (void *)pa, PTSIZE);
 		}
 	}
-	printk("xxx\n");
+//	printk("xxx\n");
 	lcr3(va2pa(current->pdir));
 	ready(newp);
 	return newp->pid;
