@@ -14,7 +14,7 @@ int fork() {
 	printk("%x\n", running_process()->pdir[0x1f]);
 	PCB *newp = new_process();
 	printk("%x %x\n", current->pid, newp->pid);
-	newp->tf = current->tf;
+	newp->tf = (TrapFrame *)((int)newp->kstack + (int)current->tf - (int)current->kstack);
 	newp->tf->eax = 0;
 	for(i = 0; i < KSTACK_SIZE; ++ i) {
 		newp->kstack[i] = current->kstack[i];
