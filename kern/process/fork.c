@@ -24,7 +24,7 @@ int fork() {
 	for(i = 0; i < NPDENTRIES; ++ i) {
 		if((current->pdir[i] & PTE_P) && !(newp->pdir[i] & PTE_P)) {
 			newp->pdir[i] = Get_free_pg() | 0x7;
-			pa = (*(int *)(current->pdir[i] & (~ 0x7))) & (~ 0x7);
+			pa = (*(int *)(current->pdir[i] & (~ 0x27))) & (~ 0x27);
 			npa = (*(int *)(newp->pdir[i] & (~ 0x7))) & (~ 0x7);
 			printk("%x %x %x %x\n", i, current->pdir[i], pa, npa);
 			memcpy((void *)npa, (void *)pa, PTSIZE);
