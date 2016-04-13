@@ -20,6 +20,7 @@ int fork() {
 			newp->pdir[i] = Get_free_pg() | 0x7;
 			pa = (*(int *)(current->pdir[i] & (~ 0x7))) & (~ 0x7);
 			npa = (*(int *)(newp->pdir[i] & (~ 0x7))) & (~ 0x7);
+			printk("%x %x\n", pa, npa);
 			memcpy((void *)npa, (void *)pa, PTSIZE);
 		}
 	}
