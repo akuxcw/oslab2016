@@ -21,7 +21,7 @@ int game_main() {
 }
 #else
 int game_main() {
-	int pid = 0;//fork();
+	int pid = fork();
 	while(1) {
 		if(pid == 0) {
 			printf("ping\n");
