@@ -16,7 +16,7 @@ void set_tss_esp0(int);
 
 void schedule(TrapFrame *tf) {
 //	printk("%x %x\n", tf->eip, (int)tf);
-	current->tf = *tf;
+	current->tf = tf;
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Sleep) {
@@ -33,7 +33,7 @@ void schedule(TrapFrame *tf) {
 	ready(current);
 	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 	lcr3(va2pa(current->pdir));
-	*tf = current->tf;
+//	*tf = current->tf;
 }
 
 void ready(PCB *c) {

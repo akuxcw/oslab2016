@@ -2,7 +2,7 @@
 #include <time.h>
 #include <process.h>
 void game();
-/*
+
 int game_main() {
 //	asm volatile("sti");
 //	int addr = 0x4000;
@@ -16,7 +16,7 @@ int game_main() {
 	while(1);
 	return 0;
 }
-*/
+/*
 int game_main() {
 	int pid = fork();
 	while(1) {
@@ -29,4 +29,4 @@ int game_main() {
 		}
 	}
 	return 0;
-}
+}*/

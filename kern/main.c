@@ -90,7 +90,8 @@ void load() {
 
 	uint32_t eflags = read_eflags();
 	
-	TrapFrame *tf = &current->tf;
+	TrapFrame *tf = (TrapFrame *)current->kstack;
+	current->tf = tf;
 	tf->eax = 0; tf->ebx = 1; tf->ecx = 2; tf->edx = 3;
 	
 	tf->eflags = eflags | FL_IF;

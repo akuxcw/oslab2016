@@ -25,7 +25,7 @@
 
 .globl asm_do_irq
 .extern irq_handle
-
+.extern current
 # The follow code is *VERY* important for interrupts and exceptions handling.
 # You should make yourself understand it clearly.
 
@@ -41,6 +41,9 @@ asm_do_irq:
 	pushl %esp
 	call irq_handle
 	
+	movl $current, %eax
+	movl (%eax), %esp
+
 	addl $20, %esp
 	popal
 	addl $8, %esp
