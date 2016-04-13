@@ -58,7 +58,7 @@ irq_handle(TrapFrame *tf) {
 		//printk("%x\n", seg_tmp);
 //	cli();
 	schedule(tf);
-//	sti();
+	sti();
 //	}// else printk("*");
 
 	asm volatile("movl %0, %%es\n\t"
