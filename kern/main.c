@@ -43,7 +43,9 @@ int kern_init() {
 /*	int *addr = (int *)0xf0000000;
 	*addr = 1;
 	printk("$$$%d\n", *addr);
-*/	load();					//load program
+*/	
+	printk("%x\n", PTE_D);
+	load();					//load program
 	sti();
 	while(1);
 	return 0;
