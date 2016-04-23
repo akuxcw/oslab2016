@@ -125,6 +125,7 @@ uint32_t Get_free_pg() {
 }
 
 void Free_pg(int val) {
-//	list_del(&val->list);
+	printk("%x %x\n", page[val/PGSIZE].addr, val);
+//	list_del(&page[].list);
 //	list_add_after(&free_pg, &val->list);
 }

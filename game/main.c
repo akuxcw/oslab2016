@@ -25,6 +25,7 @@ int game_main() {
 	int i;
 	for(i = 0; i < 2; ++ i) {
 		int x = fork();
+		if(x == 0) exit(0);
 		printf("%d\n", x);
 	}
 	while(1);
