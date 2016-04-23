@@ -20,5 +20,6 @@ typedef struct {
 uint32_t Get_free_pg();
 SegMan* Get_free_seg();
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit); 
+void Free_pg(int);
 
 #endif

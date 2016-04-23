@@ -27,6 +27,7 @@ extern PCB idle;
 void ready(PCB *);
 void sleep(PCB *, uint32_t);
 void schedule(TrapFrame *);
+void del_process(PCB *);
 int fork();
 
 #endif

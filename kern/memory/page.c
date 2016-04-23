@@ -114,8 +114,6 @@ void init_page() {
 //		printk("%x %x\n", page[tot - 1].addr, *(int *)page[tot-1].addr);
 		list_add_before(&free_pg, &page[tot-1].list);
 	}
-	
-
 }
 
 uint32_t Get_free_pg() {
@@ -126,7 +124,7 @@ uint32_t Get_free_pg() {
 	return list_entry(new_pg, PgMan, list)->addr;
 }
 
-void Free_pg(PgMan *val) {
-	list_del(&val->list);
-	list_add_after(&free_pg, &val->list);
+void Free_pg(int val) {
+//	list_del(&val->list);
+//	list_add_after(&free_pg, &val->list);
 }
