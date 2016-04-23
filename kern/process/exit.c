@@ -14,5 +14,6 @@ void exit(int x) {
 			Free_pg(PTE_ADDR(current->pdir[i]));
 		}
 	}
+	printk("%x\n", sizeof current);
 	memset(current, 0, sizeof current);
 }
