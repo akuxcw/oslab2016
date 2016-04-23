@@ -35,7 +35,7 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 	vaddr &= ~(PTSIZE - 1);
 	pde_t *pdir = current->pdir;
 	uint32_t pdir_idx;
-	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size + PTSIZE) / PTSIZE; ++ pdir_idx) {
+	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + size - 1) / PTSIZE + 1; ++ pdir_idx) {
 		if(pdir[pdir_idx] != 0x0) continue;
 		pdir[pdir_idx] = Get_free_pg() | PTE_P | PTE_W | PTE_U;
 		printk("%x %x %x\n", pdir_idx, pdir[pdir_idx], *(int *)PTE_ADDR(pdir[pdir_idx]));
@@ -52,7 +52,7 @@ void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsi
 	vaddr &= ~(PTSIZE - 1);
 	uint32_t pdir_idx, paddr;
 	unsigned char *i;
-	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + msize + PTSIZE) / PTSIZE; ++ pdir_idx) {
+	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + msize - 1) / PTSIZE + 1; ++ pdir_idx) {
 		paddr = PTE_ADDR(*(int *)PTE_ADDR(current->pdir[pdir_idx]));
 //		printk("%x %x %x\n", current->pdir[pdir_idx], paddr, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
 		readseg((unsigned char *)(paddr), 
