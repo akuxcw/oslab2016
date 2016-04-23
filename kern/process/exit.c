@@ -13,7 +13,7 @@ void exit(int x) {
 		if(current->pdir[i] & PTE_P && current->pdir[i] & PTE_U) {
 			Free_pg(PTE_ADDR(current->pdir[i]));
 		}
-		current->pdir[i] = 0;
+//		current->pdir[i] = 0;
 	}
 //	printk("%x %x\n", sizeof current->pdir, sizeof a);
 	memset(current, 0, sizeof current);
