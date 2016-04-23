@@ -22,6 +22,7 @@ typedef struct PCB{
 void init_process();
 PCB* new_process();
 extern PCB *current;
+extern PCB idle;
 
 void ready(PCB *);
 void sleep(PCB *, uint32_t);
