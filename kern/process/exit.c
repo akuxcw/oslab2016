@@ -15,5 +15,5 @@ void exit(int x) {
 		}
 	}
 	printk("%x\n", sizeof *current);
-//	memset(current, 0, sizeof PCB);
+	memset(current, 0, sizeof *current);
 }
