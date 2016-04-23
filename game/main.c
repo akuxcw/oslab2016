@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <process.h>
-void game();
 
 #define TEST_FORK
 
 #ifndef TEST_FORK
+void game();
 int game_main() {
 //	asm volatile("sti");
 //	int addr = 0x4000;
