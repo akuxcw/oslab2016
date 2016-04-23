@@ -23,7 +23,7 @@ int fork() {
 			newp->pdir[i] = Get_free_pg() | PTE_P | PTE_W | PTE_U;
 			pa = PTE_ADDR(*(int *)PTE_ADDR(current->pdir[i]));
 			npa = PTE_ADDR(*(int *)PTE_ADDR(newp->pdir[i]));
-			printk("%x %x %x\n", i, pa, npa);
+//			printk("%x %x %x\n", i, pa, npa);
 			memcpy((void *)npa, (void *)pa, PTSIZE);
 		}
 	}
