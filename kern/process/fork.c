@@ -3,7 +3,6 @@
 #include <inc/process.h>
 #include <inc/x86.h>
 #include <inc/string.h>
-extern PCB idle;
 void set_user_page(PCB *);
 
 int fork() {

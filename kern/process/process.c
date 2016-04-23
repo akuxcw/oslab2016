@@ -73,7 +73,7 @@ PCB *new_process() {
 	return new_pcb;
 }
 
-void Free_process(PCB *val) {
+void del_process(PCB *val) {
 	list_del(&val->list);
 	list_add_after(&pcb_head, &val->list);
 }
