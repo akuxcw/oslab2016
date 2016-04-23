@@ -3,6 +3,7 @@
 #include <inc/list.h>
 #include <inc/memory.h>
 #include <inc/x86.h>
+#include <inc/string.h>
 
 PCB pcb[NR_PCB];
 ListHead pcb_head;
@@ -57,7 +58,7 @@ void init_process() {
 	list_init(&Sleep);
 	list_init(&unused_pcb);
 	for(int i = 0; i < NR_PCB; ++ i) {
-		printk("%x\n", (int)&pcb[i]);
+//		printk("%x\n", (int)&pcb[i]);
 		list_add_after(&unused_pcb, &pcb[i].list);
 	}
 	ready(&idle);
@@ -71,6 +72,7 @@ PCB *new_process() {
 	new_pcb->pid = tot;
 	list_del(&new_pcb->list);
 	list_add_after(&pcb_head, &new_pcb->list);
+	memset(new_pcb->pdir, 0, sizeof new_pcb->pdir);
 	return new_pcb;
 }
 
