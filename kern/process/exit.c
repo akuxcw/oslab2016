@@ -6,7 +6,7 @@
 #include <inc/memory.h>
 
 void exit(int x) {
-	printk("exit %d\n", current->pid);
+//	printk("exit %d\n", current->pid);
 	del_process(current);
 	int i;
 	for(i = 0; i < NPDENTRIES; ++ i) {

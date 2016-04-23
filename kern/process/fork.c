@@ -6,11 +6,11 @@
 void set_user_page(PCB *);
 
 int fork() {
-	printk("---fork---\n");
+//	printk("---fork---\n");
 	uint32_t i, pa, npa;
 //	printk("%x\n", running_process()->pdir[0x1f]);
 	PCB *newp = new_process();
-	printk("%x %x\n", current->pid, newp->pid);
+//	printk("%x %x\n", current->pid, newp->pid);
 	newp->tf = (TrapFrame *)((int)newp->kstack + (int)current->tf - (int)current->kstack);
 	for(i = 0; i < KSTACK_SIZE; ++ i) {
 		newp->kstack[i] = current->kstack[i];
