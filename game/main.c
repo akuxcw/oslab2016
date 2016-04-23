@@ -21,17 +21,14 @@ int game_main() {
 }
 #else
 int game_main() {
-	fork();
-	fork();
-	printf("*\n");
-	while(1);
 		
-/*
 	int i;
 	for(i = 0; i < 2; ++ i) {
 		int x = fork();
 		printf("%d\n", x);
 	}
+	while(1);
+/*
 	int pid = fork();
 	int x = 0;
 	while(1) {
