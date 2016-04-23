@@ -15,4 +15,6 @@ void exit(int x) {
 		}
 		current->pdir[i] = 0;
 	}
+//	printk("%x %x\n", sizeof current->pdir, sizeof a);
+	memset(current, 0, sizeof current);
 }
