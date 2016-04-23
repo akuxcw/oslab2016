@@ -15,5 +15,5 @@ void exit(int x) {
 		}
 	}
 	printk("%x\n", sizeof *current);
-	memset((void *)current, 0, sizeof *current);
+	memset((void *)current, 0, (sizeof *current)/8);
 }
