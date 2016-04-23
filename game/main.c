@@ -3,7 +3,7 @@
 #include <process.h>
 void game();
 
-//#define TEST_FORK
+#define TEST_FORK
 
 #ifndef TEST_FORK
 int game_main() {
@@ -21,6 +21,12 @@ int game_main() {
 }
 #else
 int game_main() {
+	int i;
+	for(i = 0; i < 2; ++ i) {
+		int x = fork();
+		printf("%d\n", x);
+	}
+/*
 	int pid = fork();
 	int x = 0;
 	while(1) {
@@ -33,6 +39,7 @@ int game_main() {
 			sleep(200);
 		}
 	}
+	*/
 	return 0;
 }
 #endif
