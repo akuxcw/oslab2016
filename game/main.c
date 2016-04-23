@@ -24,6 +24,7 @@ int game_main() {
 	fork();
 	fork();
 	printf("*\n");
+	while(1);
 		
 /*
 	int i;
