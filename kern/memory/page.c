@@ -111,7 +111,7 @@ void init_page() {
 	list_init(&used_pg);
 	for(i = 0x400000; i < MAX_MEM; i += PTSIZE) {
 		page[tot ++].addr = (int)&ptable[i / PGSIZE];
-		printk("%x %x\n", page[tot - 1].addr, *(int *)page[tot-1].addr);
+//		printk("%x %x\n", page[tot - 1].addr, *(int *)page[tot-1].addr);
 		list_add_before(&free_pg, &page[tot-1].list);
 	}
 }
