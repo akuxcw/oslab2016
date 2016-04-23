@@ -125,7 +125,7 @@ uint32_t Get_free_pg() {
 }
 
 void Free_pg(int val) {
-	printk("%x %x\n", page[(val - va2pa(uptable))/0x1000 - 1].addr, val);
+	printk("%x %x %x\n", page[(val - va2pa(uptable))/0x1000 - 1].addr, va2pa(uptable), val);
 //	list_del(&page[].list);
 //	list_add_after(&free_pg, &val->list);
 }
