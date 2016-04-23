@@ -78,6 +78,3 @@ void Free_process(PCB *val) {
 	list_add_after(&pcb_head, &val->list);
 }
 
-PCB * running_process() {
-	return current;
-}

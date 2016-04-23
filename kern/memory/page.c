@@ -30,7 +30,7 @@ uint32_t Get_cr3() {
 void set_kern_page() {
 	uint32_t pdir_idx;
 
-	pde_t * pdir = (pde_t *)(running_process()->pdir);
+	pde_t * pdir = (pde_t *)(current->pdir);
 	pte_t * ptable = (pte_t *)kptable;
 
 //	printk("%x %x %x %x\n", (int)pdir, (int)ptable, kpdir, kptable);
@@ -64,9 +64,9 @@ void set_kern_page() {
 	lcr3(va2pa(pdir));
 }
 
-void set_user_page(PCB *current) {
-	pde_t * pdir = current->pdir;
-	pte_t * ptable = (pte_t *)va2pa(uptable);//current->ptable;
+void set_user_page(PCB *p) {
+	pde_t * pdir = p->pdir;
+	pte_t * ptable = (pte_t *)va2pa(uptable);//p->ptable;
 	
 	uint32_t pdir_idx;
 	for (pdir_idx = 0; pdir_idx < 0x400000 / PTSIZE; pdir_idx ++) {

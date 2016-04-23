@@ -10,7 +10,6 @@
 
 #define KSTACK_SIZE 4096
 #define NR_PCB 16 
-
 typedef struct PCB{
 	TrapFrame *tf;
 	uint8_t kstack[KSTACK_SIZE];
@@ -22,11 +21,11 @@ typedef struct PCB{
 
 void init_process();
 PCB* new_process();
+extern PCB *current;
 
 void ready(PCB *);
 void sleep(PCB *, uint32_t);
 void schedule(TrapFrame *);
-PCB *running_process();
 int fork();
 
 #endif

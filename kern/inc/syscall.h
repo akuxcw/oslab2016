@@ -1,7 +1,7 @@
 #ifndef __SYSCALL_H__
 #define __SYSCALL_H__
 
-enum {SYS_, SYS_write, SYS_palette, SYS_kbd, SYS_time, SYS_sleep, SYS_fork};
+enum {SYS_, SYS_write, SYS_palette, SYS_kbd, SYS_time, SYS_sleep, SYS_fork, SYS_exit};
 
 static inline int //__attribute__((__noinline__))
 syscall(int id, ...) {

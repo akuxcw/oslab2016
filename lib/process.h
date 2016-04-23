@@ -8,4 +8,9 @@ int fork() {
 	return syscall(SYS_fork);
 }
 
+static inline
+void exit(int x) {
+	syscall(SYS_exit, x);
+}
+
 #endif
