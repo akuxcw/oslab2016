@@ -57,6 +57,7 @@ void init_process() {
 	list_init(&Sleep);
 	list_init(&unused_pcb);
 	for(int i = 0; i < NR_PCB; ++ i) {
+		printk("%x\n", (int)&pcb[i]);
 		list_add_after(&unused_pcb, &pcb[i].list);
 	}
 	ready(&idle);
