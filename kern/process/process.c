@@ -16,7 +16,7 @@ static uint32_t tot;
 void set_tss_esp0(int);
 
 void schedule(TrapFrame *tf) {
-//	printk("%x %x\n", tf->eip, (int)tf);
+	printk("%x\n", current->pid);
 	current->tf = tf;
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
