@@ -5,7 +5,7 @@
 #include <inc/mmu.h>
 #include <inc/process.h>
 
-#define MAX_MEM 0x10000000
+#define MAX_MEM 0x11000000
 
 typedef struct {
 	uint32_t base, limit, cs, ds;
