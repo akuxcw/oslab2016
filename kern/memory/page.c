@@ -105,7 +105,7 @@ void init_page() {
 		ptable ++;
 	}
 
-	printk("****%x\n", MAX_MEM/PTSIZE);
+//	printk("****%x\n", MAX_MEM/PTSIZE);
 
 	ptable = (pte_t *)va2pa(uptable);
 	int i, tot = 0;
@@ -114,9 +114,9 @@ void init_page() {
 	for(i = 0x400000; i < MAX_MEM; i += PTSIZE) {
 		page[tot ++].addr = (int)&ptable[i / PGSIZE];
 //		printk("%x %x\n", page[tot - 1].addr, *(int *)page[tot-1].addr);
-		list_add_after(&free_pg, &page[tot-1].list);
+		list_add_before(&free_pg, &page[tot-1].list);
 	}
-	printk("****%x\n", tot);
+//	printk("****%x\n", tot);
 }
 
 uint32_t Get_free_pg() {
