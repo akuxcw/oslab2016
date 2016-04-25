@@ -112,7 +112,7 @@ void init_page() {
 	for(i = 0x400000; i < MAX_MEM; i += PTSIZE) {
 		page[tot ++].addr = (int)&ptable[i / PGSIZE];
 //		printk("%x %x\n", page[tot - 1].addr, *(int *)page[tot-1].addr);
-		list_add_after(&free_pg, &page[tot-1].list);
+		list_add_before(&free_pg, &page[tot-1].list);
 	}
 }
 
@@ -128,5 +128,5 @@ void Free_pg(int val) {
 //	printk("%x %x %x\n", page[(val - va2pa(uptable))/0x1000 - 1].addr, va2pa(uptable), val);
 //	printk("%x %x %x\n", PTSIZE, PGSIZE, 0x1000);
 	list_del(&page[(val - va2pa(uptable))/PGSIZE - 1].list);
-	list_add_before(&free_pg, &page[(val - va2pa(uptable))/PGSIZE - 1].list);
+	list_add_after(&free_pg, &page[(val - va2pa(uptable))/PGSIZE - 1].list);
 }
