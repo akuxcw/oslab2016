@@ -5,6 +5,7 @@
 #include <inc/stdio.h>
 #include <inc/mmu.h>
 #include <inc/process.h>
+#include <inc/x86.h>
 
 enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};
 /*
@@ -74,8 +75,8 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_palette: sys_palette(tf); break;
 		case SYS_kbd: sys_kbd(tf); break;
 		case SYS_time: tf->eax = Get_time(); break;
-		case SYS_sleep: sleep(current, tf->ebx); break;
-		case SYS_fork: tf->eax = fork(); break;
+		case SYS_sleep: /*cli();*/ sleep(current, tf->ebx); /*sti()*/; break;
+		case SYS_fork: cli(); tf->eax = fork(); sti();break;
 		case SYS_exit: exit(tf->ebx); break;
 /*
 		case SYS_open : 
