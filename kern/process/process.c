@@ -7,7 +7,7 @@
 
 PCB pcb[NR_PCB];
 ListHead pcb_head;
-ListHead unused_pcb;
+//ListHead unused_pcb;
 ListHead Ready;
 ListHead Sleep;
 PCB idle, *current = &idle;
@@ -56,22 +56,22 @@ void init_process() {
 	list_init(&pcb_head);
 	list_init(&Ready);
 	list_init(&Sleep);
-	list_init(&unused_pcb);
+//	list_init(&unused_pcb);
 	for(int i = 0; i < NR_PCB; ++ i) {
 //		printk("%x\n", (int)&pcb[i]);
-		list_add_after(&unused_pcb, &pcb[i].list);
+		list_add_after(&pcb_head, &pcb[i].list);
 	}
 	ready(&idle);
 }
 
 PCB *new_process() {
 //	if(list_empty(&unused_pcb)) printk("Process full!\n");
-	assert(!list_empty(&unused_pcb));
-	PCB *new_pcb = list_entry(unused_pcb.next, PCB, list);
+	assert(!list_empty(&pcb_head));
+	PCB *new_pcb = list_entry(pcb_head.next, PCB, list);
 	++ tot;
 	new_pcb->pid = tot;
 	list_del(&new_pcb->list);
-	list_add_after(&pcb_head, &new_pcb->list);
+//	list_add_after(&pcb_head, &new_pcb->list);
 	memset(new_pcb->pdir, 0, sizeof new_pcb->pdir);
 	return new_pcb;
 }
