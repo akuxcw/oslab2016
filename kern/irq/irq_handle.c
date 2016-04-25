@@ -55,7 +55,7 @@ irq_handle(TrapFrame *tf) {
 			default : panic("Error in irq_handle.c : %d\n", tf->irq);
 	}
 
-//	cli();
+	cli();
 	schedule(tf);
 	flag = false;
 //	printk("out\n");
