@@ -21,7 +21,7 @@ int game_main() {
 }
 #else
 int game_main() {
-		
+/*		
 	int i;
 	for(i = 0; ; ++ i) {
 		int x = fork();
@@ -29,7 +29,7 @@ int game_main() {
 		printf("%d\n", x);
 	}
 	while(1);
-/*
+*/
 	int pid = fork();
 	int x = 0;
 	while(1) {
@@ -42,7 +42,7 @@ int game_main() {
 			sleep(200);
 		}
 	}
-	*/
+
 	return 0;
 }
 #endif
