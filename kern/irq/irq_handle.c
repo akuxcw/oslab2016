@@ -25,6 +25,7 @@ irq_handle(TrapFrame *tf) {
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	offset = Get_gdt_off(seg_tmp >> 3);
 	uint32_t code, val;
+	printk("in\n");
 	sti();
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
@@ -56,6 +57,7 @@ irq_handle(TrapFrame *tf) {
 
 	cli();
 	schedule(tf);
+	printk("out\n");
 //	sti();
 //	printk("*****  %x %x\n", current->tf, (int)current);
 }
