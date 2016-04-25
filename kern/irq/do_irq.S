@@ -37,7 +37,7 @@ asm_do_irq:
 	push %es
 	push %fs
 	push %gs
-	sti
+
 	pushl %esp
 	call irq_handle
 	

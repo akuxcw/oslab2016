@@ -25,8 +25,7 @@ irq_handle(TrapFrame *tf) {
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	offset = Get_gdt_off(seg_tmp >> 3);
 	uint32_t code, val;
-//	printk("*");
-//	printk("%x\n", &running_process()->pdir[0x1f]);
+	sti();
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
 			panic("Unhandled exception!\n");
