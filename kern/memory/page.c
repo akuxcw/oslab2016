@@ -15,7 +15,7 @@ pte_t kptable[(MAX_MEM + 0x1000000) / PGSIZE];		// kernel page tables
 __attribute__((__aligned__(PGSIZE)))
 pte_t uptable[(MAX_MEM + 0x1000000) / PGSIZE];
 
-PgMan page[MAX_MEM / PGSIZE];
+PgMan page[MAX_MEM / PTSIZE];
 
 ListHead free_pg;
 ListHead used_pg;
