@@ -23,7 +23,7 @@ int game_main() {
 }
 #else
 int game_main() {
-		
+/*		
 	int i;
 	for(i = 0; ; ++ i) {
 		int x = fork();
@@ -32,20 +32,20 @@ int game_main() {
 		printf("%d\n", x);
 	}
 	while(1);
-/*
+*/
 	int pid = fork();
 	int x = 0;
 	while(1) {
 		x ++;
 		if(pid == 0) {
 			printf("ping %x %x\n", pid, x);
-			sleep(100);
+//			sleep(100);
 		} else {
 			printf("pang %x %x\n", pid, x);
-			sleep(200);
+//			sleep(200);
 		}
 	}
-*/
+
 	return 0;
 }
 #endif
