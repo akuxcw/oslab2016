@@ -27,7 +27,7 @@ int game_main() {
 	int i;
 	for(i = 0; ; ++ i) {
 		int x = fork();
-//		sleep(10);
+		sleep(10);
 		if(x == 0) exit(0);
 		printf("%d\n", x);
 	}
