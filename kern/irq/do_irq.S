@@ -30,7 +30,7 @@
 # You should make yourself understand it clearly.
 
 asm_do_irq:
-#	cli
+	cli
 	pushal
 	
 	push %ds
