@@ -104,7 +104,9 @@ void init_page() {
 //		printk("%x %x\n", (int)ptable, *ptable);
 		ptable ++;
 	}
-	
+
+	printk("****%x\n", MAX_MEM/PGSIZE);
+
 	ptable = (pte_t *)va2pa(uptable);
 	int i, tot = 0;
 	list_init(&free_pg);
@@ -114,6 +116,7 @@ void init_page() {
 //		printk("%x %x\n", page[tot - 1].addr, *(int *)page[tot-1].addr);
 		list_add_before(&free_pg, &page[tot-1].list);
 	}
+	printk("****%x\n", tot);
 }
 
 uint32_t Get_free_pg() {
