@@ -10,7 +10,7 @@ void do_timer(void);
 void do_kbd(int);
 extern PCB *current;
 void do_syscall(TrapFrame *);
-
+bool flag;
 int offset;
 
 void
@@ -25,7 +25,8 @@ irq_handle(TrapFrame *tf) {
 				 : "a"(SELECTOR_KERNEL(SEG_KERNEL_DATA)));
 	offset = Get_gdt_off(seg_tmp >> 3);
 	uint32_t code, val;
-	printk("in\n");
+	if(flag)printk("in\n");
+	flag = true;
 	if(tf->irq < 1000) {
 		if(tf->irq == -1) {
 			panic("Unhandled exception!\n");
@@ -56,7 +57,8 @@ irq_handle(TrapFrame *tf) {
 
 	cli();
 	schedule(tf);
-	printk("out\n");
+	flag = false;
+//	printk("out\n");
 //	sti();
 //	printk("*****  %x %x\n", current->tf, (int)current);
 }
