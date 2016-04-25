@@ -105,7 +105,7 @@ void init_page() {
 		ptable ++;
 	}
 
-	printk("****%x\n", MAX_MEM/PGSIZE);
+	printk("****%x\n", MAX_MEM/PTSIZE);
 
 	ptable = (pte_t *)va2pa(uptable);
 	int i, tot = 0;
