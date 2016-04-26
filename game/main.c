@@ -55,8 +55,8 @@ int game_main() {
 */
 	int i; 
 	for(i = 0; i < 2; ++ i) {
-		printf("x");
 		fork();
+		printf("x");
 	}
 	while(1);
 	return 0;
