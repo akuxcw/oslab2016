@@ -32,7 +32,7 @@ int game_main() {
 	fork();
 	if(x2 == 0) exit(0);
 	while(1);
-*/
+
 	while(1) {
 		int x = fork();
 		sleep(10);
@@ -52,7 +52,12 @@ int game_main() {
 			sleep(20);
 		}
 	}
-
+*/
+	int i; 
+	for(i = 0; i < 2; ++ i) {
+		printf("x");
+		fork();
+	}
 	return 0;
 }
 #endif
