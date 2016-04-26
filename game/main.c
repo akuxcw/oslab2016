@@ -58,7 +58,7 @@ int game_main() {
 	for(i = 0; i < 2; ++ i) {
 		fork();
 		printf("x");
-		s[j ++] = 'x';
+		s[j ++] = '.';
 	}
 	s[j] = '\0';
 	printf("%s", s);
