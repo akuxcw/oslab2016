@@ -18,14 +18,6 @@ void set_tss_esp0(int);
 void schedule(TrapFrame *tf) {
 //	printk("%x\n", current->pid);
 	current->tf = tf;
-	ListHead *ptr, *ptr_;
-	PCB *tmp;
-	list_foreach_safe(ptr, ptr_, &Sleep) {
-		tmp = list_entry(ptr, PCB, list);
-		tmp->time = tmp->time - 1;
-//		printk("%%%%%%%%%%%%%% %x %x %x %x\n", tmp->time, (int)&tmp->time, (int)tf, (int)&current->tf);
-		if(tmp->time <= 0) ready(tmp);
-	}
 	assert(!list_empty(&Ready));
 	current = list_entry(Ready.next, PCB, list);
 	if(current->time <= 0) {

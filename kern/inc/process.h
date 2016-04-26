@@ -23,6 +23,7 @@ void init_process();
 PCB* new_process();
 extern PCB *current;
 extern PCB idle;
+extern ListHead Sleep;
 
 void ready(PCB *);
 void sleep(PCB *, uint32_t);
