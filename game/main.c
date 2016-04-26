@@ -39,7 +39,7 @@ int game_main() {
 		x ++;
 		if(pid == 0) {
 			printf("ping %x %x\n", pid, x);
-			sleep(100);
+//			sleep(100);
 		} else {
 			printf("pang %x %x\n", pid, x);
 //			sleep(200);
