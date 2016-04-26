@@ -25,16 +25,15 @@ int game_main() {
 int game_main() {
 
 	printf("@_@ Game Start!\n");
-
+/*
 	int x1 = fork();
 	int x2 = fork();
 	if(x1 == 0) exit(0);
 	fork();
 	if(x2 == 0) exit(0);
 	while(1);
-
-	int i;
-	for(i = 0; ; ++ i) {
+*/
+	while(1) {
 		int x = fork();
 //		sleep(10);
 		if(x == 0) exit(0);
