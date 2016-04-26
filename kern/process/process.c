@@ -74,6 +74,6 @@ PCB *new_process() {
 
 void del_process(PCB *val) {
 	list_del(&val->list);
-	list_add_after(&pcb_head, &val->list);
+	list_add_before(&pcb_head, &val->list);
 }
 
