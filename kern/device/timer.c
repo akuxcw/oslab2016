@@ -38,6 +38,15 @@ volatile int tick = 0;
 
 void do_timer(void) {
 //	printk("#");
+	ListHead *ptr, *ptr_;
+	PCB *tmp;
+	list_foreach_safe(ptr, ptr_, &Sleep) {
+		tmp = list_entry(ptr, PCB, list);
+		tmp->time = tmp->time - 1;
+//		printk("%%%%%%%%%%%%%% %x %x %x %x\n", tmp->time, (int)&tmp->time, (int)tf, (int)&current->tf);
+		if(tmp->time <= 0) ready(tmp);
+	}
+
 	current->time --;
 	tick ++;
 }
