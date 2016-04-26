@@ -53,11 +53,15 @@ int game_main() {
 		}
 	}
 */
-	int i; 
+	int i, j = 0;
+	char s[20];
 	for(i = 0; i < 2; ++ i) {
 		fork();
 		printf("x");
+		s[j ++] = 'x';
 	}
+	s[j] = '\0';
+	printf("%s", s);
 	while(1);
 	return 0;
 }
