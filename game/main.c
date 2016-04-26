@@ -23,7 +23,13 @@ int game_main() {
 }
 #else
 int game_main() {
-		
+
+	int x1 = fork();
+	int x2 = fork();
+	if(x1 == 0) exit(0);
+	if(x2 == 0) exit(0);
+	while(1);
+
 	int i;
 	for(i = 0; ; ++ i) {
 		int x = fork();
