@@ -1,11 +1,14 @@
 #include <inc/types.h>
 #include <inc/x86.h>
 #include <inc/stdio.h>
+#include <inc/memory.h>
 
 #define PORT_CH_0 0x40
 #define PORT_CMD 0x43
 #define PIT_FREQUENCE 1193182
 #define HZ 100
+
+extern PCB* current;
 
 union CmdByte {
 	struct {
@@ -35,6 +38,7 @@ volatile int tick = 0;
 
 void do_timer(void) {
 //	printk("#");
+	current->time --;
 	tick ++;
 }
 
