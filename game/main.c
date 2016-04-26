@@ -41,7 +41,7 @@ int game_main() {
 			printf("ping %x %x\n", pid, x);
 //			sleep(100);
 		} else {
-			printf("pang %x %x\n", pid, x);
+			printf("pang %x %x", pid, x);
 //			sleep(200);
 		}
 	}
