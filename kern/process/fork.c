@@ -12,15 +12,17 @@ int fork() {
 	PCB *newp = new_process();
 	printk("%x %x\n", current->pid, newp->pid);
 	newp->tf = (TrapFrame *)((int)newp->kstack + (int)current->tf - (int)current->kstack);
-	for(i = 0; i < KSTACK_SIZE; ++ i) {
+/*	for(i = 0; i < KSTACK_SIZE; ++ i) {
 		newp->kstack[i] = current->kstack[i];
 	}
+*/	
+	memcpy(newp->kstack, current->kstack, sizeof newp->kstack);
 	newp->tf->eax = 0;
 	lcr3(va2pa(idle.pdir));
 	set_user_page(newp);
 	for(i = 0; i < NPDENTRIES; ++ i) {
 		if((current->pdir[i] & PTE_P) && !(newp->pdir[i] & PTE_P)) {
-			newp->pdir[i] = Get_free_pg() | PTE_P | PTE_W | PTE_U;
+			newp->pdir[i] = Get_free_pg() | (current->pdir[i] & 0xfff);
 			pa = PTE_ADDR(*(int *)PTE_ADDR(current->pdir[i]));
 			npa = PTE_ADDR(*(int *)PTE_ADDR(newp->pdir[i]));
 			printk("%x %x %x\n", i, pa, npa);
