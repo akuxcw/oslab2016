@@ -64,6 +64,7 @@ PCB *new_process() {
 //	if(list_empty(&unused_pcb)) printk("Process full!\n");
 	assert(!list_empty(&pcb_head));
 	PCB *new_pcb = list_entry(pcb_head.next, PCB, list);
+	printk("%x\n", sizeof *new_pcb);
 	memset(new_pcb, 0, sizeof *new_pcb);
 	++ tot;
 	new_pcb->pid = tot;
