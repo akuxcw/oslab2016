@@ -23,6 +23,7 @@ void schedule(TrapFrame *tf) {
 	if(current->time <= 0) {
 		ready(current);
 		current = list_entry(Ready.next, PCB, list);
+		printk("%x\n", current->pid);
 		current->time = 1;
 //	printk("%x\n", current->pid);
 
