@@ -130,6 +130,9 @@ uint32_t Get_free_pg() {
 void Free_pg(int val) {
 //	printk("%x %x %x\n", page[(val - va2pa(uptable))/0x1000 - 1].addr, va2pa(uptable), val);
 //	printk("%x %x %x\n", PTSIZE, PGSIZE, 0x1000);
+	pte_t *ptable = (pte_t *)val;
+	int i;
+	for(i = 0; i < 1024; ++ i) ptable[i] = PTE_ADDR(ptable[i]) | PTE_U | PTE_P | PTE_W;
 	list_del(&page[(val - va2pa(uptable))/PGSIZE - 1].list);
 	list_add_after(&free_pg, &page[(val - va2pa(uptable))/PGSIZE - 1].list);
 }
