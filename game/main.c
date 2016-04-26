@@ -31,7 +31,7 @@ int game_main() {
 	if(x1 == 0) exit(0);
 	fork();
 	if(x2 == 0) exit(0);
-	while(1);
+//	while(1);
 
 	while(1) {
 		int x = fork();
