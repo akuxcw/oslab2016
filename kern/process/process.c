@@ -20,12 +20,12 @@ void schedule(TrapFrame *tf) {
 	current->tf = tf;
 	assert(!list_empty(&Ready));
 	current = list_entry(Ready.next, PCB, list);
+		printk("%x\n", current->pid);
 	if(current->time <= 0) {
 		ready(current);
 		current = list_entry(Ready.next, PCB, list);
-		printk("%x\n", current->pid);
 		current->time = 1;
-//	printk("%x\n", current->pid);
+	printk("%x\n", current->pid);
 
 		set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 		lcr3(va2pa(current->pdir));
