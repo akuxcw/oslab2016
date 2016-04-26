@@ -66,7 +66,7 @@ PCB *new_process() {
 	PCB *new_pcb = list_entry(pcb_head.next, PCB, list);
 //	printk("%x\n", 1024 * 4);
 	memset(new_pcb->pdir, 0, sizeof new_pcb->pdir);
-	new_pcb->time = 0;
+//	new_pcb->time = 0;
 	
 	++ tot;
 	new_pcb->pid = tot;
