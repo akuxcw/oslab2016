@@ -22,7 +22,6 @@ int game_main() {
 	return 0;
 }
 #else
-	char s[20];
 int game_main() {
 
 	printf("@_@ Game Start!\n");
@@ -55,6 +54,7 @@ int game_main() {
 	}
 */
 	int i, j = 0;
+	char s[20];
 	for(i = 0; i < 2; ++ i) {
 		fork();
 		printf("x");
