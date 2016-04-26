@@ -6,11 +6,11 @@
 void set_user_page(PCB *);
 
 int fork() {
-//	printk("---fork---\n");
+	printk("---fork---\n");
 	uint32_t i, pa, npa;
 //	printk("%x\n", running_process()->pdir[0x1f]);
 	PCB *newp = new_process();
-//	printk("%x %x\n", current->pid, newp->pid);
+	printk("%x %x\n", current->pid, newp->pid);
 	newp->tf = (TrapFrame *)((int)newp->kstack + (int)current->tf - (int)current->kstack);
 /*	for(i = 0; i < KSTACK_SIZE; ++ i) {
 		newp->kstack[i] = current->kstack[i];
@@ -25,7 +25,7 @@ int fork() {
 			newp->pdir[i] = Get_free_pg() | (current->pdir[i] & 0xfff);
 			pa = PTE_ADDR(*(int *)PTE_ADDR(current->pdir[i]));
 			npa = PTE_ADDR(*(int *)PTE_ADDR(newp->pdir[i]));
-//			printk("%x %x %x\n", i, pa, npa);
+			printk("%x %x %x\n", i, pa, npa);
 			memcpy((void *)npa, (void *)pa, PTSIZE);
 		}
 	}
