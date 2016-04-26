@@ -2,13 +2,13 @@
 #include <inc/x86.h>
 #include <inc/stdio.h>
 #include <inc/memory.h>
+#include <inc/process.h>
 
 #define PORT_CH_0 0x40
 #define PORT_CMD 0x43
 #define PIT_FREQUENCE 1193182
 #define HZ 100
 
-extern PCB* current;
 
 union CmdByte {
 	struct {
