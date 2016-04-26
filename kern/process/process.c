@@ -64,7 +64,7 @@ PCB *new_process() {
 //	if(list_empty(&unused_pcb)) printk("Process full!\n");
 	assert(!list_empty(&pcb_head));
 	PCB *new_pcb = list_entry(pcb_head.next, PCB, list);
-	printk("%x\n", sizeof 1024 * 4);
+	printk("%x\n", 1024 * 4);
 	memset(new_pcb->pdir, 0, 1024 * 4);
 	new_pcb->time = 0;
 	
