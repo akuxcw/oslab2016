@@ -60,6 +60,7 @@ int game_main() {
 		fork();
 		s[j ++] = 'x';
 	}
+	s[j] = '\0';
 	printf("%s", s);
 	while(1);
 	return 0;
