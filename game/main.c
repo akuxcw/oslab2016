@@ -25,7 +25,7 @@ int game_main() {
 int game_main() {
 
 	printf("@_@ Game Start!\n");
-/*
+
 	int x1 = fork();
 	int x2 = fork();
 	if(x1 == 0) exit(0);
@@ -39,7 +39,7 @@ int game_main() {
 		if(x == 0) exit(0);
 		printf("%d\n", x);
 	}
-
+/*
 	int pid = fork();
 	int x = 0;
 	while(1) {
@@ -52,7 +52,7 @@ int game_main() {
 			sleep(20);
 		}
 	}
-*/
+
 	int i;
 	for(i = 0; i < 2; ++ i) {
 		fork();
@@ -60,5 +60,6 @@ int game_main() {
 	}
 	while(1);
 	return 0;
+*/
 }
 #endif
