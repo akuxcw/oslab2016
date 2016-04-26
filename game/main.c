@@ -24,6 +24,8 @@ int game_main() {
 #else
 int game_main() {
 
+	printf("@_@ Game Start!\n");
+
 	int x1 = fork();
 	int x2 = fork();
 	if(x1 == 0) exit(0);
