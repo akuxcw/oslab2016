@@ -58,6 +58,7 @@ int game_main() {
 		printf("x");
 		fork();
 	}
+	while(1);
 	return 0;
 }
 #endif
