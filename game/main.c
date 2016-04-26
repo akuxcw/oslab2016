@@ -29,6 +29,7 @@ int game_main() {
 	int x1 = fork();
 	int x2 = fork();
 	if(x1 == 0) exit(0);
+	fork();
 	if(x2 == 0) exit(0);
 	while(1);
 
