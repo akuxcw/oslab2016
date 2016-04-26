@@ -35,7 +35,7 @@ int game_main() {
 */
 	while(1) {
 		int x = fork();
-//		sleep(10);
+		sleep(10);
 		if(x == 0) exit(0);
 		printf("%d\n", x);
 	}
