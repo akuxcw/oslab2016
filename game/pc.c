@@ -25,6 +25,7 @@ void ping() {
 void pang() {
 	int x = 0;
 	while(1) {
+		x ++;
 		printf("pang %d\n", x);
 		sleep(200);
 	}
