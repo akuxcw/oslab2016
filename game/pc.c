@@ -1,7 +1,7 @@
 #include <thread.h>
 #include <stdio.h>
 
-void *c() {
+void c() {
 	printf("thread\n");
 	while(1);
 }
@@ -9,7 +9,7 @@ void *c() {
 int main() {
 	printf("PC problem.\n");
 	int id;
-	thread_create(&id, c, NULL);
+	thread_create(&id, &c, NULL);
 	printf("main\n");
 	while(1);
 }
