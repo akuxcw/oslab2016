@@ -3,13 +3,11 @@
 #include <inc/elf.h>
 #include <inc/mmu.h>
 #include "inc/irq.h"
+#include <inc/memory.h>
 #include "inc/process.h"
 #include "inc/disk.h"
-//#include <inc/memory.h>
 
 #define OFFSET_IN_DISK 1000*1024
-#define USER_STACK_TOP 0x8000000
-#define USER_STACK_SIZE 0x400000
 
 uint32_t mm_malloc(uint32_t, uint32_t, PCB*);
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit);
@@ -17,8 +15,6 @@ void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32
 void set_user_page();
 void set_kern_page();
 void set_kern_segment();
-uint32_t seg_alloc(uint32_t, PCB*);
-uint32_t page_alloc(uint32_t, uint32_t, PCB*);
 void readprog(uint32_t, uint32_t, uint32_t, PCB*, unsigned char *, uint32_t);
 void init_i8259();
 void init_timer();
