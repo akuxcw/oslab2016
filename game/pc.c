@@ -6,7 +6,7 @@
 //	while(1);
 //}
 
-int main() {
+int game_main() {
 	printf("PC problem.\n");
 //	int id;
 //	thread_create(&id, &c, NULL);
