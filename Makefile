@@ -70,7 +70,7 @@ debug: $(IMAGES) pre-qemu
 	$(QEMU) -s $(QEMUOPTS) -S 
 
 clean: 
-	rm -rf obj/*
+	rm -rf obj/* qemu.log
 
 submit: clean
 	cd .. && tar cvj $(shell pwd | grep -o '[^/]*$$') > $(STU_ID).tar.bz2
