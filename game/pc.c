@@ -14,15 +14,18 @@ void c(void) {
 }
 
 void ping() {
+	int x = 0;
 	while(1) {
-		printf("ping\n");
+		x ++;
+		printf("ping %d\n", x);
 		sleep(100);
 	}
 }
 
 void pang() {
+	int x = 0;
 	while(1) {
-		printf("pang\n");
+		printf("pang %d\n", x);
 		sleep(200);
 	}
 }
