@@ -10,8 +10,9 @@ void thread_create(int *tid, int entry, int args) {
 	memcpy(newp->kstack, current->kstack, sizeof newp->kstack);
 	memcpy(newp->pdir, current->pdir, sizeof newp->pdir);
 	newp->tf->eip = entry;
-	newp->pdir[USER_STACK_TOP/PTSIZE - 1] = 0;
-	page_alloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
+	newp->tf->esp -= 0x100;
+//	newp->pdir[USER_STACK_TOP/PTSIZE - 1] = 0;
+//	page_alloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 	ready(newp);
 }
 /*
