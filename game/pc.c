@@ -4,12 +4,12 @@
 
 int x;
 
-void c(void) {
+void c(void *args) {
 	x ++;
 //	sleep(10);
 	int y = 2 * x;
 	sleep(10);
-	printf("thread %d %d\n", x, y);
+	printf("thread %d %d %d\n", x, y, (int)args);
 	while(1);
 }
 
@@ -34,9 +34,9 @@ void pang() {
 int game_main() {
 	printf("PC problem.\n");
 	int id;
-//	thread_create(&id, &c, NULL);
-	thread_create(&id, &ping, NULL);
-	thread_create(&id, &pang, NULL);
+	thread_create(&id, &c, (void *)123);
+//	thread_create(&id, &ping, NULL);
+//	thread_create(&id, &pang, NULL);
 	printf("main\n");
 	while(1);
 }
