@@ -4,7 +4,7 @@
 #include <inc/string.h>
 #include <inc/stdio.h>
 #include <inc/mmu.h>
-#include <inc/process.h>
+#include <inc/memory.h>
 #include <inc/x86.h>
 
 enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRESS};

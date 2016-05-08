@@ -2,7 +2,7 @@
 #include <inc/assert.h>
 #include <inc/x86.h>
 #include <inc/mmu.h>
-#include <inc/process.h>
+#include <inc/memory.h>
 #include "inc/irq.h"
 
 uint32_t Get_gdt_off(uint32_t);

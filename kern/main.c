@@ -4,7 +4,6 @@
 #include <inc/mmu.h>
 #include "inc/irq.h"
 #include <inc/memory.h>
-#include "inc/process.h"
 #include "inc/disk.h"
 
 #define OFFSET_IN_DISK 1000*1024
