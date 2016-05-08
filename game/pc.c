@@ -7,6 +7,7 @@ void *c() {
 }
 
 int main() {
+	printf("PC problem.\n");
 	int id;
 	thread_create(&id, c, NULL);
 	printf("main\n");
