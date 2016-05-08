@@ -14,7 +14,7 @@ void thread_create(int *tid, int entry, int args) {
 //	newp->pdir[USER_STACK_TOP/PTSIZE - 1] = 0;
 	page_alloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 	printk("%d\n", args);
-	*(int *)(newp->tf->esp + 0x10) = args;
+	*(int *)(newp->tf->esp + 0x0) = args;
 	ready(newp);
 }
 /*
