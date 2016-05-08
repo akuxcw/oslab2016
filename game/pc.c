@@ -6,7 +6,7 @@ int x;
 void c() {
 	x ++;
 	int y = 2 * x;
-	printf("thread %d\n", x, y);
+	printf("thread %d %d\n", x, y);
 	while(1);
 }
 
