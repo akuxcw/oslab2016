@@ -1,10 +1,10 @@
 #include <thread.h>
 #include <stdio.h>
 
-void c() {
-	printf("thread\n");
-	while(1);
-}
+//void c() {
+//	printf("thread\n");
+//	while(1);
+//}
 
 int main() {
 	printf("PC problem.\n");
