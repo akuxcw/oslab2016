@@ -51,9 +51,9 @@ void c(void *args) {
 		sem_wait(mutex2);
 		printf("%d %d\n", buf[out], (int)args);
 		out = (out + 1) % n;
-		sleep(200);
 		sem_post(mutex2);
 		sem_post(empty);
+		sleep(200);
 	}
 }
 
