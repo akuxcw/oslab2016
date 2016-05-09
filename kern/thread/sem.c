@@ -32,6 +32,7 @@ void sem_post(int id) {
 	if(!list_empty(&Sem[id].wait_list)) {
 		PCB * newp = list_entry(Sem[id].wait_list.next, PCB, list);
 		ready(newp);
+		printk("%d\n", newp->pid);
 	} else {
 		Sem[id].cnt ++;
 		if(Sem[id].bin && Sem[id].cnt > 1) Sem[id].cnt = 1;
