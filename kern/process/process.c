@@ -36,6 +36,7 @@ void ready(PCB *c) {
 	list_del(&c->list);
 	if(list_empty(&Ready)) list_add_before(&Ready, &c->list);
 	else list_add_before(&idle.list, &c->list);
+	c->time = 1;
 }
 
 void sleep(PCB *c, uint32_t t) {
