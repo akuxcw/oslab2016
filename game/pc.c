@@ -45,7 +45,7 @@ void p(void *args) {
 		sem_wait(mutex1);
 //		printf("p 3 %d\n", (int)args);
 		sleep(100);
-		printf("%d produce %d\n", (int)args, x);
+		printf("%d prod %d\n", (int)args, x);
 		buf[in] = x;
 //		printf("p 5 %d\n", (int)args);
 		in = (in + 1) % n;
