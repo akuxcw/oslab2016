@@ -62,7 +62,7 @@ void c(void *args) {
 	printf("c-----\n");
 		sem_wait(full);
 		sem_wait(mutex2);
-		printf("%d %d\n", buf[out], (int)args);
+		printf("consume %d %d\n", buf[out], (int)args);
 		out = (out + 1) % n;
 		sem_post(mutex2);
 		sem_post(empty);
