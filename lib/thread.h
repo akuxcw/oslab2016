@@ -9,8 +9,8 @@ void thread_create(int *x, void *entry, int *args) {
 }
 
 static inline
-int sem_open(int cnt, bool bin) {
-	syscall(SYS_sem_open, cnt, bin);
+int sem_open(int cnt, int bin) {
+	return syscall(SYS_sem_open, cnt, bin);
 }
 
 void sem_close(int id) {
