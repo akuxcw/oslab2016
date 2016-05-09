@@ -54,8 +54,8 @@ void p(void *args) {
 }
 
 void c(void *args) {
-	printf("c-----\n");
 	while(1) {
+	printf("c-----\n");
 		sem_wait(full);
 		sem_wait(mutex2);
 		printf("%d %d\n", buf[out], (int)args);
