@@ -31,7 +31,7 @@ int game_main() {
 		printf("P  %d\n", id);
 	}
 //	sleep(-1);
-	while(1);
+	while(1)sleep(0x1ffffff);
 	return 0;
 }
 
