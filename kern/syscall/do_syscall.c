@@ -81,7 +81,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_fork: /*cli();*/ tf->eax = fork(); /*sti();*/break;
 		case SYS_exit: exit(tf->ebx); break;
 		case SYS_thread_create: thread_create((int *)tf->ebx, tf->ecx, tf->edx); break;
-		case SYS_sem_open: sem_open(tf->ebx, (bool)tf->ecx); break;
+		case SYS_sem_open: tf->eax = sem_open(tf->ebx, (bool)tf->ecx); break;
 		case SYS_sem_close: sem_close(tf->ebx); break;
 		case SYS_sem_wait: sem_wait(tf->ebx); break;
 		case SYS_sem_post: sem_post(tf->ebx); break;
