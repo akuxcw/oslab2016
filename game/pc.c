@@ -20,11 +20,11 @@ int game_main() {
 	printf("PC problem.\n");
 	int id;
 	sem = sem_open(1, 1);
+	printf("main\n");
 	thread_create(&id, &c, (void *)1);
 	thread_create(&id, &c, (void *)2);
 	thread_create(&id, &c, (void *)3);
 	
-	printf("main\n");
 	sem_close(sem);
 	while(1);
 }
