@@ -40,7 +40,7 @@ void p(void *args) {
 	while(1) {
 		x ++;
 		printf("p 1 %d\n", (int)args);
-//		sem_wait(empty);
+		sem_wait(empty);
 		printf("p 2 %d\n", (int)args);
 		sem_wait(mutex1);
 		printf("p 3 %d\n", (int)args);
