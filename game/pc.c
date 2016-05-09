@@ -52,7 +52,7 @@ void p(void *args) {
 		printf("p 6 %d\n", (int)args);
 		sem_post(full);
 		printf("p 7 %d\n", (int)args);
-		sleep(100);
+//		sleep(100);
 		printf("p 8 %d\n", (int)args);
 	}
 }
@@ -70,7 +70,7 @@ void c(void *args) {
 		printf("c 5 %d\n", (int)args);
 		sem_post(empty);
 		printf("c 6 %d\n", (int)args);
-		sleep(200);
+//		sleep(200);
 		printf("c 7 %d\n", (int)args);
 	}
 }
