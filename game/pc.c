@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #define n 2
-#define NR_P 2
+#define NR_P 1
 #define NR_C 1
 
 int x;
