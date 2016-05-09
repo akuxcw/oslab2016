@@ -21,7 +21,7 @@ void schedule(TrapFrame *tf) {
 
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
-	list_foreach_safe(ptr, ptr_, &Sleep) {
+	list_foreach_safe(ptr, ptr_, &Ready) {
 		tmp = list_entry(ptr, PCB, list);
 		printk("%d ", tmp->pid);
 	}
