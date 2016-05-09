@@ -2,10 +2,33 @@
 #include <stdio.h>
 #include <time.h>
 #define n 10
+#define NR_P 1
+#define NR_C 1
 
 int x;
 sem_t mutex1, mutex2, full, empty;
 int buf[n], in = 0, out = 0;
+
+void p(void *);
+void c(void *);
+
+int game_main() {
+	printf("PC problem.\n");
+	int id;
+	mutex1 = sem_open(1, 1);
+	mutex2 = sem_open(1, 1);
+	full = sem_open(0, 0);
+	empty = sem_open(n, 0);
+	printf("main\n");
+	int i;
+	for(i = 1; i <= NR_P; ++ i) 
+		thread_create(&id, &p, (void *)i);
+	for(i = 1; i <= NR_C; ++ i)
+		thread_create(&id, &c, (void *)i);
+	
+	while(1);
+}
+
 void p(void *args) {
 	while(1) {
 		sem_wait(empty);
@@ -30,17 +53,3 @@ void c(void *args) {
 	}
 }
 
-int game_main() {
-	printf("PC problem.\n");
-	int id;
-	mutex1 = sem_open(1, 1);
-	mutex2 = sem_open(1, 1);
-	full = sem_open(0, 0);
-	empty = sem_open(n, 0);
-	printf("main\n");
-	thread_create(&id, &c, (void *)1);
-	thread_create(&id, &c, (void *)2);
-	thread_create(&id, &c, (void *)3);
-	
-	while(1);
-}
