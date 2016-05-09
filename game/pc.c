@@ -1,8 +1,8 @@
 #include <thread.h>
 #include <stdio.h>
 #include <time.h>
-#define n 1
-#define NR_P 1
+#define n 3
+#define NR_P 2
 #define NR_C 2
 
 int x;
@@ -37,9 +37,9 @@ void p(void *args) {
 		sem_wait(mutex1);
 //		buf[in] = (int) args;
 		buf[in] = x;
-		printf("producer %d\n", x);
 		in = (in + 1) % n;
 		sleep(100);
+		printf("producer %d\n", x);
 		sem_post(mutex1);
 		sem_post(full);
 	}
@@ -51,9 +51,9 @@ void c(void *args) {
 		sem_wait(mutex2);
 		printf("%d %d\n", buf[out], (int)args);
 		out = (out + 1) % n;
-		sleep(200);
 		sem_post(mutex2);
 		sem_post(empty);
+		sleep(200);
 	}
 }
 
