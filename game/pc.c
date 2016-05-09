@@ -52,6 +52,7 @@ void p(void *args) {
 }
 
 void c(void *args) {
+	printf("c-----\n");
 	while(1) {
 		sem_wait(full);
 		sem_wait(mutex2);
