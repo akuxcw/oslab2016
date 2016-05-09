@@ -18,7 +18,7 @@ void schedule(TrapFrame *tf) {
 //	printk("%x\n", current->pid);
 	current->tf = tf;
 	assert(!list_empty(&Ready));
-
+/*
 	ListHead *ptr, *ptr_;
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Ready) {
@@ -26,9 +26,13 @@ void schedule(TrapFrame *tf) {
 		printk("%d\n", tmp->pid);
 	}
 	printk("-----------\n");
-
+*/
 	current = list_entry(Ready.next, PCB, list);
-		printk("current %x\n", current->pid);
+	ready(current);
+	set_tss_esp0((int)current->kstack + KSTACK_SIZE);
+	lcr3(va2pa(current->pdir));
+/*
+	printk("current %x\n", current->pid);
 	if(current->time <= 0) {
 		ready(current);
 		current = list_entry(Ready.next, PCB, list);
@@ -38,7 +42,7 @@ void schedule(TrapFrame *tf) {
 		set_tss_esp0((int)current->kstack + KSTACK_SIZE);
 		lcr3(va2pa(current->pdir));
 	}
-//	*tf = current->tf;
+*/
 }
 
 void ready(PCB *c) {
