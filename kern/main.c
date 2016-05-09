@@ -21,6 +21,7 @@ void init_serial();
 void init_idt();
 void init_palette();
 void init_memory();
+void init_sem();
 void load();
 
 int kern_init() {
@@ -33,7 +34,7 @@ int kern_init() {
 	init_idt();				//set idt
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
-	
+	init_sem();				//init semaphore
 //	init_idle
 /*	int *addr = (int *)0xf0000000;
 	*addr = 1;
