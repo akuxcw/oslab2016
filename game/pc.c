@@ -25,7 +25,7 @@ int game_main() {
 		thread_create(&id, &c, (void *)i);
 	for(i = 1; i <= NR_P; ++ i) 
 		thread_create(&id, &p, (void *)i);
-	sleep(-1);
+//	sleep(-1);
 //	while(1);
 	return 0;
 }
