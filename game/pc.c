@@ -1,7 +1,7 @@
 #include <thread.h>
 #include <stdio.h>
 #include <time.h>
-#define n 3
+#define n 5
 #define NR_P 2
 #define NR_C 1
 
