@@ -33,8 +33,8 @@ void p(void *args) {
 	int x = 0;
 	while(1) {
 		x ++;
-		sem_wait(empty);
 		sem_wait(mutex1);
+		sem_wait(empty);
 		printf("%d produce %d\n", (int)args, x);
 //		buf[in] = (int) args;
 		buf[in] = x;
