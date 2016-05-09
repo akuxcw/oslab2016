@@ -18,6 +18,7 @@ int game_main() {
 	mutex1 = sem_open(1, 0);
 	mutex2 = sem_open(1, 0);
 	full = sem_open(0, 0);
+	printf("full %d\n");
 	empty = sem_open(n, 0);
 	printf("main\n");
 	int i;
