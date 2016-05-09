@@ -35,11 +35,11 @@ void p(void *args) {
 		x ++;
 		sem_wait(empty);
 		sem_wait(mutex1);
+		printf("producer %d\n", x);
 //		buf[in] = (int) args;
 		buf[in] = x;
 		in = (in + 1) % n;
 		sleep(100);
-		printf("producer %d\n", x);
 		sem_post(mutex1);
 		sem_post(full);
 	}
