@@ -33,6 +33,7 @@ void sem_post(int id) {
 		ready(newp);
 	} else {
 		Sem[id].cnt ++;
+		if(Sem[id].bin && Sem[id].cnt > 1) Sem[id].cnt = 1;
 	}
 }
 
