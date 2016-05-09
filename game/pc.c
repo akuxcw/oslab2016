@@ -34,6 +34,7 @@ void p(void *args) {
 		sem_wait(empty);
 		sem_wait(mutex1);
 		buf[in] = (int) args;
+		printf("producer\n");
 		in = (in + 1) % n;
 		sleep(100);
 		sem_post(mutex1);
