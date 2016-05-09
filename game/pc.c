@@ -6,6 +6,7 @@ int x;
 sem_t sem;
 
 void c(void *args) {
+	printf("start %d\n", (int)args);
 	sem_wait(sem);
 	x ++;
 //	sleep(10);
