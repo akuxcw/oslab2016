@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #define n 2
-#define NR_P 1
+#define NR_P 2
 #define NR_C 1
 
 int x;
@@ -15,8 +15,8 @@ void c(void *);
 int game_main() {
 	printf("PC problem.\n");
 	int id;
-	mutex1 = sem_open(1, 1);
-	mutex2 = sem_open(1, 1);
+	mutex1 = sem_open(1, 0);
+	mutex2 = sem_open(1, 0);
 	full = sem_open(0, 0);
 	empty = sem_open(n, 0);
 	printf("main\n");
