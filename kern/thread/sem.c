@@ -19,8 +19,8 @@ void sem_close(int id) {
 }
 
 void sem_wait(int id) {
-	if(Sem[id].cnt > 0) {
 		printk("%d\n", Sem[id].cnt);
+	if(Sem[id].cnt > 0) {
 		Sem[id].cnt --;
 	} else {
 		list_del(&current->list);
