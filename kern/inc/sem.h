@@ -9,7 +9,6 @@
 typedef struct {
 	int id, cnt;
 	bool bin;
-	ListHead wait_list;
 	ListHead list;
 } SEM;
 
