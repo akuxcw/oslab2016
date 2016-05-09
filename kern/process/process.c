@@ -18,6 +18,15 @@ void schedule(TrapFrame *tf) {
 //	printk("%x\n", current->pid);
 	current->tf = tf;
 	assert(!list_empty(&Ready));
+
+	ListHead *ptr, *ptr_;
+	PCB *tmp;
+	list_foreach_safe(ptr, ptr_, &Sleep) {
+		tmp = list_entry(ptr, PCB, list);
+		printk("%d ", tmp->pid);
+	}
+	printk("\n");
+
 	current = list_entry(Ready.next, PCB, list);
 //		printk("%x\n", current->pid);
 	if(current->time <= 0) {
