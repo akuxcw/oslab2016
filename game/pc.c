@@ -30,10 +30,13 @@ int game_main() {
 }
 
 void p(void *args) {
+	int x = 0;
 	while(1) {
+		x ++;
 		sem_wait(empty);
 		sem_wait(mutex1);
-		buf[in] = (int) args;
+//		buf[in] = (int) args;
+		buf[in] = x;
 		printf("producer\n");
 		in = (in + 1) % n;
 		sleep(100);

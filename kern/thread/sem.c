@@ -19,7 +19,7 @@ void sem_close(int id) {
 }
 
 void sem_wait(int id) {
-		printk("%d\n", Sem[id].cnt);
+//		printk("%d\n", Sem[id].cnt);
 	if(Sem[id].cnt > 0) {
 		Sem[id].cnt --;
 	} else {
