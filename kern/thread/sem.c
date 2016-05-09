@@ -4,7 +4,6 @@
 #include <inc/memory.h>
 
 ListHead SemHead;
-ListHead wait_list[NR_SEM];
 SEM Sem[NR_SEM];
 
 int sem_open(int cnt, bool bin) {
@@ -25,13 +24,13 @@ void sem_wait(int id) {
 		Sem[id].cnt --;
 	} else {
 		list_del(&current->list);
-		list_add_before(&wait_list[id], &current->list);
+		list_add_before(&Sem[id].wait_list, &current->list);
 	}
 }
 
 void sem_post(int id) {
-	if(!list_empty(&wait_list[id])) {
-		PCB * newp = list_entry(wait_list[id].next, PCB, list);
+	if(!list_empty(&Sem[id].wait_list)) {
+		PCB * newp = list_entry(Sem[id].wait_list.next, PCB, list);
 		ready(newp);
 //		printk("%d %d\n", id, newp->pid);
 	} else {
@@ -45,7 +44,7 @@ void init_sem() {
 	list_init(&SemHead);
 	for(i = 0; i < NR_SEM; ++ i) {
 		Sem[i].id = i;
-		list_init(&wait_list[i]);
+		list_init(&Sem[i].wait_list);
 		list_add_before(&SemHead, &Sem[i].list);
 	}
 }
