@@ -3,7 +3,7 @@
 #include <time.h>
 #define n 3
 #define NR_P 2
-#define NR_C 2
+#define NR_C 1
 
 int x;
 sem_t mutex1, mutex2, full, empty;
