@@ -21,10 +21,10 @@ int game_main() {
 	empty = sem_open(n, 0);
 	printf("main\n");
 	int i;
-	for(i = 1; i <= NR_P; ++ i) 
-		thread_create(&id, &p, (void *)i);
 	for(i = 1; i <= NR_C; ++ i)
 		thread_create(&id, &c, (void *)i);
+	for(i = 1; i <= NR_P; ++ i) 
+		thread_create(&id, &p, (void *)i);
 	
 	while(1);
 }
