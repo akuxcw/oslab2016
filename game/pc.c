@@ -39,39 +39,39 @@ void p(void *args) {
 	int x = 0;
 	while(1) {
 		x ++;
-		printf("p 1 %d\n", (int)args);
+//		printf("p 1 %d\n", (int)args);
 		sem_wait(empty);
-		printf("p 2 %d\n", (int)args);
+//		printf("p 2 %d\n", (int)args);
 		sem_wait(mutex1);
-		printf("p 3 %d\n", (int)args);
+//		printf("p 3 %d\n", (int)args);
 		sleep(100);
-		printf("p 4 %d produce %d\n", (int)args, x);
+		printf("%d produce %d\n", (int)args, x);
 		buf[in] = x;
-		printf("p 5 %d\n", (int)args);
+//		printf("p 5 %d\n", (int)args);
 		in = (in + 1) % n;
-		printf("p 6 %d\n", (int)args);
+//		printf("p 6 %d\n", (int)args);
 		sem_post(mutex1);
-		printf("p 7 %d\n", (int)args);
+//		printf("p 7 %d\n", (int)args);
 		sem_post(full);
-		printf("p 8 %d\n", (int)args);
+//		printf("p 8 %d\n", (int)args);
 	}
 }
 
 void c(void *args) {
 	while(1) {
-		printf("c 1 %d\n", (int)args);
+//		printf("c 1 %d\n", (int)args);
 		sem_wait(full);
-		printf("c 2 %d\n", (int)args);
+//		printf("c 2 %d\n", (int)args);
 		sem_wait(mutex2);
-		printf("c 3 consume %d %d\n", buf[out], (int)args);
+		printf("%d consume %d\n", (int)args, buf[out]);
 		out = (out + 1) % n;
-		printf("c 4 %d\n", (int)args);
+//		printf("c 4 %d\n", (int)args);
 		sem_post(mutex2);
-		printf("c 5 %d\n", (int)args);
+//		printf("c 5 %d\n", (int)args);
 		sem_post(empty);
-		printf("c 6 %d\n", (int)args);
+//		printf("c 6 %d\n", (int)args);
 		sleep(200);
-		printf("c 7 %d\n", (int)args);
+//		printf("c 7 %d\n", (int)args);
 	}
 }
 
