@@ -53,7 +53,7 @@ void c(void *args) {
 		out = (out + 1) % n;
 		sem_post(mutex2);
 		sem_post(empty);
-		sleep(200);
+		sleep(300);
 	}
 }
 
