@@ -23,9 +23,9 @@ void schedule(TrapFrame *tf) {
 	PCB *tmp;
 	list_foreach_safe(ptr, ptr_, &Ready) {
 		tmp = list_entry(ptr, PCB, list);
-		printk("%d ", tmp->pid);
+		printk("%d\n", tmp->pid);
 	}
-	printk("\n");
+	printk("-----------\n");
 
 	current = list_entry(Ready.next, PCB, list);
 //		printk("%x\n", current->pid);
