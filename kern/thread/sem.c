@@ -45,7 +45,7 @@ void init_sem() {
 	list_init(&SemHead);
 	for(i = 0; i < NR_SEM; ++ i) {
 		Sem[i].id = i;
-//		list_init(&Sem[i].wait_list);
+		list_init(&wait_list[i]);
 		list_add_before(&SemHead, &Sem[i].list);
 	}
 }
