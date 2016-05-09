@@ -33,22 +33,21 @@ void p(void *args) {
 	int x = 0;
 	while(1) {
 		x ++;
-		printf("1 %d\n", (int)args);
+//		printf("1 %d\n", (int)args);
 		sem_wait(empty);
-		printf("2 %d\n", (int)args);
+//		printf("2 %d\n", (int)args);
 		sem_wait(mutex1);
-		printf("3 %d produce %d\n", (int)args, x);
-//		buf[in] = (int) args;
+//		printf("3 %d produce %d\n", (int)args, x);
 		buf[in] = x;
-		printf("4 %d\n", (int)args);
+//		printf("4 %d\n", (int)args);
 		in = (in + 1) % n;
-		printf("5 %d\n", (int)args);
+//		printf("5 %d\n", (int)args);
 		sleep(100);
-		printf("6 %d\n", (int)args);
+//		printf("6 %d\n", (int)args);
 		sem_post(mutex1);
-		printf("7 %d\n", (int)args);
+//		printf("7 %d\n", (int)args);
 		sem_post(full);
-		printf("8 %d\n", (int)args);
+//		printf("8 %d\n", (int)args);
 	}
 }
 
