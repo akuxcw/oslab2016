@@ -2,13 +2,21 @@
 #include <inc/sem.h>
 #include <inc/list.h>
 #include <inc/memory.h>
+#include <inc/string.h>
 
 ListHead SemHead;
+ListHead used_sem;
 SEM Sem[NR_SEM];
 
-int sem_open(int cnt, bool bin) {
+int sem_open(char *name, int cnt, bool bin) {
+	ListHead *ptr;
+	list_foreach(ptr, &used_sem) {
+		SEM *tmp = list_entry(ptr, SEM, list);
+		if(strcmp(tmp->name, name) == 0) return tmp->id;
+	}
 	SEM *news = list_entry(SemHead.next, SEM, list);
 	list_del(&news->list);
+	list_add_before(&used_sem, &news->list);
 	news->cnt = cnt;
 	news->bin = bin;
 	return news->id;
@@ -42,6 +50,7 @@ void sem_post(int id) {
 void init_sem() {
 	int i;
 	list_init(&SemHead);
+	list_init(&used_sem);
 	for(i = 0; i < NR_SEM; ++ i) {
 		Sem[i].id = i;
 		list_init(&Sem[i].wait_list);

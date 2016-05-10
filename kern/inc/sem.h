@@ -9,11 +9,12 @@
 typedef struct {
 	int id, cnt;
 	bool bin;
+	char name[16];
 	ListHead wait_list;
 	ListHead list;
 } SEM;
 
-int sem_open(int, bool);
+int sem_open(char *, int, bool);
 void sem_close(int);
 void sem_wait(int);
 void sem_post(int);

@@ -38,11 +38,11 @@ int game_main() {
 	sleep(-1);
 
 
-	mutex1 = sem_open(1, 0);
-	mutex2 = sem_open(1, 0);
-	full = sem_open(0, 0);
+	mutex1 = sem_open("mutex1", 1, 0);
+	mutex2 = sem_open("mutex2", 1, 0);
+	full = sem_open("full", 0, 0);
 //	printf("full %d\n", full);
-	empty = sem_open(n, 0);
+	empty = sem_open("empty", n, 0);
 	printf("main\n");
 	int i;
 	for(i = 1; i <= NR_C; ++ i) {
