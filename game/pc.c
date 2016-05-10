@@ -34,8 +34,8 @@ void b() {
 int game_main() {
 	int id;
 	printf("PC problem.\n");
-	thread_create(&id, a, NULL);
-	sleep(-1);
+//	thread_create(&id, a, NULL);
+//	sleep(-1);
 
 
 	mutex1 = sem_open("mutex1", 1, 0);
