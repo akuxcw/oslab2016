@@ -9,7 +9,7 @@ void thread_create(int *tid, int entry, int args) {
 	*tid = newp->pid;
 	newp->tf = (TrapFrame *)((int)newp->kstack + (int)current->tf - (int)current->kstack);
 	memcpy(newp->kstack, current->kstack, sizeof newp->kstack);
-	memcpy(newp->pdir, current->pdir, sizeof newp->pdir);
+//	memcpy(newp->pdir, current->pdir, sizeof newp->pdir);
 	int i;
 	set_user_page(newp);
 	for(i = 0; i < NPDENTRIES; ++ i) {
