@@ -57,6 +57,7 @@ static void sys_kbd(TrapFrame *tf) {
 int Get_time();
 extern void exit(int);
 void thread_create(int *, int, int);
+//void thread_join(int, int);
 
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
@@ -81,6 +82,7 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_fork: /*cli();*/ tf->eax = fork(); /*sti();*/break;
 		case SYS_exit: exit(tf->ebx); break;
 		case SYS_thread_create: thread_create((int *)tf->ebx, tf->ecx, tf->edx); break;
+//		case SYS_thread_join: thread_join(tf->ebx, tf->ecx); break;
 		case SYS_sem_open: tf->eax = sem_open(tf->ebx, (bool)tf->ecx); break;
 		case SYS_sem_close: sem_close(tf->ebx); break;
 		case SYS_sem_wait: sem_wait(tf->ebx); break;

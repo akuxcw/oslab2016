@@ -20,8 +20,10 @@ void thread_create(int *tid, int entry, int args) {
 	lcr3(va2pa(current->pdir));
 	ready(newp);
 }
+
 /*
-void thread_join(int tid, int *res) {
+void thread_join(int tid, int *ret) {
 	
 }
 */
+

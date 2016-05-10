@@ -2,7 +2,7 @@
 #define LIB_SYSCALL_H
 
 enum {SYS_, SYS_write, SYS_palette, SYS_kbd, SYS_time, SYS_sleep, SYS_fork, SYS_exit, 
-	SYS_thread_create, SYS_sem_open, SYS_sem_close, SYS_sem_wait, SYS_sem_post};
+	SYS_thread_create, SYS_thread_join, SYS_sem_open, SYS_sem_close, SYS_sem_wait, SYS_sem_post};
 
 static inline int //__attribute__((__noinline__))
 syscall(int id, ...) {
