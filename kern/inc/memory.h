@@ -15,7 +15,7 @@ typedef struct {
 } SegMan;
 
 typedef struct {
-	uint32_t addr;
+	uint32_t addr, cnt;
 	ListHead list;
 } PgMan;
 
@@ -23,6 +23,7 @@ uint32_t Get_free_pg();
 SegMan* Get_free_seg();
 void set_segment(SegDesc *ptr, uint32_t pl, uint32_t type, uint32_t base, uint32_t limit); 
 void Free_pg(int);
+void use_pg(int);
 uint32_t seg_alloc(uint32_t, PCB*);
 uint32_t page_alloc(uint32_t, uint32_t, PCB*);
 

@@ -122,6 +122,7 @@ void init_page() {
 uint32_t Get_free_pg() {
 	assert(!list_empty(&free_pg));
 	ListHead *new_pg = free_pg.next;
+	list_entry(new_pg, PgMan, list)->cnt = 0;
 	list_del(new_pg);
 	list_add_after(&used_pg, new_pg);
 	return list_entry(new_pg, PgMan, list)->addr;
@@ -134,6 +135,15 @@ void Free_pg(int val) {
 //	printk("%x\n", PTE_ADDR(*ptable));
 //	int i;
 //	for(i = 0; i < 1024; ++ i) ptable[i] = PTE_ADDR(ptable[i]) | PTE_U | PTE_P | PTE_W;
-	list_del(&page[(val - va2pa(uptable))/PGSIZE - 1].list);
-	list_add_after(&free_pg, &page[(val - va2pa(uptable))/PGSIZE - 1].list);
+	int x = (val - va2pa(uptable))/PGSIZE - 1;
+	if(page[x].cnt == 0) {
+		list_del(&page[x].list);
+		list_add_after(&free_pg, &page[x].list);
+	} else page[x].cnt --;
 }
+
+void use_pg(int val) {
+	int x = (val - va2pa(uptable))/PGSIZE - 1;
+	page[x].cnt ++;
+}
+
