@@ -38,8 +38,8 @@ int game_main() {
 //	sleep(-1);
 
 
-	mutex1 = sem_open("mutex1", 1, 0);
-	mutex2 = sem_open("mutex2", 1, 0);
+	mutex1 = sem_open("mutex1", 1, 1);
+	mutex2 = sem_open("mutex2", 1, 1);
 	full = sem_open("full", 0, 0);
 //	printf("full %d\n", full);
 	empty = sem_open("empty", n, 0);
