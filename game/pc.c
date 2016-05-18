@@ -4,7 +4,7 @@
 #include <process.h>
 #define n 10
 #define NR_P 4
-#define NR_C 2
+#define NR_C 1
 
 int x;
 sem_t mutex1, mutex2, full, empty;
