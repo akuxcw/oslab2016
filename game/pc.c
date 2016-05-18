@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <process.h>
-#define n 10
+#define n 3
 #define NR_P 4
 #define NR_C 1
 
@@ -66,7 +66,7 @@ void p(void *args) {
 //		printf("p 2 %d\n", (int)args);
 		sem_wait(mutex1);
 //		printf("p 3 %d\n", (int)args);
-		sleep(200);
+		sleep(100);
 		printf("%d prod %d\n", (int)args, x);
 		buf[in] = x;
 //		printf("p 5 %d\n", (int)args);
@@ -92,7 +92,7 @@ void c(void *args) {
 //		printf("c 5 %d\n", (int)args);
 		sem_post(empty);
 //		printf("c 6 %d\n", (int)args);
-		sleep(100);
+		sleep(200);
 //		printf("c 7 %d\n", (int)args);
 	}
 }
