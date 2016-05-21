@@ -5,6 +5,7 @@
 #include "inc/irq.h"
 #include <inc/memory.h>
 #include "inc/disk.h"
+#include <inc/fs.h>
 
 #define OFFSET_IN_DISK 1000*1024
 
@@ -24,6 +25,14 @@ void init_memory();
 void init_sem();
 void load();
 
+void test_fs() {
+//	uint8_t buf[512];
+//	ide_read(OFFSET_IN_DISK/SECTSIZE, buf, 1);
+//	int i;
+//	for(i = 0; i < 10; ++ i)
+//		printk("%d\n", buf[i]);
+}
+
 int kern_init() {
 	init_palette();			//set palette address
 	set_kern_page();
@@ -35,14 +44,10 @@ int kern_init() {
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
 	init_sem();				//init semaphore
-//	init_idle
-/*	int *addr = (int *)0xf0000000;
-	*addr = 1;
-	printk("$$$%d\n", *addr);
-*/	
-//	printk("%x\n", PTE_D);
+	
+//	test_fs();
+	
 	load();					//load program
-//	ide_read()
 	sti();
 	while(1);
 	return 0;

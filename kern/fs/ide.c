@@ -23,39 +23,6 @@ ide_wait_ready(bool check_error)
 	return 0;
 }
 
-bool
-ide_probe_disk1(void)
-{
-	int r, x;
-
-	// wait for Device 0 to be ready
-	ide_wait_ready(0);
-
-	// switch to Device 1
-	outb(0x1F6, 0xE0 | (1<<4));
-
-	// check for Device 1 to be ready for a while
-	for (x = 0;
-	     x < 1000 && ((r = inb(0x1F7)) & (IDE_BSY|IDE_DF|IDE_ERR)) != 0;
-	     x++)
-		/* do nothing */;
-
-	// switch back to Device 0
-	outb(0x1F6, 0xE0 | (0<<4));
-
-	printk("Device 1 presence: %d\n", (x < 1000));
-	return (x < 1000);
-}
-
-void
-ide_set_disk(int d)
-{
-	if (d != 0 && d != 1)
-		panic("bad disk number");
-	diskno = d;
-}
-
-
 int
 ide_read(uint32_t secno, void *dst, size_t nsecs)
 {

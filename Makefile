@@ -35,7 +35,8 @@ include game/Makefile.part
 #include lib/Makefile.part
 
 os.img: bootblock kern game
-	cat $(BOOT) $(KERN) $(GAME) > obj/os.img
+#	cat $(BOOT) $(KERN) $(GAME) > obj/os.img
+	cat $(BOOT) $(KERN) 1.txt > obj/os.img
 	$(call git_commit, "compile", $(GITFLAGS))
 
 IMAGES	:= $(OBJ_DIR)/os.img
