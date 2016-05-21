@@ -32,6 +32,8 @@ void testfs() {
 	printk("testfs\n");
 	int fd = fopen("1.txt", READ);	
 	fread(fd, buf, 10);
+	int i;
+	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
 }
 
 int kern_init() {
