@@ -81,6 +81,7 @@ void load() {
 #endif
 //		printk("%x %x\n", OFFSET_IN_DISK + ph->p_offset, pa);
 		readprog(ph->p_va, ph->p_filesz, ph->p_memsz, current, pa, /*OFFSET_IN_DISK +*/ph->p_offset);
+		printk("**********************\n");
 
 //		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
 //		unsigned char *i;
