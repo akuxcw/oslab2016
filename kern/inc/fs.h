@@ -12,7 +12,7 @@
 // File types
 #define FTYPE_REG	0	// Regular file
 #define FTYPE_DIR	1	// Directory
-#define NR_FILES	512
+#define NR_FILES	64
 enum {CLOSE, READ, WRITE};
 
 typedef struct {
