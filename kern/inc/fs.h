@@ -1,11 +1,10 @@
-// See COPYRIGHT for copyright information.
-
-#ifndef JOS_INC_FS_H
-#define JOS_INC_FS_H
+#ifndef KERN_INC_FS_H
+#define KERN_INC_FS_H
 
 #include <inc/types.h>
 #include <inc/mmu.h>
 
+#define SECTSIZE 512
 // File nodes (both in-memory and on-disk)
 
 // Bytes per file system block - same as page size
@@ -26,21 +25,6 @@
 
 #define MAXFILESIZE	((NDIRECT + NINDIRECT) * BLKSIZE)
 
-struct File {
-	char f_name[MAXNAMELEN];	// filename
-	uint32_t f_size;			// file size in bytes
-	uint32_t f_type;		// file type
-
-	// Block pointers.
-	// A block is allocated iff its value is != 0.
-	uint32_t f_direct[NDIRECT];	// direct blocks
-	uint32_t f_indirect;		// indirect block
-
-	// Pad out to 256 bytes; must do arithmetic in case we're compiling
-	// fsformat on a 64-bit machine.
-	uint8_t f_pad[256 - MAXNAMELEN - 8 - 4*NDIRECT - 4];
-} __attribute__((packed));	// required only on some 64-bit machines
-
 // An inode block contains exactly BLKFILES 'struct File's
 #define BLKFILES	(BLKSIZE / sizeof(struct File))
 
@@ -51,13 +35,6 @@ struct File {
 
 // File system super-block (both in-memory and on-disk)
 
-#define FS_MAGIC	0x4A0530AE	// related vaguely to 'J\0S!'
-
-struct Super {
-	uint32_t s_magic;		// Magic number: FS_MAGIC
-	uint32_t s_nblocks;		// Total number of blocks on disk
-	struct File s_root;		// Root directory node
-};
 
 // Definitions for requests from clients to file system
 enum {
@@ -73,44 +50,15 @@ enum {
 	FSREQ_SYNC
 };
 
-union Fsipc {
-	struct Fsreq_open {
-		char req_path[MAXPATHLEN];
-		int req_omode;
-	} open;
-	struct Fsreq_set_size {
-		int req_fileid;
-		off_t req_size;
-	} set_size;
-	struct Fsreq_read {
-		int req_fileid;
-		size_t req_n;
-	} read;
-	struct Fsret_read {
-		char ret_buf[PGSIZE];
-	} readRet;
-	struct Fsreq_write {
-		int req_fileid;
-		size_t req_n;
-		char req_buf[PGSIZE - (sizeof(int) + sizeof(size_t))];
-	} write;
-	struct Fsreq_stat {
-		int req_fileid;
-	} stat;
-	struct Fsret_stat {
-		char ret_name[MAXNAMELEN];
-		off_t ret_size;
-		int ret_isdir;
-	} statRet;
-	struct Fsreq_flush {
-		int req_fileid;
-	} flush;
-	struct Fsreq_remove {
-		char req_path[MAXPATHLEN];
-	} remove;
+bool	ide_probe_disk1(void);
+void	ide_set_disk(int diskno);
+void	ide_set_partition(uint32_t first_sect, uint32_t nsect);
+int	ide_read(uint32_t secno, void *dst, size_t nsecs);
+int	ide_write(uint32_t secno, const void *src, size_t nsecs);
 
-	// Ensure Fsipc is one page
-	char _pad[PGSIZE];
-};
+//int	file_create(const char *path, struct File **f);
+int	fopen(const char *path, int flag);
+int fread(int fd, void *buf, size_t count);
+int	fwrite(int fd, const void *buf, size_t count);
 
-#endif /* !JOS_INC_FS_H */
+#endif
