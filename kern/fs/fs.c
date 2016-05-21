@@ -60,6 +60,7 @@ int fread(int fd, void *buf, size_t len){
 	inode tmp;
 	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
+		printk("%d\n", len);
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
 			ide_read(file[fd].buf, tmp.index[i], 1);
