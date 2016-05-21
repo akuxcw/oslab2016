@@ -30,7 +30,7 @@ uint8_t buf[4096];
 void testfs() {
 //	ide_read(, buf, 1);
 	printk("testfs\n");
-	readseg(buf, 10, OFFSET_IN_DISK);
+	ide_read(buf, 10, OFFSET_IN_DISK);
 	int i;
 	for(i = 0; i < 10; ++ i)
 		printk("%d\n", buf[i]);
