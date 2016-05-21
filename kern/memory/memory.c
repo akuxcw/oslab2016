@@ -60,6 +60,7 @@ void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsi
 //					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
 		fseek(fd, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE, SEEK_SET);
 		fread(fd, (void *)paddr, PTSIZE);
+		printk("**********************\n");
 		if(PTSIZE > (int)fsize) {
 			for(i = (unsigned char *)(paddr + fsize); i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
 			break;
