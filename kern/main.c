@@ -69,7 +69,7 @@ void load() {
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
 //		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz/* + 0xb00000*/, current);
-//		printk("**********************\n");
+		printk("**********************\n");
 
 //		printk("%x\n", pa);
 
