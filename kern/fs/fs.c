@@ -19,8 +19,8 @@ void testfs() {
 		printk("%s\n", root.entry[i].filename);
 	}
 	int fd = fopen("1.txt", READ);	
-	printk("%d\n", fd);
 	fread(fd, buf, 10);
+	ide_read(buf, 10, 4*SECTSIZE);
 	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
 }
 
@@ -41,7 +41,6 @@ int fopen(const char *pathname, int flag) {
 	for(i = 0; i < DIR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
 	assert(!list_empty(&file_head));
 	FCB * fp = list_entry(file_head.next, FCB, list);
-	printk("%d %d\n", i, fp->fd);
 	list_del(&fp->list);
 	fp->flag = flag;
 	fp->offset = 0;
