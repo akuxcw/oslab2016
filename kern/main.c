@@ -68,10 +68,7 @@ void load() {
 	eph = ph + elf->e_phnum;
 	for(; ph < eph; ph ++) {
 		if(ph->p_type != ELF_PROG_LOAD) continue;
-//		pa = (unsigned char *)mm_malloc(ph->p_va, ph->p_memsz/* + 0xb00000*/, current);
-		printk("**********************\n");
-
-//		printk("%x\n", pa);
+//		printk("**********************\n");
 
 		pa = (unsigned char *)seg_alloc(ph->p_va, current);
 #ifdef USE_PAGE
@@ -79,12 +76,7 @@ void load() {
 #else
 		vaddr = ph->p_va;
 #endif
-//		printk("%x %x\n", OFFSET_IN_DISK + ph->p_offset, pa);
-		readprog(ph->p_va, ph->p_filesz, ph->p_memsz, current, pa, /*OFFSET_IN_DISK +*/ph->p_offset);
-
-//		readseg(pa, ph->p_filesz, OFFSET_IN_DISK + ph->p_offset); 
-//		unsigned char *i;
-	//	for (i = pa + ph->p_filesz; i < pa + ph->p_memsz; *i ++ = 0);
+		readprog(ph->p_va, ph->p_filesz, ph->p_memsz, current, pa, ph->p_offset);
 	}
 	
 	printk("Ready to game!\n");
@@ -97,18 +89,11 @@ void load() {
 	tf->eip = elf->e_entry;
 #ifdef USE_PAGE
 	tf->esp = USER_STACK_TOP;
-//	mm_malloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
 	page_alloc(USER_STACK_TOP - USER_STACK_SIZE, USER_STACK_SIZE, current);
-//	printk("!!!!!\n");
 #else
 	tf->esp = 0x2000000 - (int)pa + vaddr;
 #endif
 
-//	int j;
-//	for(j = 0; j < 1024; ++ j) printk("%x\n", current->pdir[j]);
-//	for(j = 0; j < 0x3000000/PGSIZE; ++ j) printk("%x %x\n", (int)&current->ptable[j], current->ptable[j]);
 	ready(current);
-//	lcr3(va2pa(current->pdir));
-
 }
 

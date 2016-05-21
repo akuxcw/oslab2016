@@ -26,8 +26,6 @@ void testfs() {
 	fd = fopen("2.txt", READ);
 	fread(fd, buf, 26);
 	for(i = 0; i < 26; ++ i) printk("%c\n", buf[i]);
-
-
 }
 
 void init_fs() {
@@ -60,7 +58,6 @@ int fread(int fd, void *buf, size_t len){
 	inode tmp;
 	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
-//		printk("%x\n", len);
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
 			ide_read(file[fd].buf, tmp.index[i], 1);
