@@ -3,74 +3,54 @@
 #include <inc/assert.h>
 #include <common.h>
 
-#define IDE_BSY		0x80
-#define IDE_DRDY	0x40
-#define IDE_DF		0x20
-#define IDE_ERR		0x01
-
-static int diskno = 1;
-
-static int
-ide_wait_ready(bool check_error)
-{
-	int r;
-
-	while (((r = inb(0x1F7)) & (IDE_BSY|IDE_DRDY)) != IDE_DRDY)
-		/* do nothing */;
-
-	if (check_error && (r & (IDE_DF|IDE_ERR)) != 0)
-		return -1;
-	return 0;
+static inline
+void waitdisk(void) {
+	while((inb(0x1F7) & 0xC0) != 0x40); 
 }
 
-int
-ide_read(uint32_t secno, void *dst, size_t nsecs)
-{
-//	int r;
+static inline
+void readsect(void *dst, int offset) {
+	waitdisk();
+	outb(0x1F2, 1);
+	outb(0x1F3, offset);
+	outb(0x1F4, offset >> 8);
+	outb(0x1F5, offset >> 16);
+	outb(0x1F6, (offset >> 24) | 0xE0);
+	outb(0x1F7, 0x20);
 
-	assert(nsecs <= 256);
-
-	ide_wait_ready(0);
-
-	outb(0x1F2, nsecs);
-	outb(0x1F3, secno & 0xFF);
-	outb(0x1F4, (secno >> 8) & 0xFF);
-	outb(0x1F5, (secno >> 16) & 0xFF);
-	outb(0x1F6, 0xE0 | ((diskno&1)<<4) | ((secno>>24)&0x0F));
-	outb(0x1F7, 0x20);	// CMD 0x20 means read sector
-	
-	for (; nsecs > 0; nsecs--, dst += SECTSIZE) {
-//		if ((r = ide_wait_ready(1)) < 0)
-//			return r;
-		insl(0x1F0, dst, SECTSIZE/4);
-	}
-		printk("%d\n", nsecs);
-
-	return 0;
+	waitdisk();
+	insl(0x1F0, dst, SECTSIZE/4);
 }
 
-int
-ide_write(uint32_t secno, const void *src, size_t nsecs)
-{
-//	int r;
+static inline
+void writesect(void *dst, int offset) {
+	waitdisk();
+	outb(0x1F2, 1);
+	outb(0x1F3, offset);
+	outb(0x1F4, offset >> 8);
+	outb(0x1F5, offset >> 16);
+	outb(0x1F6, (offset >> 24) | 0xE0);
+	outb(0x1F7, 0x30);
 
-	assert(nsecs <= 256);
+	waitdisk();
+	outsl(0x1F0, dst, SECTSIZE/4);
+}
 
-	ide_wait_ready(0);
+void ide_read(void *pa, int count, int offset) {
+	void *epa;
+	epa = pa + count;
+	pa -= offset % SECTSIZE;
+	offset = (offset / SECTSIZE) + 1;
+	for(; pa < epa; pa += SECTSIZE, offset ++)
+		readsect(pa, offset);
+}
 
-	outb(0x1F2, nsecs);
-	outb(0x1F3, secno & 0xFF);
-	outb(0x1F4, (secno >> 8) & 0xFF);
-	outb(0x1F5, (secno >> 16) & 0xFF);
-	outb(0x1F6, 0xE0 | ((diskno&1)<<4) | ((secno>>24)&0x0F));
-	outb(0x1F7, 0x30);	// CMD 0x30 means write sector
-
-	for (; nsecs > 0; nsecs--, src += SECTSIZE) {
-//		if ((r = ide_wait_ready(1)) < 0)
-//			return r;
-		outsl(0x1F0, src, SECTSIZE/4);
-	}
-
-	return 0;
+void ide_write(void *pa, int count, int offset) {
+	void *epa;
+	epa = pa + count;
+	pa -= offset % SECTSIZE;
+	offset = (offset / SECTSIZE) + 1;
+	for(; pa < epa; pa += SECTSIZE, offset ++)
+		writesect(pa, offset);
 }
 
