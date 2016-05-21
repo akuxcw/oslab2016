@@ -48,10 +48,10 @@ int kern_init() {
 	init_memory();			//init memory organize
 	init_sem();				//init semaphore
 	
+	sti();
 	testfs();
 	while(1);	
 	load();					//load program
-	sti();
 	while(1);
 	return 0;
 }
