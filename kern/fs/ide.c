@@ -43,8 +43,8 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 //		if ((r = ide_wait_ready(1)) < 0)
 //			return r;
 		insl(0x1F0, dst, SECTSIZE/4);
-		printk("%d\n", nsecs);
 	}
+		printk("%d\n", nsecs);
 
 	return 0;
 }
