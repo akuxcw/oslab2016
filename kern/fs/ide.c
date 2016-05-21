@@ -26,7 +26,7 @@ ide_wait_ready(bool check_error)
 int
 ide_read(uint32_t secno, void *dst, size_t nsecs)
 {
-	int r;
+//	int r;
 
 	assert(nsecs <= 256);
 
@@ -40,9 +40,9 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 	outb(0x1F7, 0x20);	// CMD 0x20 means read sector
 	
 	for (; nsecs > 0; nsecs--, dst += SECTSIZE) {
-		if ((r = ide_wait_ready(1)) < 0)
-			return r;
-		printk("%d\n", nsecs);
+//		if ((r = ide_wait_ready(1)) < 0)
+//			return r;
+//		printk("%d\n", nsecs);
 		insl(0x1F0, dst, SECTSIZE/4);
 	}
 
@@ -52,7 +52,7 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 int
 ide_write(uint32_t secno, const void *src, size_t nsecs)
 {
-	int r;
+//	int r;
 
 	assert(nsecs <= 256);
 
@@ -66,8 +66,8 @@ ide_write(uint32_t secno, const void *src, size_t nsecs)
 	outb(0x1F7, 0x30);	// CMD 0x30 means write sector
 
 	for (; nsecs > 0; nsecs--, src += SECTSIZE) {
-		if ((r = ide_wait_ready(1)) < 0)
-			return r;
+//		if ((r = ide_wait_ready(1)) < 0)
+//			return r;
 		outsl(0x1F0, src, SECTSIZE/4);
 	}
 
