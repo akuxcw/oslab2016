@@ -48,7 +48,7 @@ void	ide_write(void *, int, int);
 void init_fs();
 void testfs();
 int	fopen(const char *path, int flag);
-int fread(int fd, void *buf, size_t count);
-int	fwrite(int fd, const void *buf, size_t count);
+int fread(int, void *, size_t);
+int	fwrite(int, void *, size_t);
 
 #endif

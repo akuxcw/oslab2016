@@ -63,8 +63,6 @@ int fread(int fd, void *buf, size_t len){
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
-//			tmp.index[i] * SECTSIZE + (file[fd].offset % SECTSIZE);
-//			printk("%x\n", offset);
 			ide_read(file[fd].buf, tmp.index[i], 1);
 			file[fd].bufno = i;
 		}
@@ -78,28 +76,41 @@ int fread(int fd, void *buf, size_t len){
 	return len;
 }
 
-/*
-int fwrite(int fd, void *buf, int len) {
-	if(!FD[fd].opened) return -1;
-	assert(FD[fd].offset + len < file_table[fd-3].size);
-	ide_write(buf, FD[fd].offset, len);
-	FD[fd].offset += len;
+
+int fwrite(int fd, void *buf, size_t len) {
+	if(file[fd].flag != WRITE) return -1;
+	inode tmp;
+	ide_read(&tmp, file[fd].inode, 1);
+	while(len) {
+		int i = file[fd].offset / SECTSIZE;
+		if(i != file[fd].bufno) {
+			ide_read(file[fd].buf, tmp.index[i], 1);
+			file[fd].bufno = i;
+		}
+		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
+		if(l > len) l = len;
+		memcpy(file[fd].buf + (file[fd].offset % SECTSIZE), buf, l);
+		ide_write(file[fd].buf, tmp.index[i], 1);
+		file[fd].offset += l;
+		buf += l;
+		len -= l;
+	}
 	return len;
+
 }
 
 int fseek(int fd, int offset, int whence) {
 	switch (whence) {
-		case SEEK_SET : FD[fd].offset = offset; break;
-		case SEEK_CUR : FD[fd].offset += offset; break;
-		case SEEK_END : FD[fd].offset = file_table[fd-3].size + offset; break;
+		case SEEK_SET : file[fd].offset = offset; break;
+		case SEEK_CUR : file[fd].offset += offset; break;
+//		case SEEK_END : file[fd].offset = file_table[fd].size + offset; break;
 		default : assert(0);
 	}
-	return FD[fd].offset;
+	return file[fd].offset;
 }
 
 int fclose(int fd) {
-	FD[fd].opened = false;
+	file[fd].flag = CLOSE;
 	return 0;
 }
 
-*/
