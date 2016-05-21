@@ -20,7 +20,7 @@ void testfs() {
 	}
 //	int fd = fopen("1.txt", READ);	
 //	fread(fd, buf, 10);
-	ide_read(buf, 10, 4*SECTSIZE);
+	ide_read(buf, 10, 3*SECTSIZE);
 	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
 }
 
