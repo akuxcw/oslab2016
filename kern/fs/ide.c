@@ -37,6 +37,7 @@ void writesect(void *dst, int offset) {
 }
 
 void ide_read(void *pa, int count, int offset) {
+	offset += OFFSET_IN_DISK;
 	void *epa;
 	epa = pa + count;
 	pa -= offset % SECTSIZE;
@@ -46,6 +47,7 @@ void ide_read(void *pa, int count, int offset) {
 }
 
 void ide_write(void *pa, int count, int offset) {
+	offset += OFFSET_IN_DISK;
 	void *epa;
 	epa = pa + count;
 	pa -= offset % SECTSIZE;
