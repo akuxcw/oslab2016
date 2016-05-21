@@ -37,13 +37,13 @@ void writesect(void *dst, int offset) {
 }
 
 void ide_read(void *buf, int secno, int nsecs) {
-	secno += OFFSET_IN_DISK / SECTSIZE;
+	secno += OFFSET_IN_DISK / SECTSIZE + 1;
 	for(; nsecs ; secno ++, nsecs --, buf += SECTSIZE)
 		readsect(buf, secno);
 }
 
 void ide_write(void *buf, int secno, int nsecs) {
-	secno += OFFSET_IN_DISK / SECTSIZE;
+	secno += OFFSET_IN_DISK / SECTSIZE + 1;
 	for(; nsecs ; secno ++, nsecs --, buf += SECTSIZE)
 		writesect(buf, secno);
 }
