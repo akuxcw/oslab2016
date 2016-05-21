@@ -38,7 +38,8 @@ void init_fs() {
 
 int fopen(const char *pathname, int flag) {
 	int i;
-	for(i = 0; i < NR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
+	for(i = 0; i < DIR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
+	printk("%d\n", i);
 	FCB * fp = list_entry(&file_head.next, FCB, list);
 	list_del(&fp->list);
 	fp->flag = flag;
