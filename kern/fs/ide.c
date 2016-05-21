@@ -31,7 +31,6 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 	assert(nsecs <= 256);
 
 	ide_wait_ready(0);
-	printk("ready\n");
 
 	outb(0x1F2, nsecs);
 	outb(0x1F3, secno & 0xFF);
@@ -39,6 +38,7 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 	outb(0x1F5, (secno >> 16) & 0xFF);
 	outb(0x1F6, 0xE0 | ((diskno&1)<<4) | ((secno>>24)&0x0F));
 	outb(0x1F7, 0x20);	// CMD 0x20 means read sector
+	printk("ready\n");
 
 	for (; nsecs > 0; nsecs--, dst += SECTSIZE) {
 		if ((r = ide_wait_ready(1)) < 0)
