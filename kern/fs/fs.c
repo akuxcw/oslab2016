@@ -63,7 +63,7 @@ int fread(int fd, void *buf, size_t len){
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
 		int offset = tmp.index[i] * SECTSIZE + (file[fd].offset % SECTSIZE);
-	//	printk("%x\n", offset);
+		printk("%x\n", offset);
 		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
 		if(l > len) l = len;
 		ide_read(buf, l, offset);
