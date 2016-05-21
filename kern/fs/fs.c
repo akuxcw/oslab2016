@@ -21,7 +21,7 @@ void testfs() {
 	int fd = fopen("1.txt", READ);	
 	fread(fd, buf, 600);
 //	ide_read(buf, 10, 3*SECTSIZE);
-	for(i = 0; i < 600; ++ i) printk("%c\n", buf[i]);
+	for(i = 0; i < 600; ++ i) printk("%d %c\n", i, buf[i]);
 	fd = fopen("2.txt", READ);	
 	fread(fd, buf, 5);
 //	ide_read(buf, 10, 3*SECTSIZE);
