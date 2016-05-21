@@ -15,9 +15,10 @@ void testfs() {
 //	ide_read(, buf, 1);
 	int i;
 	printk("testfs\n");
-//	for(i = 0; i < DIR_FILES; ++ i) {
-//		printk("%s\n", root.entry[i].filename);
-//	}
+	for(i = 0; i < DIR_FILES; ++ i) {
+		printk("%s\n", root.entry[i].filename);
+	}
+	return;
 	int fd = fopen("1.txt", READ);	
 	fread(fd, buf, 600);
 //	ide_read(buf, 10, 3*SECTSIZE);
@@ -31,8 +32,8 @@ void testfs() {
 }
 
 void init_fs() {
-	ide_read(map, SECTSIZE, 0);
-	ide_read(&root, SECTSIZE, SECTSIZE);
+	ide_read(map, 0, 1);
+	ide_read(&root, 1, 1);
 	int i;
 	list_init(&file_head);
 	for(i = 3; i < NR_FILES; ++ i) {

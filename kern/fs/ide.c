@@ -36,23 +36,15 @@ void writesect(void *dst, int offset) {
 	outsl(0x1F0, dst, SECTSIZE/4);
 }
 
-void ide_read(void *pa, int count, int offset) {
-	offset += OFFSET_IN_DISK;
-	void *epa;
-	epa = pa + count;
-	pa -= offset % SECTSIZE;
-	offset = (offset / SECTSIZE) + 1;
-	for(; pa < epa; pa += SECTSIZE, offset ++)
-		readsect(pa, offset);
+void ide_read(void *buf, int secno, int nsecs) {
+	secno += OFFSET_IN_DISK / SECTSIZE;
+	for(; nsecs ; secno ++, nsecs --, buf += SECTSIZE)
+		readsect(buf, secno);
 }
 
-void ide_write(void *pa, int count, int offset) {
-	offset += OFFSET_IN_DISK;
-	void *epa;
-	epa = pa + count;
-	pa -= offset % SECTSIZE;
-	offset = (offset / SECTSIZE) + 1;
-	for(; pa < epa; pa += SECTSIZE, offset ++)
-		writesect(pa, offset);
+void ide_write(void *buf, int secno, int nsecs) {
+	secno += OFFSET_IN_DISK / SECTSIZE;
+	for(; nsecs ; secno ++, nsecs --, buf += SECTSIZE)
+		writesect(buf, secno);
 }
 
