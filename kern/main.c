@@ -25,11 +25,11 @@ void init_memory();
 void init_sem();
 void load();
 
-uint8_t buf[512];
+uint8_t buf[4096];
 
 void testfs() {
-	printk("testfs\n");
 	ide_read(OFFSET_IN_DISK/SECTSIZE + 1, buf, 1);
+	printk("testfs\n");
 	readseg(buf, 10, OFFSET_IN_DISK);
 	int i;
 	for(i = 0; i < 10; ++ i)
