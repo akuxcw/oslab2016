@@ -29,7 +29,7 @@ uint8_t buf[512];
 
 void testfs() {
 	printk("testfs\n");
-	ide_read(OFFSET_IN_DISK/SECTSIZE, buf, 1);
+	ide_read(1, buf, 1);
 	int i;
 	for(i = 0; i < 10; ++ i)
 		printk("%d\n", buf[i]);
