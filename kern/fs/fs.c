@@ -60,11 +60,16 @@ int fread(int fd, void *buf, size_t len){
 	inode tmp;
 	ide_read(&tmp, SECTSIZE, file[fd].node);
 //	printk("%d\n", tmp.index[0]);
-	int i = file[fd].offset / SECTSIZE;
-	int offset = tmp.index[i] * SECTSIZE + (file[fd].offset % SECTSIZE);
-//	printk("%x\n", offset);
-	ide_read(buf, len, offset);
-	file[fd].offset += len;
+	while(len) {
+		int i = file[fd].offset / SECTSIZE;
+		int offset = tmp.index[i] * SECTSIZE + (file[fd].offset % SECTSIZE);
+	//	printk("%x\n", offset);
+		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
+		if(l > len) l = len;
+		ide_read(buf, l, offset);
+		file[fd].offset += l;
+		len -= l;
+	}
 	return len;
 }
 
