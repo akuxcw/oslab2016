@@ -25,7 +25,7 @@ void init_memory();
 void init_sem();
 void load();
 
-void test_fs() {
+void testfs() {
 //	uint8_t buf[512];
 //	ide_read(OFFSET_IN_DISK/SECTSIZE, buf, 1);
 //	int i;
@@ -45,7 +45,7 @@ int kern_init() {
 	init_memory();			//init memory organize
 	init_sem();				//init semaphore
 	
-//	test_fs();
+	testfs();
 	
 	load();					//load program
 	sti();
