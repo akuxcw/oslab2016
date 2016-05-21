@@ -52,7 +52,8 @@ int kern_init() {
 	init_process();			//init PCB pointer
 	init_memory();			//init memory organize
 	init_sem();				//init semaphore
-	
+	init_fs();
+
 	sti();
 	testfs();
 	while(1);	
