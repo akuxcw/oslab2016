@@ -50,5 +50,6 @@ void testfs();
 int	fopen(const char *path, int flag);
 int fread(int, void *, size_t);
 int	fwrite(int, void *, size_t);
+int fseek(int, int, int);
 
 #endif
