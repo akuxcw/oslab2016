@@ -18,9 +18,9 @@ void testfs() {
 	for(i = 0; i < DIR_FILES; ++ i) {
 		printk("%s\n", root.entry[i].filename);
 	}
-//	int fd = fopen("1.txt", READ);	
-//	fread(fd, buf, 10);
-	ide_read(buf, 10, 3*SECTSIZE);
+	int fd = fopen("1.txt", READ);	
+	fread(fd, buf, 10);
+//	ide_read(buf, 10, 3*SECTSIZE);
 	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
 }
 
@@ -53,8 +53,9 @@ int fread(int fd, void *buf, size_t len){
 	printk("read\n");
 	inode tmp;
 	ide_read(&tmp, SECTSIZE, file[fd].node);
+	printk("%d\n", tmp.index[0]);
 	int i = len / SECTSIZE;
-	int offset = tmp.index[i] + (len % SECTSIZE);
+	int offset = tmp.index[i] * SECTSIZE + (len % SECTSIZE);
 	ide_read(buf, len, offset);
 	file[fd].offset += len;
 	return len;
