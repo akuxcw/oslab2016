@@ -38,8 +38,8 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 	outb(0x1F5, (secno >> 16) & 0xFF);
 	outb(0x1F6, 0xE0 | ((diskno&1)<<4) | ((secno>>24)&0x0F));
 	outb(0x1F7, 0x20);	// CMD 0x20 means read sector
-	printk("ready\n");
-
+	
+	printk("%d\n", nsecs);
 	for (; nsecs > 0; nsecs--, dst += SECTSIZE) {
 		if ((r = ide_wait_ready(1)) < 0)
 			return r;
