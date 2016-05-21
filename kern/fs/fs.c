@@ -6,11 +6,24 @@ enum {SEEK_SET, SEEK_CUR, SEEK_END};
 
 FCB file[NR_FILES]; 
 dir root;
-//bitmap map;
+char map[SECTSIZE];
 ListHead file_head;
 
+uint8_t buf[4096];
+
+void testfs() {
+//	ide_read(, buf, 1);
+	int i;
+	printk("testfs\n");
+	for(i = 0; i < SECTSIZE; ++ i)printk("%d", map[i]);
+	printk("\n");
+	int fd = fopen("1.txt", READ);	
+	fread(fd, buf, 10);
+	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
+}
+
 void init_fs() {
-//	ide_read(&map, SECTSIZE, 0);
+	ide_read(map, SECTSIZE, 0);
 	ide_read(&root, SECTSIZE, SECTSIZE);
 	int i;
 	list_init(&file_head);

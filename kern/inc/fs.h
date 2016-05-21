@@ -43,6 +43,7 @@ void	ide_write(void *, int, int);
 
 //int	file_create(const char *path, struct File **f);
 void init_fs();
+void testfs();
 int	fopen(const char *path, int flag);
 int fread(int fd, void *buf, size_t count);
 int	fwrite(int fd, const void *buf, size_t count);

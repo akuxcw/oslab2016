@@ -25,17 +25,6 @@ void init_memory();
 void init_sem();
 void load();
 
-uint8_t buf[4096];
-
-void testfs() {
-//	ide_read(, buf, 1);
-	printk("testfs\n");
-	int fd = fopen("1.txt", READ);	
-	fread(fd, buf, 10);
-	int i;
-	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
-}
-
 int kern_init() {
 	init_palette();			//set palette address
 	set_kern_page();
