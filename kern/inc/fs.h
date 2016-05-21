@@ -18,7 +18,7 @@ enum {CLOSE, READ, WRITE};
 typedef struct {
 	char filename[24];
 	uint32_t filesz;
-	uint32_t inode_off;
+	uint32_t inode;
 } dirent;
 
 #define DIR_FILES	SECTSIZE / sizeof(dirent)

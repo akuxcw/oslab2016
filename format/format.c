@@ -25,7 +25,7 @@ int main(int argc, char ** args) {
 		fseek(fin, 0, SEEK_SET);
 		strcpy(root.entry[i].filename, args[i]);
 		root.entry[i].filesz = len;
-		root.entry[i].inode_off = tot * 512;
+		root.entry[i].inode_off = tot;
 		inode tmp;
 		memset(&tmp, 0, sizeof tmp);
 		int j;

@@ -51,14 +51,14 @@ int fopen(const char *pathname, int flag) {
 	list_del(&fp->list);
 	fp->flag = flag;
 	fp->offset = 0;
-	fp->inode = root.entry[i].inode_off;
+	fp->inode = root.entry[i].inode;
 	return fp->fd;
 }
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
 	inode tmp;
-	ide_read(&tmp, SECTSIZE, file[fd].inode);
+	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
