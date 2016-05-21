@@ -32,8 +32,8 @@ void testfs() {
 }
 
 void init_fs() {
-	ide_read(map, 1, 1);
-	ide_read(&root, 2, 1);
+	ide_read(map, 0, 1);
+	ide_read(&root, 1, 1);
 	int i;
 	list_init(&file_head);
 	for(i = 3; i < NR_FILES; ++ i) {
