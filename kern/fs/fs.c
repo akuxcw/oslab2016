@@ -9,7 +9,7 @@ dir root;
 char map[SECTSIZE];
 ListHead file_head;
 
-uint8_t buf[4096];
+char buf[4096];
 
 void testfs() {
 //	ide_read(, buf, 1);
@@ -21,7 +21,13 @@ void testfs() {
 	int fd = fopen("1.txt", READ);	
 	fread(fd, buf, 10);
 //	ide_read(buf, 10, 3*SECTSIZE);
-	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
+	for(i = 0; i < 10; ++ i) printk("%c\n", buf[i]);
+	fd = fopen("2.txt", READ);	
+	fread(fd, buf, 5);
+//	ide_read(buf, 10, 3*SECTSIZE);
+	for(i = 0; i < 5; ++ i) printk("%c\n", buf[i]);
+
+
 }
 
 void init_fs() {
