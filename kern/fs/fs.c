@@ -68,6 +68,7 @@ int fread(int fd, void *buf, size_t len){
 		if(l > len) l = len;
 		ide_read(buf, l, offset);
 		file[fd].offset += l;
+		buf += l;
 		len -= l;
 	}
 	return len;
