@@ -38,6 +38,7 @@ void init_fs() {
 	list_init(&file_head);
 	for(i = 3; i < NR_FILES; ++ i) {
 		file[i].fd = i;
+		file[i].bufno = -1;
 		list_add_before(&file_head, &file[i].list);
 	}
 }
