@@ -38,10 +38,10 @@ int kern_init() {
 	init_sem();				//init semaphore
 	init_fs();
 
-	sti();
 	testfs();
 	while(1);	
 	load();					//load program
+	sti();
 	while(1);
 	return 0;
 }
