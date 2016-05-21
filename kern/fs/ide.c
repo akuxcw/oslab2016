@@ -31,6 +31,7 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 	assert(nsecs <= 256);
 
 	ide_wait_ready(0);
+	printk("ready\n");
 
 	outb(0x1F2, nsecs);
 	outb(0x1F3, secno & 0xFF);
