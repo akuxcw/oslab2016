@@ -38,8 +38,8 @@ int kern_init() {
 	init_sem();				//init semaphore
 	init_fs();
 
-	testfs();
-	while(1);	
+//	testfs();
+//	while(1);	
 	load();					//load program
 	sti();
 	while(1);
@@ -47,6 +47,7 @@ int kern_init() {
 }
 
 void load() {
+	int fd = fopen("game", READ);
 	PCB *current = new_process();
 	set_user_page(current);
 	TrapFrame *tf = (TrapFrame *)current->kstack;
@@ -58,8 +59,9 @@ void load() {
 	uint32_t vaddr;
 #endif
 	elf = (struct Elf*)(0x0019000);
-
-	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
+	
+	fread(fd, (void *)elf, 4096);
+//	readseg((unsigned char*)elf, 4096, OFFSET_IN_DISK);
 	printk("Welcome to my OS!\n");
 
 	ph = (struct Proghdr*)((uint8_t *)elf + elf->e_phoff);

@@ -2,8 +2,6 @@
 #include <inc/string.h>
 #include <common.h>
 
-enum {SEEK_SET, SEEK_CUR, SEEK_END};
-
 FCB file[NR_FILES]; 
 dir root;
 char map[SECTSIZE];
@@ -112,6 +110,8 @@ int fseek(int fd, int offset, int whence) {
 
 int fclose(int fd) {
 	file[fd].flag = CLOSE;
+	file[fd].bufno = -1;
+	list_add_before(&file_head, &file[fd].list);
 	return 0;
 }
 

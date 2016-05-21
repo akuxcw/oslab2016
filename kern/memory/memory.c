@@ -2,7 +2,7 @@
 #include <inc/memory.h>
 #include <inc/mmu.h>
 #include <inc/process.h>
-#include <inc/disk.h>
+#include <inc/fs.h>
 
 extern SegDesc gdt[NR_SEGMENTS];
 
@@ -47,6 +47,7 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 //typedef struct Proghdr Proghdr;
 void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsigned char * pa, uint32_t offset) {
 //	offset -= (vaddr & ((1 << 22) - 1));
+	int fd = fopen("game", READ);
 	fsize += vaddr & (PTSIZE - 1);
 	msize += vaddr & (PTSIZE - 1);
 	vaddr &= ~(PTSIZE - 1);
@@ -55,8 +56,10 @@ void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsi
 	for(pdir_idx = vaddr / PTSIZE; pdir_idx < (vaddr + msize - 1) / PTSIZE + 1; ++ pdir_idx) {
 		paddr = PTE_ADDR(*(int *)PTE_ADDR(current->pdir[pdir_idx]));
 //		printk("%x %x %x\n", current->pdir[pdir_idx], paddr, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
-		readseg((unsigned char *)(paddr), 
-					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
+//		readseg((unsigned char *)(paddr), 
+//					PTSIZE, offset + (pdir_idx - vaddr / PTSIZE) * PTSIZE);
+		fseek(fd, (pdir_idx - vaddr / PTSIZE) * PTSIZE, SEEK_SET);
+		fread(fd, (void *)paddr, PTSIZE);
 		if(PTSIZE > (int)fsize) {
 			for(i = (unsigned char *)(paddr + fsize); i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
 			break;
@@ -68,7 +71,7 @@ void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsi
 		paddr = (*(int *)(current->pdir[pdir_idx] & (~0x7))) & (~0x7);
 		for(i = (unsigned char *)paddr; i < (unsigned char *)(paddr + PTSIZE); *i ++ = 0);
 	}
-
+	fclose(fd);
 }
 /*
 uint32_t mm_malloc(uint32_t vaddr, uint32_t size, PCB* current) {

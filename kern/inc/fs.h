@@ -13,7 +13,9 @@
 #define FTYPE_REG	0	// Regular file
 #define FTYPE_DIR	1	// Directory
 #define NR_FILES	64
+
 enum {CLOSE, READ, WRITE};
+enum {SEEK_SET, SEEK_CUR, SEEK_END};
 
 typedef struct {
 	char filename[24];
@@ -51,5 +53,5 @@ int	fopen(const char *path, int flag);
 int fread(int, void *, size_t);
 int	fwrite(int, void *, size_t);
 int fseek(int, int, int);
-
+int fclose(int);
 #endif
