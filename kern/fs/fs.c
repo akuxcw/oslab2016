@@ -24,10 +24,10 @@ void testfs() {
 	for(i = 0; i < 10; ++ i) printk("%d %c\n", i, buf[i]);
 	fd = fopen("2.txt", WRITE);
 	fseek(fd, 5, SEEK_SET);
-	fwrite(fd, buf, 10);
+	fwrite(fd, buf, 5);
 	fd = fopen("2.txt", READ);
-	fread(fd, buf, 10);
-	for(i = 0; i < 10; ++ i) printk("%c\n", buf[i]);
+	fread(fd, buf, 26);
+	for(i = 0; i < 26; ++ i) printk("%c\n", buf[i]);
 
 
 }
