@@ -42,6 +42,7 @@ int kern_init() {
 */	
 //	printk("%x\n", PTE_D);
 	load();					//load program
+//	ide_read()
 	sti();
 	while(1);
 	return 0;
