@@ -51,6 +51,7 @@ int fopen(const char *pathname, int flag) {
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
+	printk("read\n");
 	inode tmp;
 	ide_read(&tmp, SECTSIZE, file[fd].node);
 	int i = len / SECTSIZE;
