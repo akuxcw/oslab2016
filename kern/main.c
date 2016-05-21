@@ -34,6 +34,11 @@ void testfs() {
 	int i;
 	for(i = 0; i < 10; ++ i)
 		printk("%d\n", buf[i]);
+	ide_write(buf + 3, 3, OFFSET_IN_DISK);
+	ide_read(buf, 10, OFFSET_IN_DISK);
+	for(i = 0; i < 10; ++ i)
+		printk("%d\n", buf[i]);
+
 }
 
 int kern_init() {
