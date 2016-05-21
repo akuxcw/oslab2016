@@ -40,9 +40,9 @@ ide_read(uint32_t secno, void *dst, size_t nsecs)
 	outb(0x1F7, 0x20);	// CMD 0x20 means read sector
 	
 	for (; nsecs > 0; nsecs--, dst += SECTSIZE) {
-		printk("%d\n", nsecs);
 		if ((r = ide_wait_ready(1)) < 0)
 			return r;
+		printk("%d\n", nsecs);
 		insl(0x1F0, dst, SECTSIZE/4);
 	}
 
