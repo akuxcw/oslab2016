@@ -51,23 +51,25 @@ int fopen(const char *pathname, int flag) {
 	list_del(&fp->list);
 	fp->flag = flag;
 	fp->offset = 0;
-	fp->node = root.entry[i].inode_off;
+	fp->inode = root.entry[i].inode_off;
 	return fp->fd;
 }
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
-//	printk("read\n");
 	inode tmp;
-	ide_read(&tmp, SECTSIZE, file[fd].node);
-//	printk("%d\n", tmp.index[0]);
+	ide_read(&tmp, SECTSIZE, file[fd].inode);
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
-		int offset = tmp.index[i] * SECTSIZE + (file[fd].offset % SECTSIZE);
-//		printk("%x\n", offset);
+		if(i != file[fd].bufno) {
+//			tmp.index[i] * SECTSIZE + (file[fd].offset % SECTSIZE);
+//			printk("%x\n", offset);
+			ide_read(file[fd].buf, tmp.index[i], 1);
+			file[fd].bufno = i;
+		}
 		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
 		if(l > len) l = len;
-		ide_read(buf, l, offset);
+		memcpy(buf, file[fd].buf, l);
 		file[fd].offset += l;
 		buf += l;
 		len -= l;
