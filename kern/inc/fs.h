@@ -13,7 +13,6 @@
 #define FTYPE_REG	0	// Regular file
 #define FTYPE_DIR	1	// Directory
 #define NR_FILES	512
-
 enum {CLOSE, READ, WRITE};
 
 typedef struct {
@@ -22,8 +21,10 @@ typedef struct {
 	uint32_t inode_off;
 } dirent;
 
+#define DIR_FILES	SECTSIZE / sizeof(dirent)
+
 typedef struct {
-	dirent entry[SECTSIZE / sizeof(dirent)];
+	dirent entry[DIR_FILES];
 } dir;
 
 typedef struct {
