@@ -29,9 +29,9 @@ uint8_t buf[512];
 
 void testfs() {
 	ide_read(OFFSET_IN_DISK/SECTSIZE, buf, 1);
-//	int i;
-//	for(i = 0; i < 10; ++ i)
-//		printk("%d\n", buf[i]);
+	int i;
+	for(i = 0; i < 10; ++ i)
+		printk("%d\n", buf[i]);
 }
 
 int kern_init() {
@@ -47,7 +47,7 @@ int kern_init() {
 	init_sem();				//init semaphore
 	
 	testfs();
-	
+	while(1);	
 	load();					//load program
 	sti();
 	while(1);
