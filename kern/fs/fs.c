@@ -18,8 +18,8 @@ void testfs() {
 	for(i = 0; i < DIR_FILES; ++ i) {
 		printk("%s\n", root.entry[i].filename);
 	}
-	int fd = fopen("1.txt", READ);	
-	fread(fd, buf, 10);
+//	int fd = fopen("1.txt", READ);	
+//	fread(fd, buf, 10);
 	ide_read(buf, 10, 4*SECTSIZE);
 	for(i = 0; i < 10; ++ i) printk("%d\n", buf[i]);
 }
