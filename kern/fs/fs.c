@@ -16,7 +16,7 @@ void testfs() {
 	int i;
 	printk("testfs\n");
 	for(i = 0; i < DIR_FILES; ++ i) {
-		printk("%s", root.entry[i].filename);
+		printk("%s\n", root.entry[i].filename);
 	}
 	int fd = fopen("1.txt", READ);	
 	fread(fd, buf, 10);
