@@ -5,7 +5,7 @@ OBJ_GAME_DIR	:= $(OBJ_DIR)/$(GAME_DIR)
 GAME_C := game/pc.c
 GAME_O := $(GAME_C:%.c=$(OBJ_DIR)/%.o)
 
-GAME := $(OBJ_GAME_DIR)/game
+GAME := data/game
 
 $(OBJ_GAME_DIR)/%.o : $(GAME_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/$(dir $<)

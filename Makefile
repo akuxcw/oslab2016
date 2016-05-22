@@ -32,7 +32,7 @@ include config/Makefile.git
 include boot/Makefile.part
 include kern/Makefile.part
 include game/Makefile.part
-#include lib/Makefile.part
+include format/Makefile.part
 
 os.img: bootblock kern game
 #	cat $(BOOT) $(KERN) $(GAME) > obj/os.img
@@ -54,7 +54,7 @@ QEMUOPTS += -m 512
 .PHONY: clean debug gdb display submit commit log
 
 display:
-	@echo $(GDBPORT)
+	@echo $(FORMAT_C)
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
@@ -72,7 +72,7 @@ debug: $(IMAGES) pre-qemu
 	$(QEMU) -s $(QEMUOPTS) -S 
 
 clean: 
-	rm -rf obj/* qemu.log
+	rm -rf obj/* data/game qemu.log
 
 submit: clean
 	cd .. && tar cvj $(shell pwd | grep -o '[^/]*$$') > $(STU_ID).tar.bz2
