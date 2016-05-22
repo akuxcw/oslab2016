@@ -45,7 +45,7 @@ uint32_t page_alloc(uint32_t vaddr, uint32_t size, PCB* current) {
 }
 
 void readprog(uint32_t vaddr, uint32_t fsize, uint32_t msize, PCB *current, unsigned char * pa, uint32_t offset) {
-	int fd = fopen("game1", READ);
+	int fd = fopen("game", READ);
 	fsize += vaddr & (PTSIZE - 1);
 	msize += vaddr & (PTSIZE - 1);
 	vaddr &= ~(PTSIZE - 1);

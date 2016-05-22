@@ -47,7 +47,7 @@ int kern_init() {
 }
 
 void load() {
-	int fd = fopen("game1", READ);
+	int fd = fopen("game", READ);
 	PCB *current = new_process();
 	set_user_page(current);
 	TrapFrame *tf = (TrapFrame *)current->kstack;
