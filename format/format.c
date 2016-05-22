@@ -10,7 +10,7 @@ int main(int argc, char ** args) {
 	int i, tot = 2;
 	char buf[512];
 //	printf("%d\n", sizeof map);
-	fout = fopen("disk", "wb");
+	fout = fopen("obj/disk", "wb");
 //	buf[0] = 'a';
 //	buf[1] = 'b';
 //	fseek(fout, 10, SEEK_SET);
@@ -23,7 +23,7 @@ int main(int argc, char ** args) {
 		fseek(fin, 0, SEEK_END);
 		int len = ftell(fin);
 		fseek(fin, 0, SEEK_SET);
-		strcpy(root.entry[i].filename, args[i]);
+		strcpy(root.entry[i].filename, &args[i][5]);
 		root.entry[i].filesz = len;
 		root.entry[i].inode_off = tot;
 		inode tmp;

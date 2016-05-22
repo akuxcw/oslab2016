@@ -4,13 +4,19 @@ OBJ_FORMAT_DIR	:= $(OBJ_DIR)/$(FORMAT_DIR)
 FORMAT_C := $(shell find $(FORMAT_DIR) -name "*.c")
 FORMAT_O := $(FORMAT_C:%.c=$(OBJ_DIR)/%.o)
 
+DATA := $(shell ls data)
+DATA := $(DATA:%=data/%)
+
 FORMAT := $(OBJ_FORMAT_DIR)/format
 
-formt: $(FORMAT_C)
+$(FORMAT): $(FORMAT_C)
 	@mkdir -p $(OBJ_FORMAT_DIR)
 #	@gcc format/format.c -o format/format
 	@$(CC) $(FORMAT_C) -o $(FORMAT)
 	@echo +CC $< -o $@	
+
+disk: $(FORMAT)
+	./$(FORMAT) $(DATA)
 
 clean_format:
 	rm $(FORMAT)

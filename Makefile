@@ -37,7 +37,7 @@ include format/Makefile.part
 os.img: bootblock kern game
 #	cat $(BOOT) $(KERN) $(GAME) > obj/os.img
 #	./format/format 1.txt
-	cat $(BOOT) $(KERN) disk > obj/os.img
+	cat $(BOOT) $(KERN) obj/disk > obj/os.img
 	$(call git_commit, "compile", $(GITFLAGS))
 
 IMAGES	:= $(OBJ_DIR)/os.img
@@ -54,7 +54,7 @@ QEMUOPTS += -m 512
 .PHONY: clean debug gdb display submit commit log
 
 display:
-	@echo $(FORMAT_C)
+	@echo $(DATA)
 
 .gdbinit: .gdbinit.tmpl
 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
