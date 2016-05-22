@@ -9,15 +9,15 @@ if($n > 510){
   exit 1;
 }
 
-print STDERR "OK: boot block is $n bytes (max 510)\n";
+#print STDERR "OK: boot block is $n bytes (max 510)\n";
 
 $buf .= "\0" x (510-$n);
 $buf .= "\x55\xAA";
 
 open(SIG, ">$ARGV[0]") || die "open >$ARGV[0]: $!";
 print SIG $buf;
-print STDERR "*********************************************\n";
-print STDERR "*********************************************\n";
-print STDERR "*********************************************\n";
+#print STDERR "*********************************************\n";
+#print STDERR "*********************************************\n";
+#print STDERR "*********************************************\n";
 
 close SIG;

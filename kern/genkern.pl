@@ -12,15 +12,15 @@ if($n > $size){
   exit 1;
 }
 
-print STDERR "Kernel binary file is $n bytes (max $size)\n";
+#print STDERR "Kernel binary file is $n bytes (max $size)\n";
 
 $m = $n % (512);
 $s = 512 - $m;
 $p = $size - $n;
 
-print STDERR "Kernel binary file size n = $n\n";
-print STDERR "Kernel binary file sectors num m = $m\n";
-print STDERR "Kernel binary file added $p bytes s = $s\n";
+#print STDERR "Kernel binary file size n = $n\n";
+#print STDERR "Kernel binary file sectors num m = $m\n";
+#print STDERR "Kernel binary file added $p bytes s = $s\n";
 
 $buf .= "\0" x $p;
 
@@ -39,8 +39,8 @@ if($n > $size){
   exit 1;
 }
 
-print STDERR "Kernel binary file is $n bytes (max $size)\n";
-print STDERR "*********************************************\n";
-print STDERR "*********************************************\n";
-print STDERR "*********************************************\n";
+#print STDERR "Kernel binary file is $n bytes (max $size)\n";
+#print STDERR "*********************************************\n";
+#print STDERR "*********************************************\n";
+#print STDERR "*********************************************\n";
 close SIG;
