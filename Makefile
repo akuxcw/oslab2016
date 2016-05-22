@@ -34,7 +34,7 @@ include kern/Makefile.part
 include game/Makefile.part
 include format/Makefile.part
 
-os.img: bootblock kern game
+os.img: bootblock kern game disk
 #	cat $(BOOT) $(KERN) $(GAME) > obj/os.img
 #	./format/format 1.txt
 	cat $(BOOT) $(KERN) obj/disk > obj/os.img
