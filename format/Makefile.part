@@ -16,7 +16,8 @@ $(FORMAT): $(FORMAT_C)
 	@echo +CC $< -o $@	
 
 disk: $(FORMAT)
-	./$(FORMAT) $(DATA)
+	@./$(FORMAT) $(DATA)
+	@echo +DISK $(DATA)
 
 clean_format:
 	rm $(FORMAT)
