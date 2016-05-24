@@ -13,13 +13,13 @@ enum {KEY_STATE_EMPTY, KEY_STATE_WAIT_RELEASE, KEY_STATE_RELEASE, KEY_STATE_PRES
 void add_irq_handle(int, void (*)(void));
 void mm_brk(uint32_t);
 void serial_printc(char);
-
-int fs_open(const char *pathname, int flags);
-int fs_read(int fd, void *buf, int len);
-int fs_write(int fd, void *buf, int len);
-int fs_lseek(int fd, int offset, int whence);
-int fs_close(int fd);
-
+*/
+int fopen(const char *name, int flags);
+int fread(int fd, void *buf, int len);
+int fwrite(int fd, void *buf, int len);
+int fseek(int fd, int offset, int whence);
+int fclose(int fd);
+/*
 static void sys_brk(TrapFrame *tf) {
 #ifdef IA32_PAGE
 	mm_brk(tf->ebx);
@@ -61,41 +61,32 @@ void thread_create(int *, int, int);
 
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
-		/* The ``add_irq_handle'' system call is artificial. We use it to 
-		 * let user program register its interrupt handlers. But this is 
-		 * very dangerous in a real operating system. Therefore such a 
-		 * system call never exists in GNU/Linux.
-		 */
-/*		case 0: 
-			cli();
-			add_irq_handle(tf->ebx, (void*)tf->ecx);
-			sti();
-			break;
-
-		case SYS_brk: panic("@@@"); sys_brk(tf); break;
-*/
 		case SYS_write: sys_write(tf); break;
 		case SYS_palette: sys_palette(tf); break;
 		case SYS_kbd: sys_kbd(tf); break;
 		case SYS_time: tf->eax = Get_time(); break;
 		case SYS_sleep: /*cli();*/ sleep(current, tf->ebx); /*sti();*/ break;
+		
 		case SYS_fork: /*cli();*/ tf->eax = fork(); /*sti();*/break;
 		case SYS_exit: exit(tf->ebx); break;
+
 		case SYS_thread_create: thread_create((int *)tf->ebx, tf->ecx, tf->edx); break;
 //		case SYS_thread_join: thread_join(tf->ebx, tf->ecx); break;
+
 		case SYS_sem_open: tf->eax = sem_open((char *)tf->ebx, tf->ecx, (bool)tf->edx); break;
 		case SYS_sem_close: sem_close(tf->ebx); break;
 		case SYS_sem_wait: sem_wait(tf->ebx); break;
 		case SYS_sem_post: sem_post(tf->ebx); break;
-/*
-		case SYS_open : 
-			tf->eax = fs_open((char *)tf->ebx, tf->ecx); break;
-		case SYS_read : 
-//			Log("%x %x %x %x %x\n", tf->ebx, tf->ecx, tf->edx, tf->edi, tf->esi);
-			tf->eax = fs_read(tf->ebx, (void *)tf->ecx, tf->edx); break;
-		case SYS_lseek : tf->eax = fs_lseek(tf->ebx, tf->ecx, tf->edx); break;
-		case SYS_close : tf->eax = fs_close(tf->ebx); break;
-*/
+
+		case SYS_fopen : 
+			tf->eax = fopen((char *)tf->ebx, tf->ecx); break;
+		case SYS_fread : 
+			tf->eax = fread(tf->ebx, (void *)tf->ecx, tf->edx); break;
+		case SYS_fwrite : 
+			tf->eax = fwrite(tf->ebx, (void *)tf->ecx, tf->edx); break;
+		case SYS_fseek : tf->eax = fseek(tf->ebx, tf->ecx, tf->edx); break;
+		case SYS_fclose : tf->eax = fclose(tf->ebx); break;
+
 
 		default: panic("Unhandled system call: id = %d\n", tf->eax);
 	}

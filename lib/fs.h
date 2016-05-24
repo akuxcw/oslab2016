@@ -23,4 +23,9 @@ void fseek(int fd, int offset, int whence) {
 	syscall(SYS_fseek, fd, offset, whence);
 }
 
+static inline
+void fclose(int fd) {
+	return syscall(SYS_fclose, fd);
+}
+
 #endif
