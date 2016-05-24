@@ -3,6 +3,9 @@
 
 #include <syscall.h>
 
+enum {CLOSE, READ, WRITE};
+enum {SEEK_SET, SEEK_CUR, SEEK_END};
+
 static inline
 int fopen(const char * name, int flag) {
 	return syscall(SYS_fopen, name, flag);
@@ -25,7 +28,7 @@ void fseek(int fd, int offset, int whence) {
 
 static inline
 void fclose(int fd) {
-	return syscall(SYS_fclose, fd);
+	syscall(SYS_fclose, fd);
 }
 
 #endif
