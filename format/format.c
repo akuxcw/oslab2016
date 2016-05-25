@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <unistd.h>
 
 dir d[512];
 int c[512];
@@ -15,6 +18,58 @@ char buf[512];
 int min(int a, int b) {
 	return a < b ? a : b;
 }
+
+void create_file(char *pathname);
+//void create_dir();	
+int readFileList(char *basePath) {
+	DIR *dir;
+	struct dirent *ptr;
+	char base[1000];
+
+	if ((dir=opendir(basePath)) == NULL) {
+		return 0;
+	}
+
+	while ((ptr=readdir(dir)) != NULL) {
+		if(strcmp(ptr->d_name,".")==0 || strcmp(ptr->d_name,"..")==0)    //current dir OR parrent dir
+			continue;
+		memset(base,'\0',sizeof(base));
+		strcpy(base,basePath);
+		strcat(base,"/");
+		strcat(base,ptr->d_name);
+		if(ptr->d_type == 8) {   //file
+			create_file(base);
+//			printf("%s/%s  :  %lld %ld\n",basePath, ptr->d_name, size, ptr->d_ino);
+		}
+		else if(ptr->d_type == 4) {    //dir
+			readFileList(base);
+		}
+	}
+	closedir(dir);
+	return 1;
+}
+
+int main(int argc, char ** args) {
+	int i;
+	memset(buf, 0, sizeof buf);
+	size = atoi(args[1]);
+	fout = fopen("obj/disk", "wb");
+	for(i = 0; i < 1024 * 1024 * size / 512; ++ i) fwrite(buf, 1, 512, fout);
+/*
+	for(i = 2; i < argc; ++ i) {
+		create_file(args[i]);
+	}
+*/
+	readFileList(args[2]);
+	for(i = 0; i < tot; ++ i) {
+		map[i / 8] |= 1 << (i & 0x7);
+	}
+	fseek(fout, 0, SEEK_SET);
+	fwrite(map, 1, 512, fout);
+	fwrite(&d[0], 1, 512, fout);
+	return 0;
+}
+
 void create_file(char *pathname) {
 	int j, nr_block;
 	FILE *fin;
@@ -89,21 +144,5 @@ void create_file(char *pathname) {
 		assert(0);
 	}
 }
-int main(int argc, char ** args) {
-	int i;
-	memset(buf, 0, sizeof buf);
-	size = atoi(args[1]);
-	fout = fopen("obj/disk", "wb");
-	for(i = 0; i < 1024 * 1024 * size / 512; ++ i) fwrite(buf, 1, 512, fout);
-	for(i = 2; i < argc; ++ i) {
-		create_file(args[i]);
-	}
 
-	for(i = 0; i < tot; ++ i) {
-		map[i / 8] |= 1 << (i & 0x7);
-	}
-	fseek(fout, 0, SEEK_SET);
-	fwrite(map, 1, 512, fout);
-	fwrite(&d[0], 1, 512, fout);
-	return 0;
-}
+
