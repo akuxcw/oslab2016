@@ -19,7 +19,7 @@ enum {
 	FSREQ_SYNC
 };
 
-enum {T_DIR, T_FILE};
+enum {F_DIR, F_FILE};
 
 typedef struct {
 	char filename[24];

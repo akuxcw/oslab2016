@@ -114,7 +114,8 @@ void create_file(char *pathname, int dir_id) {
 
 	inode tmp;
 	memset(&tmp, 0, sizeof tmp);
-	tmp.size = len; 
+	tmp.size = len;
+	tmp.type = F_FILE;
 
 	for(j = 0; j < min(nr_block, 12); j ++) {
 		tmp.index[j] = tot + j + 1;
