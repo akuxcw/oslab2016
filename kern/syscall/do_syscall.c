@@ -14,7 +14,7 @@ void add_irq_handle(int, void (*)(void));
 void mm_brk(uint32_t);
 void serial_printc(char);
 */
-int fopen(const char *name, int flags);
+int fopen(char *name, int flags);
 int fread(int fd, void *buf, int len);
 int fwrite(int fd, void *buf, int len);
 int fseek(int fd, int offset, int whence);

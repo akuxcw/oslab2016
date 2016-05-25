@@ -27,7 +27,7 @@ typedef struct {
 
 typedef struct {
 	dirent entry[DIR_FILES];
-} dir;
+} dir_t;
 
 typedef struct {
 //	char filename[24];
@@ -52,7 +52,7 @@ void	ide_write(void *, int, int);
 //int	file_create(const char *path, struct File **f);
 void init_fs();
 void testfs();
-int	fopen(const char *path, int flag);
+int	fopen(char *path, int flag);
 int fread(int, void *, size_t);
 int	fwrite(int, void *, size_t);
 int fseek(int, int, int);

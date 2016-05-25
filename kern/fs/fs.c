@@ -3,7 +3,7 @@
 #include <common.h>
 
 FCB file[NR_FILES]; 
-dir root;
+dir_t root;
 char map[SECTSIZE];
 ListHead file_head;
 
@@ -43,17 +43,34 @@ void init_fs() {
 	}
 }
 
-
-int fopen(const char *pathname, int flag) {
+int find_file(dir_t *dir, char *pathname) {
+	while(pathname[0] == '/') pathname ++;
+	char *p = pathname;
+	while(*p != '\0' && *p != '/') p ++;
 	int i;
-	for(i = 0; i < DIR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
-	printk("%d %s\n", i, pathname);
+	for(i = 0; i < DIR_FILES; ++ i) 
+		if(strncmp(pathname, dir->entry[i].filename, p - pathname) == 0) break;
+	if(i >= DIR_FILES) return -1;
+	if(*p == '\0') return dir->entry[i].inode; 
+	else {
+		dir_t newdir;
+		ide_read(&newdir, dir->entry[i].inode, 1);
+		return find_file(&newdir, p + 1);
+	}
+}
+
+int fopen(char *pathname, int flag) {
+	int i = find_file(&root, pathname);
+	if(i == -1) panic("No such file : %s\n", pathname);
+//	for(i = 0; i < DIR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
+//	printk("%d %s\n", i, pathname);
+	
 	assert(!list_empty(&file_head));
 	FCB * fp = list_entry(file_head.next, FCB, list);
 	list_del(&fp->list);
 	fp->flag = flag;
 	fp->offset = 0;
-	ide_read(&fp->ino, root.entry[i].inode, 1);
+	ide_read(&fp->ino, i, 1);
 //	fp->inode = root.entry[i].inode;
 	return fp->fd;
 }
