@@ -15,8 +15,10 @@ $(FORMAT): $(FORMAT_C)
 	@$(CC) $(FORMAT_C) -o $(FORMAT)
 	@echo +CC $< -o $@	
 
+DISK_SIZE := 128
+
 disk: $(FORMAT)
-	@./$(FORMAT) $(DATA)
+	@./$(FORMAT) $(DISK_SIZE) $(DATA)
 	@echo +DISK $(DATA)
 
 clean_format:
