@@ -19,9 +19,10 @@ int min(int a, int b) {
 	return a < b ? a : b;
 }
 
-void create_file(char *pathname);
-//void create_dir();	
-int readFileList(char *basePath) {
+void create_file(char *, int);
+void create_dir(int);
+
+int readFileList(char *basePath, int dir_id) {
 	DIR *dir;
 	struct dirent *ptr;
 	char base[1000];
@@ -38,15 +39,17 @@ int readFileList(char *basePath) {
 		strcat(base,"/");
 		strcat(base,ptr->d_name);
 		if(ptr->d_type == 8) {   //file
-			create_file(base);
+			create_file(base, dir_id);
 //			printf("%s/%s  :  %lld %ld\n",basePath, ptr->d_name, size, ptr->d_ino);
 		}
 		else if(ptr->d_type == 4) {    //dir
-			readFileList(base);
+			dir_tot ++;
+			int tmp = readFileList(base, dir_tot);
+			create_dir(tmp);
 		}
 	}
 	closedir(dir);
-	return 1;
+	return dir_id;
 }
 
 int main(int argc, char ** args) {
@@ -60,7 +63,7 @@ int main(int argc, char ** args) {
 		create_file(args[i]);
 	}
 */
-	readFileList(args[2]);
+	readFileList(args[2], 0);
 	for(i = 0; i < tot; ++ i) {
 		map[i / 8] |= 1 << (i & 0x7);
 	}
@@ -70,7 +73,13 @@ int main(int argc, char ** args) {
 	return 0;
 }
 
-void create_file(char *pathname) {
+void create_dir(int id) {
+	fseek(fout, tot * 512, SEEK_SET);
+	fwrite(&d[id], 1, 512, fout);
+	tot ++;
+}
+
+void create_file(char *pathname, int dir_id) {
 	int j, nr_block;
 	FILE *fin;
 	memset(index0, 0, sizeof index0);
@@ -91,10 +100,10 @@ void create_file(char *pathname) {
 		index0[j] = tot + j + 1;
 	}
 
-	strcpy(d[dir_tot].entry[c[dir_tot]].filename, &pathname[5]);
-	d[dir_tot].entry[c[dir_tot]].filesz = len;
-	d[dir_tot].entry[c[dir_tot]].inode_off = tot;
-	c[dir_tot] ++;
+	strcpy(d[dir_id].entry[c[dir_id]].filename, &pathname[5]);
+	d[dir_id].entry[c[dir_id]].filesz = len;
+	d[dir_id].entry[c[dir_id]].inode_off = tot;
+	c[dir_id] ++;
 
 	inode tmp;
 	memset(&tmp, 0, sizeof tmp);
