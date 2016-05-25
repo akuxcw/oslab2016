@@ -38,6 +38,7 @@ int main(int argc, char ** args) {
 			return 0;
 		}
 		nr_block = (len - 1) / SECTSIZE + 1;
+		printf("%d\n", nr_block);
 		for(j = 0; j < nr_block; ++ j) {
 			index0[j] = tot + j + 1;
 		}

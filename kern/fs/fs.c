@@ -69,7 +69,7 @@ int find_block(int fd) {
 		} else {
 			ide_read(index2, file[fd].ino.index[13], 1);
 			ide_read(index1, index2[(i - 12 - 128) / 128], 1);
-			return index1[i - 12 - 128];
+			return index1[(i - 12 - 128) % 128];
 		}
 	}
 	return 0;
@@ -77,8 +77,6 @@ int find_block(int fd) {
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
-//	inode tmp;
-//	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
 		int i = find_block(fd);
 		if(i != file[fd].bufno) {
@@ -98,8 +96,6 @@ int fread(int fd, void *buf, size_t len){
 
 int fwrite(int fd, void *buf, size_t len) {
 	if(file[fd].flag != WRITE) return -1;
-//	inode tmp;
-//	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
 		int i = find_block(fd);
 		if(i != file[fd].bufno) {
