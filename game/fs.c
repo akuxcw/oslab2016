@@ -5,7 +5,7 @@ char buf[1024];
 char a[] = "Hello FS.";
 int game_main() {
 	printf("Test file system.\n");
-	int fin = fopen("a/a1/a1.txt", READ);
+	int fin = fopen("a/a1/1.txt", READ);
 	int fout = fopen("a/a1/a1.txt", WRITE);
 	fseek(fout, 10, SEEK_SET);
 	fwrite(fout, a, 9);
