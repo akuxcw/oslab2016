@@ -3,11 +3,8 @@
 
 #define SECTSIZE 512
 
-#define MAXNAMELEN	128
+#define MAXFILESIZE	512 * (12 + 128 + 128 * 128 + 128 * 128 * 128)
 
-// File types
-#define FTYPE_REG	0	// Regular file
-#define FTYPE_DIR	1	// Directory
 
 enum {
 	FSREQ_OPEN = 1,
@@ -22,6 +19,8 @@ enum {
 	FSREQ_SYNC
 };
 
+enum {T_DIR, T_FILE};
+
 typedef struct {
 	char filename[24];
 	int filesz;
@@ -33,7 +32,9 @@ typedef struct {
 } dir;
 
 typedef struct {
-	int index[512 / sizeof(int)];
+	int type;
+	int size;
+	int index[15];
 } inode;
 
 #endif

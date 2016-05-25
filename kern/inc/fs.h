@@ -8,14 +8,14 @@
 #define SECTSIZE 512
 #define OFFSET_IN_DISK	1000*1024
 #define MAXNAMELEN	128
+#define MAXFILESIZE	512 * (12 + 128 + 128 * 128 + 128 * 128 * 128)
 
 // File types
-#define FTYPE_REG	0	// Regular file
-#define FTYPE_DIR	1	// Directory
 #define NR_FILES	64
 
 enum {CLOSE, READ, WRITE};
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
+enum {T_DIR, T_FILE};
 
 typedef struct {
 	char filename[24];
@@ -30,14 +30,17 @@ typedef struct {
 } dir;
 
 typedef struct {
-	uint32_t index[512 / sizeof(uint32_t)];
+//	char filename[24];
+	uint32_t type;
+	uint32_t size;
+	uint32_t index[15];
 } inode;
 
 typedef struct {
 	uint32_t fd;
 	uint32_t offset;
 	uint32_t flag;
-	uint32_t inode;
+	inode ino;
 	uint8_t buf[512];
 	uint32_t bufno;
 	ListHead list;

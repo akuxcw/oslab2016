@@ -49,18 +49,19 @@ int fopen(const char *pathname, int flag) {
 	list_del(&fp->list);
 	fp->flag = flag;
 	fp->offset = 0;
-	fp->inode = root.entry[i].inode;
+	ide_read(&fp->ino, root.entry[i].inode, 1);
+//	fp->inode = root.entry[i].inode;
 	return fp->fd;
 }
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
-	inode tmp;
-	ide_read(&tmp, file[fd].inode, 1);
+//	inode tmp;
+//	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
-			ide_read(file[fd].buf, tmp.index[i], 1);
+			ide_read(file[fd].buf, file[fd].ino.index[i], 1);
 			file[fd].bufno = i;
 		}
 		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
@@ -76,18 +77,18 @@ int fread(int fd, void *buf, size_t len){
 
 int fwrite(int fd, void *buf, size_t len) {
 	if(file[fd].flag != WRITE) return -1;
-	inode tmp;
-	ide_read(&tmp, file[fd].inode, 1);
+//	inode tmp;
+//	ide_read(&tmp, file[fd].inode, 1);
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
-			ide_read(file[fd].buf, tmp.index[i], 1);
+			ide_read(file[fd].buf, file[fd].ino.index[i], 1);
 			file[fd].bufno = i;
 		}
 		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
 		if(l > len) l = len;
 		memcpy(file[fd].buf + (file[fd].offset % SECTSIZE), buf, l);
-		ide_write(file[fd].buf, tmp.index[i], 1);
+		ide_write(file[fd].buf, file[fd].ino.index[i], 1);
 		file[fd].offset += l;
 		buf += l;
 		len -= l;
