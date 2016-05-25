@@ -19,6 +19,10 @@ int main(int argc, char ** args) {
 	fout = fopen("obj/disk", "wb");
 	for(i = 0; i < 1024 * 1024 * size / 512; ++ i) fwrite(buf, 1, 512, fout);
 	for(i = 2; i < argc; ++ i) {
+		if(tot > 1024 * 1024 * size / 512) {
+			printf("File size is larger than disk size!!!\n");
+			return 0;
+		}
 		int j, nr_block;
 		FILE *fin;
 		memset(index0, 0, sizeof index0);
