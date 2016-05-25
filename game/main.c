@@ -2,7 +2,7 @@
 #include <time.h>
 #include <process.h>
 
-#define TEST_FORK
+//#define TEST_FORK
 
 #ifndef TEST_FORK
 
