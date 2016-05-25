@@ -45,7 +45,7 @@ void init_fs() {
 
 int find_file(dir_t *dir, char *pathname) {
 	while(pathname[0] == '/') pathname ++;
-	if(pathname == '\0') return -2;
+	if(*pathname == '\0') return -2;
 	char *p = pathname;
 	while(*p != '\0' && *p != '/') p ++;
 	int i;
