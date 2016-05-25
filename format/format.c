@@ -13,15 +13,11 @@ int min(int a, int b) {
 
 int main(int argc, char ** args) {
 	FILE *fout;
-	int i, tot = 2;
+	int i, tot = 2, size = atoi(args[1]);
 	char buf[512];
-//	printf("%d\n", sizeof map);
+	memset(buf, 0, sizeof buf);
 	fout = fopen("obj/disk", "wb");
-//	buf[0] = 'a';
-//	buf[1] = 'b';
-//	fseek(fout, 10, SEEK_SET);
-//	fwrite(buf, 1, 2, fout);
-//	return 0;
+	for(i = 0; i < 1024 * 1024 * size / 512; ++ i) fwrite(buf, 1, 512, fout);
 	for(i = 2; i < argc; ++ i) {
 		int j, nr_block;
 		FILE *fin;
@@ -38,7 +34,7 @@ int main(int argc, char ** args) {
 			return 0;
 		}
 		nr_block = (len - 1) / SECTSIZE + 1;
-		printf("%d\n", nr_block);
+//		printf("%d\n", nr_block);
 		for(j = 0; j < nr_block; ++ j) {
 			index0[j] = tot + j + 1;
 		}
@@ -60,7 +56,7 @@ int main(int argc, char ** args) {
 			fwrite(&index0[12], 1, 512, fout);
 			if(nr_block > 12 + 128) {
 				tmp.index[13] = tot + nr_block + 2;
-				for(j = 0; j < min(128, (nr_block - 12 - 128 - 1) / 128 + 1); ++ j) {
+				for(j = 0; j < min(128, (nr_block - 12 - 128 - 1) / 128); ++ j) {
 					index1[j] = tot + nr_block + 2 + j + 1;
 				}
 				fseek(fout, tmp.index[13] * 512, SEEK_SET);
