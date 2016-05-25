@@ -102,7 +102,7 @@ void create_file(char *pathname, int dir_id) {
 	char *p = pathname;
 	while(*p != '\0') p ++;
 	while(*p != '/') p --;
-	strcpy(d[dir_id].entry[c[dir_id]].filename, &pathname[1]);
+	strcpy(d[dir_id].entry[c[dir_id]].filename, &p[1]);
 	d[dir_id].entry[c[dir_id]].filesz = len;
 	d[dir_id].entry[c[dir_id]].inode_off = tot;
 	c[dir_id] ++;
