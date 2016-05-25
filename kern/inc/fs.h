@@ -15,7 +15,7 @@
 
 enum {CLOSE, READ, WRITE};
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
-enum {F_DIR, F_FILE};
+enum {F_DIR = 101, F_FILE};
 
 typedef struct {
 	char filename[24];
