@@ -15,7 +15,7 @@ char __buf[800*600*3];
 bool v[600][800];
 int Property[700][3100];
 int Block[20][100];
-char BackGround[600*800*3] = {1};
+char BackGround[600*800*3];
 int ans, goal;
 int Gx, Gy, Gwidth;
 int Xnow, Ynow, Width, Vy, Vsy, Vx, Vsx;
@@ -91,7 +91,7 @@ void init_game() {
 	Block[0][50] = GOLDEN;
 
 	/* Display background */
-	Displayjpg(0, 0, &Basic);
+	Displayjpg(0, 0, &Basic2);
 	memcpy((void *)BackGround, (void *)L2_color_buffer, 600 * 800 * 3);	
 
 	/* Set property */
