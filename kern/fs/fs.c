@@ -54,7 +54,7 @@ int find_file(dir_t *dir, char *pathname) {
 	if(*p == '\0') {
 		inode tmp;
 		ide_read(&tmp, dir->entry[i].inode, 1);
-		if(tmp.type == F_DIR) {
+		if(tmp.type != F_FILE) {
 			panic("It is a dir : %s\n", pathname);
 		} else 
 		return dir->entry[i].inode; 
