@@ -45,6 +45,11 @@ int readFileList(char *basePath, int dir_id) {
 		else if(ptr->d_type == 4) {    //dir
 			dir_tot ++;
 			int tmp = readFileList(base, dir_tot);
+
+			strcpy(d[dir_id].entry[c[dir_id]].filename, ptr->d_name);
+			d[dir_id].entry[c[dir_id]].inode_off = tot;
+			c[dir_id] ++;
+			
 			create_dir(tmp);
 		}
 	}
