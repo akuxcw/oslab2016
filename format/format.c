@@ -71,7 +71,7 @@ int main(int argc, char ** args) {
 			}
 		}
 		
-		printf("%d\n", tot);
+//		printf("%d\n", tot);
 		fseek(fout, tot * 512, SEEK_SET);
 		tot ++;
 		fwrite(&tmp, 1, 512, fout);
