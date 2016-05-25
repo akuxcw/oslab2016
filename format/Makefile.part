@@ -4,9 +4,6 @@ OBJ_FORMAT_DIR	:= $(OBJ_DIR)/$(FORMAT_DIR)
 FORMAT_C := $(shell find $(FORMAT_DIR) -name "*.c")
 FORMAT_O := $(FORMAT_C:%.c=$(OBJ_DIR)/%.o)
 
-DATA := $(shell ls data)
-DATA := $(DATA:%=data/%)
-
 FORMAT := $(OBJ_FORMAT_DIR)/format
 
 $(FORMAT): $(FORMAT_C)
@@ -16,6 +13,8 @@ $(FORMAT): $(FORMAT_C)
 	@echo +CC $< -o $@	
 
 DISK_SIZE := 128
+DATA := $(shell ls data)
+DATA := $(DATA:%=data/%)
 
 disk: $(FORMAT)
 	@./$(FORMAT) $(DISK_SIZE) $(DATA)
