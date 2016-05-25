@@ -1,6 +1,7 @@
 #include "fs.h"
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 dir root;
 char map[512];
@@ -31,6 +32,7 @@ int main(int argc, char ** args) {
 		
 		if(len > MAXFILESIZE) {
 			printf("File %s is too large.", args[i]);
+			assert(0);
 			return 0;
 		}
 		nr_block = (len - 1) / SECTSIZE + 1;
@@ -88,7 +90,7 @@ int main(int argc, char ** args) {
 		}
 		if(tot > 1024 * 1024 * size / 512) {
 			printf("File size is larger than disk size!!!\n");
-			return 0;
+			assert(0);
 		}
 	}
 
