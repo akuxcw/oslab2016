@@ -45,6 +45,7 @@ void init_fs() {
 
 int find_file(dir_t *dir, char *pathname) {
 	while(pathname[0] == '/') pathname ++;
+	if(pathname == '\0') return -2;
 	char *p = pathname;
 	while(*p != '\0' && *p != '/') p ++;
 	int i;
@@ -55,7 +56,7 @@ int find_file(dir_t *dir, char *pathname) {
 		inode tmp;
 		ide_read(&tmp, dir->entry[i].inode, 1);
 		if(tmp.type != F_FILE) {
-			panic("It is a dir : %s\n", pathname);
+			return -2;
 		} else 
 		return dir->entry[i].inode; 
 	}
@@ -69,6 +70,7 @@ int find_file(dir_t *dir, char *pathname) {
 int fopen(char *pathname, int flag) {
 	int i = find_file(&root, pathname);
 	if(i == -1) panic("No such file : %s\n", pathname);
+	if(i == -2) panic("It is a dir : %s\n", pathname);
 //	for(i = 0; i < DIR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
 //	printk("%d %s\n", i, pathname);
 	
