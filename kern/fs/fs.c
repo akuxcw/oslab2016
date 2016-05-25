@@ -8,6 +8,8 @@ char map[SECTSIZE];
 ListHead file_head;
 
 char buf[4096];
+uint32_t index1[128];
+uint32_t index2[128];
 
 void testfs() {
 //	ide_read(, buf, 1);
@@ -62,7 +64,18 @@ int fread(int fd, void *buf, size_t len){
 	while(len) {
 		int i = file[fd].offset / SECTSIZE;
 		if(i != file[fd].bufno) {
-			ide_read(file[fd].buf, file[fd].ino.index[i], 1);
+			if(i < 12) {
+				ide_read(file[fd].buf, file[fd].ino.index[i], 1);
+			} else {
+				if(i < 12 + 128) {
+					ide_read(index1, file[fd].ino.index[12], 1);
+					ide_read(file[fd].buf, index1[i - 12], 1);
+				} else {
+					ide_read(index2, file[fd].ino.index[13], 1);
+					ide_read(index1, index2[(i - 12 - 128) / 128], 1);
+					ide_read(file[fd].buf, index1[i - 12 - 128], 1);
+				}
+			}
 			file[fd].bufno = i;
 		}
 		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
