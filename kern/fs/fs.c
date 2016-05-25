@@ -28,6 +28,7 @@ void testfs() {
 	fd = fopen("2.txt", READ);
 	fread(fd, buf, 26);
 	for(i = 0; i < 26; ++ i) printk("%c\n", buf[i]);
+	while(1);	
 }
 
 void init_fs() {
