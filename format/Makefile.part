@@ -13,8 +13,9 @@ $(FORMAT): $(FORMAT_C)
 	@echo +CC $< -o $@	
 
 DISK_SIZE := 32
-DATA := $(shell ls data)
-DATA := $(DATA:%=data/%)
+#DATA := $(shell ls data)
+#DATA := $(DATA:%=data/%)
+DATA := data
 
 disk: $(FORMAT)
 	@./$(FORMAT) $(DISK_SIZE) $(DATA)
