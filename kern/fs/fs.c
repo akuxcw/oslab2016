@@ -51,7 +51,14 @@ int find_file(dir_t *dir, char *pathname) {
 	for(i = 0; i < DIR_FILES; ++ i) 
 		if(strncmp(pathname, dir->entry[i].filename, p - pathname) == 0) break;
 	if(i >= DIR_FILES) return -1;
-	if(*p == '\0') return dir->entry[i].inode; 
+	if(*p == '\0') {
+		inode tmp;
+		ide_read(&tmp, dir->entry[i].inode, 1);
+		if(tmp.type == F_DIR) {
+			panic("It is a dir : %s\n", pathname);
+		} else 
+		return dir->entry[i].inode; 
+	}
 	else {
 		dir_t newdir;
 		ide_read(&newdir, dir->entry[i].inode, 1);
