@@ -60,12 +60,12 @@ int main(int argc, char ** args) {
 			fwrite(&index0[12], 1, 512, fout);
 			if(nr_block > 12 + 128) {
 				tmp.index[13] = tot + nr_block + 2;
-				for(j = 0; j < min(128, (nr_block - 12 - 128) / 128); ++ j) {
+				for(j = 0; j < min(128, (nr_block - 12 - 128 - 1) / 128 + 1); ++ j) {
 					index1[j] = tot + nr_block + 2 + j + 1;
 				}
 				fseek(fout, tmp.index[13] * 512, SEEK_SET);
 				fwrite(index1, 1, 512, fout);
-				for(j = 0; j < min(128, (nr_block - 12 - 128) / 128); ++ j) {
+				for(j = 0; j < min(128, (nr_block - 12 - 128 - 1) / 128 + 1); ++ j) {
 					fseek(fout, (j + tmp.index[13] + 1) * 512, SEEK_SET);
 					fwrite(&index0[12 + 128 + j * 128], 1, 512, fout);
 				}
@@ -87,7 +87,7 @@ int main(int argc, char ** args) {
 			tot ++;
 			if(nr_block > 12 + 128) {
 				tot ++;
-				tot += min(128, (nr_block - 12 - 128) / 128);
+				tot += min(128, (nr_block - 12 - 128 - 1) / 128 + 1);
 			}
 		}
 	}
