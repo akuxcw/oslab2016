@@ -12,7 +12,7 @@ $(FORMAT): $(FORMAT_C)
 	@$(CC) $(FORMAT_C) -o $(FORMAT)
 	@echo +CC $< -o $@	
 
-DISK_SIZE := 128
+DISK_SIZE := 32
 DATA := $(shell ls data)
 DATA := $(DATA:%=data/%)
 
