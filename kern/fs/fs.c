@@ -122,6 +122,7 @@ int find_block(int fd) {
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
+	memset(buf, 0, sizeof buf);
 	while(len) {
 	printk("%d\n", len);
 		int i = find_block(fd);
