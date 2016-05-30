@@ -18,6 +18,11 @@ enum {SEEK_SET, SEEK_CUR, SEEK_END};
 enum {F_DIR = 101, F_FILE};
 
 typedef struct {
+	uint32_t disk_size;
+//	uint8_t empty[SECTSIZE - 1 * sizeof(uint32_t)];
+} conf_t;
+
+typedef struct {
 	char filename[24];
 	uint32_t filesz;
 	uint32_t inode;
@@ -34,6 +39,7 @@ typedef struct {
 	uint32_t type;
 	uint32_t size;
 	uint32_t index[15];
+//	uint8_t empty[SECTSIZE - 17 * sizeof(uint32_t)];
 } inode;
 
 typedef struct {

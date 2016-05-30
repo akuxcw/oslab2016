@@ -3,6 +3,7 @@
 #include <common.h>
 
 FCB file[NR_FILES]; 
+conf_t conf;
 dir_t root;
 char map[SECTSIZE];
 ListHead file_head;
@@ -32,9 +33,11 @@ void testfs() {
 }
 
 void init_fs() {
-	ide_read(map, 0, 1);
-	ide_read(&root, 1, 1);
 	int i;
+	ide_read(&conf, 0, 1);
+	for(i = 1; i <= conf.disk_size / SECTSIZE / SECTSIZE / 8; ++ i)
+		ide_read(&map[SECTSIZE * (i-1)], 0, 1);
+	ide_read(&root, i, 1);
 	list_init(&file_head);
 	for(i = 3; i < NR_FILES; ++ i) {
 		file[i].fd = i;
@@ -87,9 +90,6 @@ int find_block(int fd) {
 		return file[fd].ino.index[i];
 	} else {
 		if(i < 12 + 128) {
-			if(file[fd].ino.index[12] == 0) {
-				
-			}
 			ide_read(index1, file[fd].ino.index[12], 1);
 			return index1[i - 12];
 		} else {
