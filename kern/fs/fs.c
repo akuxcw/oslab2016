@@ -124,7 +124,6 @@ int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
 	memset(buf, 0, sizeof buf);
 	while(len) {
-	printk("%d\n", len);
 		int i = find_block(fd);
 		if(i != file[fd].bufno) {
 			ide_read(file[fd].buf, i, 1);
@@ -132,9 +131,7 @@ int fread(int fd, void *buf, size_t len){
 		}
 		int l = SECTSIZE - (file[fd].offset % SECTSIZE);
 		if(l > len) l = len;
-		printk("l = %d\n", l);
 		memcpy(buf, file[fd].buf, l);
-		printk("%s\n", (char*)buf);
 		file[fd].offset += l;
 		buf += l;
 		len -= l;

@@ -2,7 +2,6 @@
 #define LIB_FS_H
 
 #include <syscall.h>
-#include <stdio.h>
 
 enum {CLOSE, READ, WRITE};
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
@@ -15,7 +14,6 @@ int fopen(const char * name, int flag) {
 static inline
 void fread(int fd, void *buf, int len) {
 	syscall(SYS_fread, fd, buf, len);
-	printf("%s \n", (char *)buf);
 }
 
 static inline
