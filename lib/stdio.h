@@ -249,7 +249,7 @@ snprintf(char *buf, int n, const char *fmt, ...)
 }
 static inline 
 int printf(const char * fmt, ...) {
-	static char buf[256];
+	static char buf[4096];
 	void *args = (void **)&fmt + 1;
 	int len = vsnprintf(buf, 256, fmt, args);
 	
