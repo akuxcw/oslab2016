@@ -16,11 +16,11 @@ int game_main() {
 	int fin = fopen("1.txt", READ);
 	int fout = fopen("2.txt", WRITE);
 	fread(fin, buf, 600);
+	printf("%s", buf);
 	fwrite(fout, buf, 60);
 	int fin2 = fopen("2.txt", READ);
 	memset(buf, '\0', sizeof buf);
 	fread(fin2, buf, 60);
-	printf("%s", buf);
 	while(1);
 	return 0;
 }
