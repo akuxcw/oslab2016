@@ -15,7 +15,7 @@ int game_main() {
 */
 	int fin = fopen("1.txt", READ);
 	int fout = fopen("2.txt", WRITE);
-	fread(fin, buf, 257);
+	fread(fin, buf, 500);
 	printf("%s", buf);
 	while(1);
 	fwrite(fout, buf, 60);
