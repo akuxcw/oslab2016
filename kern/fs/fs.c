@@ -71,8 +71,6 @@ int fopen(char *pathname, int flag) {
 	int i = find_file(&root, pathname);
 	if(i == -1) panic("No such file : %s\n", pathname);
 	if(i == -2) panic("It is a dir : %s\n", pathname);
-//	for(i = 0; i < DIR_FILES; ++ i) if(strcmp(pathname, root.entry[i].filename) == 0) break;
-//	printk("%d %s\n", i, pathname);
 	
 	assert(!list_empty(&file_head));
 	FCB * fp = list_entry(file_head.next, FCB, list);
@@ -80,7 +78,6 @@ int fopen(char *pathname, int flag) {
 	fp->flag = flag;
 	fp->offset = 0;
 	ide_read(&fp->ino, i, 1);
-//	fp->inode = root.entry[i].inode;
 	return fp->fd;
 }
 
@@ -90,6 +87,9 @@ int find_block(int fd) {
 		return file[fd].ino.index[i];
 	} else {
 		if(i < 12 + 128) {
+			if(file[fd].ino.index[12] == 0) {
+				
+			}
 			ide_read(index1, file[fd].ino.index[12], 1);
 			return index1[i - 12];
 		} else {
