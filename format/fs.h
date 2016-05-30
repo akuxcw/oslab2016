@@ -22,6 +22,11 @@ enum {
 enum {F_DIR = 101, F_FILE};
 
 typedef struct {
+	int disk_size;
+	char empty[SECTSIZE - 1 * sizeof(int)];
+} conf_t;
+
+typedef struct {
 	char filename[24];
 	int filesz;
 	int inode_off;

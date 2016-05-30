@@ -5,7 +5,7 @@
 FCB file[NR_FILES]; 
 conf_t conf;
 dir_t root;
-char map[SECTSIZE];
+char map[512 * SECTSIZE];
 ListHead file_head;
 
 char buf[4096];

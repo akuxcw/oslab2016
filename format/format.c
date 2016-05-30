@@ -8,10 +8,10 @@
 
 dir d[512];
 int c[512];
-char map[512];
+char map[512 * 512];
 int index0[MAXFILESIZE / SECTSIZE];
 int index1[MAXFILESIZE / SECTSIZE];
-int size, tot = 2, dir_tot = 0;
+int size, tot, dir_tot = 0;
 FILE *fout;
 char buf[512];
 
@@ -57,11 +57,15 @@ int readFileList(char *basePath, int dir_id) {
 	return dir_id;
 }
 
+conf_t conf;
+
 int main(int argc, char ** args) {
 	int i;
 	memset(buf, 0, sizeof buf);
 	size = atoi(args[1]);
 	fout = fopen("obj/disk", "wb");
+	conf.disk_size = 1024 * 1024 * size;
+	tot = 2 + conf.disk_size / 512 / 512 / 8;
 	for(i = 0; i < 1024 * 1024 * size / 512; ++ i) fwrite(buf, 1, 512, fout);
 /*
 	for(i = 2; i < argc; ++ i) {
@@ -73,7 +77,8 @@ int main(int argc, char ** args) {
 		map[i / 8] |= 1 << (i & 0x7);
 	}
 	fseek(fout, 0, SEEK_SET);
-	fwrite(map, 1, 512, fout);
+	fwrite(&conf, 1, 512, fout);
+	for(i = 0; i < conf.disk_size / 512 / 512 / 8; ++ i) fwrite(&map[i * 512], 1, 512, fout);
 	fwrite(&d[0], 1, 512, fout);
 	return 0;
 }
