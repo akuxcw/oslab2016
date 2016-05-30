@@ -9,7 +9,7 @@
 #define OFFSET_IN_DISK	1000*1024
 #define MAXNAMELEN	128
 #define MAXFILESIZE	512 * (12 + 128 + 128 * 128 + 128 * 128 * 128)
-
+#define MAXDISKSIZE (64 * 1024 * 1024)
 // File types
 #define NR_FILES	64
 
@@ -57,6 +57,7 @@ void	ide_write(void *, int, int);
 
 //int	file_create(const char *path, struct File **f);
 void init_fs();
+void init_blocks();
 void testfs();
 int	fopen(char *path, int flag);
 int fread(int, void *, size_t);

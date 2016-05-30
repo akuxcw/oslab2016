@@ -5,7 +5,7 @@
 FCB file[NR_FILES]; 
 conf_t conf;
 dir_t root;
-char map[512 * SECTSIZE];
+uint8_t map[512 * SECTSIZE];
 ListHead file_head;
 
 char buf[4096];
@@ -37,6 +37,7 @@ void init_fs() {
 	ide_read(&conf, 0, 1);
 	for(i = 1; i <= conf.disk_size / SECTSIZE / SECTSIZE / 8; ++ i)
 		ide_read(&map[SECTSIZE * (i-1)], 0, 1);
+	init_blocks(&map, conf.disk_size);
 	ide_read(&root, i, 1);
 	list_init(&file_head);
 	for(i = 3; i < NR_FILES; ++ i) {
