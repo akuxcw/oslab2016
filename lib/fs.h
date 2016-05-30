@@ -15,7 +15,7 @@ int fopen(const char * name, int flag) {
 static inline
 void fread(int fd, void *buf, int len) {
 	syscall(SYS_fread, fd, buf, len);
-	printf("%s\n", (char *)buf);
+	printf("%s", (char *)buf);
 }
 
 static inline
