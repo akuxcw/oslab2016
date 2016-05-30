@@ -134,7 +134,7 @@ int fread(int fd, void *buf, size_t len){
 		if(l > len) l = len;
 		printk("l = %d\n", l);
 		memcpy(buf, file[fd].buf, l);
-		printk("%s\n", (char*)buf);
+//		printk("%s\n", (char*)buf);
 		file[fd].offset += l;
 		buf += l;
 		len -= l;
