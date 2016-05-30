@@ -17,6 +17,7 @@ int game_main() {
 	int fout = fopen("2.txt", WRITE);
 	fread(fin, buf, 257);
 	printf("%s", buf);
+	while(1);
 	fwrite(fout, buf, 60);
 	int fin2 = fopen("2.txt", READ);
 	memset(buf, '\0', sizeof buf);
