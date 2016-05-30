@@ -251,7 +251,7 @@ static inline
 int printf(const char * fmt, ...) {
 	static char buf[4096];
 	void *args = (void **)&fmt + 1;
-	int len = vsnprintf(buf, 256, fmt, args);
+	int len = vsnprintf(buf, 4096, fmt, args);
 	
 	return syscall(SYS_write, 0, buf, len);
 }
