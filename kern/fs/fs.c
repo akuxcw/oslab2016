@@ -46,6 +46,7 @@ void init_fs() {
 	}
 }
 
+inode tmp;
 int find_file(dir_t *dir, char *pathname) {
 	while(pathname[0] == '/') pathname ++;
 	if(*pathname == '\0') return -2;
@@ -56,7 +57,6 @@ int find_file(dir_t *dir, char *pathname) {
 		if(strncmp(pathname, dir->entry[i].filename, p - pathname) == 0) break;
 	if(i >= DIR_FILES) return -1;
 	if(*p == '\0') {
-		inode tmp;
 		ide_read(&tmp, dir->entry[i].inode, 1);
 		if(tmp.type != F_FILE) {
 			return -2;

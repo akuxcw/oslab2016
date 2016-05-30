@@ -39,7 +39,7 @@ typedef struct {
 	uint32_t type;
 	uint32_t size;
 	uint32_t index[15];
-//	uint8_t empty[SECTSIZE - 17 * sizeof(uint32_t)];
+	uint8_t empty[SECTSIZE - 17 * sizeof(uint32_t)];
 } inode;
 
 typedef struct {
