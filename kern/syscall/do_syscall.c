@@ -81,8 +81,8 @@ void do_syscall(TrapFrame *tf) {
 		case SYS_fopen : 
 			tf->eax = fopen((char *)tf->ebx, tf->ecx); break;
 		case SYS_fread : 
-			tf->eax = fread(tf->ebx, (void *)tf->ecx, tf->edx); 
-			printk("%s\n", (char *)tf->ecx);break;
+			tf->eax = fread(tf->ebx, (void *)tf->ecx, tf->edx); break;
+			//printk("%s\n", (char *)tf->ecx);break;
 		case SYS_fwrite : 
 			tf->eax = fwrite(tf->ebx, (void *)tf->ecx, tf->edx); break;
 		case SYS_fseek : tf->eax = fseek(tf->ebx, tf->ecx, tf->edx); break;
