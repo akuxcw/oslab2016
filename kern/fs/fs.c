@@ -122,8 +122,8 @@ int find_block(int fd) {
 
 int fread(int fd, void *buf, size_t len){
 	if(file[fd].flag != READ) return -1;
-	printk("%d\n", len);
 	while(len) {
+	printk("%d\n", len);
 		int i = find_block(fd);
 		if(i != file[fd].bufno) {
 			ide_read(file[fd].buf, i, 1);
