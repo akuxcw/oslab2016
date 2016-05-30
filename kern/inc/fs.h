@@ -57,11 +57,14 @@ void	ide_write(void *, int, int);
 
 //int	file_create(const char *path, struct File **f);
 void init_fs();
-void init_blocks();
 void testfs();
 int	fopen(char *path, int flag);
 int fread(int, void *, size_t);
 int	fwrite(int, void *, size_t);
 int fseek(int, int, int);
 int fclose(int);
+
+void init_blocks();
+uint32_t get_new_block();
+void del_block(uint32_t);
 #endif

@@ -88,14 +88,32 @@ int fopen(char *pathname, int flag) {
 int find_block(int fd) {
 	int i = file[fd].offset / SECTSIZE;
 	if(i < 12) {
+		if(file[fd].ino.index[i] == 0)
+			file[fd].ino.index[i] = get_new_block();
 		return file[fd].ino.index[i];
 	} else {
 		if(i < 12 + 128) {
+			if(file[fd].ino.index[12] == 0)
+				file[fd].ino.index[i] = get_new_block();
 			ide_read(index1, file[fd].ino.index[12], 1);
+			if(index1[i - 12] == 0) {
+				index1[i - 12] = get_new_block();
+				ide_write(index1, file[fd].ino.index[12], 1);
+			}
 			return index1[i - 12];
 		} else {
+			if(file[fd].ino.index[13] == 0)
+				file[fd].ino.index[i] = get_new_block();
 			ide_read(index2, file[fd].ino.index[13], 1);
+			if(index2[(i - 12 - 128) / 128] == 0) {
+				index2[(i - 12 - 128) / 128] = get_new_block();
+				ide_write(index2, file[fd].ino.index[13], 1);
+			}
 			ide_read(index1, index2[(i - 12 - 128) / 128], 1);
+			if(index1[(i - 12 - 128) % 128] == 0) {
+				index1[(i - 12 - 128) % 128] = get_new_block();
+				ide_write(index1, index2[(i - 12 - 128) / 128], 1);
+			}
 			return index1[(i - 12 - 128) % 128];
 		}
 	}
