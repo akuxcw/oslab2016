@@ -29,6 +29,7 @@ uint32_t get_new_block() {
 	block_t *newb = list_entry(block_head.next, block_t, list);
 	list_del(&newb->list);
 	list_add_before(&used_block, &newb->list);
+	printk("%d\n", newb->index);
 	return newb->index;
 }
 
