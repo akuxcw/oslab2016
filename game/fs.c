@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <fs.h>
+#include <string.h>
 
 char buf[1024];
 char a[] = "Hello FS.";
@@ -17,6 +18,7 @@ int game_main() {
 	fread(fin, buf, 600);
 	fwrite(fout, buf, 60);
 	int fin2 = fopen("2.txt", READ);
+	memset(buf, '\0', sizeof buf);
 	fread(fin2, buf, 60);
 	printf("%s", buf);
 	while(1);
