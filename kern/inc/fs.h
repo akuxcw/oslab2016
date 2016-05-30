@@ -19,7 +19,7 @@ enum {F_DIR = 101, F_FILE};
 
 typedef struct {
 	uint32_t disk_size;
-//	uint8_t empty[SECTSIZE - 1 * sizeof(uint32_t)];
+	uint8_t empty[SECTSIZE - 1 * sizeof(uint32_t)];
 } conf_t;
 
 typedef struct {
