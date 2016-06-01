@@ -36,7 +36,7 @@ void init_fs() {
 	int i;
 	ide_read(&conf, 0, 1);
 	for(i = 1; i <= conf.disk_size / SECTSIZE / SECTSIZE / 8; ++ i)
-		ide_read(&map[SECTSIZE * (i-1)], 0, 1);
+		ide_read(&map[SECTSIZE * (i-1)], i, 1);
 	init_blocks(&map, conf.disk_size);
 	ide_read(&root, i, 1);
 	list_init(&file_head);
