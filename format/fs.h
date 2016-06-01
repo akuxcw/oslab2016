@@ -40,6 +40,7 @@ typedef struct {
 	int type;
 	int size;
 	int index[15];
+	char empty[SECTSIZE - 17 * sizeof(int)];
 } inode;
 
 #endif
