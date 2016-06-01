@@ -22,7 +22,6 @@ void init_blocks(uint8_t * map, uint32_t size) {
 	printk("%d\n", size / 512);
 	for(i = 0; i < size / 512; ++ i) {
 		block[i].index = i;
-		printk("%d\n", map[i / 8] & (1 << (i & 0x7)));
 		if(map[i / 8] & (1 << (i & 0x7))) list_add_before(&used_block, &block[i].list);
 		else list_add_before(&block_head, &block[i].list);
 	}
