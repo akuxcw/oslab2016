@@ -19,6 +19,7 @@ int game_main() {
 	printf("xxxxxxx\n");
 //	printf("%s\n", buf);
 	fwrite(fout, buf, 600);
+	printf("xxxxxxx\n");
 	int fin2 = fopen("2.txt", READ);
 	memset(buf, '\0', sizeof buf);
 	fread(fin2, buf, 600);
