@@ -22,14 +22,14 @@ void init_blocks(uint8_t * map, uint32_t size) {
 	printk("%d\n", size / 512);
 	for(i = 0; i < size / 512; ++ i) {
 		block[i].index = i;
-//		if(map[i / 8] & (1 << (i & 0x7))) list_add_before(&used_block, &block[i].list);
-//		else 
-		list_add_before(&block_head, &block[i].list);
+		if(map[i / 8] & (1 << (i & 0x7))) list_add_before(&used_block, &block[i].list);
+		else list_add_before(&block_head, &block[i].list);
 	}
 }
 
 uint32_t get_new_block() {
 	assert(!list_empty(&block_head));
+	printk("%d\n", block_head.next);
 	block_t *newb = list_entry(block_head.next, block_t, list);
 	printk("wer\n");
 	list_del(&newb->list);
