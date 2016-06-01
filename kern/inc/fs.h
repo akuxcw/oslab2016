@@ -47,6 +47,7 @@ typedef struct {
 	uint32_t offset;
 	uint32_t flag;
 	inode ino;
+	uint32_t ino_id;
 	uint8_t buf[512];
 	uint32_t bufno;
 	ListHead list;

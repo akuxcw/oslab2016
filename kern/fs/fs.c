@@ -82,6 +82,7 @@ int fopen(char *pathname, int flag) {
 	fp->flag = flag;
 	fp->offset = 0;
 	ide_read(&fp->ino, i, 1);
+	fp->ino_id = i;
 	return fp->fd;
 }
 
@@ -158,6 +159,7 @@ int fwrite(int fd, void *buf, size_t len) {
 		buf += l;
 		len -= l;
 	}
+	ide_write(&file[fd].ino, file[fd].ino_id, 1);
 	return len;
 
 }
