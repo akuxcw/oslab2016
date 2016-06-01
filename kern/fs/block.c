@@ -28,8 +28,6 @@ void init_blocks(uint8_t * map, uint32_t size) {
 }
 
 uint32_t get_new_block() {
-	printk("wer\n");
-	printk("%x\n", &block_head);
 	assert(!list_empty(&block_head));
 	block_t *newb = list_entry(block_head.next, block_t, list);
 	list_del(&newb->list);
