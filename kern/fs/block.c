@@ -18,6 +18,7 @@ void init_blocks(uint8_t * map, uint32_t size) {
 	int i;
 	memset(zero, 0, sizeof zero);
 	list_init(&block_head);
+	list_init(&used_block);
 	for(i = 0; i < size / 512; ++ i) {
 		block[i].index = i;
 		if(map[i / 8] & (1 << (i & 0x7))) list_add_before(&used_block, &block[i].list);
