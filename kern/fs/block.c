@@ -27,6 +27,7 @@ void init_blocks(uint8_t * map, uint32_t size) {
 }
 
 uint32_t get_new_block() {
+	assert(!list_empty(&block_head));
 	block_t *newb = list_entry(block_head.next, block_t, list);
 	printk("wer\n");
 	list_del(&newb->list);
