@@ -17,7 +17,7 @@ game: $(GAME_O)
 	@mkdir -p $(OBJ_GAME_DIR)
 #	@$(LD) $(LDFLAGS) -e game_main -Ttext 0x0 -o $(GAME) $(GAME_O)
 	@$(LD) $(LDFLAGS) -T game/game.ld -o $(GAME) $(GAME_O)
-	@echo +LD $(GAME)
+#	@echo +LD $(GAME)
 
 clean_game:
 	rm $(GAME_O) $(GAME_O:.o=.d)

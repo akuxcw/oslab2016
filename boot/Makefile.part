@@ -16,7 +16,7 @@ $(OBJ_BOOT_DIR)/%.o : $(BOOT_DIR)/%.[cS]
 bootblock: $(BOOT_O)
 	@mkdir -p obj/boot
 	@ld -melf_i386 -e start -Ttext 0x7C00 obj/boot/boot.o obj/boot/main.o -o obj/boot/bootblock.o
-	@echo +LD $(BOOT)
+#	@echo +LD $(BOOT)
 	@objcopy -S -O binary -j .text obj/boot/bootblock.o $(BOOT)
 	@perl ./boot/genboot.pl $(BOOT)
 

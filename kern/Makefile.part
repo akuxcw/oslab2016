@@ -16,7 +16,7 @@ $(OBJ_KERN_DIR)/%.o : $(KERN_DIR)/%.[cS]
 kern: $(KERN_O)
 	@mkdir -p $(OBJ_KERN_DIR)
 	@$(LD) $(LDFLAGS) -T kern/kernel.ld -o $(KERN) $(KERN_O)
-	@echo +LD $(KERN)
+#	@echo +LD $(KERN)
 	@perl ./kern/genkern.pl $(KERN)
 
 clean_kern:
