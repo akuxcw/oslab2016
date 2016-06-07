@@ -35,12 +35,12 @@ void testfs() {
 void init_fs() {
 	int i;
 	ide_read(&conf, 0, 1);
+	ide_read(&root, conf.disk_size / SECTSIZE / SECTSIZE / 8 + 1, 1);
 	if(conf.disk_size > 160 * SECTSIZE * SECTSIZE)
 		conf.disk_size = 160 * SECTSIZE * SECTSIZE;
 	for(i = 1; i <= conf.disk_size / SECTSIZE / SECTSIZE / 8; ++ i)
 		ide_read(&map[SECTSIZE * (i-1)], i, 1);
 	init_blocks(&map, conf.disk_size);
-	ide_read(&root, i, 1);
 	list_init(&file_head);
 	for(i = 3; i < NR_FILES; ++ i) {
 		file[i].fd = i;
