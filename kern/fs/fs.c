@@ -145,10 +145,10 @@ int fread(int fd, void *buf, size_t len){
 
 int fwrite(int fd, void *buf, size_t len) {
 	if(file[fd].flag != WRITE) return -1;
-	printk("%d\n", fd);
+//	printk("%d\n", fd);
 	while(len) {
 		int i = find_block(fd);
-		printk("%d\n", i);
+//'		printk("%d\n", i);
 		if(i != file[fd].bufno) {
 			ide_read(file[fd].buf, i, 1);
 			file[fd].bufno = i;
