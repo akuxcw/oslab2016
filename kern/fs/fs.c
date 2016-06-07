@@ -35,6 +35,8 @@ void testfs() {
 void init_fs() {
 	int i;
 	ide_read(&conf, 0, 1);
+	if(conf.disk_size > 160 * SECTSIZE * SECTSIZE)
+		conf.disk_size = 160 * SECTSIZE * SECTSIZE;
 	for(i = 1; i <= conf.disk_size / SECTSIZE / SECTSIZE / 8; ++ i)
 		ide_read(&map[SECTSIZE * (i-1)], i, 1);
 	init_blocks(&map, conf.disk_size);
