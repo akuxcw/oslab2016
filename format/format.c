@@ -79,7 +79,7 @@ int main(int argc, char ** args) {
 	fseek(fout, 0, SEEK_SET);
 	fwrite(&conf, 1, 512, fout);
 	for(i = 0; i < conf.disk_size / 512 / 512 / 8; ++ i) fwrite(&map[i * 512], 1, 512, fout);
-	printf("%d\n", i);
+//	printf("%d\n", i);
 	fwrite(&d[0], 1, 512, fout);
 	return 0;
 }

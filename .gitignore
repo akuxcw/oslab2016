@@ -5,6 +5,7 @@
 !*.[cSh]
 !*.pl
 !*.ld
+!*.txt
 !.gitignore
 !.*
 *.swp
